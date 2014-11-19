@@ -1,0 +1,95 @@
+#settings{
+  margin-top: 15%;
+  margin-bottom: 2%;
+}
+.form-signin{
+  margin-bottom: 10%;
+}
+textarea{
+  resize:none;
+  height:15em !important;
+}
+#hrs{
+  padding-bottom: 0em;
+  border:none;
+  height:1.5em !important;
+  width:3em;
+}
+
+.filter a{
+  margin-left: 4%;
+}
+.form-group{
+  margin-top: 0px !important;
+}
+.jumbotron h1{
+  text-align: center;
+}
+.info{
+  margin-top: 5%;
+}
+.info h5{
+  margin-top: -1%;
+}
+.info h5 , select{
+  line-height: 2em;
+  display: inline-block;
+}
+select{
+  font-size: 2em;
+}
+.drop-btn{
+  height:1.9em;
+}
+
+table, thead, tr{
+  margin-top: 2%;
+}
+
+table th{
+  background-color: #eee;
+}
+
+table tr:nth-child(even) {
+    background-color: #eee;
+}
+table tr:nth-child(odd) {
+    background-color: #fff;
+}
+.clk-btn{
+  width:10em;
+}
+
+.btn-in{
+  background-color: #008500;
+  color:white;
+}
+.btn-out{
+  background-color: #EE001D;
+  color:white;
+}
+.emphasis{
+  color:salmon;
+}
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  background: red;
+  cursor: inherit;
+  display: block;
+}
+input[readonly] {
+  background-color: white !important;
+  cursor: text !important;
+}

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="css/datepicker.css">
+	<link rel="stylesheet" type="text/css" href="css/toggle.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/font-awesome/css/font-awesome.min.css">
+	
+	<title>Admin Dashboard</title>
+</head>
+<body>
+	<div class='container'>
+		<div class='info'>
+			<a href="" class='pull-left'>Go Back</a>
+			<div class='pull-right'>
+				<a href="" ><i class="fa fa-cog"></i> settings</a> / <a href="">logout</a>
+			</div>
+		</div><br>
+
+
+			<h1 class='info'>Add A New User:</h1>
+			<form class="form-signin" role="form">
+				<label for="inputName" class="sr-only">Name</label>
+				<input type="text" id="inputName" class="form-control" placeholder="Name" required autofocus>
+				<label for="inputTitle" class="sr-only">Title</label>
+				<input type="text" id="inputTitle" class="form-control" placeholder="Title" required>
+				<label for="inputTeam" class="sr-only">Team</label>
+				<input type="text" id="inputTeam" class="form-control" placeholder="Team" required autofocus>
+				<label for="inputSupervisor" class="sr-only">Supervisor</label>
+				<input type="text" id="inputSupervisor" class="form-control" placeholder="Supervisor" required>
+				<label for="inputLocation" class="sr-only">Location</label>
+				<input type="text" id="inputLocation" class="form-control" placeholder="Location" required autofocus>
+				<br>
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder='Supervisor'>
+					<div class="input-group-btn">
+						<select type='button' class='drop-btn dropdown-toggle btn btn-lg btn-in' role='menu'>
+							<option>none</option>
+						</select>
+					</div>
+				</div>
+				<br>
+				Employee Status: <select>
+				<option value="active">Active</option>
+				<option value="inActive">Inactive</option>
+			</select>
+			<br><br>
+			Notes:
+			<label for='note' class='sr-only'>only visible to admins</label>
+			<textarea class='form-control' id='note' placeholder='Notes (only visible to admins)'></textarea>
+			<br>
+			<div class="input-group">
+                <span class="input-group-btn">
+                    <span class="btn btn-primary btn-file">
+                        Browse&hellip; <input type="file">
+                    </span>
+                </span>
+                <input placeholder='Upload Profile Pic' type="text" class="form-control" readonly>	
+			</div>
+			<br><br>
+			<input type="date" name="date" id="date"> Select Employee Start Date
+			<br><br>
+			<label for="inputEmail" class="sr-only">Email</label>
+			<input type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+			<label for="inputPassword" class="sr-only">Password</label>
+			<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" value="admin"> Admin <span class='emphasis'>*Be careful who you give admin access to*</span>
+				</label>
+			</div>
+
+			<button class="btn btn-in pull-right" type="submit">Create</button>
+		</form>
+	</div>	
+</div>
+
+		<!-- loaded javascripts file at end for optimization -->
+		<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+		<script type="text/javascript" src='js/js.js'></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

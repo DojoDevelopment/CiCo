@@ -1,0 +1,75 @@
+<html ng-app='myApp'>
+<head>
+
+	<link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/normalize.css">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/toggle.css">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/font-awesome.min.css">
+	<title>Admin History View</title>
+
+</head>
+<body>
+	<div class='container'>
+		<div class='jumbotron'>
+			<h1>Admin History View</h1>
+		</div>
+		
+		<div class='info'>
+
+
+		<div class='pull-right'>
+			Filter by: <select>
+						<option>Location</option>
+						<option>Name</option>
+						<option>Date Range</option>
+						<option>This Week</option>
+						<option>Last Week</option>
+						<option>This Month</option>
+						<option>Last Month</option>
+					   </select>			 
+		</div>	
+
+
+		<div class="switch-toggle switch-candy">
+			<input id="dashboard" name="view" type="radio" checked>
+			<label for="dashboard" onclick="">Dashboard</label>
+
+			<input id="history" name="view" type="radio">
+			<label for="history" onclick="">History</label>
+
+			<a></a>
+		</div>
+		
+		<table class='table'>
+			<thead>
+				<th>Date</th>
+				<th>Picture</th>
+				<th>Name</th>
+				<th>Title</th>
+				<th>Team</th>
+				<th>Location</th>
+				<th class='clk-btn'>Clock IN</th>
+				<th class='clk-btn'>Clock OUT</th>
+				<th>Personal Time</th>
+				<th>Billed Hours</th>
+				<th>Report</th>
+			</thead>
+			<tr>
+				<td>blah</td>
+				<td>blah</td>
+				<td>blah</td>
+				<td>blah</td>
+				<td>blah</td>
+				<td>blah</td>
+				<td>--:--</td>
+				<td>--:--</td>
+				<td><input id='hrs' type='number' step='0.25' min='0' max='24' placeholder='0.00'><span class='hrs'>hrs</span></td>
+				<td>--:--</td>
+				<td></td>
+			</tr>
+					
+		</table>
+	</div>
+</body>
+</html>

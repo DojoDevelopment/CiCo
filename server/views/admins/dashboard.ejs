@@ -1,0 +1,78 @@
+<html>
+<head>
+
+	<link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/normalize.css">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/toggle.css">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+	<link rel="stylesheet" type="text/css" href="/stylesheets/font-awesome/css/font-awesome.min.css">
+	<title>Admin Dashboard</title>
+
+</head>
+<body>
+	<div class='container'>
+		<div class='jumbotron'>
+			<h1>Coding Dojo Admin</h1>
+		</div>
+		
+		<div class='info'>
+			<div>
+				<h5>
+					<strong>ADMIN VIEW - </strong>
+					Contractors / Part Time Employees
+				</h5>
+				<div class='pull-right'>
+					<a href="" ><i class="fa fa-cog"></i> settings</a> / <a href="">logout</a>
+				</div>
+			</div>
+			
+		</div>
+		<div>
+			<div class='pull-right'>
+				Show <select>
+				<option value="all">All</option>
+				<option value="seattle">Seattle</option>
+				<option value="mtnview">Mountain View</option>
+			</select>
+		</div>	
+
+		<div class="switch-toggle switch-candy">
+			<input id="dashboard" name="view" type="radio" checked>
+			<label for="dashboard" onclick="">Dashboard</label>
+
+			<input id="history" name="view" type="radio">
+			<label for="history" onclick="">History</label>
+
+			<a></a>
+		</div>
+	</div>	
+	
+	<table class='table'>
+		<thead>
+			<th>Picture</th>
+			<th>Name</th>
+			<th>Status</th>
+			<th>Title</th>
+			<th>Team</th>
+			<th>Supervisor</th>
+			<th>Note</th>
+			<th>Actions</th>
+		</thead>
+		<tr>
+			<td>blah</td>
+			<td>blah</td>
+			<td>blah</td>
+			<td>blah</td>
+			<td>blah</td>
+			<td>blah</td>
+			<td>blah</td>
+			<td><a href=""> Show </a> / <a href=""> Edit </a></td>
+		</tr>
+	</table>
+	<a href="" class='pull-right'><i class='fa fa-plus-square'></i> Add Employee</a>
+	<h3><a href="admin/history">go to admin/history</a></h3>
+
+	<%= variable_from_controller %>
+</div>
+</body>
+</html>

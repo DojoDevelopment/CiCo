@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="css/datepicker.css">
+	<link rel="stylesheet" type="text/css" href="css/toggle.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/font-awesome/css/font-awesome.min.css">
+	
+	<title>Settings</title>
+</head>
+<body>
+
+	<div class='container'>
+		<div class='info'>
+			<a href="" class='pull-left'>Go Back</a>
+			<div class='pull-right'>
+				<a href="" ><i class="fa fa-cog"></i> settings</a> / <a href="">logout</a>
+			</div>
+		</div>
+
+
+		<form id='settings' class='form-signin ' role='form'>
+			Company Name:<label for="inputCompany" class="sr-only">Company Name</label>
+			<input type="text" id="inputCompany" class="form-control" placeholder="example: Coding Dojo" required autofocus>
+			<br><br>
+			On-Site IP Address:<label for='ipAdd' class='sr-only'>On-Site IP Addresses</label>
+			<textarea class='form-control' id='ipAdd' placeholder='Separate by comma - example: 192.168.2.1, 192.128.2.2'></textarea>
+		</form>
+
+		<button class="btn btn-in pull-right" type="submit">Save</button>
+	</div>
+
+
+
+
+</body>

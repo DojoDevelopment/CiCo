@@ -1,0 +1,12 @@
+.btn-out{
+  background-color: #EE001D;
+  color:white;
+}
+span{
+	color:salmon;
+}
+textarea{
+	resize:none;
+	height:30em;	
+	width:100%;
+}
