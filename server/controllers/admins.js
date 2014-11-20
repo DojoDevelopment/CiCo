@@ -5,22 +5,19 @@
 
 //var test = require('../models/sqltest.js');
 var connection = require('../../config/db.js');
-var model = require('../models/sqltest.js');
 module.exports = (function() {
   return{
     dashboard: function(req,res) {
       
-      model.admin_dash(function(err, data){ 
+      var sql_data = require('../models/admin_dash.js');
+      sql_data.page(function(err, data){ 
         res.render('admins/dashboard', {list: data[0], table: data[1]});
       });
 
-//      console.log(sample[0]);
     }, history: function(req,res) {
-      model.admin_dash(function(err, data){ 
-        res.render('admins/history', {list: data[0], 
-                                   members: data[1], 
-                                     table: data[2]
-                                   });
+      var sql_data = require('../models/admin_hist.js');
+      sql_data.page(function(err, data){ 
+        res.render('admins/history', {list: data[0], members: data[1], table: data[2] });
       });    
     }, setting: function(req,res) {
 
