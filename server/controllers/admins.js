@@ -5,30 +5,32 @@
 
 //var test = require('../models/sqltest.js');
 var connection = require('../../config/db.js');
+var model = require('../models/sqltest.js');
 module.exports = (function() {
   return{
     dashboard: function(req,res) {
       
-      var list  = "SELECT * FROM locations;";
-      var table = "SELECT members.picture, members.name, members.status, members.title, members.team, "
-                +     "members2.name AS supervisor, "
-                +     "locations2.name AS locations, "
-                +     "members.note "
-                +   "FROM members "
-                +   "LEFT JOIN locations AS locations2 ON locations2.id = members.location_id "
-                +   "LEFT JOIN members AS members2 ON members2.id = members.supervisor_id "
-                +   "WHERE members.business_id = 1;"
-
-      connection.query(list+' '+table, function(err, rows) {
-        if (err) throw err;
-        res.render('admins/dashboard', {list: rows[0], table: rows[1]})
-        return;
+      model.admin_dash(function(err, data){ 
+        res.render('admins/dashboard', {list: data[0], table: data[1]});
       });
-    },
-    history: function(req,res) {res.render ('admins/history')},
-    setting: function(req,res) {res.render ('admins/setting')},
-    new_user: function(req,res) {res.render ('admins/new_user')},
-    userinput: function(req,res) {
+
+//      console.log(sample[0]);
+    }, history: function(req,res) {
+      model.admin_dash(function(err, data){ 
+        res.render('admins/history', {list: data[0], 
+                                   members: data[1], 
+                                     table: data[2]
+                                   });
+      });    
+    }, setting: function(req,res) {
+
+      res.render ('admins/setting')
+
+    }, new_user: function(req,res) {
+
+      res.render ('admins/new_user')
+
+    }, userinput: function(req,res) {
       //console.log(req.body)
       res.render('display', {name: req.body.name})
     }
