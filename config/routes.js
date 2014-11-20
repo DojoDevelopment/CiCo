@@ -11,6 +11,8 @@ module.exports = function Routes(app) {
 	app.get('/history', function(req,res) {members.history(req,res) });	
 	app.get('/admin/dashboard', function(req,res){ admins.dashboard(req,res) });
 	app.get('/admin/history', function(req,res){ admins.history(req,res) });
+	app.get('/admin/settings', function(req,res){ admins.setting(req,res) });
+	app.get('/admin/new_user', function(req,res){ admins.new_user(req,res) });
 	app.post('/users/create'), function(req,res){ members.create(req,res)};
 	app.delete('/users/:id/delete'), function(req,res) {members.destroy(req,res)};
 }

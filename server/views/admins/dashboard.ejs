@@ -22,7 +22,7 @@
 					Contractors / Part Time Employees
 				</h5>
 				<div class='pull-right'>
-					<a href="" ><i class="fa fa-cog"></i> settings</a> / <a href="">logout</a>
+					<a href="/admin/settings" ><i class="fa fa-cog"></i> settings</a> / <a href="/index">logout</a>
 				</div>
 			</div>
 			
@@ -38,10 +38,10 @@
 
 		<div class="switch-toggle switch-candy">
 			<input id="dashboard" name="view" type="radio" checked>
-			<label for="dashboard" onclick="">Dashboard</label>
+			<label for="dashboard" onclick="location.href='/admin/dashboard'">Dashboard</label>
 
 			<input id="history" name="view" type="radio">
-			<label for="history" onclick="">History</label>
+			<label for="history" onclick="location.href='/admin/history'">History</label>
 
 			<a></a>
 		</div>
@@ -69,8 +69,7 @@
 			<td><a href=""> Show </a> / <a href=""> Edit </a></td>
 		</tr>
 	</table>
-	<a href="" class='pull-right'><i class='fa fa-plus-square'></i> Add Employee</a>
-	<h3><a href="admin/history">go to admin/history</a></h3>
+	<a href="/admin/new_user" class='pull-right'><i class='fa fa-plus-square'></i> Add Employee</a>
 
 	<%= variable_from_controller %>
 </div>
