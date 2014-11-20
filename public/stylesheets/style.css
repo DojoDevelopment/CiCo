@@ -1,3 +1,7 @@
+body{
+  min-width:770px;
+}
+
 #settings{
   margin-top: 15%;
   margin-bottom: 2%;
@@ -35,9 +39,6 @@ textarea{
   line-height: 2em;
   display: inline-block;
 }
-select{
-  font-size: 2em;
-}
 .drop-btn{
   height:1.9em;
 }
@@ -55,6 +56,9 @@ table tr:nth-child(even) {
 }
 table tr:nth-child(odd) {
     background-color: #fff;
+}
+td img{
+  margin-left: 20%;
 }
 .clk-btn{
   width:10em;

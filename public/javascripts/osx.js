@@ -9,6 +9,14 @@
  */
 
 jQuery(function ($) {
+
+		$('#basic-modal .basic').click(function (e) {
+		$('#basic-modal-content').modal();
+
+		return false;
+	});
+
+
 	var OSX = {
 		container: null,
 		init: function () {
@@ -41,7 +49,7 @@ jQuery(function ($) {
 							+ title.height()
 							+ 20; // padding
 						d.container.animate(
-							{height: h}, 
+							{height: 650}, 
 							200,
 							function () {
 								$("div.close", self.container).show();
@@ -67,3 +75,4 @@ jQuery(function ($) {
 	OSX.init();
 
 });
+
