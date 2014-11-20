@@ -2,8 +2,8 @@
 //this module exports an inmediate function that 
 //which returns an object with the name of the method 
 //as the "key" and the method to execute
+
 //var test = require('../models/sqltest.js');
-//FUCK MAC PEOPLE!!!!
 var connection = require('../../config/db.js');
 module.exports = (function() {
   return{

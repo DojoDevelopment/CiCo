@@ -1,14 +1,21 @@
+.container{
+  min-width:992px;
+}
+
 #settings{
   margin-top: 15%;
   margin-bottom: 2%;
 }
+
 .form-signin{
   margin-bottom: 10%;
 }
+
 textarea{
   resize:none;
   height:15em !important;
 }
+
 #hrs{
   padding-bottom: 0em;
   border:none;
@@ -19,25 +26,28 @@ textarea{
 .filter a{
   margin-left: 4%;
 }
+
 .form-group{
   margin-top: 0px !important;
 }
+
 .jumbotron h1{
   text-align: center;
 }
+
 .info{
   margin-top: 5%;
 }
+
 .info h5{
   margin-top: -1%;
 }
+
 .info h5 , select{
   line-height: 2em;
   display: inline-block;
 }
-select{
-  font-size: 2em;
-}
+
 .drop-btn{
   height:1.9em;
 }
@@ -55,6 +65,9 @@ table tr:nth-child(even) {
 }
 table tr:nth-child(odd) {
     background-color: #fff;
+}
+td img{
+  margin-left: 20%;
 }
 .clk-btn{
   width:10em;
