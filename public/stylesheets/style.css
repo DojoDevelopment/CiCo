@@ -1,7 +1,16 @@
 .container{
-  min-width:992px;
+  width:85%;
 }
-
+.container ul li{
+  display: inline;
+}
+/*.test{display:inline-block;}
+.form-control{width:55%;}*/
+.filters{
+  display: inline-block;
+  margin-left: 5em;
+  margin-bottom: 2%;
+}
 #settings{
   margin-top: 15%;
   margin-bottom: 2%;
@@ -98,7 +107,6 @@ td img{
   text-align: right;
   filter: alpha(opacity=0);
   opacity: 0;
-  background: red;
   cursor: inherit;
   display: block;
 }

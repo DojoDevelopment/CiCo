@@ -1,170 +1,174 @@
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="/stylesheets/osx.css">
-	<link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="/stylesheets/normalize.css">
-	<link rel="stylesheet" type="text/css" href="/stylesheets/toggle.css">
-	<link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
-	<link rel="stylesheet" type="text/css" href="/stylesheets/font-awesome/css/font-awesome.min.css">
-	<title>Admin Dashboard</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/osx.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/normalize.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/toggle.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/font-awesome/css/font-awesome.min.css">
+  <title>Admin Dashboard</title>
 
 </head>
 <body>
-	<div class='container'>
-		<div class='jumbotron'>
-			<h1>Coding Dojo Admin</h1>
-		</div>
+  <div class='container'>
+    <div class='jumbotron'>
+      <h1>Coding Dojo Admin</h1>
+    </div>
 
-		<div class='info'>
-			<div>
-				<h5>
-					<strong>ADMIN VIEW - </strong>
-					Contractors / Part Time Employees
-				</h5>
-				<div id='basic-modal' class='pull-right'>
-					<a href="#" class='basic'><i class="fa fa-cog"></i> settings</a> / <a href="/index">logout</a>
-				</div>
-			</div>
+    <div class='info'>
+      <div>
+        <h5>
+          <strong>ADMIN VIEW - </strong>
+          Contractors / Part Time Employees
+        </h5>
+        <div id='basic-modal' class='pull-right'>
+          <a href="#" class='basic'><i class="fa fa-cog"></i> settings</a> / <a href="/index">logout</a>
+        </div>
+      </div>
 
-		</div>
-		<div>
-			<div class='pull-right'>
-				Show <select>
-				<option value="all">All</option>
-				<% for (var i = 0; i < list.length; i++){ %>
-				<option value="<%= list[i].id %>"><%= list[i].name %></option>
-				<% } %>
-			</select>
+    </div>
+    <div>
+      <div class='pull-right'>
+        Show <select>
+        <option value="all">All</option>
+        <% for (var i = 0; i < list.length; i++){ %>
+        <option value="<%= list[i].id %>"><%= list[i].name %></option>
+        <% } %>
+      </select>
 
-		</div>	
+    </div>  
 
-		<div class="switch-toggle switch-candy">
-			<input id="dashboard" name="view" type="radio" checked>
-			<label for="dashboard" onclick="location.href='/admin/dashboard'">Dashboard</label>
+    <div class="switch-toggle switch-candy">
+      <input id="dashboard" name="view" type="radio" checked>
+      <label for="dashboard" onclick="location.href='/admin/dashboard'">Dashboard</label>
 
-			<input id="history" name="view" type="radio">
-			<label for="history" onclick="location.href='/admin/history'">History</label>
+      <input id="history" name="view" type="radio">
+      <label for="history" onclick="location.href='/admin/history'">History</label>
 
-			<a></a>
-		</div>
-	</div>	
+      <a></a>
+    </div>
+  </div>  
 
-	<table class='table'>
-		<thead>
-			<th>Picture</th>
-			<th>Name</th>
-			<th>Status</th>
-			<th>Title</th>
-			<th>Team</th>
-			<th>Supervisor</th>
-			<th>Location</th>
-			<th>Note</th>
-			<th>Actions</th>
-		</thead>
-		<% for (var i = 0; i < table.length; i++){ %>
-		<tr>
-			<td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg"></td>
-			<td><%= table[i].name %></td>
-			<td><%= table[i].status %></td>
-			<td><%= table[i].title %></td>
-			<td><%= table[i].team %></td>
-			<td><%= table[i].supervisor %></td>
-			<td><%= table[i].locations %></td>
-			<td><%= table[i].note %></td>
-			<td><a href=""> Show </a> / <a href=""> Edit </a></td>
-		</tr>
-		<%  } %>
-	</table>
-	<button class='btn btn-md btn-in osx pull-right'>Add Employee</button>
+  <table class='table'>
+    <thead>
+      <th>Picture</th>
+      <th>Name</th>
+      <th>Status</th>
+      <th>Title</th>
+      <th>Team</th>
+      <th>Supervisor</th>
+      <th>Location</th>
+      <th>Note</th>
+      <th>Actions</th>
+    </thead>
+    <% for (var i = 0; i < table.length; i++){ %>
+    <tr>
+      <td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg"></td>
+      <td><%= table[i].name %></td>
+      <td><%= table[i].status %></td>
+      <td><%= table[i].title %></td>
+      <td><%= table[i].team %></td>
+      <td><%= table[i].supervisor %></td>
+      <td><%= table[i].locations %></td>
+      <td><%= table[i].note %></td>
+      <td><a href=""> Show </a> / <a href=""> Edit </a></td>
+    </tr>
+    <%  } %>
+  </table>
+  <button class='btn btn-md btn-in osx pull-right'>Add Employee</button>
 
-	<!--#####################################################################-->
-	<!--############## basic modal content ##################################-->
-	<!--#####################################################################-->
+  <!--#####################################################################-->
+  <!--############## basic modal content ##################################-->
+  <!--#####################################################################-->
 
-	<div id="basic-modal-content">
+  <div id="basic-modal-content">
 
-		<form>
-			Company Name:<label for="inputCompany" class="sr-only">Company Name</label>
-			<input type="text" id="inputCompany" class="form-control" placeholder="example: Coding Dojo" required autofocus>
-			<br><br>
-			On-Site IP Address:<label for='ipAdd' class='sr-only'>On-Site IP Addresses</label>
-			<textarea class='form-control' id='ipAdd' placeholder='Separate by comma - example: 192.168.2.1, 192.128.2.2'></textarea>
-			<button class="btn btn-in pull-right" type="submit">Save</button>
-		</form>
+    <form>
+      Company Name:<label for="inputCompany" class="sr-only">Company Name</label>
+      <input type="text" id="inputCompany" class="form-control" placeholder="example: Coding Dojo" required autofocus>
+      <br><br>
+      On-Site IP Address:<label for='ipAdd' class='sr-only'>On-Site IP Addresses</label>
+      <textarea class='form-control' id='ipAdd' placeholder='Separate by comma - example: 192.168.2.1, 192.128.2.2'></textarea>
+      <button class="btn btn-lg btn-in pull-right" type="submit">Save</button>
+    </form>
 
-	</div>
-
-
-	<div style='display:none'>
-		<img src='../img/basic/x.png' alt='' />
-	</div>
+  </div>
 
 
+  <div style='display:none'>
+    <img src='../img/basic/x.png' alt='' />
+  </div>
 
-	<!--#####################################################################-->
-	<!--################ osx modal content ##################################-->
-	<!--#####################################################################-->
 
-	<div id="osx-modal-content">
-		<div id="osx-modal-title"><h3>Add Employee<h3></div>
-		<div class="close"><a href="#" class="simplemodal-close">x</a></div>
-		<div id="osx-modal-data">
-			<div class='container'>
-				<div class='info'>
-				</div><br>
-				<form class="form-signin" role="form">
-					<label for="inputName" class="sr-only">Name</label>
-					<input type="text" id="inputName" class="form-control" placeholder="Name" required autofocus>
-					<label for="inputTitle" class="sr-only">Title</label>
-					<input type="text" id="inputTitle" class="form-control" placeholder="Title" required>
-					<label for="inputTeam" class="sr-only">Team</label>
-					<input type="text" id="inputTeam" class="form-control" placeholder="Team" required autofocus>
-					<label for="inputLocation" class="sr-only">Location</label>
-					<input type="text" id="inputLocation" class="form-control" placeholder="Location" required autofocus>
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder='Supervisor'>
-						<div class="input-group-btn">
-							<select type='button' class='drop-btn dropdown-toggle btn btn-lg btn-in' role='menu'>
-								<option>none</option>
-							</select>
-						</div>
-					</div>
-					<br>
-					Employee Status: <select>
-					<option value="active">Active</option>
-					<option value="inActive">Inactive</option>
-				</select>
-				<br><br>
-				Notes:
-				<label for='note' class='sr-only'>only visible to admins</label>
-				<textarea class='form-control' id='note' placeholder='Notes (only visible to admins)'></textarea>
-				<br>
-				<div class="input-group">
-					<span class="input-group-btn">
-						<span class="btn btn-primary btn-file">
-							Browse&hellip; <input type="file">
-						</span>
-					</span>
-					<input placeholder='Upload Profile Pic' type="text" class="form-control" readonly>	
-				</div>
-				<br><br>
-				<input type="date" name="date" id="date"> Select Employee Start Date
-				<br><br>
-				<label for="inputEmail" class="sr-only">Email</label>
-				<input type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
-				<label for="inputPassword" class="sr-only">Password</label>
-				<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
 
-				<div class="checkbox">
-					<label>
-						<input type="checkbox" value="admin"> Admin <span class='emphasis'>*Be careful who you give admin access to*</span>
-					</label>
-				</div>
+  <!--#####################################################################-->
+  <!--################ osx modal content ##################################-->
+  <!--#####################################################################-->
 
-				<button class="btn btn-in pull-right" type="submit">Create</button>
-			</form>
-		</div>	
-	</div>
+  <div id="osx-modal-content">
+    <div id="osx-modal-title"><h3>Add Employee<h3></div>
+    <div class="close"><a href="#" class="simplemodal-close">x</a></div>
+    <div id="osx-modal-data">
+      <div class='container'>
+        <div class='info'>
+        </div><br>
+        <form class="form-signin" role="form">
+<!--          <div class='test'> -->
+            <label for="inputName" class="sr-only">Name</label>
+            <input type="text" id="inputName" class="form-control" placeholder="Name" required autofocus>
+            <label for="inputTitle" class="sr-only">Title</label>
+            <input type="text" id="inputTitle" class="form-control" placeholder="Title" required>
+<!--          </div> -->
+<!--          <div class='pull-right'> -->
+            <label for="inputTeam" class="sr-only">Team</label>
+            <input type="text" id="inputTeam" class="form-control" placeholder="Team" required autofocus>
+            <label for="inputLocation" class="sr-only">Location</label>
+            <input type="text" id="inputLocation" class="form-control" placeholder="Location" required autofocus>
+<!--          </div> -->
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder='Supervisor'>
+            <div class="input-group-btn">
+              <select type='button' class='drop-btn dropdown-toggle btn btn-lg btn-in' role='menu'>
+                <option>none</option>
+              </select>
+            </div>
+          </div>
+          <br>
+          Employee Status: <select>
+          <option value="active">Active</option>
+          <option value="inActive">Inactive</option>
+        </select>
+        <br><br>
+        Notes:
+        <label for='note' class='sr-only'>only visible to admins</label>
+        <textarea class='form-control' id='note' placeholder='Notes (only visible to admins)'></textarea>
+        <br>
+        <div class="input-group">
+          <span class="input-group-btn">
+            <span class="btn btn-primary btn-file">
+              Browse&hellip; <input type="file">
+            </span>
+          </span>
+          <input placeholder='Upload Profile Pic' type="text" class="form-control" readonly>  
+        </div>
+        <br><br>
+        <input type="date" name="date" id="date"> Select Employee Start Date
+        <br><br>
+        <label for="inputEmail" class="sr-only">Email</label>
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="admin"> Admin <span class='emphasis'>*Be careful who you give admin access to*</span>
+          </label>
+        </div>
+
+        <button class="btn btn-in pull-right" type="submit">Create</button>
+      </form>
+    </div>  
+  </div>
 </div>
 
 </div>
