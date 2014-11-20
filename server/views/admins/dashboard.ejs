@@ -31,8 +31,9 @@
 			<div class='pull-right'>
 				Show <select>
 				<option value="all">All</option>
-				<option value="seattle">Seattle</option>
-				<option value="mtnview">Mountain View</option>
+				<% for	(var i = 0; i < list.length; i++){ %>
+					<option value="<%= list[i].id %>"><%= list[i].name %></option>
+				<%	} %>
 			</select>
 		</div>	
 
@@ -55,23 +56,26 @@
 			<th>Title</th>
 			<th>Team</th>
 			<th>Supervisor</th>
+			<th>Location</th>
 			<th>Note</th>
 			<th>Actions</th>
 		</thead>
-		<tr>
-			<td>blah</td>
-			<td>blah</td>
-			<td>blah</td>
-			<td>blah</td>
-			<td>blah</td>
-			<td>blah</td>
-			<td>blah</td>
-			<td><a href=""> Show </a> / <a href=""> Edit </a></td>
-		</tr>
+			<% for	(var i = 0; i < table.length; i++){ %>
+				<tr>
+					<td><img src="<%= (table[i].picture == '' ? 'sample.png' : table[i].picture ) %>" alt="<%= table[i].name %> profile pic"></td>
+					<td><%= table[i].name %></td>
+					<td><%= table[i].status %></td>
+					<td><%= table[i].title %></td>
+					<td><%= table[i].team %></td>
+					<td><%= table[i].supervisor %></td>
+					<td><%= table[i].locations %></td>
+					<td><%= table[i].note %></td>
+					<td><a href=""> Show </a> / <a href=""> Edit </a></td>
+				</tr>
+			<%	} %>
 	</table>
 	<a href="/admin/new_user" class='pull-right'><i class='fa fa-plus-square'></i> Add Employee</a>
 
-	<%= variable_from_controller %>
 </div>
 </body>
 </html>

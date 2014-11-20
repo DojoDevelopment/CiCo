@@ -8,8 +8,7 @@ var path = require('path');
 // set the app variable 
 var app = express();
 
-
-//var config = require('./config/config');
+// var config = require('./config/config');
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, './server/views'));
@@ -37,18 +36,9 @@ if ('development' == app.get('env')) {
   app.use(errorhandler());
 }
 
-// load up and invoke the routes function returned as an export in routes.js found in the config folder
+// load up and invoke the routes function returned as an export in routes.js 
+// found in the config folder
 var routes = require('./config/routes')(app);
-
-var connection = require('./config/db.js')
-
-
-// connection.query('SELECT * FROM clock_in_out.locations', function (err, rows, fields) {
-//     if (err) throw err;
-//     console.log('The name of the course is: ', rows[0].name, " and a nice description is: ", rows[0].description);
-//     console.log('and the rest of the courses with descriptions are ', rows)
-// });
-//connection.end();
 
 // set server to listen on the appropriate port
 app.listen(app.get('port'), function(){
