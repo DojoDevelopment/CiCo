@@ -31,8 +31,8 @@
       <div class='pull-right'>
         Show <select>
         <option value="all">All</option>
-        <% for (var i = 0; i < list.length; i++){ %>
-        <option value="<%= list[i].id %>"><%= list[i].name %></option>
+        <% for (var i = 0; i < locations.length; i++){ %>
+        <option value="<%= locations[i].id %>"><%= locations[i].name %></option>
         <% } %>
       </select>
 
@@ -64,23 +64,18 @@
     <% for (var i = 0; i < table.length; i++){ %>
     <tr>
       <td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg"></td>
-      <td><%= table[i].name %></td>
-      <td><%= table[i].status %></td>
+      <td><%= (table[i].name == null ? '' : table[i].name) %></td> 
+      <td><%= (table[i].status == null ? '' : table[i].status) %></td> 
       <td><%= table[i].title %></td>
       <td><%= table[i].team %></td>
 
       <!-- NULL LOGIC -->
 
-      <td><% if (table[i].supervisor == null ){ %>
-        <%= '' %>
-        <% } else { %>
-        <%= table[i].supervisor %>
-        <% } %>
-     </td>
+      <td><%= (table[i].supervisor == null ? '' : table[i].supervisor) %></td> 
       <!-- END NULL LOGIC -->
 
-      <td><%= table[i].locations %></td>
-      <td><%= table[i].note %></td>
+      <td><%= (table[i].locations == null ? '' : table[i].locations) %></td> 
+      <td><%= (table[i].note == null ? '' : table[i].note) %></td> 
       <td><a href=""> Show </a> / <a href=""> Edit </a></td>
     </tr>
     <%  } %>

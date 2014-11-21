@@ -10,13 +10,14 @@ module.exports = (function() {
 		dashboard: function(req,res) {
       var sql_data = require('../models/user_dash.js');
       sql_data.page(function(err, data){ 
-        res.render('dashboard', {list: data[0], table: data[1]});
+        res.render('dashboard', {locations: data[0], table: data[1]});
       });
 		},
 		history: function(req,res) {
       var sql_data = require('../models/user_hist.js');
+
       sql_data.page(function(err, data){ 
-        res.render('history', {list: data[0], members: data[1], table: data[2] });
+        res.render('history', {locations: data[0], members: data[1], table: data[2] });
       });
 		},
 		userinput: function(req,res) {

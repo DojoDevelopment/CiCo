@@ -25,14 +25,20 @@
 
 				<div class='filters'>	
 					Location: <select>
-					<option>Location</option>
-				</select>		
+        <option value="all">All</option>
+        <% for (var i = 0; i < locations.length; i++){ %>
+        <option value="<%= locations[i].id %>"><%= locations[i].name %></option>
+        <% } %>
+      </select>	
 			</div>
 
 			<div class='filters'>
 				Name:    <select>
-				<option>Name</option>
-			</select>	
+        <option value="all">All</option>
+        <% for (var i = 0; i < members.length; i++){ %>
+        <option value="<%= members[i].id %>"><%= members[i].name %></option>
+        <% } %>
+      </select>
 		</div>
 		<br>
 		<div class='filters'>
@@ -54,56 +60,42 @@
 		<input id="history" name="view" type="radio">
 		<label for="history" onclick="location.href='/admin/history'">History</label>
 
-			<a></a>
-		</div>
-		
-		<table class='table'>
-			<thead>
-				<th>Date</th>
-				<th>Picture</th>
-				<th>Name</th>
-				<th>Title</th>
-				<th>Team</th>
-				<th>Location</th>
-				<th class='clk-btn'>Clock IN</th>
-				<th class='clk-btn'>Clock OUT</th>
-				<th>Personal Time</th>
-				<th>Billed Hours</th>
-				<th>Report</th>
-			</thead>
-			<% for (var i = 0; i < table.length; i++) { %>
-				<tr>
-					<td><% if (table[i].date == null ){ %>
-								<%= 'date not entered' %>
-								<% } else { %>
-								<%= table[i].date %>
-								<% } %>
-					</td>
-					<td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg" alt="<%= table[i].name %> profile pic"></td>
-					<td><%= table[i].name %></td>
-					<td><%= table[i].title %></td>
-					<td><%= table[i].team %></td>
-					<td><%= table[i].location %></td>
-					<td><% if (table[i].clock_in == null ){ %>
-								<%= '--:--' %>
-								<% } else { %>
-								<%= table[i].clock_in %>
-								<% } %>
-					</td>
-					<td><% if (table[i].out == null ){ %>
-								<%= '--:--' %>
-								<% } else { %>
-								<%= table[i].clock_out %>
-								<% } %>
-					</td>
-					<td><input id='hrs' type='number' step='0.25' min='0' max='24' placeholder='0.00' value="<%= table[i].personal %>"><span class='hrs'>hrs</span></td>
-					<td><%= table[i].billed %></td>
-					<td><%= table[i].report %></td>
-				</tr>
-			<% } %>
-		</table>
-
+		<a></a>
 	</div>
+
+	<table class='table'>
+		<thead>
+			<th>Date</th>
+			<th>Picture</th>
+			<th>Name</th>
+			<th>Title</th>
+			<th>Team</th>
+			<th>Location</th>
+			<th class='clk-btn'>Clock IN</th>
+			<th class='clk-btn'>Clock OUT</th>
+			<th>Personal Time</th>
+			<th>Billed Hours</th>
+			<th>Report</th>
+		</thead>
+		<% for (var i = 0; i < table.length; i++) { %>
+		<tr>
+			<td><%= (table[i].date == null ? '' : table[i].date) %></td>
+			</td>
+			<td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg" alt="<%= table[i].name %> profile pic"></td>
+			<td><%= (table[i].name == null ? '' : table[i].name) %></td>
+			<td><%= (table[i].title == null ? '' : table[i].title) %></td>
+			<td><%= (table[i].team == null ? '' : table[i].team) %></td>
+			<td><%= (table[i].location == null ? '' : table[i].location) %></td>
+			<td><%= (table[i].clock_in == null ? '' : table[i].clock_in) %></td>
+			<td><%= (table[i].clock_out == null ? '' : table[i].clock_out) %></td> 
+			<td><input id='hrs' type='number' step='0.25' min='0' max='24' placeholder='0.00' value="<%= table[i].personal %>"><span class='hrs'>hrs</span></td>
+			<td><%= (table[i].billed == null ? '' : table[i].billed) %></td> 
+			<td><%= (table[i].report == null ? '' : table[i].report) %></td> 
+		</tr>
+		<% } %>
+	</table>
+
+</div>
 </div>
 </div>
 </body>
