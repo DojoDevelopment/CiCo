@@ -11,13 +11,14 @@ module.exports = (function() {
       
       var sql_data = require('../models/admin_dash.js');
       sql_data.page(function(err, data){ 
-        res.render('admins/dashboard', {list: data[0], table: data[1]});
+        res.render('admins/dashboard', {locations: data[0], table: data[1]});
+        console.log(data[1])
       });
 
     }, history: function(req,res) {
       var sql_data = require('../models/admin_hist.js');
       sql_data.page(function(err, data){ 
-        res.render('admins/history', {list: data[0], members: data[1], table: data[2] });
+        res.render('admins/history', {locations: data[0], members: data[1], table: data[2] });
       });    
 
     }, setting: function(req,res) {

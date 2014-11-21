@@ -22,10 +22,11 @@
         </h5>
         <div class='pull-right'>
           Location: <select>
-          <option value="all">All</option>
-          <option value="seattle">Seattle</option>
-          <option value="mtnview">Mountain View</option>
-        </select>
+        <option value="all">All</option>
+        <% for (var i = 0; i < locations.length; i++){ %>
+        <option value="<%= locations[i].id %>"><%= locations[i].name %></option>
+        <% } %>
+      </select>
       </div>
     </div>
 
@@ -55,11 +56,11 @@
       <% for (var i = 0; i < table.length; i++){ %>
     <tr>
       <td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg"></td>
-      <td><%= table[i].name %></td>
-      <td><%= table[i].title %></td>
-      <td><%= table[i].team %></td>
-      <td><%= table[i].supervisor %></td>
-      <td><%= table[i].locations %></td>
+      <td><%= (table[i].name == null ? '' : table[i].name) %></td> 
+      <td><%= (table[i].title == null ? '' : table[i].title) %></td> 
+      <td><%= (table[i].team == null ? '' : table[i].team) %></td> 
+      <td><%= (table[i].supervisor == null ? '' : table[i].supervisor) %></td> 
+      <td><%= (table[i].locations == null ? '' : table[i].locations) %></td> 
       <td><button class='btn btn-in'>Clock IN</button></td>
       <td><button class='btn btn-out osx demo'>Clock OUT</button></td>  
     </tr>
