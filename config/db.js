@@ -9,6 +9,7 @@ var connection = db.createConnection({
 					 database: 'cd_login',
  multipleStatements: true
 });
+
 //mac
 // var connection = db.createConnection({
 //              host : 'localhost',
