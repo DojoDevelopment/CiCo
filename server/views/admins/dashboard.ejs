@@ -68,7 +68,17 @@
       <td><%= table[i].status %></td>
       <td><%= table[i].title %></td>
       <td><%= table[i].team %></td>
-      <td><%= table[i].supervisor %></td>
+
+      <!-- NULL LOGIC -->
+
+      <td><% if (table[i].supervisor == null ){ %>
+        <%= '' %>
+        <% } else { %>
+        <%= table[i].supervisor %>
+        <% } %>
+     </td>
+      <!-- END NULL LOGIC -->
+
       <td><%= table[i].locations %></td>
       <td><%= table[i].note %></td>
       <td><a href=""> Show </a> / <a href=""> Edit </a></td>
@@ -113,18 +123,18 @@
         <div class='info'>
         </div><br>
         <form class="form-signin" role="form">
-<!--          <div class='test'> -->
-            <label for="inputName" class="sr-only">Name</label>
-            <input type="text" id="inputName" class="form-control" placeholder="Name" required autofocus>
-            <label for="inputTitle" class="sr-only">Title</label>
-            <input type="text" id="inputTitle" class="form-control" placeholder="Title" required>
-<!--          </div> -->
-<!--          <div class='pull-right'> -->
-            <label for="inputTeam" class="sr-only">Team</label>
-            <input type="text" id="inputTeam" class="form-control" placeholder="Team" required autofocus>
-            <label for="inputLocation" class="sr-only">Location</label>
-            <input type="text" id="inputLocation" class="form-control" placeholder="Location" required autofocus>
-<!--          </div> -->
+          <!--          <div class='test'> -->
+          <label for="inputName" class="sr-only">Name</label>
+          <input type="text" id="inputName" class="form-control" placeholder="Name" required autofocus>
+          <label for="inputTitle" class="sr-only">Title</label>
+          <input type="text" id="inputTitle" class="form-control" placeholder="Title" required>
+          <!--          </div> -->
+          <!--          <div class='pull-right'> -->
+          <label for="inputTeam" class="sr-only">Team</label>
+          <input type="text" id="inputTeam" class="form-control" placeholder="Team" required autofocus>
+          <label for="inputLocation" class="sr-only">Location</label>
+          <input type="text" id="inputLocation" class="form-control" placeholder="Location" required autofocus>
+          <!--          </div> -->
           <div class="input-group">
             <input type="text" class="form-control" placeholder='Supervisor'>
             <div class="input-group-btn">
