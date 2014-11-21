@@ -19,6 +19,7 @@ module.exports = (function() {
       sql_data.page(function(err, data){ 
         res.render('admins/history', {list: data[0], members: data[1], table: data[2] });
       });    
+
     }, setting: function(req,res) {
 
       res.render ('admins/setting')
