@@ -40,7 +40,7 @@ module.exports = {
 													+   "WHERE members.business_id = 1";
 									connection.query(qry, function(err, data) {
 										if (err) throw err;
-										callback(data);
+										res.json(data);
 									});
 	},
 	history_table : function(req, res) {
@@ -59,7 +59,9 @@ module.exports = {
 														+	"WHERE members.business_id = 1";
 										console.log("in queries.js")
 										connection.query(qry, function(err, data) {
-											if (err) throw err;
+
+										if (err) throw err;
+
 											res.json(data);
 										});
 	}
