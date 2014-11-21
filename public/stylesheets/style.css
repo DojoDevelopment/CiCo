@@ -31,6 +31,9 @@ textarea{
   height:1.5em !important;
   width:3em;
 }
+.filters li:first-child, li:nth-child(2), li:nth-child(3){
+  margin-right: 1em;
+}
 
 .filter a{
   margin-left: 4%;
