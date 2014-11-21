@@ -1,11 +1,15 @@
 var db = require('mysql');
 
+
 //pc
+
 // var connection = db.createConnection({
 //         host : 'localhost',
 //         user : 'root',
 //         password : '',
 //         database: 'cd_login',
+
+//        //pc
 //         multipleStatements: true
 // });
 

@@ -54,17 +54,21 @@
       <th class='clk-btn'>Clock OUT</th>
     </thead>
     <tr>
-      <td>blah</td>
-      <td>blah</td>
-      <td>blah</td>
-      <td>blah</td>
-      <td>blah</td>
-      <td>blah</td>
+      <% for (var i = 0; i < table.length; i++){ %>
+    <tr>
+      <td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg"></td>
+      <td><%= table[i].name %></td>
+      <td><%= table[i].title %></td>
+      <td><%= table[i].team %></td>
+      <td><%= table[i].supervisor %></td>
+      <td><%= table[i].locations %></td>
       <td><button class='btn btn-in'>Clock IN</button></td>
-      <td><button class='btn btn-out osx demo'>Clock OUT</button></td>
+      <td><button class='btn btn-out osx demo'>Clock OUT</button></td>  
     </tr>
-
+    <%}%>
   </table>
+  
+
   <!-- modal content -->
   <div id="osx-modal-content">
     <div id="osx-modal-title"><h3>Employee <span>Clock Out</span><h3></div>
