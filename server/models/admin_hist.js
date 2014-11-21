@@ -3,11 +3,11 @@ module.exports = (function() {
 	return {
 
 		page : function(callback){
-					var locations = "SELECT locations.id, locations.name FROM locations;";
-				
-					var members  	= "SELECT members.id, members.name FROM members;";
-				
-					var table			= "SELECT DATE_FORMAT(sessions.created_at, '%c/%d (%a)') as 'date', "
+						var locations = "SELECT locations.id, locations.name FROM locations;";
+					
+						var members  	= "SELECT members.id, members.name FROM members;";
+					
+						var table			= "SELECT DATE_FORMAT(sessions.created_at, '%c/%d (%a)') as 'date', "
 												+	  "members.picture, members.name, members.title, members.team, members2.name as supervisor, "
 												+   "locations2.name as location, "
 												+	  "DATE_FORMAT(sessions.clock_in, '%l:%i%p') as 'clock_in', "
