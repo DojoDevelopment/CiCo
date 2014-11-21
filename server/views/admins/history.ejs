@@ -84,7 +84,44 @@
 			<td></td>
 		</tr>
 
+<<<<<<< HEAD
 	</table>
 </div>
+=======
+			<a></a>
+		</div>
+		
+		<table class='table'>
+			<thead>
+				<th>Date</th>
+				<th>Picture</th>
+				<th>Name</th>
+				<th>Title</th>
+				<th>Team</th>
+				<th>Location</th>
+				<th class='clk-btn'>Clock IN</th>
+				<th class='clk-btn'>Clock OUT</th>
+				<th>Personal Time</th>
+				<th>Billed Hours</th>
+				<th>Report</th>
+			</thead>
+			<% for (var i = 0; i < table.length; i++) { %>
+				<tr>
+					<td><%= table[i].date %></td>
+					<td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg" alt="<%= table[i].name %> profile pic"></td>
+					<td><%= table[i].name %></td>
+					<td><%= table[i].title %></td>
+					<td><%= table[i].team %></td>
+					<td><%= table[i].location %></td>
+					<td><%= table[i].clock_in %></td>
+					<td><%= table[i].clock_out %></td>
+					<td><input id='hrs' type='number' step='0.25' min='0' max='24' placeholder='0.00'><span class='hrs'>hrs</span></td>
+					<td><%= table[i].billed %></td>
+					<td><%= table[i].report %></td>
+				</tr>
+			<% } %>
+		</table>
+	</div>
+>>>>>>> e9bcfe48a5e88846f22987c55a5d066f2cc6084e
 </body>
 </html>
