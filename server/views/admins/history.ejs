@@ -65,7 +65,7 @@
 					<td><%= table[i].location %></td>
 					<td><%= table[i].clock_in %></td>
 					<td><%= table[i].clock_out %></td>
-					<td><input id='hrs' type='number' step='0.25' min='0' max='24' placeholder='0.00'><span class='hrs'>hrs</span></td>
+					<td><input id='hrs' type='number' step='0.25' min='0' max='24' placeholder='0.00' value="<%= table[i].personal %>"><span class='hrs'>hrs</span></td>
 					<td><%= table[i].billed %></td>
 					<td><%= table[i].report %></td>
 				</tr>
