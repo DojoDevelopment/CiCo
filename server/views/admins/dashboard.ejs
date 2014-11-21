@@ -53,8 +53,6 @@
     <thead>
       <th>Picture</th>
       <th>Name</th>
-      <th>Status</th>
-      <th>Title</th>
       <th>Team</th>
       <th>Supervisor</th>
       <th>Location</th>
@@ -64,16 +62,11 @@
     <% for (var i = 0; i < table.length; i++){ %>
     <tr>
       <td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg"></td>
-      <td><%= (table[i].name == null ? '' : table[i].name) %></td> 
-      <td><%= (table[i].status == null ? '' : table[i].status) %></td> 
-      <td><%= table[i].title %></td>
+      <td><%= (table[i].name == null ? '' : table[i].name) %><br>
+        <span class='names'><%= table[i].title %> -</span> 
+        <span class='status'><%= (table[i].status == null ? '' : table[i].status) %></span></td> 
       <td><%= table[i].team %></td>
-
-      <!-- NULL LOGIC -->
-
       <td><%= (table[i].supervisor == null ? '' : table[i].supervisor) %></td> 
-      <!-- END NULL LOGIC -->
-
       <td><%= (table[i].locations == null ? '' : table[i].locations) %></td> 
       <td><%= (table[i].note == null ? '' : table[i].note) %></td> 
       <td><a href=""> Show </a> / <a href=""> Edit </a></td>

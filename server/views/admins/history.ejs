@@ -68,7 +68,6 @@
 			<th>Date</th>
 			<th>Picture</th>
 			<th>Name</th>
-			<th>Title</th>
 			<th>Team</th>
 			<th>Location</th>
 			<th class='clk-btn'>Clock IN</th>
@@ -82,8 +81,8 @@
 			<td><%= (table[i].date == null ? '' : table[i].date) %></td>
 			</td>
 			<td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg" alt="<%= table[i].name %> profile pic"></td>
-			<td><%= (table[i].name == null ? '' : table[i].name) %></td>
-			<td><%= (table[i].title == null ? '' : table[i].title) %></td>
+			<td><%= (table[i].name == null ? '' : table[i].name) %><br>
+				<span class='names'><%=  (table[i].title == null ? '' : table[i].title) %></span></td>
 			<td><%= (table[i].team == null ? '' : table[i].team) %></td>
 			<td><%= (table[i].location == null ? '' : table[i].location) %></td>
 			<td><%= (table[i].clock_in == null ? '' : table[i].clock_in) %></td>
