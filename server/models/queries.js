@@ -12,7 +12,7 @@ module.exports = {
 								var qry = "SELECT members.id, members.name FROM members";
 								connection.query(qry, function(err, data) {
 									if (err) throw err;
-									callback(data);
+									res.json(data);
 								});
 	},
 	user_table : function(req, res) {
@@ -26,7 +26,7 @@ module.exports = {
 												+   "WHERE members.business_id = 1";
 									connection.query(qry, function(err, data) {
 										if (err) throw err;
-										callback(data);
+										res.json(data);
 									});
 	}, 
 	admin_table : function(req, res) {
@@ -43,7 +43,7 @@ module.exports = {
 										callback(data);
 									});
 	},
-	history_table : function(callback) {
+	history_table : function(req, res) {
 										var qry = "SELECT DATE_FORMAT(sessions.created_at, '%c/%d (%a)') as 'date', "
 														+	  "members.picture, members.name, members.title, members.team, members2.name as supervisor, "
 														+   "locations2.name as location, "
@@ -57,9 +57,10 @@ module.exports = {
 														+	"LEFT JOIN members AS members2 ON members2.id = members.supervisor_id "
 														+	"LEFT JOIN locations AS locations2 ON locations2.id = members.location_id "
 														+	"WHERE members.business_id = 1";
+										console.log("in queries.js")
 										connection.query(qry, function(err, data) {
-										if (err) throw err;
-											callback(data);
+											if (err) throw err;
+											res.json(data);
 										});
 	}
 };

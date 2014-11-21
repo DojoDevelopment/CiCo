@@ -11,22 +11,18 @@
 		<div id='filters' class='pull-right'>
 			
 			<div class='filters'>	
-				Location: <select>
-				<option value="all">All</option>
-				<% for (var i = 0; i < locations.length; i++){ %>
-				<option value="<%= locations[i].id %>"><%= locations[i].name %></option>
-				<% } %>
-			</select>
-		</div>
+				Location: 
+				<select>
+					<option ng-repeat="location in locations" value={{location.id}} ng-bind = "location.name"></option>
+				</select>
+			</div>
 
-		<div class='filters'>
-			Name:    <select>
-			<option value="all">All</option>
-			<% for (var i = 0; i < members.length; i++){ %>
-			<option value="<%= members[i].id %>"><%= members[i].name %></option>
-			<% } %>
-		</select>	
-	</div>
+			<div class='filters'>
+				Name:    
+				<select>
+					<option ng-repeat='member in members' value={{members.name}} ng-bind = "member.name"></option>
+				</select>	
+			</div>
 	<br>
 	<div class='filters'>
 		Date: <input type='date'>
@@ -64,20 +60,18 @@
 		<th>Personal Time</th>
 		<th>Billed Hours</th>
 		<th>Report</th>
-	</thead>
-	<% for (var i = 0; i < table.length; i++){ %>
-	<tr>
-	<td><%( table[i].date == null ? '' : table[i].date )%></td>
+	</thead>			
+	<tr ng-repeat="history in histories">
 		<td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg"></td>
-		<td><%= table[i].name %></td>
-		<td><%= table[i].title %></td>
-		<td><%= table[i].team %></td>
-		<td><%= table[i].location %></td>
-		<td><%= (table[i].clock_in == null ? '' : table[i].clock_in) %></td>
-		<td><%= (table[i].clock_out == null ? '' : table[i].clock_out) %></td> 
-		<td><%= (table[i].personal == null ? '' : table[i].personal) %></td> 		
-		<td><%= (table[i].billed == null ? '' : table[i].billed) %></td> 
-		<td><%= (table[i].report == null ? '' : table[i].report) %></td> 
+		<td>{{history.name}}</td>
+		<td>{{history.title}}</td>
+		<td>{{history.team}}</td>
+		<td>{{history.location}}</td>
+		<td>{{history.clock_in}}</td>
+		<td>{{history.clock_out}}</td>
+		<td>{{history.personal}}</td>
+		<td>{{history.billed}}</td>
+		<td>{{history.report}}</td>
 	</tr>
-	<%}%>
+	
 </table>
