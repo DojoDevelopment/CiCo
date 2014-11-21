@@ -89,7 +89,16 @@ td img{
 .clk-btn{
   width:10em;
 }
-
+tr td .names{
+  font-style: italic;
+  font-size: .9em;
+  color:#9F9F9F;
+}
+tr td .status{
+  font-weight: bold;
+  font-size: .9em;
+  color:#9F9F9F;
+}
 .btn-in{
   background-color: #008500;
   color:white;
