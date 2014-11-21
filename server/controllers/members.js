@@ -8,22 +8,17 @@ module.exports = (function() {
 	return{
 		index: function(req,res) {res.render('index')},
 		dashboard: function(req,res) {
-			var data;
-			// connection.query('SELECT * FROM clock_in_out.members', function (err, rows, fields) {
-   //  			if (err) throw err;
-   //  			console.log('data retrieved follows: ', rows)
-			// 	data = rows;
-			// 	res.render('dashboard',{data:data});
-			// });
-			res.render('dashboard');
-			//res.render('dashboard',{data:data});
-			// I need to close the connection, when???
-			//because once it is closed I get the error
-			//Error: Cannot enqueue Query after invoking qui
-			//connection.end();
-
+      var sql_data = require('../models/user_dash.js');
+      sql_data.page(function(err, data){ 
+        res.render('dashboard', {list: data[0], table: data[1]});
+      });
 		},
-		history: function(req,res) {res.render ('history')},
+		history: function(req,res) {
+      var sql_data = require('../models/user_hist.js');
+      sql_data.page(function(err, data){ 
+        res.render('history', {list: data[0], members: data[1], table: data[2] });
+      });
+		},
 		userinput: function(req,res) {
 			console.log(req.body)
 			res.render('display', {name: req.body.name})
