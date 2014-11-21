@@ -46,20 +46,15 @@
     <th>Note</th>
     <th>Actions</th>
   </thead>
-  <tr>
+  <tr ng-repeat="row in table">
     <td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg"></td>
-    <td><%= (table[i].name == null ? '' : table[i].name) %></td> 
-    <td><%= (table[i].status == null ? '' : table[i].status) %></td> 
-    <td><%= table[i].title %></td>
-    <td><%= table[i].team %></td>
-
-    <!-- NULL LOGIC -->
-
-    <td><%= (table[i].supervisor == null ? '' : table[i].supervisor) %></td> 
-    <!-- END NULL LOGIC -->
-
-    <td><%= (table[i].locations == null ? '' : table[i].locations) %></td> 
-    <td><%= (table[i].note == null ? '' : table[i].note) %></td> 
+    <td nd-bind="row.name"></td> 
+    <td ng-bind="row.status"></td> 
+    <td ng-bind="row.title"></td>
+    <td ng-bind="row.team"></td>
+    <td ng-bind="row.supervisor"></td> 
+    <td ng-bind="row.locations"></td> 
+    <td ng-bind="row.note"></td> 
     <td><a href=""> Show </a> / <a href=""> Edit </a></td>
   </tr>
 </table>

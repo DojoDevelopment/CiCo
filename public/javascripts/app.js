@@ -18,12 +18,12 @@ app.config(function($routeProvider){
 	
 	}).when('/admin/dashboard', {
 	
-		templateUrl: 'partials/dashboard.html',
+		templateUrl: 'partials/admin_dash.html',
 		controller: 'dashboard'
 	
 	}).when('/admin/history', {
 	
-		templateUrl: 'partials/history.html',
+		templateUrl: 'partials/admin_hist.html',
 		controller: 'admin_hist'
 	
 	}).otherwise({

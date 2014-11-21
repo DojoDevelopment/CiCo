@@ -37,19 +37,17 @@
       <th class='clk-btn'>Clock IN</th>
       <th class='clk-btn'>Clock OUT</th>
     </thead>
-    <tr>
-      <% for (var i = 0; i < table.length; i++){ %>
-    <tr>
+    <tr ng-repeat="row in table">
       <td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg"></td>
-      <td><%= (table[i].name == null ? '' : table[i].name) %></td> 
-      <td><%= (table[i].title == null ? '' : table[i].title) %></td> 
-      <td><%= (table[i].team == null ? '' : table[i].team) %></td> 
-      <td><%= (table[i].supervisor == null ? '' : table[i].supervisor) %></td> 
-      <td><%= (table[i].locations == null ? '' : table[i].locations) %></td> 
+      <td nd-bind="row.name"></td> 
+      <td ng-bind="row.title"></td>
+      <td ng-bind="row.team"></td>
+      <td ng-bind="row.supervisor"></td> 
+      <td ng-bind="row.locations"></td> 
+      <td><a href=""> Show </a> / <a href=""> Edit </a></td>
       <td><button class='btn btn-in'>Clock IN</button></td>
       <td><button class='btn btn-out osx demo'>Clock OUT</button></td>  
     </tr>
-    <%}%>
   </table>
   
 

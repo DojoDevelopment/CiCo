@@ -12,7 +12,7 @@ module.exports = {
 								var qry = "SELECT members.id, members.name FROM members";
 								connection.query(qry, function(err, data) {
 									if (err) throw err;
-									callback(data);
+									res.json(data);
 								});
 	},
 	user_table : function(req, res) {
@@ -26,7 +26,7 @@ module.exports = {
 												+   "WHERE members.business_id = 1";
 									connection.query(qry, function(err, data) {
 										if (err) throw err;
-										callback(data);
+										res.json(data);
 									});
 	}, 
 	admin_table : function(req, res) {
@@ -40,7 +40,7 @@ module.exports = {
 													+   "WHERE members.business_id = 1";
 									connection.query(qry, function(err, data) {
 										if (err) throw err;
-										callback(data);
+										res.json(data);
 									});
 	},
 	history_table : function(callback) {
@@ -59,7 +59,7 @@ module.exports = {
 														+	"WHERE members.business_id = 1";
 										connection.query(qry, function(err, data) {
 										if (err) throw err;
-											callback(data);
+											res.json(data);
 										});
 	}
 };
