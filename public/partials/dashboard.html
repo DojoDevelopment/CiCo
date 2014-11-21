@@ -1,15 +1,3 @@
-<html>
-<head>
-  <link rel="stylesheet" type="text/css" href="stylesheets/osx.css">
-  <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.css">
-  <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css">
-  <link rel="stylesheet" type="text/css" href="stylesheets/toggle.css">
-  <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
-  <link rel="stylesheet" type="text/css" href="stylesheets/font-awesome.min.css">
- <title>Employee Dashboard</title>
-</head>
-<body>
-  <div class='container'>
     <div class='jumbotron'>
       <h1>Coding Dojo Time Keeper</h1>
     </div>
@@ -21,25 +9,22 @@
           If you're paid hourly, it's mandatory that you clock in/out whenever you work.
         </h5>
         <div class='pull-right'>
-          Location: <select>
-        <option value="all">All</option>
-        <% for (var i = 0; i < locations.length; i++){ %>
-        <option value="<%= locations[i].id %>"><%= locations[i].name %></option>
-        <% } %>
-      </select>
+          Location: 
+          <select>
+            <option value="all" ng-repeat="location in locations" value="{{location.id}}" ng-bind="location.name"></option>
+          </select>
+        </div>
       </div>
     </div>
+    <div class="switch-toggle switch-candy">
+      <input id="dashboard" name="view" type="radio" checked>
+      <label for="dashboard" onclick="location.href='dashboard'">Dashboard</label>
 
-  </div>
-  <div class="switch-toggle switch-candy">
-    <input id="dashboard" name="view" type="radio" checked>
-    <label for="dashboard" onclick="location.href='dashboard'">Dashboard</label>
+      <input id="history" name="view" type="radio">
+      <label for="history" onclick="location.href='history'">History</label>
 
-    <input id="history" name="view" type="radio">
-    <label for="history" onclick="location.href='history'">History</label>
-
-    <a></a>
-  </div>
+      <a></a>
+    </div>
 
   <table class='table'>
     <thead>
@@ -95,11 +80,3 @@
 
   </div>
   </div>
-</div>
-          <!-- LOAD JAVASCRIPT FILES -->
-<script type="text/javascript" src='./javascripts/jquery.js'></script>
-<script type="text/javascript" src='./javascripts/angular.min.js'></script>
-<script type="text/javascript" src='./javascripts/osx.js'></script>
-<script type="text/javascript" src='./javascripts/jquery.simplemodal.js'></script>
-</body>
-</html>
