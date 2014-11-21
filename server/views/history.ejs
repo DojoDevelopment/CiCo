@@ -21,17 +21,30 @@
 					<strong>Contractors or Part Time Employees in CodingDojo (all locations)</strong> <br>
 					If you're paid hourly, it's mandatory that you clock in/out whenever you work.
 				</h5>
-		<div class='pull-right'>
-			Filter by: <select>
-						<option>Location</option>
-						<option>Name</option>
-						<option>Date Range</option>
-						<option>This Week</option>
-						<option>Last Week</option>
-						<option>This Month</option>
-						<option>Last Month</option>
-					   </select>			 
-		</div>	
+		<div id='filters' class='pull-right'>
+					
+					<div class='filters'>	
+					Location: <select>
+								<option>Location</option>
+							  </select>		
+					</div>
+
+					<div class='filters'>
+					Name:    <select>
+								<option>Name</option>
+							 </select>	
+					</div>
+					<br>
+					<div class='filters'>
+					Date: <input type='date'>
+					</div><br>
+					<ul class='filters pull-right'>
+					<li><a href="">This Week</a></li>
+					<li><a href="">Last Week</a></li>
+					<li><a href="">This Month</a></li>
+					<li><a href="">Last Month</a></li>						
+					</ul>
+				</div>	
 
 		</div>
 		<div class="switch-toggle switch-candy">
@@ -60,7 +73,7 @@
 			</thead>
 			  <% for (var i = 0; i < table.length; i++){ %>
     			<tr>
-      				<td><%= Date() %></td>
+      				<td><%= table[i].date %></td>
       				<td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg"></td>
       				<td><%= table[i].name %></td>
       				<td><%= table[i].title %></td>
