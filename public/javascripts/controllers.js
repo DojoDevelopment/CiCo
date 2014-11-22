@@ -29,15 +29,4 @@ app.controller('history', function($scope, HistoryFactory) {
 		$scope.members = data;
 	});
 
-	// HistoryFactory.get_factory_locations(function(locations){
-	// 	console.log('data in the history controller: ', locations);
-	// 	$scope.locations = locations;
-	//    });
-
-	// HistoryFactory.get_factory_locations(function(locations){
-	// 	console.log('data in the history controller: ', locations);
-	// 	$scope.locations = locations;
-	//    });
-
-
 });

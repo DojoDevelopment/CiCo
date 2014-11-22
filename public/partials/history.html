@@ -1,3 +1,4 @@
+<div ng-controller="history">
 <div class='jumbotron'>
 	<h1>Employee History</h1>
 </div>
@@ -12,15 +13,15 @@
 			
 			<div class='filters'>	
 				Location: 
-				<select>
-					<option ng-repeat="location in locations" value={{location.id}} ng-bind = "location.name"></option>
+				<select ng-model ='filterItem.store' ng-options='history.name for history in filterOptions.stores'>
+					<!-- <option ng-repeat="location in locations" value={{location.id}} ng-bind = "location.name" ng-model = "filter_location"></option> -->
 				</select>
 			</div>
 
 			<div class='filters'>
 				Name:    
 				<select>
-					<option ng-repeat='member in members' value={{members.name}} ng-bind = "member.name"></option>
+					<option ng-repeat='member in members' value={{members.name}} ng-bind = "member.name" ng-model = "filter_member"></option>
 				</select>	
 			</div>
 	<br>
@@ -47,6 +48,8 @@
 	<a></a>
 </div>
 
+<input class='form-control' type='text' placeholder='search' ng-model="filter_name">
+
 <table class='table'>
 	<thead>
 		<th>Date</th>
@@ -61,7 +64,8 @@
 		<th>Billed Hours</th>
 		<th>Report</th>
 	</thead>			
-	<tr ng-repeat="history in histories">
+	<tr ng-repeat="history in histories | filter:filter_name">
+		<td>{{history.date}}</td>
 		<td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg"></td>
 		<td>{{history.name}}</td>
 		<td>{{history.title}}</td>
@@ -75,3 +79,4 @@
 	</tr>
 	
 </table>
+</div> <!-- end of ng-controller history div -->
