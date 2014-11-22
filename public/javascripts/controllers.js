@@ -23,7 +23,7 @@ app.controller('history', function($scope, HistoryFactory) {
 		$scope.locations = data;
 	});
 
-<<<<<<< HEAD
+
 	HistoryFactory.get_members(function(data){
 		console.log('data-members in the history controller: ', data);
 		$scope.members = data;
@@ -38,10 +38,6 @@ app.controller('history', function($scope, HistoryFactory) {
 	// 	console.log('data in the history controller: ', locations);
 	// 	$scope.locations = locations;
 	//    });
-=======
-	DashboardFactory.get_factory_table(function(data){
-		$scope.table = data;
-	});
->>>>>>> 810ac10de5ef1777fa5fb00e28da52102237a466
+
 
 });
