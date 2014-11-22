@@ -1,11 +1,11 @@
-var app = angular.module('myApp', ['ngRoute']);
+var app = angular.module('myApp', ['ngRoute', 'routeStyles']);
 
 app.config(function($routeProvider){
 	$routeProvider
 	.when('/', { 
 	
 		templateUrl: 'partials/index.html',
-
+		css: 'stylesheets/login.css'		
 	}).when('/dashboard', {
 	
 		templateUrl: 'partials/dashboard.html',
