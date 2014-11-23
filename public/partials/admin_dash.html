@@ -37,16 +37,16 @@
 <table class='table'>
   <thead>
     <th>Picture</th>
-    <th>Name</th>
-    <th>Status</th>
-    <th>Title</th>
-    <th>Team</th>
-    <th>Supervisor</th>
-    <th>Location</th>
+    <th><a href="" ng-click="order='name'; reverse=!reverse">Name</a></th>
+    <th><a href="" ng-click="order='status'; reverse=!reverse">Status</a></th>
+    <th><a href="" ng-click="order='title'; reverse=!reverse">Title</a></th>
+    <th><a href="" ng-click="order='team'; reverse=!reverse">Team</a></th>
+    <th><a href="" ng-click="order='supervisor'; reverse=!reverse">Supervisor</a></th>
+    <th><a href="" ng-click="order='location'; reverse=!reverse">Location</a></th>
     <th>Note</th>
     <th>Actions</th>
   </thead>
-  <tr ng-repeat="row in table">
+  <tr ng-repeat="row in table | orderBy:order:reverse">
     <td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg"></td>
     <td ng-bind="row.name"></td>
     <td ng-bind="row.status"></td> 

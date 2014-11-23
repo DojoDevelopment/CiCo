@@ -6,6 +6,7 @@ app.controller('dashboard', function($scope, DashboardFactory) {
 
 	DashboardFactory.get_factory_dashboard_table(function(data){
 		$scope.table = data;
+		$scope.order = '-name';
 	});
 
 });
@@ -22,5 +23,6 @@ app.controller('history', function($scope, HistoryFactory) {
 
 	HistoryFactory.get_factory_history_table(function(data){
 		$scope.table = data;
+		$scope.order = '-date';
 	});
 });

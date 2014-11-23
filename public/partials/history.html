@@ -49,19 +49,19 @@
 
 <table class='table'>
 	<thead>
-		<th>Date</th>
+		<th><a href="" ng-click="order='date'; reverse=!reverse">Date</a></th>
 		<th>Picture</th>
-		<th>Name</th>
-		<th>Title</th>
-		<th>Team</th>
-		<th>Location</th>
-		<th class='clk-btn'>Clock IN</th>
-		<th class='clk-btn'>Clock OUT</th>
-		<th>Personal Time</th>
-		<th>Billed Hours</th>
+		<th><a href="" ng-click="order='name'; reverse=!reverse">Name</a></th>
+		<th><a href="" ng-click="order='title'; reverse=!reverse">Title</a></th>
+		<th><a href="" ng-click="order='team'; reverse=!reverse">Team</a></th>
+		<th><a href="" ng-click="order='location'; reverse=!reverse">Location</a></th>
+		<th class='clk-btn'><a href="" ng-click="order='clock_in'; reverse=!reverse">Clock IN</a></th>
+		<th class='clk-btn'><a href="" ng-click="order='clock_out'; reverse=!reverse">Clock OUT</a></th>
+		<th><a href="" ng-click="order='personal'; reverse=!reverse">Personal Time</a></th>
+		<th><a href="" ng-click="order='billed'; reverse=!reverse">Billed Hours</a></th>
 		<th>Report</th>
 	</thead>			
-	<tr ng-repeat="row in table">
+	<tr ng-repeat="row in table | orderBy:order:reverse">
 		<td ng-bind="row.date"></td>
 		<td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg"></td>
 		<td ng-bind="row.name"></td>
