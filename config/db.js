@@ -1,6 +1,5 @@
 var db = require('mysql');
 
-
 //pc
 var connection = db.createConnection({
 			        host : 'localhost',

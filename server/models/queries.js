@@ -57,8 +57,11 @@ module.exports = {
 														+	"LEFT JOIN members AS members2 ON members2.id = members.supervisor_id "
 														+	"LEFT JOIN locations AS locations2 ON locations2.id = members.location_id "
 														+	"WHERE members.business_id = 1";
+										console.log("in queries.js")
 										connection.query(qry, function(err, data) {
+
 										if (err) throw err;
+
 											res.json(data);
 										});
 	}
