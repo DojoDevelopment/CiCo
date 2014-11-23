@@ -131,3 +131,11 @@ input[readonly] {
   background-color: white !important;
   cursor: text !important;
 }
+
+input, button, select, textarea {
+  color: black;
+}
+table tr:nth-child(odd),
+table tr:nth-child(even){
+  background-color: transparent;
+}

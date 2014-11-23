@@ -10,8 +10,9 @@
         </h5>
         <div class='pull-right'>
           Location: 
-          <select>
-            <option value="all" ng-repeat="location in locations" value="{{location.id}}" ng-bind="location.name"></option>
+          <select ng-model="place">
+            <option value="">All</option>
+            <option ng-repeat="l in locations" value={{l.name}} ng-bind="l.name">
           </select>
         </div>
       </div>
@@ -37,7 +38,7 @@
       <th class='clk-btn'>Clock IN</th>
       <th class='clk-btn'>Clock OUT</th>
     </thead>
-    <tr ng-repeat="row in table | orderBy:order:reverse">
+    <tr ng-repeat="row in table | filter: { locations:place } | orderBy:order:reverse">
       <td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg"></td>
       <td ng-bind="row.name"></td>
       <td ng-bind="row.title"></td>

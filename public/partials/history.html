@@ -12,17 +12,20 @@
 			
 			<div class='filters'>	
 				Location: 
-				<select>
-					<option ng-repeat="location in locations" value={{location.id}} ng-bind="location.name"></option>
-				</select>
+		    <select ng-model="place">
+		      <option value="">All</option>
+		      <option ng-repeat="l in locations" value={{l.name}} ng-bind="l.name">
+		    </select>
 			</div>
 
-			<div class='filters'>
+			<div class="filters">
 				Name:    
-				<select>
-					<option ng-repeat='member in members' value={{members.id}} ng-bind="member.name"></option>
-				</select>	
+		    <select ng-model="member">
+		      <option value="">All</option>
+		      <option ng-repeat="m in members | filter : place" value={{m.name}} ng-bind="m.name"></option>
+		    </select>
 			</div>
+			
 	<br>
 	<div class='filters'>
 		Date: <input type='date'>
@@ -60,16 +63,16 @@
 		<th><a href="" ng-click="order='personal'; reverse=!reverse">Personal Time</a></th>
 		<th><a href="" ng-click="order='billed'; reverse=!reverse">Billed Hours</a></th>
 		<th>Report</th>
-	</thead>			
-	<tr ng-repeat="row in table | orderBy:order:reverse">
-		<td ng-bind="row.date"></td>
+	</thead>
+	<tr ng-repeat="row in table | filter: { location:place, name:member } | orderBy:order:reverse">
+		<td ng-bind="row.date | date:'dd/M (EEE)'"></td>
 		<td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg"></td>
 		<td ng-bind="row.name"></td>
 		<td ng-bind="row.title"></td>
 		<td ng-bind="row.team"></td>
 		<td ng-bind="row.location"></td>
-		<td ng-bind="row.clock_in"></td>
-		<td ng-bind="row.clock_out"></td>
+		<td ng-bind="row.clock_in | date:'shortTime'"></td>
+		<td ng-bind="row.clock_out | date:'shortTime'"></td>
 		<td ng-bind="row.personal"></td>
 		<td ng-bind="row.billed"></td>
 		<td ng-bind="row.report"></td>
