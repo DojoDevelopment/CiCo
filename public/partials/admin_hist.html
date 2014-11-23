@@ -60,18 +60,18 @@
 			<th>Billed Hours</th>
 			<th>Report</th>
 		</thead>
-		<tr ng-repeat="history in histories">
-			<td ng-bind="history.name"></td>
+		<tr ng-repeat="row in table">
+			<td ng-bind="row.date"></td>
 			<td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg"></td>
-			<td ng-bind="history.name"></td>
-			<td ng-bind="history.title"></td>
-			<td ng-bind="history.team"></td>
-			<td ng-bind="history.location"></td>
-			<td ng-bind="history.clock_in"></td>
-			<td ng-bind="history.clock_out"></td>
-			<td ng-bind="history.personal"></td>
-			<td ng-bind="history.billed"></td>
-			<td ng-bind="history.report"></td>
+			<td ng-bind="row.name"></td>
+			<td ng-bind="row.title"></td>
+			<td ng-bind="row.team"></td>
+			<td ng-bind="row.location"></td>
+			<td ng-bind="row.clock_in"></td>
+			<td ng-bind="row.clock_out"></td>
+			<td ng-bind="row.personal"></td>
+			<td ng-bind="row.billed"></td>
+			<td ng-bind="row.report"></td>
 		</tr>
 	</table>
 </div>

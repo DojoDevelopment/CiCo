@@ -21,6 +21,6 @@ app.controller('history', function($scope, HistoryFactory) {
 	});
 
 	HistoryFactory.get_factory_history_table(function(data){
-		$scope.histories = data;
+		$scope.table = data;
 	});
 });
