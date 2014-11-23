@@ -5,7 +5,8 @@ app.config(function($routeProvider){
 	.when('/', { 
 	
 		templateUrl: 'partials/index.html',
-		css: 'stylesheets/login.css'		
+		css: 'stylesheets/login.css'
+
 	}).when('/dashboard', {
 	
 		templateUrl: 'partials/dashboard.html',
@@ -14,7 +15,7 @@ app.config(function($routeProvider){
 	}).when('/history', {
 	
 		templateUrl: 'partials/history.html',
-		controller: 'hist'
+		controller: 'history'
 	
 	}).when('/admin/dashboard', {
 	
@@ -24,11 +25,10 @@ app.config(function($routeProvider){
 	}).when('/admin/history', {
 	
 		templateUrl: 'partials/admin_hist.html',
-		controller: 'admin_hist'
+		controller: 'history'
 	
 	}).otherwise({
 	
 		redirectTo: '/',
-	
 	});
 });

@@ -7,7 +7,6 @@ var connection = db.createConnection({
 			        user : 'root',
 	        password : '',
 					 database: 'cd_login',
- multipleStatements: true
 });
 
 //mac
@@ -16,7 +15,6 @@ var connection = db.createConnection({
 //              user : 'root',
 //          password : 'root',
 //          database : 'cd_login',
-// multipleStatements: true,
 //              port : 8889
 // });
 

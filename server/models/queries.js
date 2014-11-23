@@ -43,7 +43,7 @@ module.exports = {
 										res.json(data);
 									});
 	},
-	history_table : function(callback) {
+	history_table : function(req, res) {
 										var qry = "SELECT DATE_FORMAT(sessions.created_at, '%c/%d (%a)') as 'date', "
 														+	  "members.picture, members.name, members.title, members.team, members2.name as supervisor, "
 														+   "locations2.name as location, "

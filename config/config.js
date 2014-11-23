@@ -11,22 +11,22 @@ var path = require('path')
       parseAppId: 'PARSE_APP_ID',
       parseApiKey: 'PARSE_MASTER_KEY'
     }
-module.exports = {
-  development: {
-    db: 'mongodb://localhost/FullMean',
-    root: rootPath,
-    notifier: notifier,
-    app: {
-      name: 'Customers Applicaton'
-    }
-  },
-  test: {
-    db: 'mongodb://localhost/FullMean-test',
-    root: rootPath,
-    notifier: notifier,
-    app: {
-      name: 'Customers Application'
-    }
-  },
-  production: {}
-}
+// module.exports = {
+//   development: {
+//     db: 'mongodb://localhost/FullMean',
+//     root: rootPath,
+//     notifier: notifier,
+//     app: {
+//       name: 'Customers Applicaton'
+//     }
+//   },
+//   test: {
+//     db: 'mongodb://localhost/FullMean-test',
+//     root: rootPath,
+//     notifier: notifier,
+//     app: {
+//       name: 'Customers Application'
+//     }
+//   },
+//   production: {}
+// }
