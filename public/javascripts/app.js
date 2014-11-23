@@ -28,7 +28,8 @@ app.config(function($routeProvider){
 		controller: 'history'
 	
 	}).otherwise({
-	
+
 		redirectTo: '/',
+
 	});
 });
