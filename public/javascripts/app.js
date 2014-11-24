@@ -9,12 +9,12 @@ app.config(function($routeProvider){
 	}).when('/dashboard', {
 	
 		templateUrl: 'partials/dashboard.html',
-		controller: 'dashboard'
+		controller: 'DashboardController'
 	
 	}).when('/history', {
 	
 		templateUrl: 'partials/history.html',
-		controller: 'history'
+		controller: 'HistoryController'
 	
 	}).when('/admin/dashboard', {
 	
