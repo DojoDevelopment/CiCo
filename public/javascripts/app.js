@@ -16,7 +16,7 @@ app.config(function($routeProvider){
 	}).when('/history', {
 	
 		templateUrl: 'partials/history.html',
-		controller: 'HistoryController'
+		controller: 'history'
 	
 	}).when('/admin/dashboard', {
 	

@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7e9f379f6253c15d75f174b5a300ab18e7691a5e
 	<div class='jumbotron'>
 		<h1>Employee History</h1>
 	</div>
@@ -11,10 +14,15 @@
 			</h5>
 			<div id='filters' class='pull-right'>
 
+<<<<<<< HEAD
 				<div class='filters'>	
 					Location: 
 
 
+=======
+<!-- 				<div class='filters'>	
+					Location: 			
+>>>>>>> 7e9f379f6253c15d75f174b5a300ab18e7691a5e
 					<div class="btn-group" data-ng-class="{open: open}">
 						<button class="btn">Filter by Location</button>
 						<button class="btn dropdown-toggle" data-ng-click="open=!open"><span class="caret"></span>
@@ -35,13 +43,17 @@
 					</div>
 
 				</ul>
+<<<<<<< HEAD
 			</div>
+=======
+			</div> -->
+>>>>>>> 7e9f379f6253c15d75f174b5a300ab18e7691a5e
 
 
 			<div class='filters'>	
 				Location: 
 				<select>
-					<!-- <option ng-repeat='location in locations' > -->
+					<option value="">All</option>
 					<option ng-repeat="location in locations" value={{location.id}} ng-bind ='location.name' ng-model ="filter_location"></option>
 				</select>
 
@@ -93,10 +105,16 @@
 			<th><a href="" ng-click="order='personal'; reverse=!reverse">Personal Time</a></th>
 			<th><a href="" ng-click="order='billed'; reverse=!reverse">Billed Hours</a></th>
 			<th>Report</th>
+<<<<<<< HEAD
 
 		</thead>			
 		<tr ng-repeat="history in histories | filter:filter_location">
 			<td>{{history.date}}</td>
+=======
+		</thead>			
+		<tr ng-repeat="row in table | filter:filter_location">
+			<td ng-bind="history.date"></td>
+>>>>>>> 7e9f379f6253c15d75f174b5a300ab18e7691a5e
 			<td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg"></td>
 			<td ng-bind="row.name"></td>
 			<td ng-bind="row.title"></td>
@@ -108,6 +126,11 @@
 			<td ng-bind="row.billed"></td>
 			<td ng-bind="row.report"></td>
 		</tr>
+<<<<<<< HEAD
 
 	</table>
 
+=======
+	</table>
+</div> <!-- end of HistoryController div -->
+>>>>>>> 7e9f379f6253c15d75f174b5a300ab18e7691a5e

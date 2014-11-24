@@ -10,14 +10,15 @@ app.controller('user_dashboard', function($scope, TableFactory, ListFactory, Clo
 	});
 
 	$scope.clockIn = function() {
-		ClockingFactory.factory_clock_in(this.row.id);
+		var user = this.row.id;
+		ClockingFactory.factory_clock_in(user);
 	};
 
 	$scope.clockOut = function() {
 		var user = this.row.id;
 		var session = this.row.session_id;
 		ClockingFactory.factory_clock_out(session, user);
-  };
+	};
 
 });
 
@@ -48,4 +49,5 @@ app.controller('history', function($scope, TableFactory, ListFactory) {
 		$scope.table = data;
 		$scope.order = '-date';
 	});
+	
 });
