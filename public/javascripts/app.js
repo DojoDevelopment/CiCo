@@ -10,7 +10,7 @@ app.config(function($routeProvider){
 	}).when('/dashboard', {
 	
 		templateUrl: 'partials/dashboard.html',
-		controller: 'dashboard'
+		controller: 'user_dashboard'
 	
 	}).when('/history', {
 	
@@ -20,7 +20,7 @@ app.config(function($routeProvider){
 	}).when('/admin/dashboard', {
 	
 		templateUrl: 'partials/admin_dash.html',
-		controller: 'dashboard'
+		controller: 'admin_dashboard'
 	
 	}).when('/admin/history', {
 	

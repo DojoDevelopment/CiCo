@@ -25,8 +25,8 @@ module.exports = {
 			res.json(data);
 		});
 	},
-	user_table : function(req, res) {
-		var qry = "SELECT members.picture, members.name, members.title, members.team, "
+	user_dash : function(req, res) {
+		var qry = "SELECT members.id, members.picture, members.name, members.title, members.team, "
 		+     "members2.name AS supervisor, "
 		+     "locations2.name AS locations, "
 		+     "members.note "
@@ -41,8 +41,8 @@ module.exports = {
 			res.json(data);
 		});
 	}, 
-	admin_table : function(req, res) {
-		var qry = "SELECT members.picture, members.name, members.status, members.title, members.team, "
+	admin_dash : function(req, res) {
+		var qry = "SELECT members.id, members.picture, members.name, members.status, members.title, members.team, "
 		+     "members2.name AS supervisor, "
 		+     "locations2.name AS locations, "
 		+     "members.note "

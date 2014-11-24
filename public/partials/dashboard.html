@@ -45,8 +45,8 @@
       <td ng-bind="row.team"></td>
       <td ng-bind="row.supervisor"></td> 
       <td ng-bind="row.locations"></td> 
-      <td><button class='btn btn-in'>Clock IN</button></td>
-      <td><button class='btn btn-out osx demo'>Clock OUT</button></td>  
+      <td><button class="btn btn-in" ng-click="clockIn()">Clock IN</button></td>
+      <td><button class="btn btn-out osx demo" ng-click="clockOut()">Clock OUT</button></td>  
     </tr>
   </table>
   
