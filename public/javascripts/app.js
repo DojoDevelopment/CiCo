@@ -11,11 +11,12 @@ app.config(function($routeProvider){
 	
 		templateUrl: 'partials/dashboard.html',
 		controller: 'user_dashboard'
+
 	
 	}).when('/history', {
 	
 		templateUrl: 'partials/history.html',
-		controller: 'history'
+		controller: 'HistoryController'
 	
 	}).when('/admin/dashboard', {
 	
