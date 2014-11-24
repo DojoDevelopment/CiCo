@@ -100,7 +100,7 @@ module.exports = {
 		});
 	
 	}, clock_out : function(req, res){
-console.log(req);
+
 		var id = req.params.id;
 		var session = req.params.session;
 
