@@ -26,7 +26,11 @@ module.exports = {
 		});
 	
 	}, user_dash : function(req, res) {
-		var qry = "SELECT members.id, members.picture, members.name, members.title, members.team, "
+		var qry = "SELECT members.id, "
+		+			"members.picture, "
+		+			"members.name, "
+		+			"members.title, "
+		+			"members.team, "
 		+     "members2.name AS supervisor, "
 		+     "locations2.name AS locations, "
 		+			"sessions2.clock_in, "
@@ -34,9 +38,12 @@ module.exports = {
 		+   "FROM members "
 		+   "LEFT JOIN locations AS locations2 ON locations2.id = members.location_id "
 		+   "LEFT JOIN members AS members2 ON members2.id = members.supervisor_id "
-		+		"LEFT JOIN sessions AS sessions2 on sessions2.member_id = members.id "
-		+		"WHERE DATE(sessions2.clock_in) LIKE CURDATE() "
-		+   "AND members.business_id = 1";
+		+		"LEFT JOIN ("
+		+			"SELECT id, member_id, clock_in, clock_out "
+		+			"FROM sessions "
+		+			"WHERE DATE(sessions.clock_in) = CURDATE()"
+		+		") AS sessions2 on sessions2.member_id = members.id "
+		+		"WHERE members.business_id = 1";
 
 		connection.query(qry, function(err, data) {
 
@@ -94,7 +101,6 @@ module.exports = {
 	}, clock_out : function(req, res){
 
 		var id = req.params.id;
-		console.log(id);
 		var qry = "UPDATE sessions "
 						+ "SET clock_out=NOW(), "
 						+		"personal_time=1.5, "
@@ -107,7 +113,6 @@ module.exports = {
 			if (err) throw err;
 			res.json(data);
 		});
-
 
 	}
 };
