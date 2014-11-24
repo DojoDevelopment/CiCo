@@ -34,7 +34,8 @@ module.exports = {
 		+     "members2.name AS supervisor, "
 		+     "locations2.name AS locations, "
 		+			"sessions2.clock_in, "
-    +			"sessions2.clock_out "
+    +			"sessions2.clock_out, "
+    +			"sessions2.id AS session_id "
 		+   "FROM members "
 		+   "LEFT JOIN locations AS locations2 ON locations2.id = members.location_id "
 		+   "LEFT JOIN members AS members2 ON members2.id = members.supervisor_id "
@@ -99,17 +100,19 @@ module.exports = {
 		});
 	
 	}, clock_out : function(req, res){
-
+console.log(req);
 		var id = req.params.id;
+		var session = req.params.session;
+
 		var qry = "UPDATE sessions "
 						+ "SET clock_out=NOW(), "
 						+		"personal_time=1.5, "
 						+ 	"report='Coffee break', "
 						+		"updated_at=Now(), "
 						+		"updated_by=? "
-						+ "WHERE id=7";
+						+ "WHERE id=?";
 
-		connection.query(qry, id, function(err, data) {
+		connection.query(qry, [id, session], function(err, data) {
 			if (err) throw err;
 			res.json(data);
 		});

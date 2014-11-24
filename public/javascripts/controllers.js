@@ -14,7 +14,9 @@ app.controller('user_dashboard', function($scope, TableFactory, ListFactory, Clo
 	};
 
 	$scope.clockOut = function() {
-		ClockingFactory.factory_clock_out(this.row.id);
+		var user = this.row.id;
+		var session = this.row.session_id;
+		ClockingFactory.factory_clock_out(session, user);
   };
 
 });
