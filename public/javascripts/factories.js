@@ -41,3 +41,22 @@ app.factory('ListFactory', function($http){
 	};
 
 });
+
+app.factory('ClockingFactory', function($http){
+	return {
+
+		factory_clock_in: function(id){
+		
+			$http.get('/api/clock_in/'+ id).success(function(){
+				console.log('clocked in');
+			});
+		
+		}, factory_clock_out: function(id){
+		
+			$http.get('api/clock_out/' + id).success(function(){
+				console.log('clocked out');
+			});
+		}
+	};
+
+});

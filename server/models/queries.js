@@ -12,8 +12,8 @@ module.exports = {
 			if (err) throw err;
 			res.json(data);
 		});
-	},
-	members 	 : function(req, res) {
+	
+	}, members 	 : function(req, res) {
 		var qry = "SELECT members.name, locations.name as location "
 		+ "FROM members "
 		+ "LEFT JOIN locations ON members.location_id = locations.id "
@@ -24,24 +24,27 @@ module.exports = {
 			if (err) throw err;
 			res.json(data);
 		});
-	},
-	user_dash : function(req, res) {
+	
+	}, user_dash : function(req, res) {
 		var qry = "SELECT members.id, members.picture, members.name, members.title, members.team, "
 		+     "members2.name AS supervisor, "
 		+     "locations2.name AS locations, "
-		+     "members.note "
+		+			"sessions2.clock_in, "
+    +			"sessions2.clock_out "
 		+   "FROM members "
 		+   "LEFT JOIN locations AS locations2 ON locations2.id = members.location_id "
 		+   "LEFT JOIN members AS members2 ON members2.id = members.supervisor_id "
-		+   "WHERE members.business_id = 1";
+		+		"LEFT JOIN sessions AS sessions2 on sessions2.member_id = members.id "
+		+		"WHERE DATE(sessions2.clock_in) LIKE CURDATE() "
+		+   "AND members.business_id = 1";
 
 		connection.query(qry, function(err, data) {
 
 			if (err) throw err;
 			res.json(data);
 		});
-	}, 
-	admin_dash : function(req, res) {
+	
+	}, admin_dash : function(req, res) {
 		var qry = "SELECT members.id, members.picture, members.name, members.status, members.title, members.team, "
 		+     "members2.name AS supervisor, "
 		+     "locations2.name AS locations, "
@@ -56,8 +59,8 @@ module.exports = {
 			if (err) throw err;
 			res.json(data);
 		});
-	},
-	history_table : function(req, res) {
+
+	}, history_table : function(req, res) {
 		var qry = "SELECT sessions.created_at as 'date', "
 		+	  "members.picture, members.name, members.title, members.team, members2.name as supervisor, "
 		+   "members.location_id as location_id, "
@@ -78,5 +81,33 @@ module.exports = {
 			if (err) throw err;
 			res.json(data);
 		});
+	}, clock_in : function(req, res){
+
+		var id = req.params.id;
+		var qry = "INSERT INTO sessions (member_id, clock_in, created_at) VALUES (?, NOW(), NOW())";
+
+		connection.query(qry, id, function(err, data) {
+			if (err) throw err;
+			res.json(data);
+		});
+	
+	}, clock_out : function(req, res){
+
+		var id = req.params.id;
+		console.log(id);
+		var qry = "UPDATE sessions "
+						+ "SET clock_out=NOW(), "
+						+		"personal_time=1.5, "
+						+ 	"report='Coffee break', "
+						+		"updated_at=Now(), "
+						+		"updated_by=? "
+						+ "WHERE id=7";
+
+		connection.query(qry, id, function(err, data) {
+			if (err) throw err;
+			res.json(data);
+		});
+
+
 	}
 };

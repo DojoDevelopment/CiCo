@@ -45,8 +45,18 @@
       <td ng-bind="row.team"></td>
       <td ng-bind="row.supervisor"></td> 
       <td ng-bind="row.locations"></td> 
-      <td><button class="btn btn-in" ng-click="clockIn()">Clock IN</button></td>
-      <td><button class="btn btn-out osx demo" ng-click="clockOut()">Clock OUT</button></td>  
+      <td>
+        <div ng-if="row.clock_in == 'null';">
+          <button class="btn btn-in" ng-click="clockIn()">Clock IN</button>
+        </div>
+        <div ng-if="row.clock_in != 'null';" ng-bind="row.clock_in | date:'shortTime'"></div>
+      </td>
+      <td>
+        <div ng-if="row.clock_in != 'null' && row.clock_out == null">
+          <button class="btn btn-out osx demo" ng-click="clockOut()">Clock OUT</button>
+        </div>
+        <div ng-if="row.clock_out != 'null'" ng-bind="row.clock_out | date:'shortTime'"></div>
+      </td>
     </tr>
   </table>
   

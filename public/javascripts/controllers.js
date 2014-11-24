@@ -1,4 +1,4 @@
-app.controller('user_dashboard', function($scope, TableFactory, ListFactory) {
+app.controller('user_dashboard', function($scope, TableFactory, ListFactory, ClockingFactory) {
 
 	ListFactory.get_factory_locations(function(data){
 		$scope.locations = data;
@@ -9,12 +9,12 @@ app.controller('user_dashboard', function($scope, TableFactory, ListFactory) {
 		$scope.order = '-name';
 	});
 
-	$scope.clockIn = function(id) {
-		console.log(this.row.id);
-  };
+	$scope.clockIn = function() {
+		ClockingFactory.factory_clock_in(this.row.id);
+	};
 
-	$scope.clockOut = function(id) {
-		console.log(this.row.id);
+	$scope.clockOut = function() {
+		ClockingFactory.factory_clock_out(this.row.id);
   };
 
 });
