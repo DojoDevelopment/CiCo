@@ -46,6 +46,7 @@ app.controller('history', function($scope, TableFactory, ListFactory) {
 	});
 
 	TableFactory.get_factory_history_table(function(data){
+		console.log('in history controller TableFactory.get_admin_factory_dashboard and table data is: ', data);
 		$scope.table = data;
 		$scope.order = '-date';
 	});

@@ -67,15 +67,15 @@
 		</thead>
 		<tbody>
 			<tr ng-repeat="row in table | filter: { location:place, name:member } | orderBy:order:reverse">
-				<td ng-bind="row.date | date:'dd/M (EEE)'"></td>
+				<td ng-bind="row.created_at | date:'dd/M (EEE)'"></td>
 				<td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg"></td>
 				<td ng-bind="row.name"></td>
 				<td ng-bind="row.title"></td>
 				<td ng-bind="row.team"></td>
-				<td ng-bind="row.location"></td>
+				<td ng-bind="row.loc"></td>
 				<td ng-bind="row.clock_in | date:'shortTime'"></td>
 				<td ng-bind="row.clock_out | date:'shortTime'"></td>
-				<td ng-bind="row.personal"></td>
+				<td ng-bind="row.personal_time"></td>
 				<td ng-bind="row.billed"></td>
 				<td ng-bind="row.report"></td>
 			</tr>
