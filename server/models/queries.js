@@ -85,7 +85,7 @@ module.exports = {
 		// +	"LEFT JOIN locations AS locations2 ON locations2.id = members.location_id "
 		// +	"WHERE members.business_id = 1 ";
 
-		var qry = "SELECT sessions.created_at, members.name, title, team, locations.name AS loc, clock_in, clock_out, personal_time, report FROM sessions "
+		var qry = "SELECT sessions.created_at, members.name, title, team, locations.name AS loc, clock_in, clock_out, personal_time, report, TIMEDIFF(clock_out,clock_in) AS billed FROM sessions "
 				+ " LEFT JOIN members ON sessions.member_id = members.id "
 				+ " LEFT JOIN locations ON locations.id = members.location_id";
 
