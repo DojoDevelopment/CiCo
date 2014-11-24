@@ -11,18 +11,19 @@
         </h5>
         <div class='pull-right'>
           Location: 
-          <select>
-            <option value="all" ng-repeat="location in locations" value="{{location.id}}" ng-bind="location.name"></option>
+          <select ng-model="place">
+            <option value="">All</option>
+            <option ng-repeat="l in locations" value={{l.name}} ng-bind="l.name">
           </select>
         </div>
       </div>
     </div>
     <div class="switch-toggle switch-candy">
       <input id="dashboard" name="view" type="radio" checked>
-      <label for="dashboard" onclick="location.href='dashboard'">Dashboard</label>
+      <label for="dashboard" onclick="location.href='/#/dashboard'">Dashboard</label>
 
       <input id="history" name="view" type="radio">
-      <label for="history" onclick="location.href='history'">History</label>
+      <label for="history" onclick="location.href='/#/history'">History</label>
 
       <a></a>
     </div>
@@ -30,34 +31,50 @@
   <table class='table'>
     <thead>
       <th>Picture</th>
-      <th>Name</th>
-      <th>Title</th>
-      <th>Team</th>
-      <th>Supervisor</th>
-      <th>Location</th>
+      <th><a href="" ng-click="order='name'; reverse=!reverse">Name</a></th>
+      <th><a href="" ng-click="order='title'; reverse=!reverse">Title</a></th>
+      <th><a href="" ng-click="order='team'; reverse=!reverse">Team</a></th>
+      <th><a href="" ng-click="order='supervisor'; reverse=!reverse">Supervisor</a></th>
+      <th><a href="" ng-click="order='location'; reverse=!reverse">Location</a></th>
       <th class='clk-btn'>Clock IN</th>
       <th class='clk-btn'>Clock OUT</th>
     </thead>
-    <tr ng-repeat="row in table">
+    <tr ng-repeat="row in table | filter: { locations:place } | orderBy:order:reverse">
       <td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg"></td>
-      <td nd-bind="row.name"></td> 
+      <td ng-bind="row.name"></td>
       <td ng-bind="row.title"></td>
       <td ng-bind="row.team"></td>
       <td ng-bind="row.supervisor"></td> 
       <td ng-bind="row.locations"></td> 
-      <td><a href=""> Show </a> / <a href=""> Edit </a></td>
-      <td><button class='btn btn-in'>Clock IN</button></td>
-      <td><button class='btn btn-out osx demo'>Clock OUT</button></td>  
+      <td>
+        <div ng-if="row.clock_in == null">
+          <button class="btn btn-in" ng-click="clockIn()">Clock IN</button>
+        </div>
+        <div ng-if="row.clock_in != null" ng-bind="row.clock_in | date:'shortTime'"></div>
+      </td>
+      <td>
+        <div ng-if="row.clock_in != null && row.clock_out == null">
+          <button class="btn btn-out osx demo" ng-click="clockOut()">Clock OUT</button>
+        </div>
+        <div ng-if="row.clock_out != null" ng-bind="row.clock_out | date:'shortTime'"></div>
+      </td>
     </tr>
   </table>
   
 
   <!-- modal content -->
   <div id="osx-modal-content">
-    <div id="osx-modal-title"><h3>Employee <span>Clock Out</span><h3></div>
-    <div class="close"><a href="#" class="simplemodal-close">x</a></div>
+    <div id="osx-modal-title">
+      <h3>Employee 
+        <span>Clock Out</span>
+      <h3>
+    </div>
+    <div class="close">
+      <a href="#" class="simplemodal-close">x</a>
+    </div>
     <div id="osx-modal-data">
       <div class='container'>
+<<<<<<< HEAD
     <h3>Hi <!-- PLACEHOLDER -->!</h3>
     <p>How many hours were used for personal time (lunch breaks, personal errands, pro-longed breaks, etc) that should be deducted from pay?</p>
     <form>
@@ -80,3 +97,25 @@
   </div>
   </div>
 </div> <!-- end of DashboardController -->
+=======
+        <h3>Hi <!-- PLACEHOLDER -->!</h3>
+        <p>How many hours were used for personal time (lunch breaks, personal errands, pro-longed breaks, etc) that should be deducted from pay?</p>
+        <form>
+          <select>
+            <option>15 minutes</option>
+            <option>30 minutes</option>
+            <option>45 minutes</option>
+            <option>1 hour</option>
+            <option>1.5 hours</option>
+            <option>2 hours</option>
+            <option>None</option>
+            <option>Other</option>
+          </select>
+          <h3>Report <span>*mandatory</span> </h3>
+          <h4>What did you work on? What did you accomplish?</h4>
+          <textarea class='modal_input' placeholder='example: Curriculum Update (1.5 hours), Lecture (1.0 hours), Assisting Students (3.0 hours), Meeting (!.0 hr), etc.'></textarea><br>
+          <button class="btn btn-out" type="submit">Clock Out</button> 
+      </form>
+    </div>
+  </div>
+>>>>>>> 27af9e3841d6abdfc55a8af1649dee436dbf1266
