@@ -35,13 +35,9 @@ module.exports = {
 		+     "members2.name AS supervisor, "
 		+     "locations2.name AS locations, "
 		+			"sessions2.clock_in, "
-<<<<<<< HEAD
-	    +			"sessions2.clock_out, "
-	    +			"sessions2.id AS session_id "
-=======
 		+			"sessions2.clock_out, "
 		+			"sessions2.id AS session_id "
->>>>>>> 7e9f379f6253c15d75f174b5a300ab18e7691a5e
+
 		+   "FROM members "
 		+   "LEFT JOIN locations AS locations2 ON locations2.id = members.location_id "
 		+   "LEFT JOIN members AS members2 ON members2.id = members.supervisor_id "
@@ -51,10 +47,6 @@ module.exports = {
 		+			"WHERE DATE(sessions.clock_in) = CURDATE()"
 		+		") AS sessions2 on sessions2.member_id = members.id "
 		+		"WHERE members.business_id = 1";
-<<<<<<< HEAD
-
-=======
->>>>>>> 7e9f379f6253c15d75f174b5a300ab18e7691a5e
 
 		connection.query(qry, function(err, data) {
 

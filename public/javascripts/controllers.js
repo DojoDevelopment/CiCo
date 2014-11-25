@@ -32,6 +32,14 @@ app.controller('admin_dashboard', function($scope, TableFactory, ListFactory) {
 		$scope.table = data;
 		$scope.order = '-name';
 	});
+	$scope.add_employeeModal = false;
+    $scope.add_employee = function() {
+	    $scope.add_employeeModal = !$scope.add_employeeModal;
+	  };
+	$scope.settingsModal = false;
+	$scope.settings = function() {
+		$scope.settingsModal = !$scope.settingsModal;
+	};
 
 });
 
@@ -49,5 +57,5 @@ app.controller('history', function($scope, TableFactory, ListFactory) {
 		$scope.table = data;
 		$scope.order = '-date';
 	});
-	
-});
+});	
+
