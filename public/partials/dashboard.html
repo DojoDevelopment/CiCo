@@ -6,7 +6,8 @@
     <div class='info'>
       <div>
         <h5>
-          <strong>Contractors or Part Time Employees in CodingDojo (all locations)</strong> <br>
+          <strong>Contractors or Part Time Employees in CodingDojo (all locations)</strong>
+          <br>
           If you're paid hourly, it's mandatory that you clock in/out whenever you work.
         </h5>
         <div class='pull-right'>
@@ -39,7 +40,7 @@
       <th class='clk-btn'>Clock IN</th>
       <th class='clk-btn'>Clock OUT</th>
     </thead>
-    <tr ng-repeat="row in table | filter: { locations:place } | orderBy:order:reverse">
+    <tr value="0" ng-repeat="row in table | filter: { locations:place } | orderBy:order:reverse">
       <td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg"></td>
       <td ng-bind="row.name"></td>
       <td ng-bind="row.title"></td>
@@ -53,7 +54,7 @@
         <div ng-if="row.clock_in != null" ng-bind="row.clock_in | date:'shortTime'"></div>
       </td>
       <td>
-        <div ng-if="row.clock_in != null && row.clock_out == null">
+        <div ng-if="row.clock_in != null &amp;&amp; row.clock_out == null">
           <button class="btn btn-out osx demo" ng-click="clockOut()">Clock OUT</button>
         </div>
         <div ng-if="row.clock_out != null" ng-bind="row.clock_out | date:'shortTime'"></div>
