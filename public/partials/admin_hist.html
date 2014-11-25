@@ -48,6 +48,7 @@
 
 		<input id="history" name="view" type="radio">
 		<label for="history" onclick="location.href='/#/admin/history'">History</label>
+		<a></a>
 	</div>
 
 	<table class='table'>
@@ -67,7 +68,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="row in table | filter: { location:place, name:member } | orderBy:order:reverse">
+			<tr ng-repeat="row in table | filter: { loc:place, name:member } | orderBy:order:reverse">
 				<td ng-bind="row.created_at | date: 'dd/M (EEE)'"></td>
 				<td><img height="30" width="30" class="img-rounded" src="/img/dev.jpg"></td>
 				<td ng-bind="row.name"></td>
