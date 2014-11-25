@@ -1,3 +1,4 @@
+
 	<div class='jumbotron'>
 		<h1>Employee History</h1>
 	</div>
@@ -8,27 +9,27 @@
 				<strong>Contractors or Part Time Employees in CodingDojo (all locations)</strong> <br>
 				If you're paid hourly, it's mandatory that you clock in/out whenever you work.
 			</h5>
+			
 			<div class='pull-right'>
-				<div class='filters'>	
 					Location: 
-				<select ng-model="location">
+				<select ng-model="place">
 			      	<option value="">All</option>
-			      	<option ng-repeat="location in locations | filter:location" value={{location.name}} ng-bind="location.name"></option>
+			      	<option ng-repeat="l in locations" value={{l.name}} ng-bind="l.name">
 			    </select>
-				</div>
+		
 
 				<div class="filters">
 					Name:    
 			    <select ng-model="member">
 			      <option value="">All</option>
-			      <option ng-repeat="member in members | filter:member" value={{member.name}} ng-bind="member.name"></option>
+			      <option ng-repeat="member in members | filter:member" value={{member.name}} ng-bind="member.name">
 			    </select>
 				</div>
 			</div>
 			
 			<br>
+			
 			<div class='filters pull-right'>
-
 				Start Date: <input type='date' ng-model='start_date' name='start_date'>
 				End Date:  	<input type='date' ng-model='end_date' name='end_date'>
 				<br>
@@ -44,8 +45,8 @@
 		        		<li><button ng-click="dateFilter('last_month')">Last Month</button></li>
 					</ul>
 				</div>	
-
 			</div>
+
 	<div class="switch-toggle switch-candy">
 
 		<input id="dashboard" name="view" type="radio" checked>
@@ -57,11 +58,8 @@
 		<a></a>
 	</div>
 
-	<input class='form-control' type='text' placeholder='search' ng-model="filter_name">
-
 	<table class='table'>
 		<thead>
-
 			<tr>
 				<th><a href="" ng-click="order='date'; reverse=!reverse">Date</a></th>
 				<th>Picture</th>
@@ -76,24 +74,19 @@
 				<th>Report</th>
 			</tr>
 		</thead>
-		<tbody>
-
-			<tr ng-repeat="row in table | filter: { location:place, name:member } | orderBy:order:reverse">
+			<tr value='0' ng-repeat="row in table | filter: { locations:place, name:member } | orderBy:order:reverse">
 				<td ng-bind="row.created_at | date:'M/dd (EEE)'"></td>
-
 				<td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg"></td>
 				<td ng-bind="row.name"></td>
 				<td ng-bind="row.title"></td>
 				<td ng-bind="row.team"></td>
-				<td ng-bind="row.loc"></td>
+				<td ng-bind="row.locations"></td>
 				<td ng-bind="row.clock_in | date:'shortTime'"></td>
 				<td ng-bind="row.clock_out | date:'shortTime'"></td>
 				<td ng-bind="row.personal_time	"></td>
 				<td ng-bind="row.billed"></td>
 				<td ng-bind="row.report"></td>
 			</tr>
-		</tbody>
-
 	</table>
 
 </div> <!-- end of HistoryController div -->
