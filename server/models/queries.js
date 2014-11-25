@@ -37,6 +37,7 @@ module.exports = {
 		+			"sessions2.clock_in, "
 		+			"sessions2.clock_out, "
 		+			"sessions2.id AS session_id "
+
 		+   "FROM members "
 		+   "LEFT JOIN locations AS locations2 ON locations2.id = members.location_id "
 		+   "LEFT JOIN members AS members2 ON members2.id = members.supervisor_id "
