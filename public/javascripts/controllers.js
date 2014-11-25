@@ -76,11 +76,8 @@ app.controller('history', function($scope, TableFactory, ListFactory) {
 		$scope.table = data;
 		$scope.order = '-date';
 	});
-<<<<<<< HEAD
-});	
 
-=======
-        
+});	
     
     $scope.dateFilter = function(date_range) {
     	
@@ -150,6 +147,3 @@ app.controller('history', function($scope, TableFactory, ListFactory) {
         }
    
     } //end of $scope.dateFilter function
-
-}); //end of history controller
->>>>>>> 573061a1924f887eb152b5f4dc405df7c9c1980f
