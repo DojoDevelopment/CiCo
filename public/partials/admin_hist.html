@@ -15,6 +15,7 @@
 			      	<option ng-repeat="l in locations" value={{l.name}} ng-bind="l.name">
 			    </select>
 
+<<<<<<< HEAD
 				<div class="filters">
 					Name:    
 			    <select ng-model="member">
@@ -50,7 +51,6 @@
 
 		<input id="history" name="view" type="radio">
 		<label for="history" onclick="location.href='/#/admin/history'">History</label>
-
 		<a></a>
 	</div>
 
@@ -74,6 +74,7 @@
 			<tr ng-repeat="row in table | filter: { locations:place, name:member } | orderBy:order:reverse">
 				<td ng-bind="row.created_at | date:'dd/M (EEE)'"></td>
 				<td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg"></td>
+
 				<td ng-bind="row.name"></td>
 				<td ng-bind="row.title"></td>
 				<td ng-bind="row.team"></td>
@@ -86,4 +87,5 @@
 			</tr>
 		</tbody>
 	</table>
+	<button class="btn btn-danger" ng-csv="csvBody" csv-header="csvHead" filename="history.csv">Download CSV</button>
 </div>

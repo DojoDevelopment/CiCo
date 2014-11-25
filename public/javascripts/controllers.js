@@ -66,6 +66,25 @@ app.controller('admin_dashboard', function($scope, TableFactory, ListFactory) {
 
 app.controller('history', function($scope, TableFactory, ListFactory) {
 
+
+	$scope.csvHead = ['Date', 'Picture', 'Name', 'Title', 'Team', 'Location', 
+									 'Clock IN', 'Clock OUT', 'Personal Time', 'Billed Hours', 'Report'];
+
+	$scope.csvBody = function(){
+	
+		ary = [];
+		var rows = document.getElementsByTagName('tr');
+		
+		for (var i=1; i < rows.length; i++){
+			var obj = new Object();
+			for (var j=0; j < rows[i].childElementCount; j++){
+				obj[j] = (j != 1 ? rows[i].cells[j].innerHTML : '*'); //check for picture
+			}
+			ary.push(obj);
+		}
+		return ary;
+	}
+
 	ListFactory.get_factory_locations(function(data){
 		$scope.locations = data;
 	});
@@ -78,6 +97,7 @@ app.controller('history', function($scope, TableFactory, ListFactory) {
 		console.log('in history controller TableFactory.get_admin_factory_dashboard and table data is: ', data);
 		$scope.table = data;
 		$scope.order = '-date';
+<<<<<<< HEAD
 	});
 
     $scope.dateFilter = function(date_range) {
