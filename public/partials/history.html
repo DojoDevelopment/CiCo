@@ -53,7 +53,7 @@
 			
 			<br>
 			<div class='filters'>
-				Date: <input type='date'>
+				 Date Range: <input ng-model="start_date", type='date'> to <input ng-model="end_date", type='date'>
 			</div><br>
 			<ul class='filters pull-right'>
 				<li><a href="">This Week</a></li>
@@ -75,8 +75,6 @@
 		<a></a>
 	</div>
 
-	<input class='form-control' type='text' placeholder='search' ng-model="filter_name">
-
 	<table class='table'>
 		<thead>
 			<tr>
@@ -94,7 +92,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="row in table | filter: { location:place, name:member } | orderBy:order:reverse">
+			<tr ng-repeat="row in table | filter: { location:place, name:member, date:start_date } | orderBy:order:reverse">
 				<td ng-bind="row.created_at | date:'M/dd (EEE)'"></td>
 				<td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg"></td>
 				<td ng-bind="row.name"></td>
