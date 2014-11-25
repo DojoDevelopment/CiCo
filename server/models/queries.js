@@ -44,8 +44,8 @@ module.exports = {
 		+			"SELECT id, member_id, clock_in, clock_out "
 		+			"FROM sessions "
 		+			"WHERE DATE(sessions.clock_in) = CURDATE() "
-		+		"WHERE members.business_id = 1 "
-		+		") AS sessions2 on sessions2.member_id = members.id ";
+		+		") AS sessions2 on sessions2.member_id = members.id "
+		+		"WHERE members.business_id = 1";
 
 		connection.query(qry, function(err, data) {
 
