@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute', 'routeStyles', 'directives']);
+var app = angular.module('myApp', ['ngRoute', 'routeStyles', 'ngSanitize', 'ngCsv']);
 
 app.config(function($routeProvider){
 	$routeProvider

@@ -15,9 +15,8 @@
 					<li>	
 					<div class="btn-group" data-ng-class="{open: open}">
 						<button class="btn">Filter by Location</button>
-						<button class="btn dropdown-toggle" data-ng-click="open=!open"><span class="caret"></span>
+						<button class="btn dropdown-toggle" data-ng-click="open=!open"><span class="caret"></span></button>
 
-						</button>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenu">
 							<li><a data-ng-click="checkAll()"><i class="icon-ok-sign"></i>Check All</a>
 
@@ -67,7 +66,7 @@
 				<li><button ng-click="dateFilter('this_week')">This week</button></li>
 				<li><button ng-click="dateFilter('last_week')">Last week</button></li>
 				<li><button ng-click="dateFilter('this_month')">This month</button></li>
-        		<li><button ng-click="dateFilter('last_month')">Last Month</button></li>
+        <li><button ng-click="dateFilter('last_month')">Last Month</button></li>
 			</ul>
 
 		</div>	
@@ -116,3 +115,4 @@
 			</tr>
 		</tbody>
 	</table>
+	<button class="btn btn-danger" ng-csv="csvBody" csv-header="csvHead" filename="history.csv">Download CSV</button>

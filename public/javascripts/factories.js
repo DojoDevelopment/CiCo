@@ -20,8 +20,8 @@ app.factory('TableFactory', function($http){
 				callback(data);
 			});
 		}
-	};
 
+	};
 });
 
 app.factory('ListFactory', function($http){
@@ -39,8 +39,8 @@ app.factory('ListFactory', function($http){
 				callback(data);
 			});
 		}
-	};
 
+	};
 });
 
 app.factory('ClockingFactory', function($http){
@@ -58,6 +58,6 @@ app.factory('ClockingFactory', function($http){
 				callback(data);
 			});
 		}
-	};
 
+	};
 });
