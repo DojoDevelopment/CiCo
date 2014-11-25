@@ -16,6 +16,7 @@ app.factory('TableFactory', function($http){
 		}, get_factory_history_table : function(callback){
 
 			$http.get('/api/get_hist_table').success(function(data){
+				console.log('in TableFactory get_factory_history_table and data is: ',data);
 				callback(data);
 			});
 		}
