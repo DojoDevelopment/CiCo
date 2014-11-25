@@ -97,7 +97,7 @@ module.exports = {
 
 		connection.query(qry, id, function(err, data) {
 			if (err) throw err;
-			res.json(data);
+			res.json(Date.now());
 		});
 		
 	}, clock_out : function(req, res){
@@ -115,7 +115,7 @@ module.exports = {
 
 		connection.query(qry, [id, session], function(err, data) {
 			if (err) throw err;
-			res.json(data);
+			res.json(Date.now());
 		});
 	}
 };

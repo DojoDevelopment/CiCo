@@ -11,13 +11,31 @@ app.controller('user_dashboard', function($scope, TableFactory, ListFactory, Clo
 
 	$scope.clockIn = function() {
 		var user = this.row.id;
-		ClockingFactory.factory_clock_in(user);
+
+		for (var i=0; i < $scope.table.length; i++){
+			if( $scope.table[i].id == user){
+				var row = i;
+			}
+		}
+
+		ClockingFactory.factory_clock_in(user, function(data){
+			$scope.table[row].clock_in = data;
+		});
 	};
 
 	$scope.clockOut = function() {
 		var user = this.row.id;
 		var session = this.row.session_id;
-		ClockingFactory.factory_clock_out(session, user);
+
+		for (var i=0; i < $scope.table.length; i++){
+			if( $scope.table[i].id == user){
+				var row = i;
+			}
+		}
+
+		ClockingFactory.factory_clock_out(session, user, function(data){
+			$scope.table[row].clock_out = data;
+		});
 	};
 
 });
@@ -49,5 +67,5 @@ app.controller('history', function($scope, TableFactory, ListFactory) {
 		$scope.table = data;
 		$scope.order = '-date';
 	});
-	
+
 });
