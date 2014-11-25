@@ -38,9 +38,9 @@
 
 			<div class='filters'>	
 				Location: 
-		    <select ng-model="location">
-		      <option value="">All</option>
-		      <option ng-repeat="location in locations | filter:location" value={{location.name}} ng-bind="location.name">
+			<select ng-model="location">
+		      	<option value="">All</option>
+		      	<option ng-repeat="location in locations | filter:location" value={{location.name}} ng-bind="location.name"></option>
 		    </select>
 			</div>
 
@@ -54,11 +54,13 @@
 			
 			<br>
 			<div class='filters'>
-				Start Date: <input type='date'>
-			</div><br>
-			<div class='filters'>
-				End Date: <input type='date'>
-			</div><br>
+				Start Date: <input type='date' ng-model='start_date' name='start_date'>
+				End Date:  	<input type='date' ng-model='end_date' name='end_date'>
+				<br>
+				<button ng-click='dateFilter([start_date,end_date])'>Filter by date range
+				</button>
+			<div>
+			<br>
 			<ul class="filters pull_right">
 				<li><button ng-click="dateFilter('all')">All</button></li>
 				<li><button ng-click="dateFilter('this_week')">This week</button></li>
