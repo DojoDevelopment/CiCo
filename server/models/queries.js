@@ -44,7 +44,7 @@ module.exports = {
 		+		"LEFT JOIN ("
 		+			"SELECT id, member_id, clock_in, clock_out "
 		+			"FROM sessions "
-		+			"WHERE DATE(sessions.clock_in) = CURDATE()"
+		+			"WHERE DATE(sessions.clock_in) = CURDATE() "
 		+		") AS sessions2 on sessions2.member_id = members.id "
 		+		"WHERE members.business_id = 1";
 
@@ -71,20 +71,24 @@ module.exports = {
 		});
 
 	}, history_table : function(req, res) {
-		var qry = "SELECT sessions.created_at as 'date', "
-		+	  "members.picture, members.name, members.title, members.team, members2.name as supervisor, "
-		+   "members.location_id as location_id, "
-		+   "locations2.name as location, "
-		+	  "sessions.clock_in as 'clock_in', "
-		+	  "sessions.clock_out as 'clock_out', "
-		+	  "sessions.personal_time as 'personal', "
-		+	  "TIME_FORMAT(TIMEDIFF(sessions.clock_out, sessions.clock_in), '%k:%i') AS 'billed', "
-		+	  "sessions.report "
-		+	"FROM members "
-		+	"LEFT JOIN sessions ON members.id = sessions.member_id "
-		+	"LEFT JOIN members AS members2 ON members2.id = members.supervisor_id "
-		+	"LEFT JOIN locations AS locations2 ON locations2.id = members.location_id "
-		+	"WHERE members.business_id = 1";
+		// var qry = "SELECT sessions.created_at as 'date', "
+		// +	  "members.picture, members.name, members.title, members.team, members2.name as supervisor, "
+		// +   "members.location_id as location_id, "
+		// +   "locations2.name as location, "
+		// +	  "sessions.clock_in as 'clock_in', "
+		// +	  "sessions.clock_out as 'clock_out', "
+		// +	  "sessions.personal_time as 'personal', "
+		// +	  "TIME_FORMAT(TIMEDIFF(sessions.clock_out, sessions.clock_in), '%k:%i') AS 'billed', "
+		// +	  "sessions.report "
+		// +	"FROM members "
+		// +	"LEFT JOIN sessions ON members.id = sessions.member_id "
+		// +	"LEFT JOIN members AS members2 ON members2.id = members.supervisor_id "
+		// +	"LEFT JOIN locations AS locations2 ON locations2.id = members.location_id "
+		// +	"WHERE members.business_id = 1 ";
+
+		var qry = "SELECT sessions.created_at, members.name, title, team, locations.name AS loc, clock_in, clock_out, personal_time, report, TIMEDIFF(clock_out,clock_in) AS billed FROM sessions "
+				+ " LEFT JOIN members ON sessions.member_id = members.id "
+				+ " LEFT JOIN locations ON locations.id = members.location_id";
 
 		connection.query(qry, function(err, data) {
 
@@ -98,7 +102,7 @@ module.exports = {
 
 		connection.query(qry, id, function(err, data) {
 			if (err) throw err;
-			res.json(data);
+			res.json(Date.now());
 		});
 		
 	}, clock_out : function(req, res){
@@ -116,7 +120,7 @@ module.exports = {
 
 		connection.query(qry, [id, session], function(err, data) {
 			if (err) throw err;
-			res.json(data);
+			res.json(Date.now());
 		});
 	}
 };

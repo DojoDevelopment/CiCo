@@ -10,11 +10,40 @@
 			</h5>
 			<div id='filters' class='pull-right'>
 
+<<<<<<< HEAD
+=======
+				<div class='filters'>		
+					Location:
+					<li>	
+					<div class="btn-group" data-ng-class="{open: open}">
+						<button class="btn">Filter by Location</button>
+						<button class="btn dropdown-toggle" data-ng-click="open=!open"><span class="caret"></span>
+
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenu">
+							<li><a data-ng-click="checkAll()"><i class="icon-ok-sign"></i>Check All</a>
+
+							</li>
+							<li><a data-ng-click="selectedLocation=[];"><i class="icon-remove-sign"></i>Uncheck All</a>
+
+							</li>
+							<li class="divider"></li>
+							<li data-ng-repeat="location in locations"> <a data-ng-click="setSelectedLocation()">{{location.name}}<span data-ng-class="isChecked(location.id)"></span></a>
+
+							</li>
+						</ul>
+					</div>
+
+				</ul>
+			</div>
+
+
+>>>>>>> 573061a1924f887eb152b5f4dc405df7c9c1980f
 			<div class='filters'>	
 				Location: 
-		    <select ng-model="place">
-		      <option value="">All</option>
-		      <option ng-repeat="l in locations" value={{l.name}} ng-bind="l.name">
+			<select ng-model="location">
+		      	<option value="">All</option>
+		      	<option ng-repeat="location in locations | filter:location" value={{location.name}} ng-bind="location.name"></option>
 		    </select>
 			</div>
 
@@ -22,20 +51,41 @@
 				Name:    
 		    <select ng-model="member">
 		      <option value="">All</option>
-		      <option ng-repeat="m in members | filter : place" value={{m.name}} ng-bind="m.name"></option>
+		      <option ng-repeat="member in members | filter:member" value={{member.name}} ng-bind="member.name"></option>
 		    </select>
 			</div>
 			
 			<br>
 			<div class='filters'>
+<<<<<<< HEAD
 				Date: <input type='date'> to <input type='date'>
 			</div><br>
 			<ul class='filters pull-right'>
+=======
+				Start Date: <input type='date' ng-model='start_date' name='start_date'>
+				End Date:  	<input type='date' ng-model='end_date' name='end_date'>
+				<br>
+				<button ng-click='dateFilter([start_date,end_date])'>Filter by date range
+				</button>
+			<div>
+			<br>
+			<ul class="filters pull_right">
+				<li><button ng-click="dateFilter('all')">All</button></li>
+				<li><button ng-click="dateFilter('this_week')">This week</button></li>
+				<li><button ng-click="dateFilter('last_week')">Last week</button></li>
+				<li><button ng-click="dateFilter('this_month')">This month</button></li>
+        		<li><button ng-click="dateFilter('last_month')">Last Month</button></li>
+			</ul>
+
+
+			<!-- <ul class='filters pull-right'>
+>>>>>>> 573061a1924f887eb152b5f4dc405df7c9c1980f
 				<li><a href="">This Week</a></li>
 				<li><a href="">Last Week</a></li>
 				<li><a href="">This Month</a></li>
-				<li><a href="">Last Month</a></li>						
-			</ul>
+				<li><a href="">Last Month</a></li>				
+			</ul> -->
+
 		</div>	
 
 	</div>
@@ -70,16 +120,18 @@
 			</tr>
 		</thead>
 		<tbody>
+
 			<tr ng-repeat="row in table | filter: { location:place, name:member } | orderBy:order:reverse">
-				<td ng-bind="row.date | date:'dd/M (EEE)'"></td>
+				<td ng-bind="row.created_at | date:'M/dd (EEE)'"></td>
+
 				<td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg"></td>
 				<td ng-bind="row.name"></td>
 				<td ng-bind="row.title"></td>
 				<td ng-bind="row.team"></td>
-				<td ng-bind="row.location"></td>
+				<td ng-bind="row.loc"></td>
 				<td ng-bind="row.clock_in | date:'shortTime'"></td>
 				<td ng-bind="row.clock_out | date:'shortTime'"></td>
-				<td ng-bind="row.personal"></td>
+				<td ng-bind="row.personal_time	"></td>
 				<td ng-bind="row.billed"></td>
 				<td ng-bind="row.report"></td>
 			</tr>
