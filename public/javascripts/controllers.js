@@ -97,7 +97,6 @@ app.controller('history', function($scope, TableFactory, ListFactory) {
 		console.log('in history controller TableFactory.get_admin_factory_dashboard and table data is: ', data);
 		$scope.table = data;
 		$scope.order = '-date';
-<<<<<<< HEAD
 	});
 
     $scope.dateFilter = function(date_range) {
