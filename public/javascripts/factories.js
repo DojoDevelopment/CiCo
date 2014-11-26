@@ -1,3 +1,36 @@
+app.factory('AdminFactory', function($http){
+	return {
+
+		addEmployee : function(callback){
+
+			$http.get('/api/addEmployee').success(function(data){
+				callback(data);
+			});
+
+		}, get_supervisors : function(callback){
+
+			$http.get('/api/get_supervisors').success(function(data){
+				callback(data);
+			});
+		}
+
+	}
+})
+
+app.factory('SettingFactory', function($http){
+	return {
+
+		factory_get_business_name : function(callback){
+
+			$http.get('/api/get_business_name').success(function(data){
+				callback(data);
+			});
+			
+		}
+
+	}
+})
+
 app.factory('TableFactory', function($http){
 	return {
 
@@ -20,8 +53,8 @@ app.factory('TableFactory', function($http){
 				callback(data);
 			});
 		}
-	};
 
+	};
 });
 
 app.factory('ListFactory', function($http){
@@ -39,8 +72,8 @@ app.factory('ListFactory', function($http){
 				callback(data);
 			});
 		}
-	};
 
+	};
 });
 
 app.factory('ClockingFactory', function($http){
@@ -58,6 +91,6 @@ app.factory('ClockingFactory', function($http){
 				callback(data);
 			});
 		}
-	};
 
+	};
 });

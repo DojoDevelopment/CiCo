@@ -1,7 +1,47 @@
 var connection = require('../../config/db.js')
 module.exports = {
+	
+	business_name : function(req, res){
+	
+		var qry = "SELECT businesses.name "
+						+ "FROM businesses "
+						+ "WHERE businesses.id = 1";
 
-	locations  : function(req, res) {
+		connection.query(qry, [], function(err, data) {
+			
+			if (err) throw err;
+			res.json(data);
+
+		});
+
+	}, supervisors : function(req, res) {
+	
+		var qry = "SELECT members.id, members.name "
+						+ "FROM members "
+						+ "WHERE members.type = 'contractor' "
+						+ "AND members.business_id = 1";
+
+		connection.query(qry, [], function(err, data) {
+			
+			if (err) throw err;
+			res.json(data);
+
+		});
+
+	}, add_employee : function(req, res) {
+	// 	var qry = "INSERT INTO members (business_id, location_id, "
+	// 		+ "name, title, email, password, start_date, status, "
+	// 		+ "note, picture, team, supervisor_id, type, created_at) "
+	// 		+ "VALUES (1,?,?,?,?,?,?,?,?,?,?,?,?,NOW())";
+
+		//connection.query(qry, [], function(err, data) {
+			console.log('happy');
+			//if (err) throw err;
+			// res.json(data);
+
+//		});
+
+	}, locations  : function(req, res) {
 
 		var qry = "SELECT DISTINCT locations.name "
 		+ "FROM members " 
@@ -24,6 +64,7 @@ module.exports = {
 			
 			if (err) throw err;
 			res.json(data);
+
 		});
 
 	}, user_dash : function(req, res) {
@@ -52,6 +93,7 @@ module.exports = {
 
 			if (err) throw err;
 			res.json(data);
+
 		});
 
 	}, admin_dash : function(req, res) {
@@ -68,6 +110,7 @@ module.exports = {
 
 			if (err) throw err;
 			res.json(data);
+
 		});
 
 	}, history_table : function(req, res) {
@@ -86,7 +129,7 @@ module.exports = {
 		// +	"LEFT JOIN locations AS locations2 ON locations2.id = members.location_id "
 		// +	"WHERE members.business_id = 1 ";
 
-		var qry = "SELECT sessions.created_at, members.name, title, team, locations.name AS loc, clock_in, clock_out, personal_time, report, TIMEDIFF(clock_out,clock_in) AS billed FROM sessions "
+		var qry = "SELECT sessions.created_at, members.name, title, team, locations.name AS locations, clock_in, clock_out, personal_time, report, TIMEDIFF(clock_out,clock_in) AS billed FROM sessions "
 				+ " LEFT JOIN members ON sessions.member_id = members.id "
 				+ " LEFT JOIN locations ON locations.id = members.location_id";
 
@@ -94,15 +137,19 @@ module.exports = {
 
 			if (err) throw err;
 			res.json(data);
+		
 		});
+
 	}, clock_in : function(req, res){
 
 		var id = req.params.id;
 		var qry = "INSERT INTO sessions (member_id, clock_in, created_at) VALUES (?, NOW(), NOW())";
 
 		connection.query(qry, id, function(err, data) {
+
 			if (err) throw err;
 			res.json(Date.now());
+
 		});
 		
 	}, clock_out : function(req, res){
@@ -119,8 +166,11 @@ module.exports = {
 		+ "WHERE id=?";
 
 		connection.query(qry, [id, session], function(err, data) {
+
 			if (err) throw err;
 			res.json(Date.now());
+
 		});
+
 	}
 };

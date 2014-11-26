@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute', 'routeStyles']);
+var app = angular.module('myApp', ['ngRoute', 'routeStyles', 'ngSanitize', 'ngCsv']);
 
 app.config(function($routeProvider){
 	$routeProvider
@@ -11,7 +11,6 @@ app.config(function($routeProvider){
 	
 		templateUrl: 'partials/dashboard.html',
 		controller: 'user_dashboard'
-
 	
 	}).when('/history', {
 	
@@ -28,10 +27,21 @@ app.config(function($routeProvider){
 		templateUrl: 'partials/admin_hist.html',
 		controller: 'history'
   
+  }).when('/admin/settings', {
+
+    templateUrl: 'partials/settings.html',
+    controller: 'settings'
+
+  }).when('/admin/new_employee', {
+
+    templateUrl: 'partials/new_employee.html',
+    controller: 'new_employee'
+
   }).when('/clockout', {
   
     templateUrl: 'partials/clockout.html'
    
+<<<<<<< HEAD
 	})
   .when('/settings', {
   
@@ -48,6 +58,9 @@ app.config(function($routeProvider){
     templateUrl: 'partials/add_employee.html'
    
   }).otherwise({
+=======
+	}).otherwise({
+>>>>>>> 6dd1d3e8da19d2f85288125e46dc741c20976543
 
 		redirectTo: '/',
 
@@ -58,7 +71,6 @@ app.config(function($routeProvider){
 ////################////
 // CUSTOM MODAL DIRECTIVES //
 ////################////
-
 
 //ADMIN DIRECTIVES//
 app.directive('modalAdd', function() {
@@ -130,7 +142,3 @@ app.directive('modalClockout', function() {
     controller: 'user_dashboard'
   };
 });
-
-
-
-
