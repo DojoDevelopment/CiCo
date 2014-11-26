@@ -19,6 +19,7 @@ app.controller('employee', function($scope, EmployeeFactory, ListFactory, TableF
 									status: status, note : note, picture : picture, start_date : start_date, email: email,
 									password: password, admin : admin }
 
+		//upload picture function here//
 		EmployeeFactory.create_employee(info);
 	}
 
@@ -97,6 +98,20 @@ app.controller('settings', function($scope, SettingFactory) {
 
 });
 
+app.controller('clockout', function($scope, $location, ClockingFactory){
+	
+	var session_id = $location.path().split('/')[2];
+	$scope.clockOut = function( ) {
+
+		var personal = document.getElementById('personal').value;
+		var report   = document.getElementById('report').value;
+		var info = {session : session_id, personal : personal, report : report };
+
+		ClockingFactory.factory_clock_out(info);
+	};
+
+});
+
 app.controller('user_dashboard', function($scope, TableFactory, ListFactory, ClockingFactory) {
 
 	ListFactory.get_factory_locations(function(data){
@@ -122,21 +137,6 @@ app.controller('user_dashboard', function($scope, TableFactory, ListFactory, Clo
 		});
 	};
 
-	$scope.clockOut = function() {
-		var user = this.row.id;
-		var session = this.row.session_id;
-
-		for (var i=0; i < $scope.table.length; i++){
-			if( $scope.table[i].id == user){
-				var row = i;
-			}
-		}
-
-		ClockingFactory.factory_clock_out(session, user, function(data){
-			$scope.table[row].clock_out = data;
-		});
-	};
-
 }); //end of user_dashboard controller
 
 app.controller('admin_dashboard', function($scope, TableFactory, ListFactory) {
@@ -150,15 +150,15 @@ app.controller('admin_dashboard', function($scope, TableFactory, ListFactory) {
 		$scope.order = '-name';
 	});
 
-	$scope.add_employeeModal = false;
-  $scope.add_employee = function() {
-    $scope.add_employeeModal = !$scope.add_employeeModal;
-  };
+	// $scope.add_employeeModal = false;
+ //  $scope.add_employee = function() {
+ //    $scope.add_employeeModal = !$scope.add_employeeModal;
+ //  };
 
-	$scope.settingsModal = false;
-	$scope.settings = function() {
-		$scope.settingsModal = !$scope.settingsModal;
-	};
+	// $scope.settingsModal = false;
+	// $scope.settings = function() {
+	// 	$scope.settingsModal = !$scope.settingsModal;
+	// };
 
 }); //end of admin_dashboard controller
 
@@ -243,5 +243,4 @@ app.controller('history', function($scope, TableFactory, ListFactory) {
 		})
 
 	} //end of $scope.dateFilter function
-
 }); //end of history controller

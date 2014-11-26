@@ -111,10 +111,10 @@ app.factory('ClockingFactory', function($http){
 				callback(data);
 			});
 
-		}, factory_clock_out: function(session, user, callback){
+		}, factory_clock_out: function(info){
 
-			$http.post('api/clock_out/' + user + '/' + session, data).success(function(data){
-				callback(data);
+			$http.post('api/clock_out/' + info.session, info).success(function(){
+				document.location.href = '../#/dashboard';
 			});
 		}
 

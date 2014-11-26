@@ -32,9 +32,10 @@ app.config(function($routeProvider){
     templateUrl: 'partials/add_employee.html',
     controller:  'employee'
 
-  }).when('/clockout', {
+  }).when('/clockout/:id', {
   
-    templateUrl: 'partials/clockout.html'
+    templateUrl: 'partials/clockout.html',
+    controller:  'clockout'
    
   })
   .when('/admin/settings', {

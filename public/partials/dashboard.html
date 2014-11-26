@@ -58,7 +58,7 @@
       </td>
       <td>
         <div ng-if="row.clock_in != null &amp;&amp; row.clock_out == null">
-          <button class="btn btn-out" onclick="location.href='/#/clockout'">Clock OUT</button>
+          <a href="./#/clockout/{{row.session_id}}"><button class="btn btn-out">Clock OUT</button></a>
         </div>
         <div ng-if="row.clock_out != null" ng-bind="row.clock_out | date:'shortTime'"></div>
       </td>
