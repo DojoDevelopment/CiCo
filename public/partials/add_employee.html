@@ -12,15 +12,18 @@
           <label for="inputTeam" class="sr-only">Team</label>
           <input value="some Team" type="text" id="inputTeam" class="form-control" placeholder="Team" required autofocus>
 
+          <div>{{user.location_id}} hello world</div>
+          <div>{{user.supervisor_id}} hello world</div>
+
           <label for="inputLocation" class="sr-only">Location</label>
-          <select type='button' id="inputLocation" class='drop-btn dropdown-toggle btn btn-lg btn-in' role='menu'>
-            <option ng-repeat="l in locations" value="{{l.id}}" ng-bind="l.name"></option>
+          <select type='button' id="inputLocation" ng-model="user.location_id" class='drop-btn dropdown-toggle btn btn-lg btn-in' role='menu'>
+            <option ng-repeat="l in locations" value={{l.id}} ng-bind="l.name" ng-selected="l.id == 3"></option>
           </select>
           <div class="input-group">
 <!--             <input type="text" class="form-control" placeholder='Supervisor'>
             <div class="input-group-btn"> --> 
-            <select type='button' id="inputSupervisor" class='drop-btn dropdown-toggle btn btn-lg btn-in' role='menu'>
-              <option ng-repeat="s in supervisors" value="{{s.id}}" ng-bind="s.name"></option>
+            <select type='button' id="inputSupervisor" ng-model="user.supervisor_id" class='drop-btn dropdown-toggle btn btn-lg btn-in' role='menu'>
+              <option ng-repeat="s in supervisors" value="{{s.id}}" ng-bind="s.name" ng-selected="s.id == 1"></option>
             </select>
             <!-- </div> -->
           </div>
@@ -49,9 +52,9 @@
           <br>
           <br>
           <label for="inputEmail" class="sr-only">Email</label>
-          <input value="antfenech@yahoo.com" type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+          <input type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
           <label for="inputPassword" class="sr-only">Password</label>
-          <input value="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+          <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
           <div class="checkbox">
             <label>
               <input type="checkbox" value="contractor" id="inputAdmin">Admin<span class='emphasis'>*Be careful who you give admin access to*</span>

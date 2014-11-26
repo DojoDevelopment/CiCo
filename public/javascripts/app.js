@@ -30,7 +30,7 @@ app.config(function($routeProvider){
   }).when('/admin/add_employee', {
 
     templateUrl: 'partials/add_employee.html',
-    controller:  'new_employee'
+    controller:  'employee'
 
   }).when('/clockout', {
   
@@ -43,9 +43,10 @@ app.config(function($routeProvider){
    	controller:  'settings'
 
   })
-  .when('/edit', {
+  .when('admin/edit', {
   
-    templateUrl: 'partials/edit_employee.html'
+    templateUrl: 'partials/edit_employee.html',
+    controller: 'employee'
    
   }).otherwise({
 

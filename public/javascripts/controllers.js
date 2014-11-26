@@ -1,4 +1,4 @@
-app.controller('new_employee', function($scope, AdminFactory, ListFactory) {
+app.controller('employee', function($scope, EmployeeFactory, ListFactory) {
 
 	$scope.addEmployee = function(){
 
@@ -19,7 +19,7 @@ app.controller('new_employee', function($scope, AdminFactory, ListFactory) {
 									status: status, note : note, picture : picture, start_date : start_date, email: email,
 									password: password, admin : admin }
 
-		AdminFactory.addEmployee(myinfo);
+		EmployeeFactory.create_employee(myinfo);
 	}
 
 	ListFactory.get_supervisors(function(data){
@@ -28,6 +28,10 @@ app.controller('new_employee', function($scope, AdminFactory, ListFactory) {
 
 	ListFactory.factory_get_all_locations(function(data){
 		$scope.locations = data;
+	});
+
+	EmployeeFactory.get_employee(function(data){
+		$scope.user = data;
 	});
 
 });

@@ -1,11 +1,15 @@
-app.factory('AdminFactory', function($http){
+app.factory('EmployeeFactory', function($http){
 	return {
 
-		addEmployee : function(stuff){
+		create_employee : function(data){
 
-			$http.post('/api/addEmployee', stuff).success(function(){
+			$http.post('/api/addEmployee', data).success(function(){
 				document.location.href = '../#/admin/dashboard';
 			});
+
+		}, get_employee : function(id){
+
+		}, update_employee : function(data){
 
 		}
 	}
