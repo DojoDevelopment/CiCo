@@ -100,28 +100,34 @@ app.controller('history', function($scope, TableFactory, ListFactory) {
 	});
 
     $scope.dateFilter = function(date_range) {
+  
+    	var today = new Date (Date.now());
+    	var day_of_the_week = today.getDay();
+    	var day_of_the_month = today.getDate();
     	var start_date;
     	var end_date;
+    	var days_back;
 
     	if (date_range === 'all') {
     		start_date = new Date(2010,0,0,0,0,0,0);
-    		end_date = Date.now();
+    		end_date = today;
     	}
     	else if (date_range === 'this_week') {
-    		start_date = Date.now()-(7*24*3600*1000);
-    		end_date = Date.now();
+    		end_date = new Date (Date.now());
+    		days_back = day_of_the_week;
+    		start_date = Date.now() - ( days_back *24*3600*1000);
     	}
     	else if (date_range === 'last_week') {
-    		start_date = Date.now()-(14*24*3600*1000);
-    		end_date = Date.now()-(7*24*3600*1000);
+    		end_date =   today - ( (day_of_the_week + 1) *24*3600*1000);
+    		start_date = today - ( (day_of_the_week + 6) *24*3600*1000);
     	}
     	else if (date_range === 'this_month') {
-    		start_date = Date.now()-(30*24*3600*1000);
-    		end_date = Date.now();
+    		end_date = today;
+    		start_date = today - ( (day_of_the_month) *24*3600*1000);
     	}
     	else if (date_range === 'last_month') {
-    		start_date = Date.now()-(60*24*3600*1000);
-    		end_date = Date.now()-(30*24*3600*1000);
+    		end_date = today - ( (day_of_the_month) *24*3600*1000);
+    		start_date = today - ( (day_of_the_month + 30 ) *24*3600*1000)
     	}
     	else if ( ( typeof(date_range) != 'string' ) && (date_range[0] < date_range[1]) ) {
     		start_date = new Date(date_range[0]);

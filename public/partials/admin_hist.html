@@ -15,7 +15,6 @@
 			      	<option ng-repeat="l in locations" value={{l.name}} ng-bind="l.name">
 			    </select>
 
-<<<<<<< HEAD
 				<div class="filters">
 					Name:    
 			    <select ng-model="member">
@@ -27,20 +26,20 @@
 
 		<br>
 
-		<div class='filters pull-right'>
+		<div class='pull-right'>
 			Start Date: <input type='date' ng-model='start_date' name='start_date'>
 			End Date:  	<input type='date' ng-model='end_date' name='end_date'>
 			<br>
-			<button ng-click='dateFilter([start_date,end_date])'>Filter by date range
-			</button>
+			<a ng-click='dateFilter([start_date,end_date])'>Filter by date range
+			</a>
 			<div>
 			<br>
 				<ul class="filters">
-					<li><button ng-click="dateFilter('all')">All</button></li>
-					<li><button ng-click="dateFilter('this_week')">This week</button></li>
-					<li><button ng-click="dateFilter('last_week')">Last week</button></li>
-					<li><button ng-click="dateFilter('this_month')">This month</button></li>
-	        		<li><button ng-click="dateFilter('last_month')">Last Month</button></li>
+					<li><a ng-click="dateFilter('all')">All</a></li>
+					<li><a ng-click="dateFilter('this_week')">This week</a></li>
+					<li><a ng-click="dateFilter('last_week')">Last week</a></li>
+					<li><a ng-click="dateFilter('this_month')">This month</a></li>
+	        		<li><a ng-click="dateFilter('last_month')">Last Month</a></li>
 				</ul>
 			</div>	
 		</div>	
