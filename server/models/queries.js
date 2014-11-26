@@ -1,13 +1,13 @@
 var connection = require('../../config/db.js')
 module.exports = {
 	
-	business_name : function(req, res){
+	business_info : function(req, res){
 	
-		var qry = "SELECT businesses.name "
+		var qry = "SELECT businesses.name, businesses.ip_addresses"
 						+ "FROM businesses "
 						+ "WHERE businesses.id = 1";
 
-		connection.query(qry, [], function(err, data) {
+		connection.query(qry, function(err, data) {
 			
 			if (err) throw err;
 			res.json(data);
@@ -29,17 +29,45 @@ module.exports = {
 		});
 
 	}, add_employee : function(req, res) {
-	// 	var qry = "INSERT INTO members (business_id, location_id, "
-	// 		+ "name, title, email, password, start_date, status, "
-	// 		+ "note, picture, team, supervisor_id, type, created_at) "
-	// 		+ "VALUES (1,?,?,?,?,?,?,?,?,?,?,?,?,NOW())";
 
-		//connection.query(qry, [], function(err, data) {
-			console.log('happy');
-			//if (err) throw err;
-			// res.json(data);
+		var name       = req.body.name;
+		var title      = req.body.title;
+		var team       = req.body.team;
+		var location   = req.body.location;
+		var supervisor = req.body.supervisor;
+		var status     = req.body.status;
+		var note			 = req.body.note;
+		var picture    = req.body.picture;
+		var start_date = req.body.start_date;
+		var email      = req.body.email;
+		var password 	 = req.body.password;
+		var admin 		 = req.body.admin;
 
-//		});
+		var qry = "INSERT INTO members (business_id, location_id, "
+			+ "name, title, email, password, start_date, status, "
+			+ "note, picture, team, supervisor_id, type, created_at) "
+			+ "VALUES (1,?,?,?,?,?,?,?,?,?,?,?,?,NOW())";
+
+		var form = [location, name, title, email, password, start_date, 
+								status, note, picture, team, supervisor, admin]
+
+		connection.query(qry, form, function(err) {
+			if (err) throw err;
+			res.status(200).end();
+		});
+
+	}, all_locations  : function(req, res) {
+
+		var qry = "SELECT locations.id, locations.name "
+		+ "FROM locations "
+		+ "LEFT JOIN businesses ON locations.business_id = businesses.id " 
+		+ "WHERE businesses.id = 1";
+		
+		connection.query(qry, function(err, data) {
+			
+			if (err) throw err;
+			res.json(data);
+		});
 
 	}, locations  : function(req, res) {
 
@@ -156,6 +184,8 @@ module.exports = {
 
 		var id = req.params.id;
 		var session = req.params.session;
+
+		console.log(req.body.data)
 
 		var qry = "UPDATE sessions "
 		+ "SET clock_out=NOW(), "

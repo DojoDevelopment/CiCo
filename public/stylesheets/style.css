@@ -139,6 +139,8 @@ tr td .status{
   color:#9F9F9F;
 }
 .btn-in{
+  height:3em;
+  width:100%;
   background-color: #008500;
   color:white;
 }

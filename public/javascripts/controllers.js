@@ -1,18 +1,40 @@
-app.controller('new_employee', function($scope, AdminFactory) {
+app.controller('new_employee', function($scope, AdminFactory, ListFactory) {
 
-	AdminFactory.addEmployee(function(data){
-		console.log('Employee Added');
+	$scope.addEmployee = function(){
+
+		var name       = document.getElementById('inputName').value;
+		var title      = document.getElementById('inputTitle').value;
+		var team       = document.getElementById('inputTeam').value;
+		var location   = document.getElementById('inputLocation').value;
+		var supervisor = document.getElementById('inputSupervisor').value;
+		var status     = document.getElementById('inputStatus').value;
+		var note			 = document.getElementById('inputNote').value;
+		var picture    = document.getElementById('inputPicPath').value;
+		var start_date = document.getElementById('inputDate').value;
+		var email      = document.getElementById('inputEmail').value;
+		var password 	 = document.getElementById('inputPassword').value;
+		var admin 		 = (document.getElementById('inputAdmin').checked == true ? 'contractor' : 'employee');
+
+		var myinfo = {name : name, title: title, team: team, location: location, supervisor: supervisor,
+									status: status, note : note, picture : picture, start_date : start_date, email: email,
+									password: password, admin : admin }
+
+		AdminFactory.addEmployee(myinfo);
+	}
+
+	ListFactory.get_supervisors(function(data){
+		$scope.supervisors = data;
 	});
 
-	AdminFactory.get_supervisors(function(data){
-		$scope.supervisors = data;
+	ListFactory.factory_get_all_locations(function(data){
+		$scope.locations = data;
 	});
 
 });
 
 app.controller('settings', function($scope, SettingFactory) {
 
-	SettingFactory.factory_get_business_name(function(data){
+	SettingFactory.factory_get_business_info(function(data){
 		$scope.business_name = data;
 	});
 
@@ -80,9 +102,6 @@ app.controller('admin_dashboard', function($scope, TableFactory, ListFactory) {
 	$scope.settings = function() {
 		$scope.settingsModal = !$scope.settingsModal;
 	};
-
-
-
 
 }); //end of admin_dashboard controller
 
