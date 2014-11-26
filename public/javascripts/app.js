@@ -32,13 +32,28 @@ app.config(function($routeProvider){
   
     templateUrl: 'partials/clockout.html'
    
-	
-	}).otherwise({
+	})
+  .when('/settings', {
+  
+    templateUrl: 'partials/admin_settings.html'
+   
+  })
+  .when('/edit', {
+  
+    templateUrl: 'partials/edit_employee.html'
+   
+  })
+  .when('/add', {
+  
+    templateUrl: 'partials/add_employee.html'
+   
+  }).otherwise({
 
 		redirectTo: '/',
 
 	});
 });
+  
 
 ////################////
 // CUSTOM MODAL DIRECTIVES //

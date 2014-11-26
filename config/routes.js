@@ -3,7 +3,7 @@ var queries = require('../server/models/queries.js');
 
 module.exports = function Routes(app) {
 	app.get('/', 									function(req, res){ main.index(req,res) });
-	app.get('/clockout', 									function(req, res){ clockout(req,res) });
+	app.get('/clockout', 							function(req, res){ clockout(req,res) });
 	app.get('/api/get_locations',  					function(req, res){ queries.locations(req, res); });
 	app.get('/api/get_members',    					function(req, res){ queries.members(req, res); });
 	app.get('/api/get_user_dash',  					function(req, res){ queries.user_dash(req, res); });
