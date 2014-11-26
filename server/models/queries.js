@@ -29,17 +29,31 @@ module.exports = {
 		});
 
 	}, add_employee : function(req, res) {
-	// 	var qry = "INSERT INTO members (business_id, location_id, "
-	// 		+ "name, title, email, password, start_date, status, "
-	// 		+ "note, picture, team, supervisor_id, type, created_at) "
-	// 		+ "VALUES (1,?,?,?,?,?,?,?,?,?,?,?,?,NOW())";
+
+		var qry = "INSERT INTO members (business_id, location_id, "
+			+ "name, title, email, password, start_date, status, "
+			+ "note, picture, team, supervisor_id, type, created_at) "
+			+ "VALUES (1,?,?,?,?,?,?,?,?,?,?,?,?,NOW())";
 
 		//connection.query(qry, [], function(err, data) {
-			console.log('happy');
+			console.log(req.body);
 			//if (err) throw err;
 			// res.json(data);
 
 //		});
+
+	}, all_locations  : function(req, res) {
+
+		var qry = "SELECT locations.id, locations.name "
+		+ "FROM locations "
+		+ "LEFT JOIN businesses ON locations.business_id = businesses.id " 
+		+ "WHERE businesses.id = 1";
+		
+		connection.query(qry, function(err, data) {
+			
+			if (err) throw err;
+			res.json(data);
+		});
 
 	}, locations  : function(req, res) {
 

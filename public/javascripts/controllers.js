@@ -1,11 +1,18 @@
-app.controller('new_employee', function($scope, AdminFactory) {
+app.controller('new_employee', function($scope, AdminFactory, ListFactory) {
 
-	AdminFactory.addEmployee(function(data){
-		console.log('Employee Added');
+	$scope.addEmployee = function(){
+		var myinfo = {user : 4, company: 'sony'}
+		AdminFactory.addEmployee(myinfo, function(data){
+
+		});
+	}
+
+	ListFactory.get_supervisors(function(data){
+		$scope.supervisors = data;
 	});
 
-	AdminFactory.get_supervisors(function(data){
-		$scope.supervisors = data;
+	ListFactory.factory_get_all_locations(function(data){
+		$scope.locations = data;
 	});
 
 });
@@ -80,9 +87,6 @@ app.controller('admin_dashboard', function($scope, TableFactory, ListFactory) {
 	$scope.settings = function() {
 		$scope.settingsModal = !$scope.settingsModal;
 	};
-
-
-
 
 }); //end of admin_dashboard controller
 

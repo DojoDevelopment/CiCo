@@ -1,90 +1,101 @@
-<div class='jumbotron'>
-	<h1>Admin History View</h1>
-</div>
+<div class='container-fluid'>
+  <div class='jumbotron'>
+    <h1>Admin History View</h1>
+  </div>
 
-<div class='info'>
-	<h5>
-		<strong>ADMIN VIEW - </strong>
-		Contractors / Part Time Employees
-	</h5>
+  <div class='row'>
+    <div class='col-md-8'>
+        <div class='container-sm'>
+          <h5>
+            <strong>Viewing all contractors and employees</strong> <br>
+            Hourly employees are required to clock in/out whenever they work.
+          </h5><br><br>
+        </div>
+    </div>
+    <div>
+    <div class='filter row-md-4 pull-right'>
+      <div class='container-sm'>
+        <select ng-model="location">
+          <option value="" disabled selected>Filter by Location</option>
+          <option value="">All</option>
+          <option ng-repeat="location in locations | filter:location" value={{location.name}} ng-bind="location.name"></option>
+        </select>
 
-		<div class='pull-right'>
-					Location: 
-				<select ng-model="place">
-			      	<option value="">All</option>
-			      	<option ng-repeat="l in locations" value={{l.name}} ng-bind="l.name">
-			    </select>
+        <select class='pull-right' ng-model="member">
+          <option value="" disabled selected>Filter by Name</option>
+          <option value="">All</option>
+          <option ng-repeat="member in members | filter:member" value={{member.name}} ng-bind="member.name"></option>
+        </select>
+        <br><br>
 
-				<div class="filters">
-					Name:    
-			    <select ng-model="member">
-			      <option value="">All</option>
-			      <option ng-repeat="member in members | filter:member" value={{member.name}} ng-bind="member.name"></option>
-			    </select>
-				</div>
-			</div>
+        <div>
+        <p>Filter by Date:</p>
+        <form>
+        	<input type='date'> to <input type='date'>
+        	<br>
+        	<button type='submit' class='pull-right btn btn-sm btn-date'>Submit Date</button>
+        </form>
+        
+        </div>  
+      </div>
+          
+  </div>
+  <div class='row'>
+    <div class='col-md-12'>
+      <div class='row'>
+        <div class='col-md-12'>
+          <div class="pull-left switch-toggle switch-candy">
+            <input id="dashboard" name="view" type="radio" checked>
+            <label for="dashboard" onclick="location.href='/#/admin/dashboard'">Dashboard</label>
 
-		<br>
+            <input id="history" name="view" type="radio">
+            <label for="history" onclick="location.href='/#/admin/history'">History</label>
+          </div>
+          <ul class='pull-right'>
+            <li><a ng-click="dateFilter('all')">All</a></li>
+            <li><a ng-click="dateFilter('this_week')">This week</a></li>
+            <li><a ng-click="dateFilter('last_week')">Last week</a></li>
+            <li><a ng-click="dateFilter('this_month')">This month</a></li>
+                <li><a ng-click="dateFilter('last_month')">Last Month</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
 
-		<div class='pull-right'>
-			Start Date: <input type='date' ng-model='start_date' name='start_date'>
-			End Date:  	<input type='date' ng-model='end_date' name='end_date'>
-			<br>
-			<a ng-click='dateFilter([start_date,end_date])'>Filter by date range
-			</a>
-			<div>
-			<br>
-				<ul class="filters">
-					<li><a ng-click="dateFilter('all')">All</a></li>
-					<li><a ng-click="dateFilter('this_week')">This week</a></li>
-					<li><a ng-click="dateFilter('last_week')">Last week</a></li>
-					<li><a ng-click="dateFilter('this_month')">This month</a></li>
-	        		<li><a ng-click="dateFilter('last_month')">Last Month</a></li>
-				</ul>
-			</div>	
-		</div>	
+        <table class='table'>
+    <thead>
+      <tr>
+        <th><a href="" ng-click="order='date'; reverse=!reverse">Date</a></th>
+        <th>Picture</th>
+        <th><a href="" ng-click="order='name'; reverse=!reverse">Name</a></th>
+        <th><a href="" ng-click="order='title'; reverse=!reverse">Title</a></th>
+        <th><a href="" ng-click="order='team'; reverse=!reverse">Team</a></th>
+        <th><a href="" ng-click="order='location'; reverse=!reverse">Location</a></th>
+        <th class='clk-btn'><a href="" ng-click="order='clock_in'; reverse=!reverse">Clock IN</a></th>
+        <th class='clk-btn'><a href="" ng-click="order='clock_out'; reverse=!reverse">Clock OUT</a></th>
+        <th><a href="" ng-click="order='personal'; reverse=!reverse">Personal Time</a></th>
+        <th><a href="" ng-click="order='billed'; reverse=!reverse">Billed Hours</a></th>
+        <th>Report</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="row in table | filter: { location:place, name:member } | orderBy:order:reverse">
+        <td ng-bind="row.created_at | date:'dd/M (EEE)'"></td>
+        <td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg"></td>
+        <td ng-bind="row.name"></td>
+        <td ng-bind="row.title"></td>
+        <td ng-bind="row.team"></td>
+        <td ng-bind="row.loc"></td>
+        <td ng-bind="row.clock_in | date:'shortTime'"></td>
+        <td ng-bind="row.clock_out | date:'shortTime'"></td>
+        <td ng-bind="row.personal_time"></td>
+        <td ng-bind="row.billed"></td>
+        <td ng-bind="row.report"></td>
+      </tr>
+    </tbody>
+  </table>
+		<button class="btn btn-danger" ng-csv="csvBody" csv-header="csvHead" filename="history.csv">Download CSV</button>
+    </div>
+  </div>
 
-	<div class="switch-toggle switch-candy">
-		<input id="dashboard" name="view" type="radio" checked>
-		<label for="dashboard" onclick="location.href='/#/admin/dashboard'">Dashboard</label>
-
-		<input id="history" name="view" type="radio">
-		<label for="history" onclick="location.href='/#/admin/history'">History</label>
-		<a></a>
-	</div>
-
-	<table class='table'>
-		<thead>
-			<tr>
-				<th><a href="" ng-click="order='date'; reverse=!reverse">Date</a></th>
-				<th>Picture</th>
-				<th><a href="" ng-click="order='name'; reverse=!reverse">Name</a></th>
-				<th><a href="" ng-click="order='title'; reverse=!reverse">Title</a></th>
-				<th><a href="" ng-click="order='team'; reverse=!reverse">Team</a></th>
-				<th><a href="" ng-click="order='location'; reverse=!reverse">Location</a></th>
-				<th class='clk-btn'><a href="" ng-click="order='clock_in'; reverse=!reverse">Clock IN</a></th>
-				<th class='clk-btn'><a href="" ng-click="order='clock_out'; reverse=!reverse">Clock OUT</a></th>
-				<th><a href="" ng-click="order='personal'; reverse=!reverse">Personal Time</a></th>
-				<th><a href="" ng-click="order='billed'; reverse=!reverse">Billed Hours</a></th>
-				<th>Report</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr ng-repeat="row in table | filter: { locations:place, name:member } | orderBy:order:reverse">
-				<td ng-bind="row.created_at | date:'dd/M (EEE)'"></td>
-				<td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg"></td>
-
-				<td ng-bind="row.name"></td>
-				<td ng-bind="row.title"></td>
-				<td ng-bind="row.team"></td>
-				<td ng-bind="row.locations"></td>
-				<td ng-bind="row.clock_in | date:'shortTime'"></td>
-				<td ng-bind="row.clock_out | date:'shortTime'"></td>
-				<td ng-bind="row.personal_time"></td>
-				<td ng-bind="row.billed"></td>
-				<td ng-bind="row.report"></td>
-			</tr>
-		</tbody>
-	</table>
-	<button class="btn btn-danger" ng-csv="csvBody" csv-header="csvHead" filename="history.csv">Download CSV</button>
 </div>
