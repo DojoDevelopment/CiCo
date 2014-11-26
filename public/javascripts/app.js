@@ -11,7 +11,6 @@ app.config(function($routeProvider){
 	
 		templateUrl: 'partials/dashboard.html',
 		controller: 'user_dashboard'
-
 	
 	}).when('/history', {
 	
@@ -28,11 +27,20 @@ app.config(function($routeProvider){
 		templateUrl: 'partials/admin_hist.html',
 		controller: 'history'
   
+  }).when('/admin/settings', {
+
+    templateUrl: 'partials/settings.html',
+    controller: 'settings'
+
+  }).when('/admin/new_employee', {
+
+    templateUrl: 'partials/new_employee.html',
+    controller: 'new_employee'
+
   }).when('/clockout', {
   
     templateUrl: 'partials/clockout.html'
    
-	
 	}).otherwise({
 
 		redirectTo: '/',
@@ -43,7 +51,6 @@ app.config(function($routeProvider){
 ////################////
 // CUSTOM MODAL DIRECTIVES //
 ////################////
-
 
 //ADMIN DIRECTIVES//
 app.directive('modalAdd', function() {
@@ -115,7 +122,3 @@ app.directive('modalClockout', function() {
     controller: 'user_dashboard'
   };
 });
-
-
-
-

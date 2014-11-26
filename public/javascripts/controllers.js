@@ -1,3 +1,23 @@
+app.controller('new_employee', function($scope, AdminFactory) {
+
+	AdminFactory.addEmployee(function(data){
+		console.log('Employee Added');
+	});
+
+	AdminFactory.get_supervisors(function(data){
+		$scope.supervisors = data;
+	});
+
+});
+
+app.controller('settings', function($scope, SettingFactory) {
+
+	SettingFactory.factory_get_business_name(function(data){
+		$scope.business_name = data;
+	});
+
+});
+
 app.controller('user_dashboard', function($scope, TableFactory, ListFactory, ClockingFactory) {
 
 	ListFactory.get_factory_locations(function(data){
@@ -50,10 +70,12 @@ app.controller('admin_dashboard', function($scope, TableFactory, ListFactory) {
 		$scope.table = data;
 		$scope.order = '-name';
 	});
+
 	$scope.add_employeeModal = false;
-    $scope.add_employee = function() {
-	    $scope.add_employeeModal = !$scope.add_employeeModal;
-	  };
+  $scope.add_employee = function() {
+    $scope.add_employeeModal = !$scope.add_employeeModal;
+  };
+
 	$scope.settingsModal = false;
 	$scope.settings = function() {
 		$scope.settingsModal = !$scope.settingsModal;
@@ -62,7 +84,6 @@ app.controller('admin_dashboard', function($scope, TableFactory, ListFactory) {
 }); //end of admin_dashboard controller
 
 app.controller('history', function($scope, TableFactory, ListFactory) {
-
 
 	$scope.csvHead = ['Date', 'Picture', 'Name', 'Title', 'Team', 'Location', 
 									 'Clock IN', 'Clock OUT', 'Personal Time', 'Billed Hours', 'Report'];
