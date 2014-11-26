@@ -9,7 +9,7 @@
       Contractors / Part Time Employees
     </h5>
     <div class='pull-right'>
-      <a ng-click='settings()' href="" class='basic'><i class="fa fa-cog"></i> settings</a> / <a href="/">logout</a>
+      <a href="/#/settings" class='basic'><i class="fa fa-cog"></i> settings</a> / <a href="/">logout</a>
       <modal-settings show='settingsModal' width='50%' height='60%'></modal-settings>
     </div>
   </div>
@@ -55,13 +55,13 @@
       <td ng-bind="row.supervisor"></td> 
       <td ng-bind="row.locations"></td> 
       <td ng-bind="row.note"></td> 
-      <td><a href=""> Show </a> / <a href=""> Edit </a></td>
+      <td><a href=""> Show </a> / <a href="/#/edit"> Edit </a></td>
     </tr>
   </tbody>
 </table>
 
-<button ng-click='add_employee()' class='btn btn-md btn-in pull-right'>Add Employee</button>
-<modal-add show='add_employeeModal' width='50%' height='60%'></modal-add>
+<button class='btn btn-md btn-in pull-right'><a href="/#/add">Add Employee</a></button>
+<!-- <modal-add show='add_employeeModal' width='50%' height='60%'></modal-add> -->
 
     
 
