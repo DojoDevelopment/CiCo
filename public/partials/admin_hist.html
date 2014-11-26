@@ -8,39 +8,41 @@
 		Contractors / Part Time Employees
 	</h5>
 
-	<div id='filters' class='pull-right'>
+		<div class='pull-right'>
+					Location: 
+				<select ng-model="place">
+			      	<option value="">All</option>
+			      	<option ng-repeat="l in locations" value={{l.name}} ng-bind="l.name">
+			    </select>
 
-		<div class='filters'>	
-			Location: 
-			<select ng-model="place">
-				<option value="">All</option>
-				<option ng-repeat="l in locations" value="{{l.name}}" ng-bind="l.name"></option>
-			</select>
-		</div>
-
-		<div class="filters">
-			Name:    
-			<select ng-model="member">
-				<option value="">All</option>
-				<option ng-repeat="m in members | filter : place" value="{{m.name}}" ng-bind="m.name"></option>
-			</select>
-		</div>
+				<div class="filters">
+					Name:    
+			    <select ng-model="member">
+			      <option value="">All</option>
+			      <option ng-repeat="member in members | filter:member" value={{member.name}} ng-bind="member.name"></option>
+			    </select>
+				</div>
+			</div>
 
 		<br>
 
-		<div class='filters'>
-			Date: <input type='date'> to <input type='date'>
-		</div>
-
-		<br>
-
-		<ul class='filters pull-right'>
-			<li><a href="">This Week</a></li>
-			<li><a href="">Last Week</a></li>
-			<li><a href="">This Month</a></li>
-			<li><a href="">Last Month</a></li>						
-		</ul>
-	</div>
+		<div class='pull-right'>
+			Start Date: <input type='date' ng-model='start_date' name='start_date'>
+			End Date:  	<input type='date' ng-model='end_date' name='end_date'>
+			<br>
+			<a ng-click='dateFilter([start_date,end_date])'>Filter by date range
+			</a>
+			<div>
+			<br>
+				<ul class="filters">
+					<li><a ng-click="dateFilter('all')">All</a></li>
+					<li><a ng-click="dateFilter('this_week')">This week</a></li>
+					<li><a ng-click="dateFilter('last_week')">Last week</a></li>
+					<li><a ng-click="dateFilter('this_month')">This month</a></li>
+	        		<li><a ng-click="dateFilter('last_month')">Last Month</a></li>
+				</ul>
+			</div>	
+		</div>	
 
 	<div class="switch-toggle switch-candy">
 		<input id="dashboard" name="view" type="radio" checked>
@@ -68,13 +70,14 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="row in table | filter: { loc:place, name:member } | orderBy:order:reverse">
-				<td ng-bind="row.created_at | date: 'dd/M (EEE)'"></td>
-				<td><img height="30" width="30" class="img-rounded" src="/img/dev.jpg"></td>
+			<tr ng-repeat="row in table | filter: { locations:place, name:member } | orderBy:order:reverse">
+				<td ng-bind="row.created_at | date:'dd/M (EEE)'"></td>
+				<td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg"></td>
+
 				<td ng-bind="row.name"></td>
 				<td ng-bind="row.title"></td>
 				<td ng-bind="row.team"></td>
-				<td ng-bind="row.loc"></td>
+				<td ng-bind="row.locations"></td>
 				<td ng-bind="row.clock_in | date:'shortTime'"></td>
 				<td ng-bind="row.clock_out | date:'shortTime'"></td>
 				<td ng-bind="row.personal_time"></td>

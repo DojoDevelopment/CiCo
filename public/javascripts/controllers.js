@@ -81,6 +81,9 @@ app.controller('admin_dashboard', function($scope, TableFactory, ListFactory) {
 		$scope.settingsModal = !$scope.settingsModal;
 	};
 
+
+
+
 }); //end of admin_dashboard controller
 
 app.controller('history', function($scope, TableFactory, ListFactory) {
@@ -115,74 +118,54 @@ app.controller('history', function($scope, TableFactory, ListFactory) {
 		console.log('in history controller TableFactory.get_admin_factory_dashboard and table data is: ', data);
 		$scope.table = data;
 		$scope.order = '-date';
-	});        
+	});
 
-  $scope.dateFilter = function(date_range) {
-  	
-  	if ( ( typeof(date_range) != 'string' ) && (date_range[0] < date_range[1]) ) {
-  		//console.log(date_range);
-  		start_date = new Date(date_range[0]);
-  		end_date = new Date(date_range[1]);
-  		//console.log(start_date,end_date);
-  		
-  		TableFactory.get_factory_history_table(function(data){
-  			$scope.table = data;
-  			var table2=[]
-  			for (var i = 0; i < $scope.table.length - 1; i++) {
-  				work_session_date = new Date($scope.table[i].created_at);
-  				if (work_session_date > start_date && work_session_date < end_date){
-  					table2.push($scope.table[i]);
-  				}
-  			}
-  			$scope.table=table2;
-  		})
-  	}
-  	else if(date_range === 'all') {
-          TableFactory.get_factory_history_table(function(data){
+    $scope.dateFilter = function(date_range) {
+  
+    	var today = new Date (Date.now());
+    	var day_of_the_week = today.getDay();
+    	var day_of_the_month = today.getDate();
+    	var start_date;
+    	var end_date;
+    	var days_back;
+
+    	if (date_range === 'all') {
+    		start_date = new Date(2010,0,0,0,0,0,0);
+    		end_date = today;
+    	}
+    	else if (date_range === 'this_week') {
+    		end_date = new Date (Date.now());
+    		days_back = day_of_the_week;
+    		start_date = Date.now() - ( days_back *24*3600*1000);
+    	}
+    	else if (date_range === 'last_week') {
+    		end_date =   today - ( (day_of_the_week + 1) *24*3600*1000);
+    		start_date = today - ( (day_of_the_week + 6) *24*3600*1000);
+    	}
+    	else if (date_range === 'this_month') {
+    		end_date = today;
+    		start_date = today - ( (day_of_the_month) *24*3600*1000);
+    	}
+    	else if (date_range === 'last_month') {
+    		end_date = today - ( (day_of_the_month) *24*3600*1000);
+    		start_date = today - ( (day_of_the_month + 30 ) *24*3600*1000)
+    	}
+    	else if ( ( typeof(date_range) != 'string' ) && (date_range[0] < date_range[1]) ) {
+    		start_date = new Date(date_range[0]);
+    		end_date = new Date(date_range[1]);
+    	};
+    	TableFactory.get_factory_history_table(function(data){
 			$scope.table = data;
-			$scope.order = '-date';
-      	})
-      }	
-      else if(date_range === 'this_week') {
-          var table2=[];
-          for (var i = 0; i < $scope.table.length - 1; i++) {
-          	work_session_date = new Date($scope.table[i].created_at);
-          	if (work_session_date > Date.now() - 7*24*3600*1000){
-          		table2.push($scope.table[i]);
-          	};         
-          }
-          $scope.table=table2; 
-      }
-      else if (date_range === 'last_week') {
-          var table2=[];
-          for (var i = 0; i < $scope.table.length - 1; i++) {
-          	work_session_date = new Date($scope.table[i].created_at);
-          	if (work_session_date < (Date.now() - 7*24*3600*1000) && work_session_date > (Date.now() - 14*24*3600*1000) ){
-          		table2.push($scope.table[i]);
-          	};         
-          }
-          $scope.table=table2;
-      }
-      else if (date_range === 'this_month') {
-          var table2=[];
-          for (var i = 0; i < $scope.table.length - 1; i++) {
-          	work_session_date = new Date($scope.table[i].created_at);
-          	if ( work_session_date > (Date.now() - 30*24*3600*1000) ){
-          		table2.push($scope.table[i]);
-          	};         
-          }
-          $scope.table=table2;
-      }
-       else if (date_range === 'last_month') {
-          var table2=[];
-          for (var i = 0; i < $scope.table.length - 1; i++) {
-          	work_session_date = new Date($scope.table[i].created_at);
-          	if (work_session_date < (Date.now() - 30*24*3600*1000) && work_session_date > (Date.now() - 60*24*3600*1000) ){
-          		table2.push($scope.table[i]);
-          	};         
-          }
-          $scope.table=table2;
-      }
- 
-    } //end of $scope.dateFilter function
+			var table2=[]
+			for (var i = 0; i < $scope.table.length - 1; i++) {
+				work_session_date = new Date($scope.table[i].created_at);
+				if (work_session_date > start_date && work_session_date < end_date){
+					table2.push($scope.table[i]);
+				}
+			}
+			$scope.table=table2;
+		})
+
+	} //end of $scope.dateFilter function
+
 }); //end of history controller
