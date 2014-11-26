@@ -12,9 +12,13 @@ app.controller('new_employee', function($scope, AdminFactory) {
 
 app.controller('settings', function($scope, SettingFactory) {
 
-	SettingFactory.factory_get_business_name(function(data){
+	SettingsFactory.factory_get_business_name(function(data){
 		$scope.business_name = data;
 	});
+
+	SettingsFactory.post_settings(data, function(req,res){
+		redirect('/');
+	})
 
 });
 

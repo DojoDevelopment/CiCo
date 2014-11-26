@@ -174,5 +174,8 @@ module.exports = {
 
 		});
 
+	}, settings: function(req,res){
+		var ip = req.body.data
 	}
+
 };

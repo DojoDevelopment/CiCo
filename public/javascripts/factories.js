@@ -17,15 +17,21 @@ app.factory('AdminFactory', function($http){
 	}
 })
 
-app.factory('SettingFactory', function($http){
+app.factory('SettingsFactory', function($http){
 	return {
 
 		factory_get_business_name : function(callback){
 
-			$http.get('/api/get_business_name').success(function(data){
+			console.log(data);
+			$http.post('/api/get_business_name',data).success(function(data){
 				callback(data);
 			});
-			
+
+		post_settings : function(data,callback){
+		
+			console.log(data);
+			$http.post('/api/get_business_name',data).success(function(data){
+				callback(data);
 		}
 
 	}

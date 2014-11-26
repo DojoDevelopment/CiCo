@@ -34,12 +34,14 @@ app.config(function($routeProvider){
 
   }).when('/clockout', {
   
-    templateUrl: 'partials/clockout.html'
+    templateUrl: 'partials/clockout.html',
+    controller: 'clockout'
    
   })
   .when('/settings', {
   
-    templateUrl: 'partials/admin_settings.html'
+    templateUrl: 'partials/admin_settings.html',
+    controller: 'settings'
    
   })
   .when('/edit', {
