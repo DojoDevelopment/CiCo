@@ -1,13 +1,13 @@
 var connection = require('../../config/db.js')
 module.exports = {
 	
-	business_name : function(req, res){
+	business_info : function(req, res){
 	
-		var qry = "SELECT businesses.name "
+		var qry = "SELECT businesses.name, businesses.ip_addresses"
 						+ "FROM businesses "
 						+ "WHERE businesses.id = 1";
 
-		connection.query(qry, [], function(err, data) {
+		connection.query(qry, function(err, data) {
 			
 			if (err) throw err;
 			res.json(data);

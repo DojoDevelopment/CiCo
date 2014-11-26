@@ -20,12 +20,12 @@ app.factory('AdminFactory', function($http){
 app.factory('SettingFactory', function($http){
 	return {
 
-		factory_get_business_name : function(callback){
+		factory_get_business_info : function(callback){
 
-			$http.get('/api/get_business_name').success(function(data){
+			$http.get('/api/get_business_info').success(function(data){
 				callback(data);
 			});
-			
+
 		}
 
 	}
