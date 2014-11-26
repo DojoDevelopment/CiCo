@@ -1,5 +1,4 @@
-app.controller('employee', function($scope, $location, EmployeeFactory, ListFactory, TableFactory) {
-	var userID = $location.path().split('/')[3];
+app.controller('employee', function($scope, EmployeeFactory, ListFactory, TableFactory) {
 
 	$scope.addEmployee = function(){
 
@@ -23,17 +22,22 @@ app.controller('employee', function($scope, $location, EmployeeFactory, ListFact
 		EmployeeFactory.create_employee(info);
 	}
 
-	TableFactory.get_factory_user_history_table(userID, function(data){
-		$scope.table = data;
-		$scope.order = '-name';
-	});
-
 	ListFactory.factory_get_supervisors(function(data){
 		$scope.supervisors = data;
 	});
 
 	ListFactory.factory_get_all_locations(function(data){
 		$scope.locations = data;
+	});
+
+});
+
+app.controller('employeeInfo', function($scope, $location, EmployeeFactory, ListFactory, TableFactory ){
+
+	var userID = $location.path().split('/')[3];
+	TableFactory.get_factory_user_history_table(userID, function(data){
+		$scope.table = data;
+		$scope.order = '-name';
 	});
 
 	EmployeeFactory.factory_get_employee(userID, function(data){
@@ -74,6 +78,14 @@ app.controller('employee', function($scope, $location, EmployeeFactory, ListFact
 
 		EmployeeFactory.update_employee(userID, info);
 	}
+
+	ListFactory.factory_get_supervisors(function(data){
+		$scope.supervisors = data;
+	});
+
+	ListFactory.factory_get_all_locations(function(data){
+		$scope.locations = data;
+	});
 
 });
 

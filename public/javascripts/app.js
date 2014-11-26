@@ -40,17 +40,17 @@ app.config(function($routeProvider){
   .when('/admin/settings', {
   
     templateUrl: 'partials/admin_settings.html',
-   	controller:  'settings'
+   	controller:  'employeeInfo'
 
   }).when('/admin/show/:id', {
   
     templateUrl: 'partials/show_employee.html', 
-    controller:  'employee'
+    controller:  'employeeInfo'
    
   }).when('/admin/edit/:id', {
 
     templateUrl: 'partials/edit_employee.html',
-    controller: 'employee'
+    controller: 'employeeInfo'
    
   }).otherwise({
 
