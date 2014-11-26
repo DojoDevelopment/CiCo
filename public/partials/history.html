@@ -15,8 +15,8 @@
 		<div>
 		<div class='filter row-md-4 pull-right'>
 			<div class='container-sm'>
-				Location:
 				<select ng-model="place">
+					<option value="" disabled selected>Location</option>
 					<option value="">All</option>
 					<option ng-repeat="l in locations" value={{l.name}} ng-bind="l.name"></option>
 				</select>

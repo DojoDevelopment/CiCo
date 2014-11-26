@@ -2,7 +2,7 @@
   width:85%;
 }
 .navbar-inverse{
-  border-radius:0px;
+  border-radius:0px !important;
 }
 button a{
   text-decoration: none;
@@ -24,6 +24,22 @@ button a:hover{
   margin-bottom: -2% !important;
   width:100% !important;
   background-color: #676767 !important;
+}
+.add_table>tbody>tr>td{
+  width:25%;
+}
+.add_table>tbody>tr>td:first-child{
+  border-right: 1px solid #DDDDDD;
+}
+.add_table>tbody>tr>td:last-child{
+  border-right: none;
+}
+.add_table td{
+  border-bottom-width: 25em !important;
+}
+.upload_pic{
+  border:1.5px solid #DDDDDD !important;
+  width:24em !important;
 }
 .table-head tr td{
   border:none !important;
@@ -65,11 +81,15 @@ hr{
 .form-signin{
   margin-bottom: 10%;
 }
-
-textarea{
+.form-control{
+  width:30em;
+  border:none;
+  box-shadow: none;
+}
+/*textarea{
   resize:none;
   height:15em !important;
-}
+}*/
 
 #hrs{
   outline:none;
@@ -139,8 +159,6 @@ tr td .status{
   color:#9F9F9F;
 }
 .btn-in{
-  height:3em;
-  width:100%;
   background-color: #008500;
   color:white;
 }
