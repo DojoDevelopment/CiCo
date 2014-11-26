@@ -1,7 +1,9 @@
 .container{
   width:85%;
 }
-
+.navbar-inverse{
+  border-radius:0px;
+}
 button a{
   text-decoration: none;
   color:white;
@@ -11,7 +13,32 @@ button a:hover{
   color:#4584EF;
 }
 
+.employee-info div{
+  margin-top: -25px !important;
+}
+.table-head {
+  border:none !important;
+  border-top-right-radius: 1em !important;
+  border-top-left-radius: 1em !important;
+  color:white;
+  margin-bottom: -2% !important;
+  width:100% !important;
+  background-color: #676767 !important;
+}
+.table-head tr td{
+  border:none !important;
+}
+.snap-shot tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 1em !important;
+}
 
+hr{
+  border:1px solid #CECDCC;
+}
+.snap-shot tbody tr td:nth-child(2){
+
+  background-color: #F5F6F7 !important;
+}
 .container ul li{
   display: inline;
 }

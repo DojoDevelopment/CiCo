@@ -42,6 +42,11 @@ app.config(function($routeProvider){
     templateUrl: 'partials/admin_settings.html'
    
   })
+  .when('/show', {
+  
+    templateUrl: 'partials/show_employee.html'
+   
+  })
   .when('/edit', {
   
     templateUrl: 'partials/edit_employee.html'
