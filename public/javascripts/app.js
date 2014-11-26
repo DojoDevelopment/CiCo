@@ -27,11 +27,6 @@ app.config(function($routeProvider){
 		templateUrl: 'partials/admin_hist.html',
 		controller: 'history'
   
-  }).when('/admin/settings', {
-
-    templateUrl: 'partials/settings.html',
-    controller: 'settings'
-
   }).when('/admin/new_employee', {
 
     templateUrl: 'partials/new_employee.html',
@@ -41,8 +36,7 @@ app.config(function($routeProvider){
   
     templateUrl: 'partials/clockout.html'
    
-<<<<<<< HEAD
-	})
+  })
   .when('/settings', {
   
     templateUrl: 'partials/admin_settings.html'
@@ -58,9 +52,6 @@ app.config(function($routeProvider){
     templateUrl: 'partials/add_employee.html'
    
   }).otherwise({
-=======
-	}).otherwise({
->>>>>>> 6dd1d3e8da19d2f85288125e46dc741c20976543
 
 		redirectTo: '/',
 
