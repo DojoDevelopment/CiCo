@@ -15,4 +15,5 @@ module.exports = function Routes(app) {
 	app.get('/api/get_members',    					function(req, res){ queries.members(req, res);       });
 	app.get('/api/get_supervisors',         function(req, res){ queries.supervisors(req, res)    });
 	app.get('/api/get_user_dash',  					function(req, res){ queries.user_dash(req, res);     });
+	app.post('/api/clock_out/:id/:session',  		function(req, res){ queries.clock_out(req, res)  });
 }

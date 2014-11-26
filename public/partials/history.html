@@ -15,10 +15,10 @@
 		<div>
 		<div class='filter row-md-4 pull-right'>
 			<div class='container-sm'>
-				<select ng-model="location">
-					<option value="" disabled selected>Filter by Location</option>
+				Location:
+				<select ng-model="place">
 					<option value="">All</option>
-					<option ng-repeat="location in locations | filter:location" value={{location.name}} ng-bind="location.name"></option>
+					<option ng-repeat="l in locations" value={{l.name}} ng-bind="l.name"></option>
 				</select>
 
 				<select class='pull-right' ng-model="member">
@@ -86,7 +86,7 @@
 						<td ng-bind="row.name"></td>
 						<td ng-bind="row.title"></td>
 						<td ng-bind="row.team"></td>
-						<td ng-bind="row.loc"></td>
+						<td ng-bind="row.locations"></td>
 						<td ng-bind="row.clock_in | date:'shortTime'"></td>
 						<td ng-bind="row.clock_out | date:'shortTime'"></td>
 						<td ng-bind="row.personal_time	"></td>

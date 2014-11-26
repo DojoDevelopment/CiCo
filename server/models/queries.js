@@ -171,6 +171,8 @@ module.exports = {
 		var id = req.params.id;
 		var session = req.params.session;
 
+		console.log(req.body.data)
+
 		var qry = "UPDATE sessions "
 		+ "SET clock_out=NOW(), "
 		+		"personal_time=1.5, "

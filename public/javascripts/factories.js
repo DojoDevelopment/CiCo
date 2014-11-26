@@ -69,6 +69,9 @@ app.factory('ListFactory', function($http){
 
 		}, get_factory_members : function(callback){
 
+			// we need to send some stuff, apart what's send in the url
+			// so probably that info will be retrieved later from request.body.....
+
 			$http.get('api/get_members').success(function(data){
 				callback(data);
 			});
@@ -86,7 +89,6 @@ app.factory('ListFactory', function($http){
 
 app.factory('ClockingFactory', function($http){
 	return {
-
 		factory_clock_in: function(user, callback){
 
 			$http.get('/api/clock_in/'+ user).success(function(data){
@@ -95,7 +97,7 @@ app.factory('ClockingFactory', function($http){
 
 		}, factory_clock_out: function(session, user, callback){
 
-			$http.get('api/clock_out/' + user + '/' + session).success(function(data){
+			$http.post('api/clock_out/' + user + '/' + session, data).success(function(data){
 				callback(data);
 			});
 		}
