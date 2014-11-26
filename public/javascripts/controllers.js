@@ -1,5 +1,4 @@
-app.controller('employee', function($scope, $location, EmployeeFactory, ListFactory, TableFactory) {
-	var userID = $location.path().split('/')[3];
+app.controller('employee', function($scope, EmployeeFactory, ListFactory, TableFactory) {
 
 	$scope.addEmployee = function(){
 
@@ -20,13 +19,9 @@ app.controller('employee', function($scope, $location, EmployeeFactory, ListFact
 									status: status, note : note, picture : picture, start_date : start_date, email: email,
 									password: password, admin : admin }
 
+		//upload picture function here//
 		EmployeeFactory.create_employee(info);
 	}
-
-	TableFactory.get_factory_user_history_table(userID, function(data){
-		$scope.table = data;
-		$scope.order = '-name';
-	});
 
 	ListFactory.factory_get_supervisors(function(data){
 		$scope.supervisors = data;
@@ -34,6 +29,16 @@ app.controller('employee', function($scope, $location, EmployeeFactory, ListFact
 
 	ListFactory.factory_get_all_locations(function(data){
 		$scope.locations = data;
+	});
+
+});
+
+app.controller('employeeInfo', function($scope, $location, EmployeeFactory, ListFactory, TableFactory ){
+
+	var userID = $location.path().split('/')[3];
+	TableFactory.get_factory_user_history_table(userID, function(data){
+		$scope.table = data;
+		$scope.order = '-name';
 	});
 
 	EmployeeFactory.factory_get_employee(userID, function(data){
@@ -75,6 +80,14 @@ app.controller('employee', function($scope, $location, EmployeeFactory, ListFact
 		EmployeeFactory.update_employee(userID, info);
 	}
 
+	ListFactory.factory_get_supervisors(function(data){
+		$scope.supervisors = data;
+	});
+
+	ListFactory.factory_get_all_locations(function(data){
+		$scope.locations = data;
+	});
+
 });
 
 app.controller('settings', function($scope,$location,SettingsFactory) {
@@ -99,6 +112,20 @@ app.controller('settings', function($scope,$location,SettingsFactory) {
 
 	});
 
+
+app.controller('clockout', function($scope, $location, ClockingFactory){
+	
+	var session_id = $location.path().split('/')[2];
+	$scope.clockOut = function( ) {
+
+		var personal = document.getElementById('personal').value;
+		var report   = document.getElementById('report').value;
+		var info = {session : session_id, personal : personal, report : report };
+
+		ClockingFactory.factory_clock_out(info);
+	};
+
+});
 
 app.controller('user_dashboard', function($scope, TableFactory, ListFactory, ClockingFactory) {
 
@@ -141,6 +168,7 @@ app.controller('user_dashboard', function($scope, TableFactory, ListFactory, Clo
 		$location.path('/#/dashboard');
 	};
 
+
 }); //end of user_dashboard controller
 
 app.controller('admin_dashboard', function($scope, TableFactory, ListFactory) {
@@ -153,16 +181,6 @@ app.controller('admin_dashboard', function($scope, TableFactory, ListFactory) {
 		$scope.table = data;
 		$scope.order = '-name';
 	});
-
-	// $scope.add_employeeModal = false;
- //  $scope.add_employee = function() {
- //    $scope.add_employeeModal = !$scope.add_employeeModal;
- //  };
-
-	// $scope.settingsModal = false;
-	// $scope.settings = function() {
-	// 	$scope.settingsModal = !$scope.settingsModal;
-	// };
 
 }); //end of admin_dashboard controller
 
@@ -247,5 +265,4 @@ app.controller('history', function($scope, TableFactory, ListFactory) {
 		})
 
 	} //end of $scope.dateFilter function
-
 }); //end of history controller

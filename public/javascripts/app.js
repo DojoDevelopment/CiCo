@@ -32,11 +32,10 @@ app.config(function($routeProvider){
     templateUrl: 'partials/add_employee.html',
     controller:  'employee'
 
-  }).when('/clockout', {
+  }).when('/clockout/:id', {
   
     templateUrl: 'partials/clockout.html',
-    controller: 'clockout'
-   
+    controller: 'clockout'   
   })
   .when('/admin/settings', {
   
@@ -46,12 +45,12 @@ app.config(function($routeProvider){
   }).when('/admin/show/:id', {
   
     templateUrl: 'partials/show_employee.html', 
-    controller:  'employee'
+    controller:  'employeeInfo'
    
   }).when('/admin/edit/:id', {
 
     templateUrl: 'partials/edit_employee.html',
-    controller: 'employee'
+    controller: 'employeeInfo'
    
   }).otherwise({
 
@@ -60,77 +59,3 @@ app.config(function($routeProvider){
 	});
 });
 
-////################////
-// CUSTOM MODAL DIRECTIVES //
-////################////
-
-//ADMIN DIRECTIVES//
-// app.directive('modalAdd', function() {
-//   return {
-//     restrict: 'E',
-//     scope: {
-//       show: '='
-//     },
-//     replace: true, // Replace with the template below
-//     transclude: false, // allows for custom content
-//     link: function(scope, element, attrs) {
-//       scope.dialogStyle = {};
-//       if (attrs.width)
-//         scope.dialogStyle.width = attrs.width;
-//       if (attrs.height)
-//         scope.dialogStyle.height = attrs.height;
-//       scope.hideModal = function() {
-//         scope.show = false;
-//       };
-//     },
-//     templateUrl: 'partials/modal.html', //modal content stored as partial
-//     controller: 'admin_dashboard'
-//   };
-// });
-
-// app.directive('modalSettings', function() {
-//   return {
-//     restrict: 'E',
-//     scope: {
-//       show: '='
-//     },
-//     replace: true, // Replace with the template below
-//     transclude: false, // allows for custom content
-//     link: function(scope, element, attrs) {
-//       scope.dialogStyle = {};
-//       if (attrs.width)
-//         scope.dialogStyle.width = attrs.width;
-//       if (attrs.height)
-//         scope.dialogStyle.height = attrs.height;
-//       scope.hideModal = function() {
-//         scope.show = false;
-//       };
-//     },
-//     templateUrl: 'partials/adminModal.html', //modal content stored as partial
-//     controller: 'admin_dashboard'
-//   };
-// });
-
-// //EMPLOYEE DIRECTIVES//
-// app.directive('modalClockout', function() {
-//   return {
-//     restrict: 'E',
-//     scope: {
-//       show: '='
-//     },
-//     replace: true, // Replace with the template below
-//     transclude: false, // allows for custom content
-//     link: function(scope, element, attrs) {
-//       scope.dialogStyle = {};
-//       if (attrs.width)
-//         scope.dialogStyle.width = attrs.width;
-//       if (attrs.height)
-//         scope.dialogStyle.height = attrs.height;
-//       scope.hideModal = function() {
-//         scope.show = false;
-//       };
-//     },
-//     templateUrl: 'partials/clockout_modal.html', //modal content stored as partial
-//     controller: 'user_dashboard'
-//   };
-// });

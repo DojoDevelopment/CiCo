@@ -1,13 +1,5 @@
 app.factory('EmployeeFactory', function($http){
 	return {
-
-// <<<<<<< HEAD
- 		addEmployee : function(stuff, callback){ 			
- 			console.log(stuff);
-			$http.post('/api/add_employee', stuff).success(function(data){
-			});
-		},	
-// =======
 		create_employee : function(data){
 
 			$http.post('/api/add_employee', data).success(function(){
@@ -17,7 +9,6 @@ app.factory('EmployeeFactory', function($http){
 		}, factory_get_employee : function(id, callback){
 
 			$http.get('/api/get_employee/' + id).success(function(data){
-//>>>>>>> 79f235a3aa7a56e9b1020ac08320b41bf05e41c1
 				callback(data);
 			});
 
@@ -126,10 +117,10 @@ app.factory('ClockingFactory', function($http){
 				callback(data);
 			});
 
-		}, factory_clock_out: function(session, user, callback){
+		}, factory_clock_out: function(info){
 
-			$http.post('api/clock_out/' + user + '/' + session, data).success(function(data){
-				callback(data);
+			$http.post('api/clock_out/' + info.session, info).success(function(){
+				document.location.href = '../#/dashboard';
 			});
 		}
 

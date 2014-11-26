@@ -34,7 +34,7 @@ module.exports = function Routes(app) {
 	app.get('/api/get_user_history/:id',    function(req, res){ queries.user_history(req, res);		 });
 
 	app.post('/api/add_employee',           function(req, res){ queries.add_employee(req, res);    });
-	app.post('/api/clock_out/:id/:session', function(req, res){ queries.clock_out(req, res);       });
+	app.post('/api/clock_out/:session',     function(req, res){ queries.clock_out(req, res);       });
 	app.post('/api/update_employee/:id',    function(req, res){ queries.update_employee(req, res); });
 //>>>>>>> 79f235a3aa7a56e9b1020ac08320b41bf05e41c1
 }
