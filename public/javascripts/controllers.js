@@ -1,4 +1,5 @@
-app.controller('employee', function($scope, EmployeeFactory, ListFactory) {
+app.controller('employee', function($scope, $location, EmployeeFactory, ListFactory, TableFactory) {
+	var userID = $location.path().split('/')[3];
 
 	$scope.addEmployee = function(){
 
@@ -15,14 +16,19 @@ app.controller('employee', function($scope, EmployeeFactory, ListFactory) {
 		var password 	 = document.getElementById('inputPassword').value;
 		var admin 		 = (document.getElementById('inputAdmin').checked == true ? 'contractor' : 'employee');
 
-		var myinfo = {name : name, title: title, team: team, location: location, supervisor: supervisor,
+		var info = {name : name, title: title, team: team, location: location, supervisor: supervisor,
 									status: status, note : note, picture : picture, start_date : start_date, email: email,
 									password: password, admin : admin }
 
-		EmployeeFactory.create_employee(myinfo);
+		EmployeeFactory.create_employee(info);
 	}
 
-	ListFactory.get_supervisors(function(data){
+	TableFactory.get_factory_user_history_table(userID, function(data){
+		$scope.table = data;
+		$scope.order = '-name';
+	});
+
+	ListFactory.factory_get_supervisors(function(data){
 		$scope.supervisors = data;
 	});
 
@@ -30,9 +36,44 @@ app.controller('employee', function($scope, EmployeeFactory, ListFactory) {
 		$scope.locations = data;
 	});
 
-	EmployeeFactory.get_employee(function(data){
-		$scope.user = data;
+	EmployeeFactory.factory_get_employee(userID, function(data){
+
+		//errors on create employee because function fires when not needed
+		var admin = (data[0].type == 'employee' ? '' : 'true')
+
+		$scope.name       = data[0].name;
+		$scope.title      = data[0].title;
+		$scope.team       = data[0].team;
+		$scope.location   = data[0].location_id;
+		$scope.supervisor = data[0].supervisor_id;
+		$scope.status     = data[0].status;
+		$scope.note  			= data[0].note;
+		$scope.start      = data[0].start_date.substring(0,10);
+		$scope.email      = data[0].email;
+		$scope.password 	= data[0].password;
+		$scope.admin 			= admin;
 	});
+
+	$scope.update_employee = function(){
+
+		var name       = document.getElementById('inputName').value;
+		var title      = document.getElementById('inputTitle').value;
+		var team       = document.getElementById('inputTeam').value;
+		var location   = document.getElementById('inputLocation').value;
+		var supervisor = document.getElementById('inputSupervisor').value;
+		var status     = document.getElementById('inputStatus').value;
+		var note			 = document.getElementById('inputNote').value;
+		var start_date = document.getElementById('inputDate').value;
+		var email      = document.getElementById('inputEmail').value;
+		var password 	 = document.getElementById('inputPassword').value;
+		var admin 		 = (document.getElementById('inputAdmin').checked == true ? 'contractor' : 'employee');
+
+		var info = {name : name, title: title, team: team, location: location, supervisor: supervisor,
+									status: status, note : note, start_date : start_date, email: email,
+									password: password, admin : admin }
+
+		EmployeeFactory.update_employee(userID, info);
+	}
 
 });
 

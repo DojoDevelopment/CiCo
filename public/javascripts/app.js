@@ -42,11 +42,12 @@ app.config(function($routeProvider){
     templateUrl: 'partials/admin_settings.html',
    	controller:  'settings'
 
-  }).when('/show', {
+  }).when('/admin/show/:id', {
   
-    templateUrl: 'partials/show_employee.html'
+    templateUrl: 'partials/show_employee.html', 
+    controller:  'employee'
    
-  }).when('admin/edit', {
+  }).when('/admin/edit/:id', {
 
     templateUrl: 'partials/edit_employee.html',
     controller: 'employee'

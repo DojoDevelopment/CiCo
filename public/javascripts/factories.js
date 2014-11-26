@@ -3,13 +3,21 @@ app.factory('EmployeeFactory', function($http){
 
 		create_employee : function(data){
 
-			$http.post('/api/addEmployee', data).success(function(){
+			$http.post('/api/add_employee', data).success(function(){
 				document.location.href = '../#/admin/dashboard';
 			});
 
-		}, get_employee : function(id){
+		}, factory_get_employee : function(id, callback){
 
-		}, update_employee : function(data){
+			$http.get('/api/get_employee/' + id).success(function(data){
+				callback(data);
+			});
+
+		}, update_employee : function(id, data){
+
+			$http.post('/api/update_employee/' + id, data).success(function(){
+				document.location.href = '../#/admin/dashboard';
+			});
 
 		}
 	}
@@ -50,6 +58,11 @@ app.factory('TableFactory', function($http){
 				console.log('in TableFactory get_factory_history_table and data is: ',data);
 				callback(data);
 			});
+		}, get_factory_user_history_table : function(id, callback){
+
+			$http.get('/api/get_user_history/' + id).success(function(data){
+				callback(data);
+			});
 		}
 
 	};
@@ -79,7 +92,7 @@ app.factory('ListFactory', function($http){
 				callback(data);
 			});
 
-		}, get_supervisors : function(callback){
+		}, factory_get_supervisors : function(callback){
 
 			$http.get('/api/get_supervisors').success(function(data){
 				callback(data);

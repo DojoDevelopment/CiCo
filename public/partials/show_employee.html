@@ -1,82 +1,73 @@
 <div class='container-fluid'>
-    <div class='jumbotron'>
-        <h1>Employee Data</h1>
-    </div>
-	<div class='container'>
-	   <div class='row'>
-            <div class='col-md-6'>
-                <img width='250' height='290' src="/img/dev.jpg">
+  <div class='jumbotron'>
+    <h1>Employee Data</h1>
+  </div>
+  <div class='container'>
+   <div class='row'>
 
-            </div>  
-            <div class='col-md-6 employee-info'>
-                <div height='690' width='650'>
-                    <h2>Employee Snapshot <button class='pull-right btn btn-md btn-warning'><a href="/#/admin/dashboard">Go Back</a></button></h2>
-                    <hr>
-                    <table class='table snap-shot'>
-                        <thead>
-                            <th colspan='2' class='table-head'>
-                                <h3>L_Name, F_Name</h3>
-                            </th>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Title</td>
-                                <td>Awesome Front-endy Guy</td>
-                            </tr>
-                            <tr>
-                                <td>Team</td>
-                                <td>Interns</td>
-                            </tr>
-                             <tr>
-                                <td>E-Mail</td>
-                                <td>JMan@Batcave.com</td>
-                            </tr>
-                            <tr>
-                                <td>Start Date</td>
-                                <td>6/23/14</td>
-                            </tr>
-                            <tr>
-                                <td>Status</td>
-                                <td>Active!</td>
-                            </tr> 
-                         </tbody>                                                                                       
-                    </table>
-                </div>
-            </div>  
-       </div>
-	</div>
-	<div class='container-sm'>
-		<table class='table table-bordered'>
-            <thead>
-                <th>
-                    words and stuff
-                </th>
-                <th>
-                    words and stuff
-                </th>
-                <th>
-                    words and stuff
-                </th>
-                <th>
-                    words and stuff
-                </th>                                
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        stuff about words
-                    </td>
-                    <td>
-                        stuff about words
-                    </td>
-                    <td>
-                        stuff about words
-                    </td>
-                    <td>
-                        stuff about words
-                    </td>                      
-                </tr>
-            </tbody>      
+    <div class='col-md-6'>
+      <img width='250' height='290' src="/img/profile_pic/dev.jpg">
+    </div>  
+
+    <div class='col-md-6 employee-info'>
+      <div height='690' width='650'>
+        <h2>Employee Snapshot <button class='pull-right btn btn-md btn-warning'><a href="/#/admin/dashboard">Go Back</a></button></h2>
+        <hr>
+        <table class='table snap-shot'>
+          <thead>
+            <th colspan='2' class='table-head'>
+              <h3 ng-model="name" ng-bind="name"></h3>
+            </th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Title</td>
+              <td ng-model="title" ng-bind="title"></td>
+            </tr>
+            <tr>
+              <td>Team</td>
+              <td ng-model="team" ng-bind="team"></td>
+            </tr>
+            <tr>
+              <td>E-Mail</td>
+              <td ng-model="email" ng-bind="email"></td>
+            </tr>
+            <tr>
+              <td>Start Date</td>
+              <td ng-model="start" ng-bind="start"></td>
+            </tr>
+            <tr>
+              <td>Status</td>
+              <td ng-model="status" ng-bind="status"></td>
+            </tr> 
+          </tbody>                                                                                       
         </table>
-	</div>	
+      </div>
+    </div>  
+  </div>
+</div>
+<div class='container-sm'>
+  <table class='table table-bordered'>
+    <thead>
+      <th><a href="" ng-click="order='date'; reverse=!reverse">Date</a></th>
+      <th><a href="" ng-click="order='location'; reverse=!reverse">Location</a></th>
+      <th class='clk-btn'><a href="" ng-click="order='clock_in'; reverse=!reverse">Clock IN</a></th>
+      <th class='clk-btn'><a href="" ng-click="order='clock_out'; reverse=!reverse">Clock OUT</a></th>
+      <th><a href="" ng-click="order='personal'; reverse=!reverse">Personal Time</a></th>
+      <th><a href="" ng-click="order='billed'; reverse=!reverse">Billed Hours</a></th>
+      <th>Report</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="row in table | filter: { locations:place, name:member } | orderBy:order:reverse">
+        <td ng-bind="row.created_at | date:'M/dd (EEE)'"></td>
+        <td ng-bind="row.locations"></td>
+        <td ng-bind="row.clock_in | date:'shortTime'"></td>
+        <td ng-bind="row.clock_out | date:'shortTime'"></td>
+        <td ng-bind="row.personal_time  "></td>
+        <td ng-bind="row.billed"></td>
+        <td ng-bind="row.report"></td>
+      </tr>
+    </tbody>      
+  </table>
+</div>  
 </div>
