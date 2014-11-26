@@ -10,27 +10,27 @@ app.config(function($routeProvider){
 	}).when('/dashboard', {
 	
 		templateUrl: 'partials/dashboard.html',
-		controller: 'user_dashboard'
+		controller:  'user_dashboard'
 	
 	}).when('/history', {
 	
 		templateUrl: 'partials/history.html',
-		controller: 'history'
+		controller:  'history'
 	
 	}).when('/admin/dashboard', {
 	
 		templateUrl: 'partials/admin_dash.html',
-		controller: 'admin_dashboard'
+		controller:  'admin_dashboard'
 	
 	}).when('/admin/history', {
 	
 		templateUrl: 'partials/admin_hist.html',
-		controller: 'history'
+		controller:  'history'
   
   }).when('/admin/add_employee', {
 
     templateUrl: 'partials/add_employee.html',
-    controller: 'new_employee'
+    controller:  'employee'
 
   }).when('/clockout', {
   
@@ -38,15 +38,20 @@ app.config(function($routeProvider){
     controller: 'clockout'
    
   })
-  .when('/settings', {
+  .when('/admin/settings', {
   
     templateUrl: 'partials/admin_settings.html',
     controller: 'settings'
-   
-  })
-  .when('/edit', {
+
+  }).when('/admin/show/:id', {
   
-    templateUrl: 'partials/edit_employee.html'
+    templateUrl: 'partials/show_employee.html', 
+    controller:  'employee'
+   
+  }).when('/admin/edit/:id', {
+
+    templateUrl: 'partials/edit_employee.html',
+    controller: 'employee'
    
   }).otherwise({
 

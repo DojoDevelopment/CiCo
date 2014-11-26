@@ -1,11 +1,44 @@
 var connection = require('../../config/db.js')
 module.exports = {
 	
-	business_info : function(req, res){
+	get_employee : function(req, res){
+
+		var id = req.params.id;
+
+		var qry = "SELECT members.location_id, members.name, members.title, members.email, members.password, members.start_date, members.status, "
+			+ "members.note, members.team, members.supervisor_id, members.type "
+			+ "FROM members "
+			+ "WHERE members.id = ?";
+
+		connection.query(qry, id, function(err, data) {
+
+			if (err) throw err;
+			res.json(data);
+
+		});
+
+	}, user_history : function(req, res){
+		var id  = req.params.id;
+
+		var qry = "SELECT sessions.created_at, locations.name AS locations, clock_in, clock_out, personal_time, report, TIMEDIFF(clock_out,clock_in) AS billed FROM sessions "
+				+ " LEFT JOIN members ON sessions.member_id = members.id "
+				+ " LEFT JOIN locations ON locations.id = members.location_id "
+				+ " WHERE members.id = ?";
+
+		connection.query(qry, id, function(err, data) {
+
+			if (err) throw err;
+			res.json(data);
+		
+		});
+
+
+	}, business_info : function(req, res){
 	
 		var id = req.params.id;
 		console.log('before retrieving info for business: ',id)
 		var qry = "SELECT name, ip_addresses "
+
 						+ "FROM businesses "
 						+ "WHERE businesses.id ="+id;
 		console.log(qry);
@@ -31,19 +64,62 @@ module.exports = {
 
 		});
 
+	}, update_employee : function(req, res) {
+
+		var id = req.params.id
+
+		var location   = req.body.location;
+		var name       = req.body.name;
+		var title      = req.body.title;
+		var email      = req.body.email;
+		var password 	 = req.body.password;
+		var start_date = req.body.start_date;
+		var status     = req.body.status;
+		var note			 = req.body.note;
+		var team       = req.body.team;
+		var supervisor = req.body.supervisor;
+		var type 	  	 = req.body.admin;
+
+		var qry = "UPDATE members SET location_id=?, "
+			+ "name=?, title=?, email=?, password=?, start_date=?, status=?, "
+			+ "note=?, team=?, supervisor_id=?, type=?, updated_at=NOW() "
+			+ "WHERE id=?"
+
+		var form = [location, name, title, email, password, start_date, 
+								status, note, team, supervisor, type, id]
+
+		connection.query(qry, form, function(err) {
+			if (err) throw err;
+			res.status(200).end();
+		});
+
+
 	}, add_employee : function(req, res) {
 
+		var location   = req.body.location;
+		var name       = req.body.name;
+		var title      = req.body.title;
+		var email      = req.body.email;
+		var password 	 = req.body.password;
+		var start_date = req.body.start_date;
+		var status     = req.body.status;
+		var note			 = req.body.note;
+		var team       = req.body.team;
+		var supervisor = req.body.supervisor;
+		var type 	  	 = req.body.admin;
+		console.log(req.body);
 		var qry = "INSERT INTO members (business_id, location_id, "
 			+ "name, title, email, password, start_date, status, "
-			+ "note, picture, team, supervisor_id, type, created_at) "
-			+ "VALUES (1,?,?,?,?,?,?,?,?,?,?,?,?,NOW())";
+			+ "note, team, supervisor_id, type, created_at) "
+			+ "VALUES (1,?,?,?,?,?,?,?,?,?,?,?, NOW())";
 
-		//connection.query(qry, [], function(err, data) {
-			console.log(req.body);
-			//if (err) throw err;
-			// res.json(data);
+		var form = [location, name, title, email, password, start_date, 
+								status, note, team, supervisor, type]
 
-//		});
+		connection.query(qry, form, function(err) {
+			if (err) throw err;
+			res.status(200).end();
+		});
 
 	}, all_locations  : function(req, res) {
 

@@ -15,8 +15,8 @@
 		<div>
 		<div class='filter row-md-4 pull-right'>
 			<div class='container-sm'>
-				Location:
 				<select ng-model="place">
+					<option value="" disabled selected>Location</option>
 					<option value="">All</option>
 					<option ng-repeat="l in locations" value={{l.name}} ng-bind="l.name"></option>
 				</select>
@@ -82,7 +82,7 @@
 				<tbody>
 					<tr ng-repeat="row in table | filter: { locations:place, name:member } | orderBy:order:reverse">
 						<td ng-bind="row.created_at | date:'M/dd (EEE)'"></td>
-						<td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg"></td>
+						<td><img height='30' width='30' class='img-rounded' src="/img/profile_pic/dev.jpg"></td>
 						<td ng-bind="row.name"></td>
 						<td ng-bind="row.title"></td>
 						<td ng-bind="row.team"></td>

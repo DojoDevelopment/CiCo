@@ -1,10 +1,30 @@
-app.factory('AdminFactory', function($http){
+app.factory('EmployeeFactory', function($http){
 	return {
 
-		addEmployee : function(stuff, callback){
-			console.log(stuff);
-			$http.post('/api/addEmployee', stuff).success(function(data){
+// <<<<<<< HEAD
+ 		addEmployee : function(stuff, callback){ 			
+ 			console.log(stuff);
+			$http.post('/api/add_employee', stuff).success(function(data){
+			});
+		},	
+// =======
+		create_employee : function(data){
+
+			$http.post('/api/add_employee', data).success(function(){
+				document.location.href = '../#/admin/dashboard';
+			});
+
+		}, factory_get_employee : function(id, callback){
+
+			$http.get('/api/get_employee/' + id).success(function(data){
+//>>>>>>> 79f235a3aa7a56e9b1020ac08320b41bf05e41c1
 				callback(data);
+			});
+
+		}, update_employee : function(id, data){
+
+			$http.post('/api/update_employee/' + id, data).success(function(){
+				document.location.href = '../#/admin/dashboard';
 			});
 
 		}
@@ -53,6 +73,11 @@ app.factory('TableFactory', function($http){
 				console.log('in TableFactory get_factory_history_table and data is: ',data);
 				callback(data);
 			});
+		}, get_factory_user_history_table : function(id, callback){
+
+			$http.get('/api/get_user_history/' + id).success(function(data){
+				callback(data);
+			});
 		}
 
 	};
@@ -82,7 +107,7 @@ app.factory('ListFactory', function($http){
 				callback(data);
 			});
 
-		}, get_supervisors : function(callback){
+		}, factory_get_supervisors : function(callback){
 
 			$http.get('/api/get_supervisors').success(function(data){
 				callback(data);

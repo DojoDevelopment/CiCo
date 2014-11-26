@@ -9,8 +9,8 @@
       Contractors / Part Time Employees
     </h5>
     <div class='pull-right'>
-      <a href="/#/settings" class='basic'><i class="fa fa-cog"></i> settings</a> / <a href="/">logout</a>
-      <modal-settings show='settingsModal' width='50%' height='60%'></modal-settings>
+      <a href="/#/admin/settings" class='basic'><i class="fa fa-cog"></i> settings</a> / <a href="/">logout</a>
+<!--       <modal-settings show='settingsModal' width='50%' height='60%'></modal-settings> -->
     </div>
   </div>
 </div>
@@ -47,7 +47,7 @@
   </thead>
   <tbody>
     <tr ng-repeat="row in table | filter: { locations:place } | orderBy:order:reverse">
-      <td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg"></td>
+      <td><img height='30' width='30' class='img-rounded' src="/img/profile_pic/dev.jpg"></td>
       <td ng-bind="row.name"></td>
       <td ng-bind="row.status"></td> 
       <td ng-bind="row.title"></td>
@@ -55,9 +55,9 @@
       <td ng-bind="row.supervisor"></td> 
       <td ng-bind="row.locations"></td> 
       <td ng-bind="row.note"></td> 
-      <td><a href=""> Show </a> / <a href="/#/edit"> Edit </a></td>
+      <td><a href="/#/admin/show/{{row.id}}">Show</a>/<a href="/#/admin/edit/{{row.id}}">Edit</a></td>
     </tr>
   </tbody>
 </table>
 
-<button class='btn btn-md btn-in pull-right'><a href="/#/admin/add_employee">Add Employee</a></button>
+<button class='btn btn-md btn-success pull-right'><a href="/#/admin/add_employee">Add Employee</a></button>

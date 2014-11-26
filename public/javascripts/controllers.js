@@ -1,18 +1,79 @@
-app.controller('new_employee', function($scope, AdminFactory, ListFactory) {
+app.controller('employee', function($scope, $location, EmployeeFactory, ListFactory, TableFactory) {
+	var userID = $location.path().split('/')[3];
 
 	$scope.addEmployee = function(){
-		var myinfo = {user : 4, company: 'sony'}
-		AdminFactory.addEmployee(myinfo, function(data){
-		});
+
+		var name       = document.getElementById('inputName').value;
+		var title      = document.getElementById('inputTitle').value;
+		var team       = document.getElementById('inputTeam').value;
+		var location   = document.getElementById('inputLocation').value;
+		var supervisor = document.getElementById('inputSupervisor').value;
+		var status     = document.getElementById('inputStatus').value;
+		var note			 = document.getElementById('inputNote').value;
+		var picture    = document.getElementById('inputPicPath').value;
+		var start_date = document.getElementById('inputDate').value;
+		var email      = document.getElementById('inputEmail').value;
+		var password 	 = document.getElementById('inputPassword').value;
+		var admin 		 = (document.getElementById('inputAdmin').checked == true ? 'contractor' : 'employee');
+
+		var info = {name : name, title: title, team: team, location: location, supervisor: supervisor,
+									status: status, note : note, picture : picture, start_date : start_date, email: email,
+									password: password, admin : admin }
+
+		EmployeeFactory.create_employee(info);
 	}
 
-	ListFactory.get_supervisors(function(data){
+	TableFactory.get_factory_user_history_table(userID, function(data){
+		$scope.table = data;
+		$scope.order = '-name';
+	});
+
+	ListFactory.factory_get_supervisors(function(data){
 		$scope.supervisors = data;
 	});
 
 	ListFactory.factory_get_all_locations(function(data){
 		$scope.locations = data;
 	});
+
+	EmployeeFactory.factory_get_employee(userID, function(data){
+
+		//errors on create employee because function fires when not needed
+		var admin = (data[0].type == 'employee' ? '' : 'true')
+
+		$scope.name       = data[0].name;
+		$scope.title      = data[0].title;
+		$scope.team       = data[0].team;
+		$scope.location   = data[0].location_id;
+		$scope.supervisor = data[0].supervisor_id;
+		$scope.status     = data[0].status;
+		$scope.note  			= data[0].note;
+		$scope.start      = data[0].start_date.substring(0,10);
+		$scope.email      = data[0].email;
+		$scope.password 	= data[0].password;
+		$scope.admin 			= admin;
+	});
+
+	$scope.update_employee = function(){
+
+		var name       = document.getElementById('inputName').value;
+		var title      = document.getElementById('inputTitle').value;
+		var team       = document.getElementById('inputTeam').value;
+		var location   = document.getElementById('inputLocation').value;
+		var supervisor = document.getElementById('inputSupervisor').value;
+		var status     = document.getElementById('inputStatus').value;
+		var note			 = document.getElementById('inputNote').value;
+		var start_date = document.getElementById('inputDate').value;
+		var email      = document.getElementById('inputEmail').value;
+		var password 	 = document.getElementById('inputPassword').value;
+		var admin 		 = (document.getElementById('inputAdmin').checked == true ? 'contractor' : 'employee');
+
+		var info = {name : name, title: title, team: team, location: location, supervisor: supervisor,
+									status: status, note : note, start_date : start_date, email: email,
+									password: password, admin : admin }
+
+		EmployeeFactory.update_employee(userID, info);
+	}
 
 });
 
@@ -35,6 +96,7 @@ app.controller('settings', function($scope,$location,SettingsFactory) {
 		$scope.company = business_info[0].name;
 		$scope.ip = business_info[0].ip_addresses;
 		})
+
 	});
 
 
@@ -76,6 +138,7 @@ app.controller('user_dashboard', function($scope, TableFactory, ListFactory, Clo
 		ClockingFactory.factory_clock_out(session, user, function(data){
 			$scope.table[row].clock_out = data;
 		});
+		$location.path('/#/dashboard');
 	};
 
 }); //end of user_dashboard controller
@@ -91,15 +154,15 @@ app.controller('admin_dashboard', function($scope, TableFactory, ListFactory) {
 		$scope.order = '-name';
 	});
 
-	$scope.add_employeeModal = false;
-  $scope.add_employee = function() {
-    $scope.add_employeeModal = !$scope.add_employeeModal;
-  };
+	// $scope.add_employeeModal = false;
+ //  $scope.add_employee = function() {
+ //    $scope.add_employeeModal = !$scope.add_employeeModal;
+ //  };
 
-	$scope.settingsModal = false;
-	$scope.settings = function() {
-		$scope.settingsModal = !$scope.settingsModal;
-	};
+	// $scope.settingsModal = false;
+	// $scope.settings = function() {
+	// 	$scope.settingsModal = !$scope.settingsModal;
+	// };
 
 }); //end of admin_dashboard controller
 
