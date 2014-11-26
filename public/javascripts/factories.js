@@ -1,11 +1,10 @@
 app.factory('AdminFactory', function($http){
 	return {
 
-		addEmployee : function(stuff, callback){
-				console.log(stuff);
+		addEmployee : function(stuff){
 
-			$http.post('/api/addEmployee', stuff).success(function(data){
-				callback(data);
+			$http.post('/api/addEmployee', stuff).success(function(){
+				document.location.href = '../#/admin/dashboard';
 			});
 
 		}

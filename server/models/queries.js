@@ -30,17 +30,31 @@ module.exports = {
 
 	}, add_employee : function(req, res) {
 
+		var name       = req.body.name;
+		var title      = req.body.title;
+		var team       = req.body.team;
+		var location   = req.body.location;
+		var supervisor = req.body.supervisor;
+		var status     = req.body.status;
+		var note			 = req.body.note;
+		var picture    = req.body.picture;
+		var start_date = req.body.start_date;
+		var email      = req.body.email;
+		var password 	 = req.body.password;
+		var admin 		 = req.body.admin;
+
 		var qry = "INSERT INTO members (business_id, location_id, "
 			+ "name, title, email, password, start_date, status, "
 			+ "note, picture, team, supervisor_id, type, created_at) "
 			+ "VALUES (1,?,?,?,?,?,?,?,?,?,?,?,?,NOW())";
 
-		//connection.query(qry, [], function(err, data) {
-			console.log(req.body);
-			//if (err) throw err;
-			// res.json(data);
+		var form = [location, name, title, email, password, start_date, 
+								status, note, picture, team, supervisor, admin]
 
-//		});
+		connection.query(qry, form, function(err) {
+			if (err) throw err;
+			res.status(200).end();
+		});
 
 	}, all_locations  : function(req, res) {
 

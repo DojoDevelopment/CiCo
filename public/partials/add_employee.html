@@ -2,26 +2,30 @@
     	<div class='info'>
         <h2>Create a new employee</h2>
         <form class="form-signin" role="form">
+   
           <label for="inputName" class="sr-only">Name</label>
           <input value="some Name" type="text" id="inputName" class="form-control" placeholder="Name" required autofocus>
+
           <label for="inputTitle" class="sr-only">Title</label>
           <input value="some Title" type="text" id="inputTitle" class="form-control" placeholder="Title" required>
+
           <label for="inputTeam" class="sr-only">Team</label>
           <input value="some Team" type="text" id="inputTeam" class="form-control" placeholder="Team" required autofocus>
+
           <label for="inputLocation" class="sr-only">Location</label>
-          <select type='button' class='drop-btn dropdown-toggle btn btn-lg btn-in' role='menu'>
+          <select type='button' id="inputLocation" class='drop-btn dropdown-toggle btn btn-lg btn-in' role='menu'>
             <option ng-repeat="l in locations" value="{{l.id}}" ng-bind="l.name"></option>
           </select>
           <div class="input-group">
 <!--             <input type="text" class="form-control" placeholder='Supervisor'>
             <div class="input-group-btn"> --> 
-          <select type='button' class='drop-btn dropdown-toggle btn btn-lg btn-in' role='menu'>
-            <option ng-repeat="s in supervisors" value="{{s.id}}" ng-bind="s.name"></option>
-          </select>
+            <select type='button' id="inputSupervisor" class='drop-btn dropdown-toggle btn btn-lg btn-in' role='menu'>
+              <option ng-repeat="s in supervisors" value="{{s.id}}" ng-bind="s.name"></option>
+            </select>
             <!-- </div> -->
           </div>
           Employee Status: 
-          <select>
+          <select id="inputStatus">
             <option value="active">Active</option>
             <option value="inactive">Inactive</option>
           </select>
@@ -29,7 +33,7 @@
           <br>
           Notes:
           <label for='note' class='sr-only'>only visible to admins</label>
-          <textarea class='form-control' id='note' placeholder='Notes (only visible to admins)'></textarea>
+          <textarea class='form-control' id='inputNote' placeholder='Notes (only visible to admins)'></textarea>
           <br>
           <div class="input-group">
             <span class="input-group-btn">
@@ -37,11 +41,11 @@
                 Browse&hellip; <input type="file">
               </span>
             </span>
-            <input value="some profile" placeholder='Upload Profile Pic' type="text" class="form-control" readonly>  
+            <input value="some profile" id="inputPicPath" placeholder='Upload Profile Pic' type="text" class="form-control" readonly>  
           </div>
           <br>
           <br>
-          <input type="date" name="date" id="date">Select Employee Start Date
+          <input type="date" id="inputDate">Select Employee Start Date
           <br>
           <br>
           <label for="inputEmail" class="sr-only">Email</label>
@@ -50,7 +54,7 @@
           <input value="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
           <div class="checkbox">
             <label>
-              <input type="checkbox" value="contractor"> Admin <span class='emphasis'>*Be careful who you give admin access to*</span>
+              <input type="checkbox" value="contractor" id="inputAdmin">Admin<span class='emphasis'>*Be careful who you give admin access to*</span>
             </label>
           </div>
           <button class="btn btn-in pull-right" type="submit" ng-click="addEmployee()">Create</button>

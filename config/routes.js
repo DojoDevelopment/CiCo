@@ -2,9 +2,8 @@ var main    = require('../server/controllers/main.js');
 var queries = require('../server/models/queries.js');
 
 module.exports = function Routes(app) {
+
 	app.get('/', 									          function(req, res){ main.index(req,res)              });
-	app.post('/api/addEmployee',            function(req, res){ console.log(req.body);
-																															queries.add_employee(req, res)   });
 	app.get('/api/clock_in/:id',   					function(req, res){ queries.clock_in(req, res)       });
 	app.get('/api/clock_out/:id/:session', 	function(req, res){ queries.clock_out(req, res)      });
 	app.get('/api/get_admin_dash', 					function(req, res){ queries.admin_dash(req, res);    });
@@ -15,5 +14,7 @@ module.exports = function Routes(app) {
 	app.get('/api/get_members',    					function(req, res){ queries.members(req, res);       });
 	app.get('/api/get_supervisors',         function(req, res){ queries.supervisors(req, res)    });
 	app.get('/api/get_user_dash',  					function(req, res){ queries.user_dash(req, res);     });
-	app.post('/api/clock_out/:id/:session',  		function(req, res){ queries.clock_out(req, res)  });
+
+	app.post('/api/addEmployee',            function(req, res){ queries.add_employee(req, res)   });
+	app.post('/api/clock_out/:id/:session', function(req, res){ queries.clock_out(req, res)      });
 }

@@ -1,10 +1,25 @@
 app.controller('new_employee', function($scope, AdminFactory, ListFactory) {
 
 	$scope.addEmployee = function(){
-		var myinfo = {user : 4, company: 'sony'}
-		AdminFactory.addEmployee(myinfo, function(data){
 
-		});
+		var name       = document.getElementById('inputName').value;
+		var title      = document.getElementById('inputTitle').value;
+		var team       = document.getElementById('inputTeam').value;
+		var location   = document.getElementById('inputLocation').value;
+		var supervisor = document.getElementById('inputSupervisor').value;
+		var status     = document.getElementById('inputStatus').value;
+		var note			 = document.getElementById('inputNote').value;
+		var picture    = document.getElementById('inputPicPath').value;
+		var start_date = document.getElementById('inputDate').value;
+		var email      = document.getElementById('inputEmail').value;
+		var password 	 = document.getElementById('inputPassword').value;
+		var admin 		 = (document.getElementById('inputAdmin').checked == true ? 'contractor' : 'employee');
+
+		var myinfo = {name : name, title: title, team: team, location: location, supervisor: supervisor,
+									status: status, note : note, picture : picture, start_date : start_date, email: email,
+									password: password, admin : admin }
+
+		AdminFactory.addEmployee(myinfo);
 	}
 
 	ListFactory.get_supervisors(function(data){
