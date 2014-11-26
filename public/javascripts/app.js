@@ -30,7 +30,7 @@ app.config(function($routeProvider){
   }).when('/admin/add_employee', {
 
     templateUrl: 'partials/add_employee.html',
-    controller:  'new_employee'
+    controller:  'employee'
 
   }).when('/clockout', {
   
@@ -40,17 +40,17 @@ app.config(function($routeProvider){
   .when('/admin/settings', {
   
     templateUrl: 'partials/admin_settings.html',
-   	controller:  'settings'
+   	controller:  'employeeInfo'
 
-  })
-  .when('/show', {
+  }).when('/admin/show/:id', {
   
-    templateUrl: 'partials/show_employee.html'
+    templateUrl: 'partials/show_employee.html', 
+    controller:  'employeeInfo'
    
-  })
-  .when('/edit', {
-  
-    templateUrl: 'partials/edit_employee.html'
+  }).when('/admin/edit/:id', {
+
+    templateUrl: 'partials/edit_employee.html',
+    controller: 'employeeInfo'
    
   }).otherwise({
 
