@@ -1,6 +1,9 @@
 .container{
   width:85%;
 }
+.index-container{
+  background: transparent !important;
+}
 .navbar-inverse{
   border-radius:0px !important;
 }
@@ -25,6 +28,7 @@ button a:hover{
   width:100% !important;
   background-color: #676767 !important;
 }
+
 .add_table>tbody>tr>td{
   width:25%;
 }
@@ -34,13 +38,7 @@ button a:hover{
 .add_table>tbody>tr>td:last-child{
   border-right: none;
 }
-.add_table td{
-  border-bottom-width: 25em !important;
-}
-.upload_pic{
-  border:1.5px solid #DDDDDD !important;
-  width:24em !important;
-}
+
 .table-head tr td{
   border:none !important;
 }
@@ -81,15 +79,15 @@ hr{
 .form-signin{
   margin-bottom: 10%;
 }
-.form-control{
+.add_table .form-control{
   width:30em;
   border:none;
   box-shadow: none;
 }
-/*textarea{
+textarea{
   resize:none;
-  height:15em !important;
-}*/
+/*  height:15em !important;*/
+}
 
 #hrs{
   outline:none;

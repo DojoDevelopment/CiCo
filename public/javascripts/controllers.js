@@ -1,34 +1,67 @@
-app.controller('new_employee', function($scope, AdminFactory, ListFactory) {
+app.controller('new_employee', function($scope, AdminFactory, ListFactory, $upload) {
 
-	$scope.addEmployee = function(){
+    $scope.onFileSelect = function($files) {
+    //$files: an array of files selected, each file has name, size, and type.
+    for (var i = 0; i < $files.length; i++) {
+      var file = $files[i];
+      $scope.upload = $upload.upload({
+        url: 'server/upload/url', //upload.php script, node.js route, or servlet url
+        //method: 'POST' or 'PUT',
+        //headers: {'header-key': 'header-value'},
+        //withCredentials: true,
+        data: {myObj: $scope.myModelObj},
+        file: file, // or list of files ($files) for html5 only
+        //fileName: 'doc.jpg' or ['1.jpg', '2.jpg', ...] // to modify the name of the file(s)
+        // customize file formData name ('Content-Disposition'), server side file variable name. 
+        //fileFormDataName: myFile, //or a list of names for multiple files (html5). Default is 'file' 
+        // customize how data is added to formData. See #40#issuecomment-28612000 for sample code
+        //formDataAppender: function(formData, key, val){}
+    }).progress(function(evt) {
+        console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+    }).success(function(data, status, headers, config) {
+        // file is uploaded successfully
+        console.log(data);
+    });
+      //.error(...)
+      //.then(success, error, progress); 
+      // access or attach event listeners to the underlying XMLHttpRequest.
+      //.xhr(function(xhr){xhr.upload.addEventListener(...)})
+  }
+    /* alternative way of uploading, send the file binary with the file's content-type.
+       Could be used to upload files to CouchDB, imgur, etc... html5 FileReader is needed. 
+       It could also be used to monitor the progress of a normal http post/put request with large data*/
+    // $scope.upload = $upload.http({...})  see 88#issuecomment-31366487 for sample code.
+};
 
-		var name       = document.getElementById('inputName').value;
-		var title      = document.getElementById('inputTitle').value;
-		var team       = document.getElementById('inputTeam').value;
-		var location   = document.getElementById('inputLocation').value;
-		var supervisor = document.getElementById('inputSupervisor').value;
-		var status     = document.getElementById('inputStatus').value;
-		var note			 = document.getElementById('inputNote').value;
-		var picture    = document.getElementById('inputPicPath').value;
-		var start_date = document.getElementById('inputDate').value;
-		var email      = document.getElementById('inputEmail').value;
-		var password 	 = document.getElementById('inputPassword').value;
-		var admin 		 = (document.getElementById('inputAdmin').checked == true ? 'contractor' : 'employee');
+$scope.addEmployee = function(){
 
-		var myinfo = {name : name, title: title, team: team, location: location, supervisor: supervisor,
-									status: status, note : note, picture : picture, start_date : start_date, email: email,
-									password: password, admin : admin }
+  var name       = document.getElementById('inputName').value;
+  var title      = document.getElementById('inputTitle').value;
+  var team       = document.getElementById('inputTeam').value;
+  var location   = document.getElementById('inputLocation').value;
+  var supervisor = document.getElementById('inputSupervisor').value;
+  var status     = document.getElementById('inputStatus').value;
+  var note			 = document.getElementById('inputNote').value;
+  var picture    = document.getElementById('inputPicPath').value;
+  var start_date = document.getElementById('inputDate').value;
+  var email      = document.getElementById('inputEmail').value;
+  var password 	 = document.getElementById('inputPassword').value;
+  var admin 		 = (document.getElementById('inputAdmin').checked == true ? 'contractor' : 'employee');
 
-		AdminFactory.addEmployee(myinfo);
-	}
+  var myinfo = {name : name, title: title, team: team, location: location, supervisor: supervisor,
+   status: status, note : note, picture : picture, start_date : start_date, email: email,
+   password: password, admin : admin }
 
-	ListFactory.get_supervisors(function(data){
-		$scope.supervisors = data;
-	});
+   AdminFactory.addEmployee(myinfo);
+}
 
-	ListFactory.factory_get_all_locations(function(data){
-		$scope.locations = data;
-	});
+ListFactory.get_supervisors(function(data){
+  $scope.supervisors = data;
+});
+
+ListFactory.factory_get_all_locations(function(data){
+  $scope.locations = data;
+});
 
 });
 
@@ -96,28 +129,28 @@ app.controller('admin_dashboard', function($scope, TableFactory, ListFactory) {
 	$scope.add_employeeModal = false;
   $scope.add_employee = function() {
     $scope.add_employeeModal = !$scope.add_employeeModal;
-  };
+};
 
-	$scope.settingsModal = false;
-	$scope.settings = function() {
-		$scope.settingsModal = !$scope.settingsModal;
-	};
+$scope.settingsModal = false;
+$scope.settings = function() {
+  $scope.settingsModal = !$scope.settingsModal;
+};
 
 }); //end of admin_dashboard controller
 
 app.controller('history', function($scope, TableFactory, ListFactory) {
 
 	$scope.csvHead = ['Date', 'Picture', 'Name', 'Title', 'Team', 'Location', 
-									 'Clock IN', 'Clock OUT', 'Personal Time', 'Billed Hours', 'Report'];
+  'Clock IN', 'Clock OUT', 'Personal Time', 'Billed Hours', 'Report'];
 
-	$scope.csvBody = function(){
-	
-		ary = [];
-		var rows = document.getElementsByTagName('tr');
-		
-		for (var i=1; i < rows.length; i++){
-			var obj = new Object();
-			for (var j=0; j < rows[i].childElementCount; j++){
+  $scope.csvBody = function(){
+
+      ary = [];
+      var rows = document.getElementsByTagName('tr');
+
+      for (var i=1; i < rows.length; i++){
+         var obj = new Object();
+         for (var j=0; j < rows[i].childElementCount; j++){
 				obj[j] = (j != 1 ? rows[i].cells[j].innerHTML : '*'); //check for picture
 			}
 			ary.push(obj);
@@ -140,7 +173,7 @@ app.controller('history', function($scope, TableFactory, ListFactory) {
 	});
 
     $scope.dateFilter = function(date_range) {
-  
+
     	var today = new Date (Date.now());
     	var day_of_the_week = today.getDay();
     	var day_of_the_month = today.getDate();
@@ -174,16 +207,16 @@ app.controller('history', function($scope, TableFactory, ListFactory) {
     		end_date = new Date(date_range[1]);
     	};
     	TableFactory.get_factory_history_table(function(data){
-			$scope.table = data;
-			var table2=[]
-			for (var i = 0; i < $scope.table.length - 1; i++) {
-				work_session_date = new Date($scope.table[i].created_at);
-				if (work_session_date > start_date && work_session_date < end_date){
-					table2.push($scope.table[i]);
-				}
-			}
-			$scope.table=table2;
-		})
+         $scope.table = data;
+         var table2=[]
+         for (var i = 0; i < $scope.table.length - 1; i++) {
+            work_session_date = new Date($scope.table[i].created_at);
+            if (work_session_date > start_date && work_session_date < end_date){
+               table2.push($scope.table[i]);
+           }
+       }
+       $scope.table=table2;
+   })
 
 	} //end of $scope.dateFilter function
 
