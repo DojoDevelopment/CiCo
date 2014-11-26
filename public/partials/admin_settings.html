@@ -7,11 +7,11 @@
 
   <form>
     Company Name:<label for="inputCompany" class="sr-only">Company Name</label>
-    <input type="text" id="inputCompany" class="form-control" placeholder="example: Coding Dojo" required autofocus>
+    <input type="text" id="company" ng-model="company" class="form-control" placeholder="example: Coding Dojo" required autofocus>
     <br><br>
     On-Site IP Address:<label for='ipAdd' class='sr-only'>On-Site IP Addresses</label>
-    <textarea class='form-control' id='ipAdd' placeholder='Separate by comma - example: 192.168.2.1, 192.128.2.2'></textarea>
-    <button class="btn btn-lg btn-in pull-right" ngclick="post_settings()">Save</button>
+    <textarea class='form-control' id='ip' ng-model='ip' placeholder='Separate by comma - example: 192.168.2.1, 192.128.2.2'></textarea>
+    <button class="btn btn-lg btn-in pull-right" type='submit' ng-click="updateSettings()">Save</button>
   </form>
 
 

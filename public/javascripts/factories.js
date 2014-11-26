@@ -1,37 +1,32 @@
 app.factory('AdminFactory', function($http){
 	return {
 
-		addEmployee : function(callback){
-
-			$http.get('/api/addEmployee').success(function(data){
+		addEmployee : function(stuff, callback){
+			console.log(stuff);
+			$http.post('/api/addEmployee', stuff).success(function(data){
 				callback(data);
 			});
 
-		}, get_supervisors : function(callback){
-
-			$http.get('/api/get_supervisors').success(function(data){
-				callback(data);
-			});
 		}
-
 	}
 })
 
 app.factory('SettingsFactory', function($http){
 	return {
 
-		factory_get_business_name : function(callback){
-
-			console.log(data);
-			$http.post('/api/get_business_name',data).success(function(data){
+		get_business_info : function(business_id, callback){
+			console.log('in the factory just before asking for info for business with id: ', business_id);
+			$http.get('/api/get_business_info/' + business_id).success(function(data){
+				callback(data);
+			});
+			
+		},
+		updateSettings : function(newSettings, callback){
+			console.log('inside settings factory post settings and my newSettings object is: ', newSettings);
+			$http.post('/api/set_settings',newSettings).success(function(data){
 				callback(data);
 			});
 
-		post_settings : function(data,callback){
-		
-			console.log(data);
-			$http.post('/api/get_business_name',data).success(function(data){
-				callback(data);
 		}
 
 	}
@@ -66,18 +61,33 @@ app.factory('TableFactory', function($http){
 app.factory('ListFactory', function($http){
 	return {
 
-		get_factory_locations: function(callback){
+		get_factory_locations : function(callback){
 
 			$http.get('/api/get_locations').success(function(data){
 				callback(data);
 			});
 
-		}, get_factory_members: function(callback){
+		}, factory_get_all_locations : function(callback){
+
+			$http.get('api/get_all_locations').success(function(data){
+				callback(data);
+			});
+
+		}, get_factory_members : function(callback){
+
 			// we need to send some stuff, apart what's send in the url
 			// so probably that info will be retrieved later from request.body.....
+
 			$http.get('api/get_members').success(function(data){
 				callback(data);
 			});
+
+		}, get_supervisors : function(callback){
+
+			$http.get('/api/get_supervisors').success(function(data){
+				callback(data);
+			});
+
 		}
 
 	};

@@ -1,44 +1,25 @@
-<!-- <div class='ng-modal' ng-show='show'>
-  <div class='ng-modal-overlay' ng-click='hideModal()'></div>
-  <div class='ng-modal-dialog' ng-style='dialogStyle'>
-    <div class='ng-modal-close' ng-click='hideModal()'>X</div>
-    <div class='ng-modal-dialog-content'> -->
+
     	<div class='info'>
         <h2>Create a new employee</h2>
         <form class="form-signin" role="form">
-          <!--          <div class='test'> -->
           <label for="inputName" class="sr-only">Name</label>
-          <input type="text" id="inputName" class="form-control" placeholder="Name" required autofocus>
+          <input value="some Name" type="text" id="inputName" class="form-control" placeholder="Name" required autofocus>
           <label for="inputTitle" class="sr-only">Title</label>
-          <input type="text" id="inputTitle" class="form-control" placeholder="Title" required>
-          <!--          </div> -->
-          <!--          <div class='pull-right'> -->
+          <input value="some Title" type="text" id="inputTitle" class="form-control" placeholder="Title" required>
           <label for="inputTeam" class="sr-only">Team</label>
-          <input type="text" id="inputTeam" class="form-control" placeholder="Team" required autofocus>
+          <input value="some Team" type="text" id="inputTeam" class="form-control" placeholder="Team" required autofocus>
           <label for="inputLocation" class="sr-only">Location</label>
-          <input type="text" id="inputLocation" class="form-control" placeholder="Location" required autofocus>
-          <!--          </div> -->
+          <select type='button' class='drop-btn dropdown-toggle btn btn-lg btn-in' role='menu'>
+            <option ng-repeat="l in locations" value="{{l.id}}" ng-bind="l.name"></option>
+          </select>
           <div class="input-group">
-            <input type="text" class="form-control" placeholder='Supervisor'>
-            <div class="input-group-btn">
-              <select ng-model="supervisor" type='button' class='drop-btn dropdown-toggle btn btn-lg btn-in' role='menu'>
-                <option ng-repeat="s in supervisor" value="{{s.id}}" ng-bind="s.name"></option>
-              </select>
-            </div>
+<!--             <input type="text" class="form-control" placeholder='Supervisor'>
+            <div class="input-group-btn"> --> 
+          <select type='button' class='drop-btn dropdown-toggle btn btn-lg btn-in' role='menu'>
+            <option ng-repeat="s in supervisors" value="{{s.id}}" ng-bind="s.name"></option>
+          </select>
+            <!-- </div> -->
           </div>
-<!--       <select ng-model="place">
-        <option ng-repeat="l in locations" value="{{l.name}}" ng-bind="l.name"></option>
-      </select>
- -->
-
-
-
-        <button class="btn btn-in pull-right" type="submit">Create</button>
-      </form>
-    </div>
-    <!-- </div>
-
-          <br>
           Employee Status: 
           <select>
             <option value="active">Active</option>
@@ -56,7 +37,7 @@
                 Browse&hellip; <input type="file">
               </span>
             </span>
-            <input placeholder='Upload Profile Pic' type="text" class="form-control" readonly>  
+            <input value="some profile" placeholder='Upload Profile Pic' type="text" class="form-control" readonly>  
           </div>
           <br>
           <br>
@@ -64,18 +45,17 @@
           <br>
           <br>
           <label for="inputEmail" class="sr-only">Email</label>
-          <input type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+          <input value="antfenech@yahoo.com" type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
           <label for="inputPassword" class="sr-only">Password</label>
-          <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+          <input value="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
           <div class="checkbox">
             <label>
-              <input type="checkbox" value="admin"> Admin <span class='emphasis'>*Be careful who you give admin access to*</span>
+              <input type="checkbox" value="contractor"> Admin <span class='emphasis'>*Be careful who you give admin access to*</span>
             </label>
           </div>
           <button class="btn btn-in pull-right" type="submit" ng-click="addEmployee()">Create</button>
         </form>
       </div>
     </div>
-
   </div>
-</div> -->
+</div>

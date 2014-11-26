@@ -1,26 +1,42 @@
-app.controller('new_employee', function($scope, AdminFactory) {
+app.controller('new_employee', function($scope, AdminFactory, ListFactory) {
 
-	AdminFactory.addEmployee(function(data){
-		console.log('Employee Added');
-	});
+	$scope.addEmployee = function(){
+		var myinfo = {user : 4, company: 'sony'}
+		AdminFactory.addEmployee(myinfo, function(data){
+		});
+	}
 
-	AdminFactory.get_supervisors(function(data){
+	ListFactory.get_supervisors(function(data){
 		$scope.supervisors = data;
 	});
 
-});
-
-app.controller('settings', function($scope, SettingFactory) {
-
-	SettingsFactory.factory_get_business_name(function(data){
-		$scope.business_name = data;
+	ListFactory.factory_get_all_locations(function(data){
+		$scope.locations = data;
 	});
 
-	SettingsFactory.post_settings(data, function(req,res){
-		redirect('/');
-	})
-
 });
+
+app.controller('settings', function($scope,$location,SettingsFactory) {
+
+	$scope.updateSettings = function(){
+		var newSettings = {company: $scope.company, ip: $scope.ip};
+		SettingsFactory.updateSettings(newSettings, function(data){
+		
+		});
+		$location.path('/#/admin/dashboard');
+		
+	}
+	//with the business id I can retrieve the name and the ip adresses
+	//hardcoded, later with session data we should be able to get it
+	//SettingsFactory.get_business_info(business_id, function(business_info){
+	SettingsFactory.get_business_info(2, function(business_info){	
+		console.log(business_info[0].ip_addresses);
+		console.log(business_info[0].name);
+		$scope.company = business_info[0].name;
+		$scope.ip = business_info[0].ip_addresses;
+		})
+	});
+
 
 app.controller('user_dashboard', function($scope, TableFactory, ListFactory, ClockingFactory) {
 
@@ -84,9 +100,6 @@ app.controller('admin_dashboard', function($scope, TableFactory, ListFactory) {
 	$scope.settings = function() {
 		$scope.settingsModal = !$scope.settingsModal;
 	};
-
-
-
 
 }); //end of admin_dashboard controller
 
