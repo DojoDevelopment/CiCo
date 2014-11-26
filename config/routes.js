@@ -10,5 +10,5 @@ module.exports = function Routes(app) {
 	app.get('/api/get_admin_dash', 					function(req, res){ queries.admin_dash(req, res); });
 	app.get('/api/get_hist_table', 					function(req, res){ queries.history_table(req, res); });
 	app.get('/api/clock_in/:id',   					function(req, res){ queries.clock_in(req, res) });
-	app.get('/api/clock_out/:id/:session',  		function(req, res){ queries.clock_out(req, res) });
+	app.post('/api/clock_out/:id/:session',  		function(req, res){ queries.clock_out(req, res) });
 }
