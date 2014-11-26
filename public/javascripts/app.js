@@ -10,37 +10,38 @@ app.config(function($routeProvider){
 	}).when('/dashboard', {
 	
 		templateUrl: 'partials/dashboard.html',
-		controller: 'user_dashboard'
+		controller:  'user_dashboard'
 	
 	}).when('/history', {
 	
 		templateUrl: 'partials/history.html',
-		controller: 'history'
+		controller:  'history'
 	
 	}).when('/admin/dashboard', {
 	
 		templateUrl: 'partials/admin_dash.html',
-		controller: 'admin_dashboard'
+		controller:  'admin_dashboard'
 	
 	}).when('/admin/history', {
 	
 		templateUrl: 'partials/admin_hist.html',
-		controller: 'history'
+		controller:  'history'
   
   }).when('/admin/add_employee', {
 
     templateUrl: 'partials/add_employee.html',
-    controller: 'new_employee'
+    controller:  'new_employee'
 
   }).when('/clockout', {
   
     templateUrl: 'partials/clockout.html'
    
   })
-  .when('/settings', {
+  .when('/admin/settings', {
   
-    templateUrl: 'partials/admin_settings.html'
-   
+    templateUrl: 'partials/admin_settings.html',
+   	controller:  'settings'
+
   })
   .when('/edit', {
   

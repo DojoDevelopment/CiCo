@@ -9,7 +9,7 @@
       Contractors / Part Time Employees
     </h5>
     <div class='pull-right'>
-      <a href="/#/settings" class='basic'><i class="fa fa-cog"></i> settings</a> / <a href="/">logout</a>
+      <a href="/#/admin/settings" class='basic'><i class="fa fa-cog"></i> settings</a> / <a href="/">logout</a>
       <modal-settings show='settingsModal' width='50%' height='60%'></modal-settings>
     </div>
   </div>
@@ -47,7 +47,7 @@
   </thead>
   <tbody>
     <tr ng-repeat="row in table | filter: { locations:place } | orderBy:order:reverse">
-      <td><img height='30' width='30' class='img-rounded' src="/img/dev.jpg"></td>
+      <td><img height='30' width='30' class='img-rounded' src="/img/profile_pic/dev.jpg"></td>
       <td ng-bind="row.name"></td>
       <td ng-bind="row.status"></td> 
       <td ng-bind="row.title"></td>

@@ -3,7 +3,7 @@ module.exports = {
 	
 	business_info : function(req, res){
 	
-		var qry = "SELECT businesses.name, businesses.ip_addresses"
+		var qry = "SELECT businesses.name, businesses.ip_addresses "
 						+ "FROM businesses "
 						+ "WHERE businesses.id = 1";
 

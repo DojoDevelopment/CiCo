@@ -35,7 +35,7 @@ app.controller('new_employee', function($scope, AdminFactory, ListFactory) {
 app.controller('settings', function($scope, SettingFactory) {
 
 	SettingFactory.factory_get_business_info(function(data){
-		$scope.business_name = data;
+		$scope.info = data;
 	});
 
 });
