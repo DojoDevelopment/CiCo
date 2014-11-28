@@ -37,8 +37,7 @@ app.config(function($routeProvider){
     templateUrl: 'partials/clockout.html',
     controller:  'clockout'
    
-  })
-  .when('/admin/settings', {
+  }).when('/admin/settings', {
   
     templateUrl: 'partials/admin_settings.html',
    	controller:  'employeeInfo'
