@@ -5,6 +5,7 @@ app.config(function($routeProvider){
 	.when('/', { 
 	
 		templateUrl: 'partials/index.html',
+		controller:  'test',
 		css: 'stylesheets/login.css'
 
 	}).when('/dashboard', {

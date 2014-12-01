@@ -1,5 +1,13 @@
 var BIZ_ID = 1;
 
+app.controller('test', function($scope, TestFactory) {
+
+  TestFactory.teststuff(function(data){
+    console.log('in controller', data);
+  });
+
+});
+
 app.controller('business', function($scope, $location, BusinessFactory) {
 
   BusinessFactory.factory_get_business_info(BIZ_ID, function(data){ 
@@ -197,7 +205,7 @@ app.controller('history', function($scope, TableFactory, ListFactory) {
   }
 
   $scope.dateFilter = function(date_range) {
-    var SECONDS_IN_DAY = 86400000; // 24 * 60 * 60 * 1000
+    var SECONDS_IN_DAY = 86400000; // 24 * + * 60 * 1000
     var today = new Date (Date.now());
     var day_of_the_week = today.getDay();
     var day_of_the_month = today.getDate();

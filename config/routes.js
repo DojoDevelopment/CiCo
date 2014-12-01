@@ -2,9 +2,12 @@ var main     = require('../server/controllers/main.js');
 var listsSQL = require('../server/models/listsSQL.js');
 var tableSQL = require('../server/models/tableSQL.js');
 var businessSQL = require('../server/models/businessSQL.js');
-var employeeSQL = require('../server/models/employeeSQL.js')
+var employeeSQL = require('../server/models/employeeSQL.js');
+var testPG   = require('../server/models/testPG.js');
 
-module.exports = function Routes(app) {
+module.exports = function Routes(app) { 
+
+  app.get('/api/test/', function(req, res){ testPG.test(req, res); });
 
   //MAIN INDEX CALL
   app.get('/', function(req, res){ main.index(req,res); });

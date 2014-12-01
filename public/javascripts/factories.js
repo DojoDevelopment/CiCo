@@ -1,3 +1,15 @@
+app.factory('TestFactory', function($http){
+	return {
+		teststuff : function(callback){
+			$http.get('/api/test/').success(function(data){
+				console.log('in factory', data);
+				callback(data);
+			})
+		}
+	}
+})
+
+
 //USED IN CONTROLLER: employee, employeeInfo
 app.factory('EmployeeFactory', function($http){
 	return {
