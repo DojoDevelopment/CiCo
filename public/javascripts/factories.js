@@ -1,100 +1,107 @@
+//USED IN CONTROLLER: employee, employeeInfo
 app.factory('EmployeeFactory', function($http){
 	return {
+		factory_create_employee : function(data){
 
-		create_employee : function(data){
+			$http.post('/api/employee', data).success(function(){
+				document.location.href = '../#/admin/dashboard';
+			});
 
-			$http.post('/api/add_employee', data).success(function(){
+		}, factory_update_employee : function(id, data){
+
+			$http.put('/api/employee/' + id, data).success(function(){
 				document.location.href = '../#/admin/dashboard';
 			});
 
 		}, factory_get_employee : function(id, callback){
 
-			$http.get('/api/get_employee/' + id).success(function(data){
+			$http.get('/api/employee/' + id).success(function(data){
 				callback(data);
 			});
 
-		}, update_employee : function(id, data){
+		}
+	}
+});
 
-			$http.post('/api/update_employee/' + id, data).success(function(){
+//USED IN CONTROLLER: business
+app.factory('BusinessFactory', function($http){
+	return {
+
+		factory_get_business_info : function(business_id, callback) {
+
+			$http.get('/api/business/' + business_id).success(function(data){
+				callback(data);
+			});
+			
+		}, factory_update_business_info : function(info, callback) {
+
+			$http.put('/api/business/'+ info.biz, info).success(function(){
 				document.location.href = '../#/admin/dashboard';
 			});
 
 		}
-	}
-})
-
-app.factory('SettingFactory', function($http){
-	return {
-
-		factory_get_business_info : function(callback){
-
-			$http.get('/api/get_business_info').success(function(data){
-				callback(data);
-			});
-
-		}
 
 	}
-})
+});
 
+//USED IN CONTROLLER: user_dashboard, admin_dashboard, employee, employeeInfo, history
 app.factory('TableFactory', function($http){
 	return {
 
-		get_user_factory_dashboard : function(callback){
+		factory_user_dashboard : function(callback){
 
-			$http.get('/api/get_user_dash').success(function(data){
+			$http.get('/api/table_dashboard').success(function(data){
 				callback(data);
 			});
 
-		}, get_admin_factory_dashboard : function(callback){
+		}, factory_admin_dashboard : function(callback){
 
-			$http.get('/api/get_admin_dash').success(function(data){
+			$http.get('/api/table_admin_dash').success(function(data){
 				callback(data);
 			});
 
-		}, get_factory_history_table : function(callback){
+		}, factory_history_table : function(callback){
 
-			$http.get('/api/get_hist_table').success(function(data){
-				console.log('in TableFactory get_factory_history_table and data is: ',data);
+			$http.get('/api/table_hist').success(function(data){
 				callback(data);
 			});
-		}, get_factory_user_history_table : function(id, callback){
 
-			$http.get('/api/get_user_history/' + id).success(function(data){
+		}, factory_user_history_table : function(id, callback){
+
+			$http.get('/api/table_user/' + id).success(function(data){
 				callback(data);
 			});
+		
 		}
 
 	};
 });
 
+//USED IN CONTROLLER: user_dashboard, admin_dashboard, employee, employeeInfo, history
 app.factory('ListFactory', function($http){
 	return {
 
-		get_factory_locations : function(callback){
+		factory_used_locations : function(callback){
 
-			$http.get('/api/get_locations').success(function(data){
+			$http.get('/api/list_used_locations').success(function(data){
 				callback(data);
 			});
 
-		}, factory_get_all_locations : function(callback){
+		}, factory_all_locations : function(callback){
 
-			$http.get('api/get_all_locations').success(function(data){
+			$http.get('api/list_all_locations').success(function(data){
 				callback(data);
 			});
 
-		}, get_factory_members : function(callback){
+		}, factory_members : function(callback){
 
-			// we need to send some stuff, apart what's send in the url
-			// so probably that info will be retrieved later from request.body.....
-
-			$http.get('api/get_members').success(function(data){
+			$http.get('api/list_members').success(function(data){
 				callback(data);
 			});
 
-		}, factory_get_supervisors : function(callback){
+		}, factory_supervisors : function(callback){
 
-			$http.get('/api/get_supervisors').success(function(data){
+			$http.get('/api/list_supervisors').success(function(data){
 				callback(data);
 			});
 
@@ -103,11 +110,13 @@ app.factory('ListFactory', function($http){
 	};
 });
 
+//USED IN CONTROLLER: user_dashboard, clockout
 app.factory('ClockingFactory', function($http){
 	return {
+		
 		factory_clock_in: function(user, callback){
 
-			$http.get('/api/clock_in/'+ user).success(function(data){
+			$http.post('/api/clock_in/'+ user).success(function(data){
 				callback(data);
 			});
 

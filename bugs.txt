@@ -1,0 +1,5 @@
+clock out button after clocking in does not have correct link
+can not complete clock out after midnight
+can not add the first business
+update employee, start date resetting to 00-00-0000
+empty space in select dropdowns

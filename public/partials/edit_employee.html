@@ -10,28 +10,28 @@
         <td>Name</td>
         <td>
           <label for="inputName" class="sr-only">Name</label>
-          <input ng-model="name" ng-bind="name" type="text" id="inputName" class="form-control" placeholder="Name" required autofocus>
+          <input ng-model="name" type="text" class="form-control" placeholder="Name" required autofocus>
         </td>
       </tr>
       <tr>
         <td>Title</td>
         <td>
           <label for="inputTitle" class="sr-only">Title</label>
-          <input ng-model="title" ng-bind="title" type="text" id="inputTitle" class="form-control" placeholder="Title" required>
+          <input ng-model="title" type="text" class="form-control" placeholder="Title" required>
         </td>
       </tr>
       <tr>
         <td>Team</td>
         <td>
           <label for="inputTeam" class="sr-only">Team</label>
-          <input ng-model="team" ng-bind="team" type="text" id="inputTeam" class="form-control" placeholder="Team" required autofocus>
+          <input ng-model="team" type="text" class="form-control" placeholder="Team" required autofocus>
         </td>
       </tr>
       <tr>
         <td>Location</td>
         <td>
           <label for="inputLocation" class="sr-only">Location</label>
-          <select type='button' id="inputLocation" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
+          <select type='button' ng-model="location" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
             <option value="" disabled selected>Location</option>
             <option ng-repeat="l in locations" value="{{l.id}}" ng-bind="l.name" ng-selected="l.id == location"></option>
           </select>
@@ -40,7 +40,7 @@
       <tr>
         <td>Supervisor</td>
         <td>
-            <select type='button' id="inputSupervisor" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
+            <select type='button' ng-model="supervisor" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
               <option value="" disabled selected>Supervisor</option>
               <option ng-repeat="s in supervisors" value="{{s.id}}" ng-bind="s.name" ng-selected="s.id == supervisor"></option>
             </select>
@@ -49,7 +49,7 @@
       <tr>
         <td>Employee Status</td>
         <td>
-          <select type='button' id="inputStatus" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
+          <select type='button' ng-model="status" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
             <option value="active" ng-selected="'active' == status">Active</option>
             <option value="inactive" ng-selected="'inactive' == status">Inactive</option>
           </select>
@@ -59,7 +59,7 @@
         <td>Notes</td>
         <td>
           <label for='note' class='sr-only'>only visible to admins</label>
-          <textarea ng-model="note" class='form-control' id='inputNote' placeholder='Notes (only visible to admins)'>{{notes}}</textarea>
+          <textarea ng-model="note" class='form-control' placeholder='Notes (only visible to admins)'>{{notes}}</textarea>
         </td>
       </tr>
       <tr>
@@ -71,23 +71,23 @@
                 Browse&hellip; <input type="file">
               </span>
             </span>
-            <input id="inputPicPath" placeholder='Upload Profile Pic' type="text" class="upload_pic form-control" readonly>  
+            <input id="inputPicPath" placeholder='Upload Profile Pic' type="text" class="upload_pic form-control" readonly>
           </div>
         </td>
       </tr>
       <tr>
         <td>Employee Start Date</td>
         <td>
-            <input type="date" id="inputDate" ng-model="start" ng-bind="start">
+            <input type="date" ng-model="start">
         </td>
       </tr>
       <tr>
         <td>Email and Password</td>
         <td>
           <label for="inputEmail" class="sr-only">Email</label>
-          <input type="email" id="inputEmail" class="form-control" placeholder="Email" ng-model="email" ng-bind="email" required autofocus>
+          <input type="email" class="form-control" placeholder="Email" ng-model="email" required autofocus>
           <label for="inputPassword" class="sr-only">Password</label>
-          <input type="password" id="inputPassword" class="form-control" placeholder="Password" ng-model="password" ng-bind="password" required>
+          <input type="password" ng-model="password" class="form-control" placeholder="Password" required>
         </td>
       </tr>
       <tr>

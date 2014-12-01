@@ -1,22 +1,38 @@
-var main    = require('../server/controllers/main.js');
-var queries = require('../server/models/queries.js');
+var main     = require('../server/controllers/main.js');
+var listsSQL = require('../server/models/listsSQL.js');
+var tableSQL = require('../server/models/tableSQL.js');
+var businessSQL = require('../server/models/businessSQL.js');
+var employeeSQL = require('../server/models/employeeSQL.js')
 
 module.exports = function Routes(app) {
 
-	app.get('/', 									          function(req, res){ main.index(req,res);               });
-	app.get('/api/clock_in/:id',   					function(req, res){ queries.clock_in(req, res);        });
-	app.get('/api/get_admin_dash', 					function(req, res){ queries.admin_dash(req, res);      });
-	app.get('/api/get_all_locations',  			function(req, res){ queries.all_locations(req, res);   });
-	app.get('/api/get_business_info',       function(req, res){ queries.business_info(req, res);   });
-	app.get('/api/get_employee/:id', 				function(req, res){ queries.get_employee(req, res);    });
-	app.get('/api/get_hist_table', 					function(req, res){ queries.history_table(req, res);   });
-	app.get('/api/get_locations',  					function(req, res){ queries.locations(req, res);       });
-	app.get('/api/get_members',    					function(req, res){ queries.members(req, res);         });
-	app.get('/api/get_supervisors',         function(req, res){ queries.supervisors(req, res);     });
-	app.get('/api/get_user_dash',  					function(req, res){ queries.user_dash(req, res);       });
-	app.get('/api/get_user_history/:id',    function(req, res){ queries.user_history(req, res);		 });
+  //MAIN INDEX CALL
+  app.get('/', function(req, res){ main.index(req,res); });
 
-	app.post('/api/add_employee',           function(req, res){ queries.add_employee(req, res);    });
-	app.post('/api/clock_out/:session',     function(req, res){ queries.clock_out(req, res);       });
-	app.post('/api/update_employee/:id',    function(req, res){ queries.update_employee(req, res); });
+  //Lists
+  app.get('/api/list_all_locations',  function(req, res){ listsSQL.get_list_locations(req, res);         });
+  app.get('/api/list_used_locations', function(req, res){ listsSQL.get_list_locations_used(req, res);    });
+  app.get('/api/list_members',        function(req, res){ listsSQL.get_list_members(req, res);           });
+  app.get('/api/list_supervisors',    function(req, res){ listsSQL.get_list_supervisors(req, res);       });
+
+  //Dashboard
+  app.get('/api/table_admin_dash',    function(req, res){ tableSQL.get_table_dash_admin(req, res);       });
+  app.get('/api/table_dashboard',     function(req, res){ tableSQL.get_table_dash_user(req, res);        });
+
+  //History
+  app.get('/api/table_hist',          function(req, res){ tableSQL.get_table_history(req, res);          });
+  app.get('/api/table_user/:id',      function(req, res){ tableSQL.get_table_employee_history(req, res); });
+
+  //Business CRUD
+  app.get('/api/business/:id',        function(req, res){ businessSQL.info(req, res)    });
+  app.put('/api/business/:id',        function(req, res){ businessSQL.update(req, res); });
+
+  //Employee CRUD
+  app.post('/api/employee',           function(req, res){ employeeSQL.create(req, res); });
+  app.get( '/api/employee/:id',       function(req, res){ employeeSQL.show(req, res);   });
+  app.put( '/api/employee/:id',       function(req, res){ employeeSQL.update(req, res); });
+
+  //Clock in / out
+  app.post('/api/clock_in/:id',       function(req, res){ employeeSQL.clock_in(req, res);  });
+  app.post('/api/clock_out/:session', function(req, res){ employeeSQL.clock_out(req, res); });
 }

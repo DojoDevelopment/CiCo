@@ -10,28 +10,28 @@
         <td>Name</td>
         <td>
           <label for="inputName" class="sr-only">Name</label>
-          <input type="text" id="inputName" class="form-control" placeholder="Name" required autofocus>
+          <input type="text" ng-model="name" class="form-control" placeholder="Name" required autofocus>
         </td>
       </tr>
       <tr>
         <td>Title</td>
         <td>
           <label for="inputTitle" class="sr-only">Title</label>
-          <input type="text" id="inputTitle" class="form-control" placeholder="Title" required>
+          <input type="text" ng-model="title" class="form-control" placeholder="Title" required>
         </td>
       </tr>
       <tr>
         <td>Team</td>
         <td>
           <label for="inputTeam" class="sr-only">Team</label>
-          <input type="text" id="inputTeam" class="form-control" placeholder="Team" required autofocus>
+          <input type="text" ng-model="team" class="form-control" placeholder="Team" required autofocus>
         </td>
       </tr>
       <tr>
         <td>Location</td>
         <td>
           <label for="inputLocation" class="sr-only">Location</label>
-          <select type='button' id="inputLocation" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
+          <select type='button' ng-model="location" id="inputLocation" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
             <option value="" disabled selected>Location</option>
             <option ng-repeat="l in locations" value="{{l.id}}" ng-bind="l.name"></option>
           </select>
@@ -40,7 +40,7 @@
       <tr>
         <td>Supervisor</td>
         <td>
-            <select type='button' id="inputSupervisor" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
+            <select type='button' ng-model="supervisor" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
               <option value="" disabled selected>Supervisor</option>
               <option ng-repeat="s in supervisors" value="{{s.id}}" ng-bind="s.name"></option>
             </select>
@@ -49,7 +49,7 @@
       <tr>
         <td>Employee Status</td>
         <td>
-          <select type='button' id="inputStatus" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
+          <select type='button' ng-model="status" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
             <option value="active">Active</option>
             <option value="inactive">Inactive</option>
           </select>
@@ -59,7 +59,7 @@
         <td>Notes</td>
         <td>
           <label for='note' class='sr-only'>only visible to admins</label>
-          <textarea class='form-control' id='inputNote' placeholder='Notes (only visible to admins)'></textarea>
+          <textarea class='form-control' ng-model="note" placeholder='Notes (only visible to admins)'></textarea>
         </td>
       </tr>
       <tr>
@@ -78,16 +78,16 @@
       <tr>
         <td>Employee Start Date</td>
         <td>
-            <input type="date" id="inputDate">
+            <input type="date" ng-model="start_date">
         </td>
       </tr>
       <tr>
         <td>Email and Password</td>
         <td>
           <label for="inputEmail" class="sr-only">Email</label>
-          <input type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+          <input type="email" ng-model="email" class="form-control" placeholder="Email" required autofocus>
           <label for="inputPassword" class="sr-only">Password</label>
-          <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+          <input type="password" ng-model="password" class="form-control" placeholder="Password" required>
         </td>
       </tr>
       <tr>
