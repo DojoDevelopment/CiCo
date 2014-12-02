@@ -10,7 +10,6 @@
     </h5>
     <div class='pull-right'>
       <a href="/#/admin/settings" class='basic'><i class="fa fa-cog"></i> settings</a> / <a href="/">logout</a>
-<!--       <modal-settings show='settingsModal' width='50%' height='60%'></modal-settings> -->
     </div>
   </div>
 </div>
@@ -19,7 +18,7 @@
   <div class='pull-right'>
     <select ng-model="place">
       <option value="">All</option>
-      <option ng-repeat="l in locations" value={{l.name}} ng-bind="l.name">
+      <option ng-repeat="l in locations" value="{{l.name}}" ng-bind="l.name">
     </select>
   </div>
 

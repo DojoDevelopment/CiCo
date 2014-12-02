@@ -4,9 +4,22 @@ var express = require('express');
 var connect = require('connect')
 var http = require('http');
 var path = require('path');
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
 
 // set the app variable 
 var app = express();
+
+// app.use(express.cookieParser());
+// app.use(express.session({secret: '1234567890QWERTY'}));
+
+
+app.use(session({
+  secret: 'qwerty',
+  resave: false,
+  saveUninitialized: true
+}))
+
 
 // var config = require('./config/config');
 // all environments
