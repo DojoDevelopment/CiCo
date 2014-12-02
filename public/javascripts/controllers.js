@@ -156,10 +156,10 @@ app.controller('user_dashboard', function($scope, TableFactory, ListFactory, Clo
 
 app.controller('admin_dashboard', function($scope, TableFactory, ListFactory) {
 
-  ListFactory.factory_used_locations(function(data){ $scope.locations = data; });
+  ListFactory.factory_used_locations(function(data){ $scope.locations = data.rows; });
 
   TableFactory.factory_admin_dashboard(function(data){
-    $scope.table = data;
+    $scope.table = data.rows;
     $scope.order = '-created_at';
   });
 

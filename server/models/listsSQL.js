@@ -1,4 +1,7 @@
-var connection = require('../../config/db.js')
+//var connection = require('../../config/db.js')
+var pg = require('pg');
+var conString = require('../../config/db.js');
+
 module.exports = {
 
   get_list_locations : function(req, res) {
@@ -24,13 +27,32 @@ module.exports = {
       + " FROM members"
       + " LEFT JOIN locations ON members.location_id = locations.id"
       + " WHERE members.business_id = 1";
-    
-    connection.query(qry, function(err, data) {
-      
-      if (err) throw err;
-      res.json(data);
 
+    
+
+    var client = new pg.Client(conString);
+
+    client.connect(function(err) {
+      if(err) {
+        return console.error('could not connect to postgres', err);
+      }
+      client.query(qry, function(err, data) {
+        if(err) {
+          return console.error('error running query', err);
+        }
+        console.log(data.rows);
+        res.json(data);
+
+        client.end();
+      });
     });
+    
+    // connection.query(qry, function(err, data) {
+      
+    //   if (err) throw err;
+    //   res.json(data);
+
+    // });
 
   }, get_list_members : function(req, res) {
 

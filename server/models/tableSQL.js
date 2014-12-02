@@ -1,4 +1,9 @@
-var connection = require('../../config/db.js')
+//var connection = require('../../config/db.js')
+var pg = require('pg');
+var conString = require('../../config/db.js');
+
+
+
 module.exports = {
 
   get_table_dash_admin : function(req, res) {
@@ -18,12 +23,33 @@ module.exports = {
       + " LEFT JOIN members AS members2 ON members2.id = members.supervisor_id"
       + " WHERE members.business_id = 1";
 
-    connection.query(qry, function(err, data) {
+    console.log('just defined the query')
+    
+    var client = new pg.Client(conString);
 
-      if (err) throw err;
-      res.json(data);
+    client.connect(function(err) {
+      if(err) {
+        return console.error('could not connect dude, check stuff!', err);
+      }
+      client.query(qry, function(err, data) {
+        if(err) {
+          return console.error('error running query', err);
+        }
+        console.log(data.rows)
+        res.json(data);
 
+        client.end();
+      });
     });
+
+
+
+    // connection.query(qry, function(err, data) {
+
+    //   if (err) throw err;
+    //   res.json(data);
+
+    // });
 
   }, get_table_dash_user : function(req, res) {
 
