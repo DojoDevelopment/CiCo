@@ -162,7 +162,7 @@ app.controller('admin_dashboard', function($scope, TableFactory, ListFactory) {
 
 app.controller('history', function($scope, TableFactory, ListFactory) {
 
-  ListFactory.factory_used_locations( function(data){ $scope.locs = data; });
+  ListFactory.factory_used_locations( function(data){ $scope.locations = data; });
   ListFactory.factory_members( function(data){ $scope.members = data; });
 
   TableFactory.factory_history_table(function(data){
