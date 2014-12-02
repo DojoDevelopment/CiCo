@@ -1,0 +1,3 @@
+- on clock_in_out doesn't link
+- upload picture
+- midnight bug
