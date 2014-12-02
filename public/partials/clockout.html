@@ -1,6 +1,6 @@
 <div class='container'>
   <h1 align='center'>Clock Out</h1>
-  <select id="personal">
+  <select ng-model="personal">
     <option value="0"  >None</option>
     <option value=".25">15 minutes</option>
     <option value=".5" >30 minutes</option>
@@ -11,6 +11,6 @@
   </select>
   <h3>Report <span>*mandatory</span></h3>
   <h4>What did you work on? What did you accomplish?</h4>
-  <textarea id="report" placeholder='example: Curriculum Update (1.5 hours), Lecture (1.0 hours), Assisting Students (3.0 hours), Meeting (!.0 hr), etc.'></textarea><br>
+  <textarea ng-model="report" placeholder='example: Curriculum Update (1.5 hours), Lecture (1.0 hours), Assisting Students (3.0 hours), Meeting (!.0 hr), etc.'></textarea><br>
   <button ng-click='clockOut()' class="btn btn-out">Clock Out</button> 
 </div>

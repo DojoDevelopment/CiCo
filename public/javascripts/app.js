@@ -5,6 +5,7 @@ app.config(function($routeProvider){
 	.when('/', { 
 	
 		templateUrl: 'partials/index.html',
+		controller:  'test',
 		css: 'stylesheets/login.css'
 
 	}).when('/dashboard', {
@@ -35,12 +36,12 @@ app.config(function($routeProvider){
   }).when('/clockout/:id', {
   
     templateUrl: 'partials/clockout.html',
-    controller: 'clockout'   
-  })
-  .when('/admin/settings', {
+    controller:  'clockout'
+   
+  }).when('/admin/settings', {
   
     templateUrl: 'partials/admin_settings.html',
-    controller: 'settings'
+    controller:  'business'
 
   }).when('/admin/show/:id', {
   
