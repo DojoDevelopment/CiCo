@@ -4,7 +4,7 @@ app.factory('EmployeeFactory', function($http){
 		factory_create_employee : function(data){
 
 			$http.post('/api/employee', data).success(function(){
-//				document.location.href = '../#/admin/dashboard';
+				document.location.href = '../#/admin/dashboard';
 			});
 
 		}, factory_update_employee : function(id, data){

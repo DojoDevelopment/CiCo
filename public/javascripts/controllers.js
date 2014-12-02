@@ -132,7 +132,10 @@ app.controller('user_dashboard', function($scope, TableFactory, ListFactory, Clo
   });
 
   $scope.clockIn = function() {
+    
     var user = this.row.id;
+
+    console.log(user);
 
     for (var i=0; i < $scope.table.length; i++){
       if( $scope.table[i].id == user){

@@ -1,5 +1,5 @@
 CREATE TABLE businesses (
-	"id" int NOT NULL,
+	"id" int SERIAL NOT NULL,
 	"name" varchar(255) NOT NULL,
 	ip_addresses varchar(255),
 	created_at timestamp NOT NULL,
@@ -7,7 +7,7 @@ CREATE TABLE businesses (
 	PRIMARY KEY ("id")
 );
 CREATE TABLE locations (
-	"id" int NOT NULL,
+	"id" int SERIAL NOT NULL,
 	business_id int NOT NULL,
 	"name" varchar(255) NOT NULL,
 	created_at timestamp NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE locations (
 	PRIMARY KEY ("id")
 );
 CREATE TABLE members (
-	"id" int NOT NULL,
+	"id" int SERIAL NOT NULL,
 	business_id int NOT NULL,
 	location_id int NOT NULL,
 	"name" varchar(255) NOT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE members (
 	PRIMARY KEY ("id")
 );
 CREATE TABLE sessions (
-	"id" int NOT NULL,
+	"id" int SERIAL NOT NULL,
 	member_id int NOT NULL,
 	clock_in timestamp NOT NULL,
 	clock_out timestamp,

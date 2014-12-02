@@ -152,6 +152,9 @@ module.exports = {
   }, clock_in : function(req, res){
 
     var id = req.params.id;
+    
+    console.log(id);
+
     var qry = 
         "INSERT INTO sessions ("
       +   "member_id"
