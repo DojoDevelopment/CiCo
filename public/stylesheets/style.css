@@ -1,9 +1,21 @@
+body{
+  min-width: 70em;
+}
+
 .container{
   width:85%;
 }
-.index-container{
-  background: transparent !important;
+select{
+  height: auto !important;
 }
+/*#admin_login{
+  background-size: 100%;
+  background-image:url(../img/mac_programmer.jpeg);
+}*/
+/*#admin-history{
+  background-size: 100%;
+  background-image:url(../img/mac_programmer.jpeg) !important;
+}*/
 .navbar-inverse{
   border-radius:0px !important;
 }
@@ -80,6 +92,7 @@ hr{
   margin-bottom: 10%;
 }
 .add_table .form-control{
+  font-size:1.3em !important;
   width:30em;
   border:none;
   box-shadow: none;
@@ -123,12 +136,13 @@ textarea{
 }
 
 .drop-btn{
-  height:1.9em;
+  height:auto;
 }
 
 table, thead, tr{
   margin-top: 2%;
 }
+
 
 table th{
   background-color: #eee;

@@ -1,5 +1,7 @@
 #admin_login{
-	background-color: #333;
+  min-width: 700px;			
+  background-size: 120em 75em;
+  background-image:url(../img/mac_programmer.jpeg);
 }
 
 .login_box{
@@ -10,9 +12,8 @@
 }
 
 .login_header{
-	margin-left: 25%;
 	padding-top:10%;
-	color:white;
+	color:#333;
 	height:;
 	width:;
 }
@@ -20,8 +21,12 @@
 	margin-top: 10%;
 	margin-left: 10%;
 	width:80%;
-
 }
+.login_form a{
+	font-weight: bold;
+	color:red;
+}
+
 .form-group p{
 	color: #337AB7;
 	margin-top: 3%;

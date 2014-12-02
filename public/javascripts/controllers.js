@@ -1,7 +1,6 @@
-<<<<<<< HEAD
-app.controller('new_employee', function($scope, AdminFactory, ListFactory, $upload) {
 
-    $scope.onFileSelect = function($files) {
+app.controller('employee', function($scope, EmployeeFactory, ListFactory, TableFactory) {
+	    $scope.onFileSelect = function($files) {
     //$files: an array of files selected, each file has name, size, and type.
     for (var i = 0; i < $files.length; i++) {
       var file = $files[i];
@@ -33,35 +32,6 @@ app.controller('new_employee', function($scope, AdminFactory, ListFactory, $uplo
        It could also be used to monitor the progress of a normal http post/put request with large data*/
     // $scope.upload = $upload.http({...})  see 88#issuecomment-31366487 for sample code.
 };
-
-$scope.addEmployee = function(){
-
-  var name       = document.getElementById('inputName').value;
-  var title      = document.getElementById('inputTitle').value;
-  var team       = document.getElementById('inputTeam').value;
-  var location   = document.getElementById('inputLocation').value;
-  var supervisor = document.getElementById('inputSupervisor').value;
-  var status     = document.getElementById('inputStatus').value;
-  var note			 = document.getElementById('inputNote').value;
-  var picture    = document.getElementById('inputPicPath').value;
-  var start_date = document.getElementById('inputDate').value;
-  var email      = document.getElementById('inputEmail').value;
-  var password 	 = document.getElementById('inputPassword').value;
-  var admin 		 = (document.getElementById('inputAdmin').checked == true ? 'contractor' : 'employee');
-
-  var myinfo = {name : name, title: title, team: team, location: location, supervisor: supervisor,
-   status: status, note : note, picture : picture, start_date : start_date, email: email,
-   password: password, admin : admin }
-
-   AdminFactory.addEmployee(myinfo);
-}
-
-ListFactory.get_supervisors(function(data){
-  $scope.supervisors = data;
-});
-=======
-app.controller('employee', function($scope, EmployeeFactory, ListFactory, TableFactory) {
-
 	$scope.addEmployee = function(){
 
 		var name       = document.getElementById('inputName').value;
@@ -144,7 +114,7 @@ app.controller('employeeInfo', function($scope, $location, EmployeeFactory, List
 	ListFactory.factory_get_supervisors(function(data){
 		$scope.supervisors = data;
 	});
->>>>>>> 804ffb2e89199e752ea3a19eab2f371e9a4cea0d
+
 
 ListFactory.factory_get_all_locations(function(data){
   $scope.locations = data;
