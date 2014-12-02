@@ -160,6 +160,7 @@ app.controller('admin_dashboard', function($scope, TableFactory, ListFactory) {
 
   TableFactory.factory_admin_dashboard(function(data){
     $scope.table = data.rows;
+
     $scope.order = '-created_at';
   });
 

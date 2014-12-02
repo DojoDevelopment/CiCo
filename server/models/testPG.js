@@ -1,7 +1,6 @@
 var pg = require('pg');
 var conString = require('../../config/db.js');
 
-
 module.exports = {
 
 	test : function(req, res){

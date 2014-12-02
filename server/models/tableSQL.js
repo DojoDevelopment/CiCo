@@ -1,9 +1,13 @@
+<<<<<<< HEAD
 //var connection = require('../../config/db.js')
 var pg = require('pg');
 var conString = require('../../config/db.js');
 
 
 
+=======
+var connection = require('../../config/db.js')
+>>>>>>> 91a532cf46cc441831a42f410634f5b214fa0953
 module.exports = {
 
   get_table_dash_admin : function(req, res) {
@@ -41,15 +45,6 @@ module.exports = {
         client.end();
       });
     });
-
-
-
-    // connection.query(qry, function(err, data) {
-
-    //   if (err) throw err;
-    //   res.json(data);
-
-    // });
 
   }, get_table_dash_user : function(req, res) {
 

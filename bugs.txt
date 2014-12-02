@@ -1,3 +1,12 @@
+<<<<<<< HEAD
 - on clock_in_out doesn't link
 - upload picture
 - midnight bug
+=======
+clock out button after clocking in does not have correct link
+can not complete clock out after midnight
+can not add the first business
+update employee, start date resetting to 00-00-0000
+empty space in select dropdowns
+upload picture
+>>>>>>> 91a532cf46cc441831a42f410634f5b214fa0953

@@ -1,8 +1,8 @@
-//var connection = require('../../config/db.js')
+
 var pg = require('pg');
 var conString = require('../../config/db.js');
 
-module.exports = {
+
 
   get_list_locations : function(req, res) {
 
@@ -28,8 +28,6 @@ module.exports = {
       + " LEFT JOIN locations ON members.location_id = locations.id"
       + " WHERE members.business_id = 1";
 
-    
-
     var client = new pg.Client(conString);
 
     client.connect(function(err) {
@@ -46,13 +44,6 @@ module.exports = {
         client.end();
       });
     });
-    
-    // connection.query(qry, function(err, data) {
-      
-    //   if (err) throw err;
-    //   res.json(data);
-
-    // });
 
   }, get_list_members : function(req, res) {
 

@@ -69,7 +69,7 @@ app.factory('TableFactory', function($http){
 		}, factory_admin_dashboard : function(callback){
 
 			$http.get('/api/table_admin_dash').success(function(data){
-				console.log("this is fres postgres data:", data)
+
 				callback(data);
 			});
 

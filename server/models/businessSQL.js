@@ -4,18 +4,12 @@ module.exports = {
  info : function(req, res){
   
     var id = req.params.id;
-    
-    //old mysql query
-    // var qry = 
-    //     "SELECT businesses.name"
-    //   +   ", businesses.ip_addresses"
-    //   + " FROM businesses"
-    //   + " WHERE businesses.id = ?";
 
-    //postgres queries
-    var qry = "SELECT name, ip_addresses"
-            +"FROM businesses"
-            +"WHERE id = ?;"
+    var qry = 
+        "SELECT businesses.name"
+      +   ", businesses.ip_addresses"
+      + " FROM businesses"
+      + " WHERE businesses.id = ?";
     
     connection.query(qry, id, function(err, data) { 
 
