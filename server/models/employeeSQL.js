@@ -1,4 +1,7 @@
-var connection = require('../../config/db.js')
+//var connection = require('../../config/db.js')
+var pg = require('pg');
+var conString = require('../../config/db.js');
+
 module.exports = {
   
   create : function(req, res) {
@@ -17,7 +20,7 @@ module.exports = {
 
     var qry = 
         "INSERT INTO members ("
-      +   "business_id"
+      +   " business_id"
       +   ", location_id"
       +   ", name"
       +   ", title"
@@ -30,15 +33,27 @@ module.exports = {
       +   ", supervisor_id"
       +   ", type"
       +   ", created_at"
-      + ") VALUES (1,?,?,?,?,?,?,?,?,?,?,?, NOW())";
+      + " ) VALUES (1,?,?,?,?,?,?,?,?,?,?,?,NOW())";
 
     var form = [location_id, name, title, email, password, start_date, 
                 status, note, team, supervisor, type]
 
-    connection.query(qry, form, function(err) {
-      if (err) throw err;
-      res.status(200).end();
+
+    var client = new pg.Client(conString);
+
+    client.connect(function(err) {
+      if(err) { return console.error('could not connect to postgres', err); }
+      client.query(qry, form, function(err, data) {
+        if(err) { return console.error('error running query', err); }
+        res.status(200).end();
+        client.end();
+      });
     });
+
+    // connection.query(qry, form, function(err) {
+    //   if (err) throw err;
+    //   res.status(200).end();
+    // });
 
   }, show : function(req, res){
 
@@ -57,12 +72,25 @@ module.exports = {
         + ", members.type"
       + " FROM members "
       + "WHERE members.id = ?";
-    connection.query(qry, id, function(err, data) {
-  
-      if (err) throw err;
-      res.json(data);
-  
+
+    var client = new pg.Client(conString);
+
+    client.connect(function(err) {
+      if(err) { return console.error('could not connect to postgres', err); }
+      client.query(qry, id, function(err, data) {
+        if(err) { return console.error('error running query', err); }
+        console.log(data);
+        res.json(data);
+        client.end();
+      });
     });
+
+    // connection.query(qry, id, function(err, data) {
+  
+    //   if (err) throw err;
+    //   res.json(data);
+  
+    // });
 
   }, update : function(req, res) {
 
@@ -114,12 +142,23 @@ module.exports = {
       +   ", created_at"
       + ") VALUES (?, NOW(), NOW())";
 
-    connection.query(qry, id, function(err, data) {
+    client.connect(function(err) {
+      if(err) { return console.error('could not connect to postgres', err); }
+      client.query(qry, id, function(err, data) {
+        if(err) { return console.error('error running query', err); }
+        console.log(data);
+        res.json(data);
 
-      if (err) throw err;
-      res.json(Date.now());
-
+        client.end();
+      });
     });
+
+    // connection.query(qry, id, function(err, data) {
+
+    //   if (err) throw err;
+    //   res.json(Date.now());
+
+    // });
     
   }, clock_out : function(req, res){
 
@@ -135,12 +174,24 @@ module.exports = {
       +   ", updated_at=Now()"
       + " WHERE id=?";
 
-    connection.query(qry, [personal, report, session], function(err, data) {
+    client.connect(function(err) {
+      if(err) { return console.error('could not connect to postgres', err); }
+      client.query(qry, [personal, report, session], function(err, data) {
+        if(err) { return console.error('error running query', err); }
+        console.log(data);
+        res.json(data);
 
-      if (err) throw err;
-      res.json(Date.now());
-
+        client.end();
+      });
     });
+
+
+    // connection.query(qry, [personal, report, session], function(err, data) {
+
+    //   if (err) throw err;
+    //   res.json(Date.now());
+
+    // });
 
   }
 }

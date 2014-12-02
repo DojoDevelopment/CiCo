@@ -56,6 +56,7 @@ app.controller('employee', function($scope, EmployeeFactory, ListFactory, TableF
     }
 
     //upload picture function here//
+    console.log(info);
     EmployeeFactory.factory_create_employee(info);
   }
 
