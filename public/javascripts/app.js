@@ -2,8 +2,8 @@ var app = angular.module('myApp', ['ngRoute', 'routeStyles', 'ngSanitize', 'ngCs
 
 app.config(function($routeProvider){
 	$routeProvider
-	.when('/', { 
-	
+	.when('/', {
+		
 		templateUrl: 'partials/index.html',
 		css: 'stylesheets/login.css'
 

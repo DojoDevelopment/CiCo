@@ -1,3 +1,10 @@
+
+// var express = require('express');
+// var app = express();
+
+// app.use(express.cookieParser());
+// app.use(express.session({secret: '1234567890QWERTY'}));
+
 var main     = require('../server/controllers/main.js');
 var listsSQL = require('../server/models/listsSQL.js');
 var tableSQL = require('../server/models/tableSQL.js');
@@ -7,7 +14,14 @@ var employeeSQL = require('../server/models/employeeSQL.js');
 module.exports = function Routes(app) { 
 
   //MAIN INDEX CALL
-  app.get('/', function(req, res){ main.index(req,res); });
+  app.get('/', function(req, res){ 
+              main.index(req,res); 
+              console.log("ip making the request -> ",req.connection.remoteAddress);
+              req.session.logged_in = true;
+              req.session.ip_address = req.connection.remoteAddress;
+              console.log("session information follows: ", req.session);
+              console.log("user logged in?: ",res.req.session.logged_in);
+          });
 
   //Lists
   app.get('/api/list_all_locations',  function(req, res){ listsSQL.get_list_locations(req, res);         });
