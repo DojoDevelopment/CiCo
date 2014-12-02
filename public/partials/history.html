@@ -12,31 +12,30 @@
 					</h5><br><br>
 				</div>
 		</div>
-		<div>
-		<div class='filter row-md-4 pull-right'>
-			<div class='container-sm'>
-				<select ng-model="place">
-					<option value="" disabled selected>Location</option>
-					<option value="">All</option>
-					<option ng-repeat="l in locations" value={{l.name}} ng-bind="l.name"></option>
-				</select>
+	<div>
+	<div class='filter row-md-4 pull-right'>
+		<div class='container-sm'>
+			<select ng-model="place">
+				<option disabled selected>Location</option>
+				<option value="">All</option>
+				<option ng-repeat="l in locs" value={{l.name}} ng-bind="l.name"></option>
+			</select>
 
-				<select class='pull-right' ng-model="member">
-					<option value="" disabled selected>Filter by Name</option>
-					<option value="">All</option>
-					<option ng-repeat="member in members | filter:member" value={{member.name}} ng-bind="member.name"></option>
-				</select>
-				<br><br>
-
-				<div>
-					<p>Filter by Date:</p>
-			        <form>
-			        	<input type='date'> to <input type='date'>
-			        	<br>
-			        	<button type='submit' class='pull-right btn btn-sm btn-date'>Submit Date</button>
-			        </form>				
-			    </div>	
-			</div>
+			<select class='pull-right' ng-model="people">
+				<option disabled selected>Filter by Name</option>
+				<option value="">All</option>
+				<option ng-repeat="m in members" value={{m.name}} ng-bind="m.name"></option>
+			</select>
+			<br><br>
+			<div>
+				<p>Filter by Date:</p>
+		        <form>
+		        	<input type='date'> to <input type='date'>
+		        	<br>
+		        	<button type='submit' class='pull-right btn btn-sm btn-date'>Submit Date</button>
+		        </form>				
+		    </div>	
+		</div>
 					
 	</div>
 	<div class='row'>
@@ -55,7 +54,7 @@
 						<li><a ng-click="dateFilter('this_week')">This week</a></li>
 						<li><a ng-click="dateFilter('last_week')">Last week</a></li>
 						<li><a ng-click="dateFilter('this_month')">This month</a></li>
-		        		<li><a ng-click="dateFilter('last_month')">Last Month</a></li>
+        		<li><a ng-click="dateFilter('last_month')">Last Month</a></li>
 					</ul>
 				</div>
 			</div>
@@ -80,7 +79,7 @@
 				</thead>
 
 				<tbody>
-					<tr ng-repeat="row in table | filter: { locations:place, name:member } | orderBy:order:reverse">
+					<tr ng-repeat="row in table | filter: { locations:place, name:people } | orderBy:order:reverse">
 						<td ng-bind="row.created_at | date:'M/dd (EEE)'"></td>
 						<td><img height='30' width='30' class='img-rounded' src="/img/profile_pic/dev.jpg"></td>
 						<td ng-bind="row.name"></td>

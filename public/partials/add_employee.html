@@ -2,7 +2,13 @@
   <table class='table add_table'>
     <thead>
       <th colspan="2">
-        <h3>Add Employee</h3>
+
+        <h3 ng-if="update == false">
+          Add Employee
+        </h3>
+        <h3 ng-if="update == true">
+          Update Employee
+        </h3>
       </th>
     </thead>
     <tbody>
@@ -49,9 +55,10 @@
       <tr>
         <td>Employee Status</td>
         <td>
-          <select type='button' ng-model="status" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
+          <select type="button" ng-model="status" class="drop-btn dropdown-toggle btn btn-lg" role="menu">
+            <option value="" disabled selected>Status</option>
+            <option value="active" ng-selected="status == 'active'">Active</option>
+            <option value="inactive" ng-selected="status == 'inactive'">Inactive</option>
           </select>
         </td>
       </tr>
@@ -94,10 +101,17 @@
         <td colspan="2">
           <div class="checkbox">
             <label>
-              <input type="checkbox" value="contractor" id="inputAdmin">Admin<span class='emphasis'>*Be careful who you give admin access to*</span>
+              <input type="checkbox" value="contractor" id="inputAdmin" ng-model="admin" ng-checked="admin">
+              Admin
+              <span class='emphasis'>*Be careful who you give admin access to*</span>
             </label>
           </div>
-          <button class="btn btn-lg btn-in pull-right" type="submit" ng-click="addEmployee()">Create</button>
+          <div ng-if="update == true">
+            <button class="btn btn-lg btn-in pull-right" type="submit" ng-click="update_employee()">Update</button>          
+          </div>
+          <div ng-if="update == false">
+            <button class="btn btn-lg btn-in pull-right" type="submit" ng-click="addEmployee()">Create</button>
+          </div>
         </td>
       </tr>                                    
     </tbody>

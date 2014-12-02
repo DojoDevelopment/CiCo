@@ -1,13 +1,5 @@
 var BIZ_ID = 1;
 
-app.controller('test', function($scope, TestFactory) {
-
-  TestFactory.teststuff(function(data){
-    console.log('in controller', data);
-  });
-
-});
-
 app.controller('business', function($scope, $location, BusinessFactory) {
 
   BusinessFactory.factory_get_business_info(BIZ_ID, function(data){ 
@@ -35,7 +27,8 @@ app.controller('employee', function($scope, EmployeeFactory, ListFactory, TableF
 
   ListFactory.factory_supervisors(function(data){ $scope.supervisors = data; });
   ListFactory.factory_all_locations(function(data){ $scope.locations = data; });
-
+  $scope.update = false;
+  
   $scope.addEmployee = function(){
 
     var admin      = (document.getElementById('inputAdmin').checked == true ? 'contractor' : 'employee');
@@ -56,7 +49,6 @@ app.controller('employee', function($scope, EmployeeFactory, ListFactory, TableF
     }
 
     //upload picture function here//
-    console.log(info);
     EmployeeFactory.factory_create_employee(info);
   }
 
@@ -70,6 +62,7 @@ app.controller('employeeInfo', function($scope, $location, EmployeeFactory, List
 
   ListFactory.factory_supervisors(function(data){ $scope.supervisors = data; });
   ListFactory.factory_all_locations(function(data){ $scope.locations = data; });
+  $scope.update = true;
 
   TableFactory.factory_user_history_table(userID, function(data){
     $scope.table = data;
@@ -78,17 +71,17 @@ app.controller('employeeInfo', function($scope, $location, EmployeeFactory, List
 
   EmployeeFactory.factory_get_employee(userID, function(data){
 
-    $scope.name       =  data[0].name;
-    $scope.title      =  data[0].title;
-    $scope.team       =  data[0].team;
-    $scope.location   =  data[0].location_id;
-    $scope.supervisor =  data[0].supervisor_id;
-    $scope.status     =  data[0].status;
-    $scope.note       =  data[0].note;
-    $scope.start      =  data[0].start_date.substring(0,10);
-    $scope.email      =  data[0].email;
-    $scope.password   =  data[0].password;
-    $scope.admin      = (data[0].type == 'employee' ? '' : 'true');
+    $scope.name       =  data.name;
+    $scope.title      =  data.title;
+    $scope.team       =  data.team;
+    $scope.location   =  data.location_id;
+    $scope.supervisor =  data.supervisor_id;
+    $scope.status     =  data.status;
+    $scope.note       =  data.note;
+    $scope.start_date =  data.start_date.substring(0,10);
+    $scope.email      =  data.email;
+    $scope.password   =  data.password;
+    $scope.admin      = (data.type == 'employee' ? '' : 'true');
   });
 
   $scope.update_employee = function(){
@@ -108,7 +101,6 @@ app.controller('employeeInfo', function($scope, $location, EmployeeFactory, List
       , password   : $scope.password
       , admin      : admin 
     }
-
     EmployeeFactory.factory_update_employee(userID, info);
   }
 
@@ -149,7 +141,8 @@ app.controller('user_dashboard', function($scope, TableFactory, ListFactory, Clo
     }
 
     ClockingFactory.factory_clock_in(user, function(data){
-      $scope.table[row].clock_in = data;
+      $scope.table[row].session_id = data;
+      $scope.table[row].clock_in = Date.now();
     });
   };
 
@@ -161,6 +154,7 @@ app.controller('admin_dashboard', function($scope, TableFactory, ListFactory) {
 
   TableFactory.factory_admin_dashboard(function(data){
     $scope.table = data;
+
     $scope.order = '-created_at';
   });
 
@@ -168,8 +162,8 @@ app.controller('admin_dashboard', function($scope, TableFactory, ListFactory) {
 
 app.controller('history', function($scope, TableFactory, ListFactory) {
 
-  ListFactory.factory_used_locations(function(data){ $scope.locations = data; });
-  ListFactory.factory_members(function(data){ $scope.members = data; });
+  ListFactory.factory_used_locations( function(data){ $scope.locs = data; });
+  ListFactory.factory_members( function(data){ $scope.members = data; });
 
   TableFactory.factory_history_table(function(data){
     $scope.table = data;

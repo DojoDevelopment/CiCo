@@ -5,7 +5,6 @@ app.config(function($routeProvider){
 	.when('/', { 
 	
 		templateUrl: 'partials/index.html',
-		controller:  'test',
 		css: 'stylesheets/login.css'
 
 	}).when('/dashboard', {
@@ -50,7 +49,7 @@ app.config(function($routeProvider){
    
   }).when('/admin/edit/:id', {
 
-    templateUrl: 'partials/edit_employee.html',
+    templateUrl: 'partials/add_employee.html',
     controller: 'employeeInfo'
    
   }).otherwise({

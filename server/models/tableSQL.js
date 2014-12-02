@@ -1,4 +1,5 @@
-var connection = require('../../config/db.js')
+var pg = require('pg');
+var conString = require('../../config/db.js');
 module.exports = {
 
   get_table_dash_admin : function(req, res) {
@@ -17,12 +18,16 @@ module.exports = {
       + " LEFT JOIN locations AS locations2 ON locations2.id = members.location_id"
       + " LEFT JOIN members AS members2 ON members2.id = members.supervisor_id"
       + " WHERE members.business_id = 1";
+    
+    var client = new pg.Client(conString);
 
-    connection.query(qry, function(err, data) {
-
-      if (err) throw err;
-      res.json(data);
-
+    client.connect(function(err) {
+      if(err) { return console.error('could not connect dude, check stuff!', err); }
+      client.query(qry, function(err, data) {
+        if(err) { return console.error('error running admin_dash', err); }
+        res.json(data.rows);
+        client.end();
+      });
     });
 
   }, get_table_dash_user : function(req, res) {
@@ -47,38 +52,19 @@ module.exports = {
           + ", sessions.clock_in"
           + ", sessions.clock_out"
         + " FROM sessions"
-        + " WHERE DATE(sessions.clock_in) = CURDATE()"
+        + " WHERE DATE(sessions.clock_in) = current_date"
       + " ) AS sessions2 on sessions2.member_id = members.id"
-      + " WHERE members.business_id = 1";
+      + " WHERE members.business_id = 1;";
 
-    connection.query(qry, function(err, data) {
+    var client = new pg.Client(conString);
 
-      if (err) throw err;
-      res.json(data);
-
-    });
-
-  }, get_table_employee_history : function(req, res){
-
-    var id  = req.params.id;
-    var qry = 
-      "SELECT sessions.created_at"
-        + ", locations.name AS locations"
-        + ", sessions.clock_in"
-        + ", sessions.clock_out"
-        + ", sessions.personal_time"
-        + ", sessions.report"
-        + ", TIMEDIFF(sessions.clock_out, sessions.clock_in) AS billed "
-      + " FROM sessions"
-      + " LEFT JOIN members ON sessions.member_id = members.id"
-      + " LEFT JOIN locations ON locations.id = members.location_id"
-      + " WHERE members.id = ?";
-
-    connection.query(qry, id, function(err, data) {
-  
-      if (err) throw err;
-      res.json(data);
-  
+    client.connect(function(err) {
+      if(err) { return console.error('could not connect dude, check stuff!', err); }
+      client.query(qry, function(err, data) {
+        if(err) { return console.error('error running table query', err); }
+        res.json(data.rows);
+        client.end();
+      });
     });
 
   }, get_table_history : function(req, res) {
@@ -93,16 +79,20 @@ module.exports = {
         + ", sessions.clock_out"
         + ", sessions.personal_time"
         + ", sessions.report"
-        + ", TIMEDIFF(sessions.clock_out, sessions.clock_in) AS billed"
+        + ", age(sessions.clock_out, sessions.clock_in) AS billed"
       + " FROM sessions"
       + " LEFT JOIN members ON sessions.member_id = members.id"
       + " LEFT JOIN locations ON locations.id = members.location_id";
 
-    connection.query(qry, function(err, data) {
+    var client = new pg.Client(conString);
 
-      if (err) throw err;
-      res.json(data);
-    
+    client.connect(function(err) {
+      if(err) { return console.error('could not connect dude, check stuff!', err); }
+      client.query(qry, function(err, data) {
+        if(err) { return console.error('error running history_table', err); }
+        res.json(data.rows);
+        client.end();
+      });
     });
   }
 }

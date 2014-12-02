@@ -1,21 +1,28 @@
-var connection = require('../../config/db.js')
+var pg = require('pg');
+var conString = require('../../config/db.js');
+
 module.exports = {
 
  info : function(req, res){
   
     var id = req.params.id;
+
     var qry = 
         "SELECT businesses.name"
       +   ", businesses.ip_addresses"
       + " FROM businesses"
-      + " WHERE businesses.id = ?";
-    
-    connection.query(qry, id, function(err, data) { 
+      + " WHERE businesses.id = $1";
 
-      if (err) throw err;
-      res.json(data[0]);
-
-    }); 
+    var client = new pg.Client(conString);
+  
+    client.connect(function(err) {
+      if(err) { return console.error('could not connect to postgres', err); }
+      client.query(qry, [id], function(err, data) {
+        if(err) { return console.error('error running query', err); }
+        res.json(data.rows[0]);
+        client.end();
+      });
+    });
   
   }, update : function(req,res){
   
@@ -25,13 +32,19 @@ module.exports = {
 
     var qry = 
       "UPDATE businesses "
-    + "SET name=? "
-    +   ", ip_addresses=? "
-    + "WHERE id=?";
+    + "SET name=$1 "
+    +   ", ip_addresses=$2 "
+    + "WHERE id=$3";
 
-    connection.query(qry, [name,ip,id], function(err,data){
-      if (err) throw err;
-      res.status(200).end();
+    var client = new pg.Client(conString);
+
+    client.connect(function(err) {
+      if(err) { return console.error('could not connect to postgres', err); }
+      client.query(qry, [name, ip, id], function(err, data) {
+        if(err) { return console.error('error running query', err); }
+        res.json(data.rows[0]);
+        client.end();
+      });
     });
   }
 };
