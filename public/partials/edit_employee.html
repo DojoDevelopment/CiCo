@@ -1,0 +1,105 @@
+<div class='container-fluid'>
+  <table class='table add_table'>
+    <thead>
+      <th colspan="2">
+        <h3>Edit Employee Information</h3>
+      </th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Name</td>
+        <td>
+          <label for="inputName" class="sr-only">Name</label>
+          <input ng-model="name" ng-bind="name" type="text" id="inputName" class="form-control" placeholder="Name" required autofocus>
+        </td>
+      </tr>
+      <tr>
+        <td>Title</td>
+        <td>
+          <label for="inputTitle" class="sr-only">Title</label>
+          <input ng-model="title" ng-bind="title" type="text" id="inputTitle" class="form-control" placeholder="Title" required>
+        </td>
+      </tr>
+      <tr>
+        <td>Team</td>
+        <td>
+          <label for="inputTeam" class="sr-only">Team</label>
+          <input ng-model="team" ng-bind="team" type="text" id="inputTeam" class="form-control" placeholder="Team" required autofocus>
+        </td>
+      </tr>
+      <tr>
+        <td>Location</td>
+        <td>
+          <label for="inputLocation" class="sr-only">Location</label>
+          <select type='button' id="inputLocation" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
+            <option value="" disabled selected>Location</option>
+            <option ng-repeat="l in locations" value="{{l.id}}" ng-bind="l.name" ng-selected="l.id == location"></option>
+          </select>
+        </td>
+      </tr>            
+      <tr>
+        <td>Supervisor</td>
+        <td>
+            <select type='button' id="inputSupervisor" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
+              <option value="" disabled selected>Supervisor</option>
+              <option ng-repeat="s in supervisors" value="{{s.id}}" ng-bind="s.name" ng-selected="s.id == supervisor"></option>
+            </select>
+        </td>
+      </tr>
+      <tr>
+        <td>Employee Status</td>
+        <td>
+          <select type='button' id="inputStatus" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
+            <option value="active" ng-selected="'active' == status">Active</option>
+            <option value="inactive" ng-selected="'inactive' == status">Inactive</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>Notes</td>
+        <td>
+          <label for='note' class='sr-only'>only visible to admins</label>
+          <textarea ng-model="note" class='form-control' id='inputNote' placeholder='Notes (only visible to admins)'>{{notes}}</textarea>
+        </td>
+      </tr>
+      <tr>
+        <td>Upload Profile Picture</td>
+        <td>
+          <div class="input-group">
+            <span class="input-group-btn">
+              <span class="btn btn-primary btn-file">
+                Browse&hellip; <input type="file">
+              </span>
+            </span>
+            <input id="inputPicPath" placeholder='Upload Profile Pic' type="text" class="upload_pic form-control" readonly>  
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>Employee Start Date</td>
+        <td>
+            <input type="date" id="inputDate" ng-model="start" ng-bind="start">
+        </td>
+      </tr>
+      <tr>
+        <td>Email and Password</td>
+        <td>
+          <label for="inputEmail" class="sr-only">Email</label>
+          <input type="email" id="inputEmail" class="form-control" placeholder="Email" ng-model="email" ng-bind="email" required autofocus>
+          <label for="inputPassword" class="sr-only">Password</label>
+          <input type="password" id="inputPassword" class="form-control" placeholder="Password" ng-model="password" ng-bind="password" required>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" value="contractor" id="inputAdmin" ng-model="admin" ng-checked="admin">Admin<span class='emphasis'>*Be careful who you give admin access to*</span>
+            </label>
+          </div>
+          <button class="btn btn-lg btn-in pull-right" type="submit" ng-click="update_employee()">Update</button>
+        </td>
+      </tr>                                    
+    </tbody>
+  </table>
+</div>
