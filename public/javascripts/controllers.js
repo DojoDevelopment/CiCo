@@ -170,10 +170,10 @@ app.controller('history', function($scope, TableFactory, ListFactory) {
 
   TableFactory.factory_history_table(function(data){
     console.log(data);
-    //$scope.myIP = myIP;
+    $scope.myIP = data;
 
-    $scope.table = data;
-    $scope.order = '-created_at';
+   // $scope.table = data;
+    //$scope.order = '-created_at';
   });
 
   $scope.csvHead = [
