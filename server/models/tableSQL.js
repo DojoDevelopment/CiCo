@@ -90,9 +90,9 @@ module.exports = {
       if(err) { return console.error('could not connect dude, check stuff!', err); }
       client.query(qry, function(err, data) {
         if(err) { return console.error('error running history_table', err); }
-        var myIP = req.ip;
-        // res.json(data.rows,myIP);
-        res.json(myIP);
+        //var myIP = req.ip;
+        res.json(data.rows);
+        //res.json(myIP);
         client.end();
       });
     });

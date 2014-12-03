@@ -13,13 +13,11 @@ var app = express();
 // app.use(express.cookieParser());
 // app.use(express.session({secret: '1234567890QWERTY'}));
 
-
 app.use(session({
   secret: 'qwerty',
   resave: false,
   saveUninitialized: true
 }))
-
 
 // var config = require('./config/config');
 // all environments

@@ -5,30 +5,47 @@
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
 	<link rel="stylesheet" type="text/css" href="stylesheets/lib/toggle.css"/>
-	<link rel="stylesheet" type="text/css" href="stylesheets/modal.css"/>
+	<!--<link rel="stylesheet" type="text/css" href="stylesheets/modal.css"/> -->
 	<link rel="stylesheet" type="text/css" href="stylesheets/style.css"/>
+	<title>Dojo Login</title>
+</head>
+<body id='admin_login'>
+    <nav class="navbar navbar-inverse" role="navigation">
+      <div class="container">
+        <div class="navbar-header">   
+
+          <a class="navbar-brand" href="#">Coding Dojo TimeKeeper: Logged in as
+          	<span ng-show>Admin</span>
+          	<span ng-hide>Employee</span>
+          </a>
+
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+	          <form class="navbar-form navbar-right" role="form">
+	            <div class="form-group">
+	             <a href="/#/"><button class='btn btn-md btn-success' ng-hide>Admin</button></a>
+	             <button class='btn btn-md btn-danger' ng-show>Admin Logout</button>
+	          </form>
+        </div>
+      </div>
+    </nav>
+	<div class='container'>
+		<div ng-view=""></div>
+	</div>
+
+</body>
 	<script type="text/javascript" src='https://code.jquery.com/jquery-1.11.1.min.js'></script>
+	<script type="text/javascript" src="/bower_components/ng-file-upload/angular-file-upload-shim.min.js"></script>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular.min.js"></script>
+	<script type="text/javascript" src="/bower_components/ng-file-upload/angular-file-upload.min.js"></script> 
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular-route.min.js"></script>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular-sanitize.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ng-csv/0.2.5/ng-csv.min.js"></script>
 	<script type="text/javascript" src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.6.0.js"></script>
 	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="./javascripts/lib/angular-route-styles.js"></script>
-	<script type="text/javascript" src='./javascripts/lib/osx.js'></script>
-	<script type="text/javascript" src='./javascripts/lib/jquery.simplemodal.js'></script>
 	<script type="text/javascript" src='./javascripts/app.js'></script>
 	<script type="text/javascript" src='./javascripts/factories.js'></script>
 	<script type="text/javascript" src='./javascripts/controllers.js'></script>	
-	<script type="text/javascript" src='./javascripts/js.js'></script>
-	<title>Dojo Login</title>
-</head>
-<body id='admin_login'>
-	<nav class='navbar navbar-inverse' role='navigation'>
-		
-	</nav>
-	<div class='container'>
-		<div ng-view=""></div>
-	</div>
-</body>
+	<script type="text/javascript" src='./javascripts/directives.js'></script>	
 </html>

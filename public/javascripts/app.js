@@ -1,10 +1,11 @@
-var app = angular.module('myApp', ['ngRoute', 'routeStyles', 'ngSanitize', 'ngCsv']);
+var app = angular.module('myApp', ['ngRoute', 'routeStyles', 'ngSanitize', 'ngCsv', 'angularFileUpload']);
 
 app.config(function($routeProvider){
 	$routeProvider
 	.when('/', {
 		
 		templateUrl: 'partials/index.html',
+		controller:  'index',
 		css: 'stylesheets/login.css'
 
 	}).when('/dashboard', {
@@ -40,7 +41,7 @@ app.config(function($routeProvider){
   }).when('/admin/settings', {
   
     templateUrl: 'partials/admin_settings.html',
-    controller:  'business'
+    controller:  'admin_dashboard'
 
   }).when('/admin/show/:id', {
   
@@ -58,4 +59,3 @@ app.config(function($routeProvider){
 
 	});
 });
-

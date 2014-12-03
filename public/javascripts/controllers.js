@@ -1,29 +1,7 @@
 var BIZ_ID = 1;
 
-app.controller('business', function($scope, $location, BusinessFactory) {
-
-  BusinessFactory.factory_get_business_info(BIZ_ID, function(data){ 
-
-    $scope.name = data.name;
-    $scope.ip = data.ip_addresses;
-
-  });
-
-  $scope.updateSettings = function(){
-
-    var newSettings = {
-       name : $scope.name
-      , ip  : $scope.ip
-      , biz : 1
-    };
-
-    BusinessFactory.factory_update_business_info(newSettings);
-  }
-
-});
-
 //No ID in the URL
-app.controller('employee', function($scope, EmployeeFactory, ListFactory, TableFactory) {
+app.controller('employee', function($scope, EmployeeFactory, ListFactory, TableFactory, UserFactory) {
 
   ListFactory.factory_supervisors(function(data){ $scope.supervisors = data; });
   ListFactory.factory_all_locations(function(data){ $scope.locations = data; });
@@ -35,7 +13,7 @@ app.controller('employee', function($scope, EmployeeFactory, ListFactory, TableF
     // var picture    =  document.getElementById('inputPicPath').value;
 
     var info = {
-        name       : $scope.name
+      name       : $scope.name
       , title      : $scope.title
       , team       : $scope.team
       , location   : $scope.location
@@ -55,7 +33,7 @@ app.controller('employee', function($scope, EmployeeFactory, ListFactory, TableF
 });
 
 //Requires employee ID in the URL
-app.controller('employeeInfo', function($scope, $location, EmployeeFactory, ListFactory, TableFactory ){
+app.controller('employeeInfo', function($scope, $location, EmployeeFactory, ListFactory, TableFactory, UserFactory){
 
   //get id from url
   var userID = $location.path().split('/')[3];
@@ -89,7 +67,7 @@ app.controller('employeeInfo', function($scope, $location, EmployeeFactory, List
     var admin = (document.getElementById('inputAdmin').checked == true ? 'contractor' : 'employee');
 
     var info  = {
-        name       : $scope.name
+      name       : $scope.name
       , title      : $scope.title
       , team       : $scope.team
       , location   : $scope.location
@@ -106,92 +84,138 @@ app.controller('employeeInfo', function($scope, $location, EmployeeFactory, List
 
 });
 
-app.controller('clockout', function($scope, $location, ClockingFactory){
-  
-  var session_id = $location.path().split('/')[2];
-  $scope.clockOut = function( ) {
+app.controller('user_dashboard', function($scope, $location, TableFactory, ListFactory, ClockingFactory, UserFactory) {
 
-    var info = {
-        session  : session_id
-      , personal : $scope.personal
-      , report   : $scope.report 
-    };
-
-    ClockingFactory.factory_clock_out(info);
-  };
-
-});
-
-app.controller('user_dashboard', function($scope, TableFactory, ListFactory, ClockingFactory) {
+  UserFactory.check_login(function(data){
+    console.log(data);
+  });
 
   ListFactory.factory_used_locations(function(data){ $scope.locations = data; });
+
+  $scope.currentUser = '';
 
   TableFactory.factory_user_dashboard(function(data){
     $scope.table = data;
     $scope.order = '-created_at';
   });
 
-  $scope.clockIn = function() {
-    
-    var user = this.row.id;
+  $scope.clockOut = function(personal, report) {
+    var info = {
+      session  : $scope.currentUser.session_id
+      , personal : personal
+      , report   : report
+    };
 
-    console.log(user);
+    console.log('personal', personal)
+
+  ClockingFactory.factory_clock_out(info);
+  $scope.modalShown = false;
 
     for (var i=0; i < $scope.table.length; i++){
-      if( $scope.table[i].id == user){
-        var row = i;
-      }
+    if( $scope.table[i].id == $scope.currentUser.id){
+      var row = i;
     }
+  }
+   $scope.table[row].clock_out = Date.now();
 
-    ClockingFactory.factory_clock_in(user, function(data){
-      $scope.table[row].session_id = data;
-      $scope.table[row].clock_in = Date.now();
-    });
-  };
+};
+
+$scope.clockIn = function() {
+
+  var user = this.row.id;
+
+//  console.log(user);
+
+  for (var i=0; i < $scope.table.length; i++){
+    if( $scope.table[i].id == user){
+      var row = i;
+    }
+  }
+
+  ClockingFactory.factory_clock_in(user, function(data){
+    $scope.table[row].session_id = data;
+    $scope.table[row].clock_in = Date.now();
+  });
+};
+
+$scope.modalShown = false;
+$scope.toggleModal = function(currentUser) {
+  $scope.currentUser = currentUser;
+  $scope.modalShown = !$scope.modalShown;
+
+};
 
 }); 
 
-app.controller('admin_dashboard', function($scope, TableFactory, ListFactory) {
+app.controller('admin_dashboard', function($scope, TableFactory, ListFactory, BusinessFactory, UserFactory) {
 
-  ListFactory.factory_used_locations(function(data){ $scope.locations = data; });
+  BusinessFactory.factory_get_business_info(1, function(data){ 
 
-  TableFactory.factory_admin_dashboard(function(data){
-    $scope.table = data;
+    $scope.name = data.name;
+    $scope.ip = data.ip_addresses;
 
-    $scope.order = '-created_at';
   });
+  
+  $scope.updateSettings = function(){
+
+    var newSettings = {
+     name : $scope.name
+     , ip  : $scope.ip
+     , biz : 1
+   };
+
+   BusinessFactory.factory_update_business_info(newSettings);
+ }
+
+
+ ListFactory.factory_used_locations(function(data){ $scope.locations = data; });
+
+ TableFactory.factory_admin_dashboard(function(data){
+  $scope.table = data;
+
+  $scope.order = '-created_at';
+});
+
+
+ $scope.modalShown = false;
+ $scope.toggleModal = function() {
+  $scope.modalShown = !$scope.modalShown;
+};
 
 });
 
-app.controller('history', function($scope, TableFactory, ListFactory) {
+app.controller('history', function($scope, TableFactory, ListFactory, UserFactory) {
+
+  UserFactory.check_login;
+  console.log("in the factory, just checked login");
 
   ListFactory.factory_used_locations( function(data){ $scope.locations = data; });
   ListFactory.factory_members( function(data){ $scope.members = data; });
 
   TableFactory.factory_history_table(function(data){
     console.log(data);
-    $scope.myIP = data;
+    //$scope.myIP = data;
 
-   // $scope.table = data;
-    //$scope.order = '-created_at';
+   $scope.table = data;
+   $scope.order = '-created_at';
   });
 
   $scope.csvHead = [
-      'Date'
-    , 'Picture'
-    , 'Name'
-    , 'Title'
-    , 'Team'
-    , 'Location'
-    , 'Clock IN'
-    , 'Clock OUT'
-    , 'Personal Time'
-    , 'Billed Hours'
-    , 'Report'
+  'Date'
+  , 'Picture'
+  , 'Name'
+  , 'Title'
+  , 'Team'
+  , 'Location'
+  , 'Clock IN'
+  , 'Clock OUT'
+  , 'Personal Time'
+  , 'Billed Hours'
+  , 'Report'
   ];
 
   $scope.csvBody = function(){
-  
+
     ary = [];
     var rows = document.getElementsByTagName('tr');
     
@@ -245,36 +269,36 @@ app.controller('history', function($scope, TableFactory, ListFactory) {
     // }
 
     if (date_range === 'all') {
-    
+
       start_date = new Date(2010,0,0,0,0,0,0);
       end_date = today;
-    
+
     } else if (date_range === 'this_week') {
-    
+
       end_date = new Date ( Date.now() );
       days_back  = day_of_the_week;
       start_date = Date.now() - ( days_back * SECONDS_IN_DAY);
-    
+
     } else if (date_range === 'last_week') {
-    
+
       end_date   = today - ( (day_of_the_week + 1) * SECONDS_IN_DAY);
       start_date = today - ( (day_of_the_week + 6) * SECONDS_IN_DAY);
-    
+
     } else if (date_range === 'this_month') {
-    
+
       end_date = today;
       start_date = today - ( (day_of_the_month) * SECONDS_IN_DAY);
-    
+
     } else if (date_range === 'last_month') {
-    
+
       end_date = today - ( (day_of_the_month) * SECONDS_IN_DAY);
       start_date = today - ( (day_of_the_month + 30 ) * SECONDS_IN_DAY)
-    
+
     } else if ( ( typeof(date_range) != 'string' ) && (date_range[0] < date_range[1]) ) {
-    
+
       start_date = new Date(date_range[0]);
       end_date = new Date(date_range[1]);
-    
+
     };
 
     TableFactory.factory_history_table(function(data){
@@ -295,4 +319,22 @@ app.controller('history', function($scope, TableFactory, ListFactory) {
     })
 
   } //end of $scope.dateFilter function
+});
+
+app.controller('index', function($scope, LoginFactory) {
+
+  LoginFactory.factory_get_ip(function(ip){ 
+    LoginFactory.factory_ip_login({ip : ip});
+  });
+
+  $scope.login = function(){
+    var info = {
+      password : $scope.password,
+      email : $scope.email
+    };
+
+    LoginFactory.factory_login(info);
+    $scope.password = '';
+    $scope.email = '';
+  }
 });
