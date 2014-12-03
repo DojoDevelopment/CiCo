@@ -122,10 +122,52 @@ app.factory('ClockingFactory', function($http){
 
 		}, factory_clock_out: function(info){
 
-			$http.post('api/clock_out/' + info.session, info).success(function(){
+			$http.post('/api/clock_out/' + info.session, info).success(function(){
 				document.location.href = '../#/dashboard';
 			});
 		}
 
 	};
 });
+
+app.factory('LoginFactory', function($http){
+	return {
+		
+		factory_get_ip : function(callback){
+
+			$http.get('http://ipinfo.io/json').success(function(data){
+				callback(data.ip);
+			});
+
+		}, factory_ip_login : function(info){
+
+			$http.post('/api/ip_login', info).success(function(){
+				document.location.href = '../#/dashboard';
+			});
+
+		}, factory_login : function(info){
+			$http.post('/api/login', info).success(function(data){
+				document.location.href = data.link;
+			});
+		}
+
+	};
+});
+
+app.factory('UserFactory', function($http) {
+	return {
+		check_login : function(){
+
+			$http.get('/api/check_login').error(function(data){
+				document.location.href = data;
+			});
+
+		}, check_admin : function(){
+
+			$http.get('/api/check_admin').success(function(data){
+				console.log('factory admin check', data);
+			})
+
+		}
+	}
+})

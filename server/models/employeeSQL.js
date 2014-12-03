@@ -17,7 +17,7 @@ module.exports = {
       , req.body.team
       , req.body.supervisor
       , req.body.admin
-    ]
+    ];
 
     var qry = 
         "INSERT INTO members ("
@@ -153,8 +153,6 @@ module.exports = {
 
     var id = req.params.id;
     
-    console.log(id);
-
     var qry = 
         "INSERT INTO sessions ("
       +   "member_id"
