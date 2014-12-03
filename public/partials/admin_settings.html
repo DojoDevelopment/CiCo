@@ -1,31 +1,10 @@
-<<<<<<< HEAD
-<!-- <div class='ng-modal' ng-show='show'>
+<div class='ng-modal' ng-show='show'>
   <div class='ng-modal-overlay' ng-click='hideModal()'></div>
   <div class='ng-modal-dialog' ng-style='dialogStyle'>
     <div class='ng-modal-close' ng-click='hideModal()'>X</div>
-    <div class='ng-modal-dialog-content'>
-    	<div id="basic-modal-content"> -->
-<div class='container'>      
-  <div class='jumbotron'><h1>Employer Settings</h1></div>
-  <button class='btn btn-sm btn-danger'><a href="/#/admin/dashboard">Go Back</a></button>
-  <form>
-    Company Name:<label for="inputCompany" class="sr-only">Company Name</label>
-    <input type="text" id="inputCompany" class="form-control" placeholder="example: Coding Dojo" required autofocus>
-    <br><br>
-    On-Site IP Address:<label for='ipAdd' class='sr-only'>On-Site IP Addresses</label>
-    <textarea class='form-control' id='ipAdd' placeholder='Separate by comma - example: 192.168.2.1, 192.128.2.2'></textarea>
-    <button class="btn btn-lg btn-in pull-right" type="submit">Save</button>
-  </form>
-=======
-<form>
-  Company Name:<label for="inputCompany" class="sr-only">Company Name</label>
-  <input ng-model="name" class="form-control" placeholder="example: Coding Dojo" type="text" required autofocus>
+    <div class='ng-modal-dialog-content' ng-transclude></div>
+  </div>
+</div>
 
-  <br><br>
->>>>>>> dda56da539a99e19c5b4158c19a69c5dc45b5801
 
-  On-Site IP Address:<label for='ipAdd' class='sr-only'>On-Site IP Addresses</label>
-  <textarea ng-model='ip' class='form-control' placeholder='Separate by comma - example: 192.168.2.1, 192.128.2.2'></textarea>
 
-  <button class="btn btn-lg btn-in pull-right" type='submit' ng-click="updateSettings()">Save</button>
-</form>

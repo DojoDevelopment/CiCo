@@ -8,14 +8,6 @@ body{
 select{
   height: auto !important;
 }
-/*#admin_login{
-  background-size: 100%;
-  background-image:url(../img/mac_programmer.jpeg);
-}*/
-/*#admin-history{
-  background-size: 100%;
-  background-image:url(../img/mac_programmer.jpeg) !important;
-}*/
 .navbar-inverse{
   border-radius:0px !important;
 }

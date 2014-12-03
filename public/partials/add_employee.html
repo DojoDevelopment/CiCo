@@ -1,7 +1,5 @@
 <div class='container-fluid'>
-  <button class='btn btn-sm btn-danger'><a href="/#/admin/dashboard">Go Back</a></button>
-  <div class='container-sm'>
-      <table class='table add_table'>
+  <table class='table add_table'>
     <thead>
       <th colspan="2">
 
@@ -18,46 +16,29 @@
         <td><h4>Name</h4></td>
         <td>
           <label for="inputName" class="sr-only">Name</label>
-<<<<<<< HEAD
-          <input type="text" id="inputName" class="form-control" placeholder="Type employee name here" required autofocus>
-=======
           <input type="text" ng-model="name" class="form-control" placeholder="Name" required autofocus>
->>>>>>> dda56da539a99e19c5b4158c19a69c5dc45b5801
         </td>
       </tr>
       <tr>
         <td><h4>Title</h4></td>
         <td>
           <label for="inputTitle" class="sr-only">Title</label>
-<<<<<<< HEAD
-          <input type="text" id="inputTitle" class="form-control" placeholder="Type employee title here" required>
-=======
           <input type="text" ng-model="title" class="form-control" placeholder="Title" required>
->>>>>>> dda56da539a99e19c5b4158c19a69c5dc45b5801
         </td>
       </tr>
       <tr>
         <td><h4>Team</h4></td>
         <td>
           <label for="inputTeam" class="sr-only">Team</label>
-<<<<<<< HEAD
-          <input type="text" id="inputTeam" class="form-control" placeholder="Type employee team name here" required autofocus>
-=======
           <input type="text" ng-model="team" class="form-control" placeholder="Team" required autofocus>
->>>>>>> dda56da539a99e19c5b4158c19a69c5dc45b5801
         </td>
       </tr>
       <tr>
         <td><h4>Location</h4></td>
         <td>
           <label for="inputLocation" class="sr-only">Location</label>
-<<<<<<< HEAD
-          <select type='button' id="inputLocation" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
-            <option value="" disabled selected>Select Location</option>
-=======
           <select type='button' ng-model="location" id="inputLocation" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
             <option value="" disabled selected>Location</option>
->>>>>>> dda56da539a99e19c5b4158c19a69c5dc45b5801
             <option ng-repeat="l in locations" value="{{l.id}}" ng-bind="l.name"></option>
           </select>
         </td>
@@ -65,13 +46,8 @@
       <tr>
         <td><h4>Supervisor</h4></td>
         <td>
-<<<<<<< HEAD
-            <select type='button' id="inputSupervisor" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
-              <option value="" disabled selected>Select Supervisor</option>
-=======
             <select type='button' ng-model="supervisor" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
               <option value="" disabled selected>Supervisor</option>
->>>>>>> dda56da539a99e19c5b4158c19a69c5dc45b5801
               <option ng-repeat="s in supervisors" value="{{s.id}}" ng-bind="s.name"></option>
             </select>
         </td>
@@ -90,23 +66,19 @@
         <td><h4>Notes</h4></td>
         <td>
           <label for='note' class='sr-only'>only visible to admins</label>
-<<<<<<< HEAD
-          <textarea class='form-control' id='inputNote' placeholder='Type notes here (only visible to admins)'></textarea>
-=======
           <textarea class='form-control' ng-model="note" placeholder='Notes (only visible to admins)'></textarea>
->>>>>>> dda56da539a99e19c5b4158c19a69c5dc45b5801
         </td>
       </tr>
       <tr>
-        <td><h4>Upload Picture</h4></td>
+        <td><h4>Upload Profile Picture</h4></td>
         <td>
           <div class="input-group">
-                <span class="input-group-btn">
-                    <span class="btn btn-primary btn-file">
-                        Browse&hellip; <input type="file" ng-file-select="onFileSelect($files)">
-                    </span>
-                </span>
-                <input placeholder='select profile photo' type="text" class="form-control" readonly>
+            <span class="input-group-btn">
+              <span class="btn btn-primary btn-file">
+                Browse&hellip; <input type="file">
+              </span>
+            </span>
+            <input id="inputPicPath" placeholder='Upload Profile Pic' type="text" class="upload_pic form-control" readonly>  
           </div>
         </td>
       </tr>
@@ -117,15 +89,10 @@
         </td>
       </tr>
       <tr>
-        <td><h4>Email and Password</h4></td>
+        <td><h4>Email & Password</h4></td>
         <td>
           <label for="inputEmail" class="sr-only">Email</label>
-<<<<<<< HEAD
-          <input type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
-          <br>
-=======
           <input type="email" ng-model="email" class="form-control" placeholder="Email" required autofocus>
->>>>>>> dda56da539a99e19c5b4158c19a69c5dc45b5801
           <label for="inputPassword" class="sr-only">Password</label>
           <input type="password" ng-model="password" class="form-control" placeholder="Password" required>
         </td>
@@ -134,13 +101,9 @@
         <td colspan="2">
           <div class="checkbox">
             <label>
-<<<<<<< HEAD
-              <input type="checkbox" value="contractor" id="inputAdmin">Admin<span class='emphasis'> *Be careful who you give admin access to*</span>
-=======
               <input type="checkbox" value="contractor" id="inputAdmin" ng-model="admin" ng-checked="admin">
               Admin
               <span class='emphasis'>*Be careful who you give admin access to*</span>
->>>>>>> dda56da539a99e19c5b4158c19a69c5dc45b5801
             </label>
           </div>
           <div ng-if="update == true">
@@ -153,5 +116,4 @@
       </tr>                                    
     </tbody>
   </table>
-  </div>
 </div>

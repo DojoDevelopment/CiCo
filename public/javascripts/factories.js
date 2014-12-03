@@ -123,7 +123,7 @@ app.factory('ClockingFactory', function($http){
 		}, factory_clock_out: function(info){
 
 			$http.post('api/clock_out/' + info.session, info).success(function(){
-				document.location.href = '../#/dashboard';
+				// document.location.href = '../#/dashboard';
 			});
 		}
 

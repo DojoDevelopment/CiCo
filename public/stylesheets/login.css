@@ -13,9 +13,7 @@
 
 .login_header{
 	padding-top:10%;
-	color:#333;
-	height:;
-	width:;
+	color:#3E97D1;
 }
 .login_form{
 	margin-top: 10%;
@@ -24,7 +22,12 @@
 }
 .login_form a{
 	font-weight: bold;
-	color:red;
+	color:#61C2C2;
+	text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
 }
 
 .form-group p{
@@ -32,7 +35,10 @@
 	margin-top: 3%;
 }
 .form-group .btn{
-	margin-top: 15%;
+	margin-top: 5%;
+}
+#dev-box{
+	background-color: gray;
 }
 span{
 	color:salmon;
