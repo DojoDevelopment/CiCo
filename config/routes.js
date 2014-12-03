@@ -15,8 +15,20 @@ module.exports = function Routes(app) {
 
   //MAIN INDEX CALL
   app.get('/', function(req, res){ 
+              
+            var MyIP = req.ip;
+
               main.index(req,res); 
-              console.log("ip making the request -> ",req.connection.remoteAddress);
+              
+              
+
+              //res.json(MyIP);
+
+              console.log("ip from req.ip -> ", req.ip);
+              console.log("ip from req.connection.remoteAddress -> ",req.connection.remoteAddress);
+              console.log("ip from req.socket.remoteAddress-> ",req.socket.remoteAddress);
+              //console.log("ip making the request from req.connection.socket.remoteAddress -> ",req.connection.socket.remoteAddress);
+              console.log("ip  from req.headers['x-forwarded-for'] -> ", req.headers['x-forwarded-for']);
               req.session.logged_in = true;
               req.session.ip_address = req.connection.remoteAddress;
               console.log("session information follows: ", req.session);

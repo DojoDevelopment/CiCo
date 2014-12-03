@@ -169,6 +169,9 @@ app.controller('history', function($scope, TableFactory, ListFactory) {
   ListFactory.factory_members( function(data){ $scope.members = data; });
 
   TableFactory.factory_history_table(function(data){
+    console.log(data);
+    //$scope.myIP = myIP;
+
     $scope.table = data;
     $scope.order = '-created_at';
   });
