@@ -84,7 +84,7 @@ app.controller('employeeInfo', function($scope, $location, EmployeeFactory, List
 
 });
 
-app.controller('LoginController', function($scope, $rootScope, AUTH_EVENTS, LoginFactory) {
+app.controller('LoginController', function($scope, $rootScope, LoginFactory) {
 
   LoginFactory.factory_get_ip(function(ip){ 
     LoginFactory.factory_ip_login({ip : ip});
