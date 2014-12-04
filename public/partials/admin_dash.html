@@ -1,6 +1,3 @@
-<div class='jumbotron'>
-  <h1>Coding Dojo Admin</h1>
-</div>
 
 <div class='info'>
   <div>
@@ -11,20 +8,28 @@
     <div class='pull-right'>
       <a ng-click='toggleModal();' class='basic'><i class="fa fa-cog"></i> settings</a> / <a href="/">logout</a>
       <modal-dialog show='modalShown' width='750px' height='60%'>
-      <div class='container'>      
-        <div class='jumbotron'><h1>Employer Settings</h1></div>
-        <form>
-          Company Name:<label for="inputCompany" class="sr-only">Company Name</label>
-          <input ng-model="name" class="form-control" placeholder="example: Coding Dojo" type="text" required autofocus>
 
+<!--************************  SETTINGS MODAL CONTENT *******************************-->
+       
+        <div class='container modal-settings'>
 
-          On-Site IP Address:<label for='ipAdd' class='sr-only'>On-Site IP Addresses</label>
-          <textarea ng-model='ip' class='form-control' placeholder='Separate by comma - example: 192.168.2.1, 192.128.2.2'></textarea>
+          <nav class='navbar navbar-fixed-top navbar-inverse'>
+              <h1 align='center'>Edit Settings</h1>
+          </nav>
 
-          <button class="btn btn-lg btn-in pull-right" type='submit' ng-click="updateSettings()">Save</button>
-        </form>
+          <form>
+            Company Name:<label for="inputCompany" class="sr-only">Company Name</label>
+            <input ng-model="name" class="form-control" placeholder="example: Coding Dojo" type="text" required autofocus>
 
-      </div>
+            On-Site IP Address:<label for='ipAdd' class='sr-only'>On-Site IP Addresses</label>
+            <textarea ng-model='ip' class='form-control' placeholder='Separate by comma - example: 192.168.2.1, 192.128.2.2'></textarea>
+
+            <button class="btn btn-lg btn-in pull-right" type='submit' ng-click="updateSettings()">Save</button>
+          </form>
+
+        </div>
+
+<!--*********************  END SETTINGS MODAL CONTENT *******************************-->   
 
     </modal-dialog>
   </div>

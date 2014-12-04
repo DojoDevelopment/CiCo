@@ -39,7 +39,7 @@ module.exports = {
         
         console.log("and that id_string splitted and stored in ip_array is: ",ip_array);
 
-        var match = false; 
+        var match = true; 
 
         for (var i = ip_array.length - 1; i >= 0; i--) {
 

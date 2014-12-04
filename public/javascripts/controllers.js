@@ -86,9 +86,12 @@ app.controller('employeeInfo', function($scope, $location, EmployeeFactory, List
 
 app.controller('user_dashboard', function($scope, $location, TableFactory, ListFactory, ClockingFactory, UserFactory) {
 
-  UserFactory.check_login(function(data){
-    console.log(data);
-  });
+  // TURN BACK ON BEFORE PUSHING!!!!!!!
+
+  // UserFactory.check_login(function(data){
+  //   console.log(data);
+  // });
+  $scope.currentPath = $location.path();
 
   ListFactory.factory_used_locations(function(data){ $scope.locations = data; });
 
@@ -99,7 +102,7 @@ app.controller('user_dashboard', function($scope, $location, TableFactory, ListF
     $scope.order = '-created_at';
   });
 
-  $scope.clockOut = function(personal, report) {
+  $scope.clockOut = function(personal, report, clockout_form) {
     var info = {
       session  : $scope.currentUser.session_id
       , personal : personal
@@ -165,6 +168,8 @@ app.controller('admin_dashboard', function($scope, TableFactory, ListFactory, Bu
    };
 
    BusinessFactory.factory_update_business_info(newSettings);
+
+   $scope.modalShown = false;
  }
 
 
@@ -186,8 +191,10 @@ app.controller('admin_dashboard', function($scope, TableFactory, ListFactory, Bu
 
 app.controller('history', function($scope, TableFactory, ListFactory, UserFactory) {
 
-  UserFactory.check_login;
-  console.log("in the factory, just checked login");
+   $scope.currentPath = $location.path();
+  // TURN BACK ON BEFORE PUSHING!!!!
+  // UserFactory.check_login;
+  // console.log("in the factory, just checked login");
 
   ListFactory.factory_used_locations( function(data){ $scope.locations = data; });
   ListFactory.factory_members( function(data){ $scope.members = data; });

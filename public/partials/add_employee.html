@@ -46,10 +46,10 @@
       <tr>
         <td><h4>Supervisor</h4></td>
         <td>
-            <select type='button' ng-model="supervisor" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
-              <option value="" disabled selected>Supervisor</option>
-              <option ng-repeat="s in supervisors" value="{{s.id}}" ng-bind="s.name"></option>
-            </select>
+          <select type='button' ng-model="supervisor" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
+            <option value="" disabled selected>Supervisor</option>
+            <option ng-repeat="s in supervisors" value="{{s.id}}" ng-bind="s.name"></option>
+          </select>
         </td>
       </tr>
       <tr>
@@ -72,20 +72,18 @@
       <tr>
         <td><h4>Upload Profile Picture</h4></td>
         <td>
-          <div class="input-group">
-            <span class="input-group-btn">
-              <span class="btn btn-primary btn-file">
-                Browse&hellip; <input type="file">
-              </span>
-            </span>
-            <input id="inputPicPath" placeholder='Upload Profile Pic' type="text" class="upload_pic form-control" readonly>  
-          </div>
+          <form ng-controller='uploader'>
+            <input class='file_upload' type="file"
+            file-input="files"
+            multiple />
+            <li ng-repeat='file in files'>{{file.name}}</li>
+          </form>
         </td>
       </tr>
       <tr>
         <td><h4>Employee Start Date</h4></td>
         <td>
-            <input type="date" ng-model="start_date">
+          <input type="date" ng-model="start_date">
         </td>
       </tr>
       <tr>

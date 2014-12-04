@@ -1,261 +1,147 @@
-body{
-  min-width: 70em;
-}
 
-.container{
-  width:85%;
-}
-select{
-  height: auto !important;
-}
-.navbar-inverse{
-  border-radius:0px !important;
-}
-button a{
-  text-decoration: none;
-  color:white;
-}
-button a:hover{
-  text-decoration: none;
-  color:#4584EF;
-}
-
-.employee-info div{
-  margin-top: -25px !important;
-}
-.table-head {
-  border:none !important;
-  border-top-right-radius: 1em !important;
-  border-top-left-radius: 1em !important;
-  color:white;
-  margin-bottom: -2% !important;
-  width:100% !important;
-  background-color: #676767 !important;
-}
-
-.add_table>tbody>tr>td{
-  width:25%;
-}
-.add_table>tbody>tr>td:first-child{
-  border-right: 1px solid #DDDDDD;
-}
-.add_table>tbody>tr>td:last-child{
-  border-right: none;
-}
-
-.table-head tr td{
-  border:none !important;
-}
-.snap-shot tbody tr:last-child td:last-child {
-  border-bottom-right-radius: 1em !important;
-}
-
-hr{
-  border:1px solid #CECDCC;
-}
-.snap-shot tbody tr td:nth-child(2){
-
-  background-color: #F5F6F7 !important;
-}
-.container ul li{
-  display: inline;
-}
-
-.container-fluid h5{
-  margin-bottom: 2%;
-}
-
-.filters{
-  display: inline-block;
-  margin-left: 5em;
-  margin-bottom: 2%;
-}
-.btn-date{
-  color:white;
-  margin-top: 3% !important;
-  background-color: #0D81FF;
-}
-#settings{
-  margin-top: 15%;
-  margin-bottom: 2%;
-}
-
-.form-signin{
-  margin-bottom: 10%;
-}
-.add_table .form-control{
-  font-size:1.3em !important;
-  width:30em;
-  border:none;
-  box-shadow: none;
-}
-textarea{
-  resize:none;
-/*  height:15em !important;*/
-}
-
-#hrs{
-  outline:none;
-/*  outline-color:transparent;
-  box-shadow: none;*/
-  background:none;
-  padding-bottom: 0em;
-  border:none;
-  height:1.5em !important;
-  width:3em;
-}
+/********************  HTML ATTRIBUTE CSS  ******************************/
 
 
-.form-group{
-  margin-top: 0px !important;
-}
+body{ min-width: 70em; }
+select{ height: auto !important; }
+textarea{ resize:none; height:10em; width:100%; }
 
-.jumbotron h1{
-  text-align: center;
-}
+input[readonly] { background-color: white !important; cursor: text !important; }
+input, button, select, textarea { color: black; }
 
-.info{
-  margin-top: 5%;
-}
-
-.info h5{
-  margin-top: -1%;
-}
-
-.info h5 , select{
-  line-height: 2em;
-  display: inline-block;
-}
-
-.drop-btn{
-  height:auto;
-}
-
-table, thead, tr{
-  margin-top: 2%;
-}
+span, .emphasis { color:salmon; }
 
 
-table th{
-  background-color: #eee;
-}
+/********************  END  HTML ATTRIBUTE CSS  *************************/
 
-table tr:nth-child(even) {
-    background-color: #eee;
-}
-table tr:nth-child(odd) {
-    background-color: #fff;
-}
-td img{
-  margin-left: 20%;
-}
-.clk-btn{
-  width:10em;
-}
-tr td .names{
-  font-style: italic;
-  font-size: .9em;
-  color:#9F9F9F;
-}
-tr td .status{
-  font-weight: bold;
-  font-size: .9em;
-  color:#9F9F9F;
-}
-.btn-in{
-  background-color: #008500;
-  color:white;
-}
-.btn-out{
-  background-color: #EE001D;
-  color:white;
-}
-.emphasis{
-  color:salmon;
-}
-.btn-file {
-  position: relative;
-  overflow: hidden;
-}
-.btn-file input[type=file] {
-  position: absolute;
-  top: 0;
-  right: 0;
-  min-width: 100%;
-  min-height: 100%;
-  font-size: 100px;
-  text-align: right;
-  filter: alpha(opacity=0);
-  opacity: 0;
-  cursor: inherit;
-  display: block;
-}
-input[readonly] {
-  background-color: white !important;
-  cursor: text !important;
-}
+/********************  BOOTSTRAP MODIFICATIONS  *************************/
 
-input, button, select, textarea {
-  color: black;
-}
-table tr:nth-child(odd),
-table tr:nth-child(even){
-  background-color: transparent;
-}
-/********************************/
-/*  MODAL CSS to be moved later*/
-/********************************/
-.ng-modal-overlay {
-  /* A dark translucent div that covers the whole screen */
-  position:absolute;
-  z-index:9999;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background-color:#000000;
-  opacity: 0.8;
-}
-.ng-modal-dialog {
-  
-  color:black;
-  padding: 1% 5% 1% 5%;
-  z-index:10000;
-  position: absolute;
-  width: 35%;
-  height: 60%;
-  overflow-y: scroll; 
-  /* Center the dialog */
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  -moz-transform: translate(-50%, -50%);
-  background-color: #fff;
-  box-shadow: 4px 4px 80px #000;
 
-}
-.ng-modal-dialog-content {
-  padding:10px;
-  text-align: left;
+.container{ width:85%; }
+.container ul li{ display: inline; }
+.container-fluid h5{ margin-bottom: 2%; }
 
-}
-.ng-modal-close {
-  color:salmon;
-  position: absolute;
-  top: 3px;
-  right: 5px;
-  padding: 5px;
-  cursor: pointer;
-  font-size: 120%;
-  display: inline-block;
-  font-weight: bold;
-  font-family: 'arial', 'sans-serif';
-}
+.navbar-inverse{ border-radius:0px !important; }
 
-.col-md-12 ul{
-  margin-top:1em;
-}
-.col-md-12 ul li{
-  margin-left:1em;
-}
+.jumbotron h1{ text-align: center; }
+
+.col-md-12 ul{ margin-top:1em; }
+.col-md-12 ul li{ margin-left:1em; }
+
+.form-signin{ margin-bottom: 10%; }
+.form-group{ margin-top: 0px !important; }
+
+
+/********************  END BOOTSTRAP MODIFICATIONS  ********************/
+
+/********************  TABLES  ******************************/
+
+
+table, thead, tr{ margin-top: 2%; }
+table th{ background-color: #eee; }
+
+table tr:nth-child(odd), table tr:nth-child(even){ background-color: transparent; }
+table tr:nth-child(even) { background-color: #eee; }
+table tr:nth-child(odd) { background-color: #fff; }
+
+td img{ margin-left: 20%; }
+tr td .names{ font-style: italic; font-size: .9em; color:#9F9F9F; }
+tr td .status{ font-weight: bold; font-size: .9em; color:#9F9F9F; }
+hr{ border:1px solid #CECDCC; }
+
+.table-head { border:none !important; border-top-right-radius: 1em !important; border-top-left-radius: 1em !important;
+              background-color: #676767 !important; color: white; margin-bottom: -2% !important; width:100% !important; }
+
+.add_table>tbody>tr>td{ width:25%; }
+.add_table>tbody>tr>td:first-child{ border-right: 1px solid #DDDDDD; }
+.add_table>tbody>tr>td:last-child{ border-right: none; }
+.add_table .form-control{ font-size:1.3em !important; width:30em; border:none; box-shadow: none; }
+
+.table-head tr td{ border:none !important; }
+
+.snap-shot tbody tr:last-child td:last-child { border-bottom-right-radius: 1em !important; }
+.snap-shot tbody tr td:nth-child(2){ background-color: #F5F6F7 !important; }
+
+
+/********************  END TABLE CSS  ******************************/
+
+/********************  MODAL CSS  ******************************/
+
+.ng-modal-overlay { position:absolute; z-index:9999; top:0; left:0; width:100%; height:100%; 
+                    background-color:#000000; opacity: 0.8; }
+
+.ng-modal-dialog { color:black; padding: 1% 5% 1% 5%; z-index:10000; position: absolute; width: 35%;
+                   height: 60%; overflow-y: scroll; top: 50%; left: 50%;
+                   transform: translate(-50%, -50%);
+                  -webkit-transform: translate(-50%, -50%);
+                  -moz-transform: translate(-50%, -50%);
+                   background-color: #fff; box-shadow: 4px 4px 80px #000; }                 
+
+.ng-modal-dialog-content { padding:10px; text-align: left; }
+
+.ng-modal-close {  color:salmon; position: absolute; top: 3px; right: 5px; padding: 5px; cursor: pointer; 
+                   font-size: 120%; display: inline-block; font-weight: bold; font-family: 'arial', 'sans-serif'; }
+
+.ng-modal-settings { background-color: lightgray; }    
+
+.dialog-content-settings {  margin-top: 15%; }
+
+.modal-settings h1{ color:white; }
+.modal-settings button { margin-top: .5em }
+.modal-settings form textarea { height:15em; }
+
+
+/********************  END MODAL CSS  ******************************/
+
+/********************  CUSTOM BUTTONS  ******************************/
+
+
+button a{ text-decoration: none; color:white; }
+button a:hover{ text-decoration: none; color:#4584EF; }
+
+.btn-date{ color:white; margin-top: 3% !important; background-color: #0D81FF; }
+.btn-file { position: relative; overflow: hidden; }
+.btn-file input[type=file] { position: absolute; top: 0; right: 0; min-width: 100%; min-height: 100%; font-size: 100px; 
+                             text-align: right; filter: alpha(opacity=0); opacity: 0; cursor: inherit; display: block; }
+
+.btn-in{ background-color: #008500; color:white }
+.btn-out{ background-color: #EE001D; color:white; }
+
+/*.file_upload::-webkit-file-upload-button { visibility: hidden; }
+
+.file_upload::before { content: 'Select some files'; display: inline-block;
+                       background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3); border: 1px solid #999;
+                       border-radius: 3px; padding: 5px 8px; outline: none; white-space: nowrap;
+                       -webkit-user-select: none; cursor: pointer; text-shadow: 1px 1px #fff;
+                       font-weight: 700; font-size: 10pt; }
+
+.file_upload:hover::before { border-color: black; }
+.file_upload:active::before { background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9); }*/
+
+
+.clk-btn{ width:10em; }
+.drop-btn{ height:auto; }
+
+
+/********************  END BUTTON CSS  ****************************/
+
+/********************  INFO GROUP CSS *************************/
+
+
+.info{ margin-top: 5%; }
+.info h5{ margin-top: -1%; }
+.info h5 , select{ line-height: 2em; display: inline-block; }
+
+
+/********************  END INFO GROUP  *************************/
+
+/********************  MISC CSS  ****************************/
+
+.employee-info div{ margin-top: -25px !important; }
+
+.filters{ display: inline-block; margin-left: 5em; margin-bottom: 2%; }
+
+#settings{ margin-top: 15%; margin-bottom: 2%; }
+
+#hrs{ outline:none; background:none; padding-bottom: 0em; border:none; height:1.5em !important; width:3em; }
+
