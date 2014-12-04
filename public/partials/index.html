@@ -1,17 +1,20 @@
-
-	<div class='login_box'>
+<div class='login_box'>
 	<div align='center' class='login_header'>
 		<h2>Coding Dojo Admin Login</h2>
 	</div>
 	<div class='login_form'>
-		<form class='form-group'>
-			<label for="inputEmail" class="sr-only">Email --disabled for development</label>
-			<input type="email" ng-model="email" class="form-control" placeholder="Email" required autofocus>
-			<label for="inputPassword" class="sr-only">Password --disabled for development</label>
-			<input type="password" ng-model="password" class="form-control" placeholder="Password" required>
-			<button class='btn btn-md btn-success' ng-click="login()">Sign In <span>--disabled for development</span></button>
-			<label for="rem_me" class="sr-only">Remember Me</label>
-<!-- 			<p>Remember Me <input type="checkbox" id="rem_me" disabled></p> -->
+		<form class='form-group' ng-submit="login(credentials)" novalidate>
+
+			<label for="inputEmail" class="sr-only">Email</label>
+			<input type="email" ng-model="credentials.email" class="form-control" placeholder="Email" required autofocus>
+
+			<label for="inputPassword" class="sr-only">Password</label>
+			<input type="password" ng-model="credentials.password" class="form-control" placeholder="Password" required>
+
+			<button class='btn btn-md btn-success' type="submit">Sign In</button>
+
+	<!-- 			<label for="rem_me" class="sr-only">Remember Me</label> -->
+	<!-- 			<p>Remember Me <input type="checkbox" id="rem_me" disabled></p> -->
 		</form>
 
 		<!-- DEVELOPMENT DIV TO BE REMOVED ON LAUNCH -->
@@ -21,7 +24,6 @@
 				<a href="/#/admin/dashboard">ADMIN DASH</a> </br>
 				<a href="/#/admin/history">ADMIN HISTORY</a> </br>
 		</div>
-
 
 	</div>
 </div>
