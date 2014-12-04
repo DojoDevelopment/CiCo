@@ -43,7 +43,7 @@ app.controller('employeeInfo', function($scope, $location, EmployeeFactory, List
   $scope.update = true;
 
   TableFactory.factory_user_history_table(userID, function(data){
-    $scope.table = data;
+    $scope.history_table = data;
     $scope.order = '-created_at';
   });
 
@@ -112,12 +112,12 @@ app.controller('EmployeeController', function($scope, $location, TableFactory, L
   ListFactory.factory_members( function(data){ $scope.members = data; });
 
   TableFactory.factory_history_table(function(data){
-    $scope.table = data;
+    $scope.history_table = data;
     $scope.order = '-created_at';
   });
 
   TableFactory.factory_user_dashboard(function(data){
-    $scope.table = data;
+    $scope.dashboard_table = data;
     $scope.order = '-created_at';
   });
 
@@ -302,7 +302,7 @@ app.controller('AdminController', function($scope, $location, TableFactory, List
   ListFactory.factory_members( function(data){ $scope.members = data; });
 
   TableFactory.factory_admin_dashboard(function(data){
-    $scope.table = data;
+    $scope.dashboard_table = data;
     $scope.order = '-created_at';
   });
 
@@ -310,7 +310,7 @@ app.controller('AdminController', function($scope, $location, TableFactory, List
     console.log(data);
     //$scope.myIP = data;
 
-   $scope.table = data;
+   $scope.history_table = data;
    $scope.order = '-created_at';
   });
 

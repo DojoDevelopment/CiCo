@@ -76,7 +76,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="row in table | filter: { locations:place, name:people } | orderBy:order:reverse">
+            <tr ng-repeat="row in history_table | filter: { locations:place, name:people } | orderBy:order:reverse">
               <td ng-bind="row.created_at | date:'dd/M (EEE)'"></td>
               <td><img height='30' width='30' class='img-rounded' src="/img/profile_pic/dev.jpg"></td>
               <td ng-bind="row.name"></td>
@@ -105,7 +105,7 @@
             <th>Actions</th>
           </thead>
           <tbody>
-            <tr ng-repeat="row in table | filter: { locations:place } | orderBy:order:reverse">
+            <tr ng-repeat="row in dashboard_table | filter: { locations:place } | orderBy:order:reverse">
               <td><img height='30' width='30' class='img-rounded' src="/img/profile_pic/dev.jpg"></td>
               <td ng-bind="row.name"></td>
               <td ng-bind="row.status"></td>
