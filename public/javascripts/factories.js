@@ -45,8 +45,13 @@ app.factory('BusinessFactory', function($http){
 
       $http
       .put('/api/business/'+ info.biz, info)
+<<<<<<< HEAD
       .success(function(){
         document.location.href = '../#/admin/dashboard';
+=======
+      .success(function(data){
+        callback(data);
+>>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8
       });
 
     }
@@ -77,17 +82,23 @@ app.factory('TableFactory', function($http){
     }, factory_history_table : function(callback){
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8
       $http
       .get('/api/table_hist')
       .success(function(data){
         callback(data);
       });
+<<<<<<< HEAD
 =======
 			$http.get('/api/table_hist').success(function(data){
 				console.log("in factory history table, just got this data: ", data)
 				callback(data);
 			});
 >>>>>>> 65ee4a58f9503cc197668bc2ec72e3eac33ee3e7
+=======
+>>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8
 
     }, factory_user_history_table : function(id, callback){
 
@@ -169,6 +180,7 @@ app.factory('ClockingFactory', function($http){
 
 app.factory('LoginFactory', function($http){
 <<<<<<< HEAD
+<<<<<<< HEAD
   return {
     
     factory_get_ip : function(callback){
@@ -216,24 +228,35 @@ app.factory('LoginFactory', function($http){
 	return {
 		
 		factory_get_ip : function(callback){
+=======
+>>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8
 
-			$http.get('http://ipinfo.io/json').success(function(data){
-				console.log("in_factory_get_ip and getting this data from ipinfo.io which contains among other things the ip: ",data);
-				callback(data.ip);
-			});
+  return {
+    
+    factory_get_ip : function(callback){
 
-		}, factory_ip_login : function(info){
+      $http
+      .get('http://ipinfo.io/json')
+      .success(function(data){
+        callback(data.ip);
+      });
 
-			$http.post('/api/ip_login', info).success(function(){
-				document.location.href = '../#/dashboard';
-			});
+    }, factory_ip_login : function(info){
 
-		}, factory_login : function(info){
-			$http.post('/api/login', info).success(function(data){
-				document.location.href = data.link;
-			});
-		}
+      $http
+      .post('/api/ip_login', info)
+      .success(function(){
+        document.location.href = '../#/dashboard';
+      });
 
+    }, login : function(credentials){
+      $http.post('/api/login', credentials)
+      .success(function(data){
+        document.location.href = data.link;
+      });
+    }
+
+<<<<<<< HEAD
 	};
 >>>>>>> 65ee4a58f9503cc197668bc2ec72e3eac33ee3e7
 });
@@ -276,3 +299,25 @@ app.factory('UserFactory', function($http) {
 //  };
 //  return this;
 // })
+=======
+  };
+});
+
+// app.factory('UserFactory', function($http) {
+//   return {
+//     check_login : function(){
+
+//       $http.get('/api/check_login').error(function(data){
+//         document.location.href = data;
+//       });
+
+//     }, check_admin : function(){
+
+//       $http.get('/api/check_admin').success(function(data){
+//         console.log('factory admin check', data);
+//       })
+
+//     }
+//   }
+// });
+>>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8

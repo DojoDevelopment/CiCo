@@ -1,7 +1,7 @@
 var BIZ_ID = 1;
 
 //No ID in the URL
-app.controller('employee', function($scope, EmployeeFactory, ListFactory, TableFactory, UserFactory) {
+app.controller('employee', function($scope, EmployeeFactory, ListFactory, TableFactory) {
 
   ListFactory.factory_supervisors(function(data){ $scope.supervisors = data; });
   ListFactory.factory_all_locations(function(data){ $scope.locations = data; });
@@ -33,7 +33,7 @@ app.controller('employee', function($scope, EmployeeFactory, ListFactory, TableF
 });
 
 //Requires employee ID in the URL
-app.controller('employeeInfo', function($scope, $location, EmployeeFactory, ListFactory, TableFactory, UserFactory){
+app.controller('employeeInfo', function($scope, $location, EmployeeFactory, ListFactory, TableFactory){
 
   //get id from url
   var userID = $location.path().split('/')[3];
@@ -87,6 +87,7 @@ app.controller('employeeInfo', function($scope, $location, EmployeeFactory, List
 app.controller('LoginController', function($scope, $rootScope, AUTH_EVENTS, LoginFactory) {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   // TURN BACK ON BEFORE PUSHING!!!!!!!
 
   // UserFactory.check_login(function(data){
@@ -94,6 +95,8 @@ app.controller('LoginController', function($scope, $rootScope, AUTH_EVENTS, Logi
   // });
   $scope.currentPath = $location.path();
 =======
+=======
+>>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8
   LoginFactory.factory_get_ip(function(ip){ 
     LoginFactory.factory_ip_login({ip : ip});
   });
@@ -124,6 +127,24 @@ app.controller('EmployeeController', function($scope, $location, TableFactory, L
     $scope.user.page = state;
   }
 
+  $scope.credentials  = {
+    email : '',
+    password : ''
+  };
+
+  $scope.login = function(credentials){
+    LoginFactory.login(credentials);
+  };
+});
+
+app.controller('EmployeeController', function($scope, $location, TableFactory, ListFactory,  ClockingFactory) {
+
+  $scope.user = { page : 'dash'};
+
+  $scope.changePage = function(state){
+    $scope.user.page = state;
+  }
+
   ListFactory.factory_used_locations(function(data){ $scope.locations = data; });
   ListFactory.factory_members( function(data){ $scope.members = data; });
 
@@ -138,8 +159,11 @@ app.controller('EmployeeController', function($scope, $location, TableFactory, L
   });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   $scope.clockOut = function(personal, report, clockout_form) {
 =======
+=======
+>>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8
   $scope.csvHead = [
       'Date'
     , 'Picture'
@@ -154,6 +178,7 @@ app.controller('EmployeeController', function($scope, $location, TableFactory, L
     , 'Report'
   ];
 
+<<<<<<< HEAD
   //in admin dash may need to rename directive
   $scope.modalShown = false;
   $scope.toggleModal = function() {
@@ -163,6 +188,19 @@ app.controller('EmployeeController', function($scope, $location, TableFactory, L
   //user dashboard
   $scope.clockOut = function(personal, report) {
 >>>>>>> 88e00f07214464fcc644c3e360a5e87cba0c392b
+=======
+  $scope.currentUser = '';
+  $scope.modalShown = false;
+  $scope.toggleModal = function(currentUser) {
+    $scope.currentUser = currentUser;
+    $scope.modalShown = !$scope.modalShown;
+  };
+
+
+  //user dashboard
+  $scope.clockOut = function(personal, report) {
+    console.log($scope.currentUser);
+>>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8
     var info = {
       session  : $scope.currentUser.session_id
       , personal : personal
@@ -170,7 +208,10 @@ app.controller('EmployeeController', function($scope, $location, TableFactory, L
     };
 
     ClockingFactory.factory_clock_out(info);
+<<<<<<< HEAD
     $scope.modalShown = false;
+=======
+>>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8
 
     for (var i=0; i < $scope.table.length; i++){
       if( $scope.table[i].id == $scope.currentUser.id){
@@ -178,6 +219,7 @@ app.controller('EmployeeController', function($scope, $location, TableFactory, L
       }
     }
     $scope.table[row].clock_out = Date.now();
+<<<<<<< HEAD
 
   };
 
@@ -200,6 +242,30 @@ app.controller('EmployeeController', function($scope, $location, TableFactory, L
 
   $scope.csvBody = function(){
 
+=======
+    $scope.modalShown = false;
+  };
+
+  //user dashboard
+  $scope.clockIn = function() {
+
+    var user = this.row.id;
+
+    for (var i=0; i < $scope.table.length; i++){
+      if( $scope.table[i].id == user){
+        var row = i;
+      }
+    }
+
+    ClockingFactory.factory_clock_in(user, function(data){
+      $scope.table[row].session_id = data;
+      $scope.table[row].clock_in = Date.now();
+    });
+  };
+
+  $scope.csvBody = function(){
+
+>>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8
     ary = [];
     var rows = document.getElementsByTagName('tr');
     
@@ -214,7 +280,11 @@ app.controller('EmployeeController', function($scope, $location, TableFactory, L
   }
 
   $scope.dateFilter = function(date_range) {
+<<<<<<< HEAD
     var SECONDS_IN_DAY = 86400000; // 24 * + * 60 * 1000
+=======
+    var SECONDS_IN_DAY = 86400000; // 24 * 60 * 60 * 1000
+>>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8
     var today = new Date (Date.now());
     var day_of_the_week = today.getDay();
     var day_of_the_month = today.getDate();
@@ -271,16 +341,22 @@ app.controller('EmployeeController', function($scope, $location, TableFactory, L
     } else if (date_range === 'this_month') {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
    BusinessFactory.factory_update_business_info(newSettings);
 
    $scope.modalShown = false;
  }
 =======
+=======
+>>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8
       end_date = today;
       start_date = today - ( (day_of_the_month) * SECONDS_IN_DAY);
 
     } else if (date_range === 'last_month') {
+<<<<<<< HEAD
 >>>>>>> 88e00f07214464fcc644c3e360a5e87cba0c392b
+=======
+>>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8
 
       end_date = today - ( (day_of_the_month) * SECONDS_IN_DAY);
       start_date = today - ( (day_of_the_month + 30 ) * SECONDS_IN_DAY)
@@ -291,6 +367,7 @@ app.controller('EmployeeController', function($scope, $location, TableFactory, L
       end_date = new Date(date_range[1]);
 
     };
+<<<<<<< HEAD
 
     TableFactory.factory_history_table(function(data){
 
@@ -306,6 +383,23 @@ app.controller('EmployeeController', function($scope, $location, TableFactory, L
         }
       }
 
+=======
+
+    TableFactory.factory_history_table(function(data){
+
+      $scope.table = data;
+      var table2=[]
+
+      for (var i = 0; i < $scope.table.length - 1; i++) {
+
+        work_session_date = new Date($scope.table[i].created_at);
+
+        if (work_session_date > start_date && work_session_date < end_date){
+          table2.push($scope.table[i]);
+        }
+      }
+
+>>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8
       $scope.table=table2;
     });
 
@@ -313,6 +407,7 @@ app.controller('EmployeeController', function($scope, $location, TableFactory, L
   
 });
 
+<<<<<<< HEAD
 app.controller('AdminController', function($scope, $location, TableFactory, ListFactory, UserFactory, BusinessFactory) {
 
   $scope.user = {
@@ -329,6 +424,17 @@ app.controller('AdminController', function($scope, $location, TableFactory, List
     $scope.user.page = page;
   }
 >>>>>>> 88e00f07214464fcc644c3e360a5e87cba0c392b
+=======
+app.controller('AdminController', function($scope, $location, TableFactory, ListFactory, BusinessFactory) {
+
+  $scope.user = {
+    page : 'dash'
+  }
+
+  $scope.changePage = function(page){
+    $scope.user.page = page;
+  }
+>>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8
 
   ListFactory.factory_used_locations(function(data){ $scope.locations = data; });
   ListFactory.factory_members( function(data){ $scope.members = data; });
@@ -361,10 +467,16 @@ app.controller('AdminController', function($scope, $location, TableFactory, List
   ];
 
   //from admin dash
+<<<<<<< HEAD
   $scope.currentUser = '';
   $scope.modalShown = false;
   $scope.toggleModal = function(currentUser) {
     $scope.currentUser = currentUser;
+=======
+//  $scope.currentUser = '';
+  $scope.modalShown = false;
+  $scope.toggleModal = function() {
+>>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8
     $scope.modalShown = !$scope.modalShown;
   };
 
@@ -381,7 +493,13 @@ app.controller('AdminController', function($scope, $location, TableFactory, List
      , biz : 1
    };
 
+<<<<<<< HEAD
    BusinessFactory.factory_update_business_info(newSettings);
+=======
+   BusinessFactory.factory_update_business_info(newSettings, function(){
+      $scope.modalShown = false;
+    });
+>>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8
  }
 
   //in admin dash may need to rename directive
@@ -497,4 +615,8 @@ app.controller('AdminController', function($scope, $location, TableFactory, List
     });
 
   } //end of $scope.dateFilter function
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8
