@@ -1,7 +1,7 @@
 var BIZ_ID = 1;
 
 //No ID in the URL
-app.controller('employee', function($scope, EmployeeFactory, ListFactory, TableFactory, UserFactory) {
+app.controller('employee', function($scope, EmployeeFactory, ListFactory, TableFactory) {
 
   ListFactory.factory_supervisors(function(data){ $scope.supervisors = data; });
   ListFactory.factory_all_locations(function(data){ $scope.locations = data; });
@@ -33,7 +33,7 @@ app.controller('employee', function($scope, EmployeeFactory, ListFactory, TableF
 });
 
 //Requires employee ID in the URL
-app.controller('employeeInfo', function($scope, $location, EmployeeFactory, ListFactory, TableFactory, UserFactory){
+app.controller('employeeInfo', function($scope, $location, EmployeeFactory, ListFactory, TableFactory){
 
   //get id from url
   var userID = $location.path().split('/')[3];
@@ -91,23 +91,16 @@ app.controller('LoginController', function($scope, $rootScope, AUTH_EVENTS, Logi
   });
 
   $scope.credentials  = {
-    email : 'afenech@gmail.com',
-    password : 'password'
+    email : '',
+    password : ''
   };
 
   $scope.login = function(credentials){
-
-    LoginFactory.login(credentials)
-    // .then(function(user) {
-    //   $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-    //   $scope.setCurrentUser(user);
-    // }, function() {
-    //   $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
-    // });
+    LoginFactory.login(credentials);
   };
 });
 
-app.controller('EmployeeController', function($scope, $location, TableFactory, ListFactory, UserFactory, ClockingFactory) {
+app.controller('EmployeeController', function($scope, $location, TableFactory, ListFactory,  ClockingFactory) {
 
   $scope.user = { page : 'dash'};
 
@@ -142,14 +135,17 @@ app.controller('EmployeeController', function($scope, $location, TableFactory, L
     , 'Report'
   ];
 
-  //in admin dash may need to rename directive
+  $scope.currentUser = '';
   $scope.modalShown = false;
-  $scope.toggleModal = function() {
+  $scope.toggleModal = function(currentUser) {
+    $scope.currentUser = currentUser;
     $scope.modalShown = !$scope.modalShown;
   };
 
+
   //user dashboard
   $scope.clockOut = function(personal, report) {
+    console.log($scope.currentUser);
     var info = {
       session  : $scope.currentUser.session_id
       , personal : personal
@@ -157,7 +153,6 @@ app.controller('EmployeeController', function($scope, $location, TableFactory, L
     };
 
     ClockingFactory.factory_clock_out(info);
-    $scope.modalShown = false;
 
     for (var i=0; i < $scope.table.length; i++){
       if( $scope.table[i].id == $scope.currentUser.id){
@@ -165,7 +160,7 @@ app.controller('EmployeeController', function($scope, $location, TableFactory, L
       }
     }
     $scope.table[row].clock_out = Date.now();
-
+    $scope.modalShown = false;
   };
 
   //user dashboard
@@ -201,7 +196,7 @@ app.controller('EmployeeController', function($scope, $location, TableFactory, L
   }
 
   $scope.dateFilter = function(date_range) {
-    var SECONDS_IN_DAY = 86400000; // 24 * + * 60 * 1000
+    var SECONDS_IN_DAY = 86400000; // 24 * 60 * 60 * 1000
     var today = new Date (Date.now());
     var day_of_the_week = today.getDay();
     var day_of_the_month = today.getDate();
@@ -293,7 +288,7 @@ app.controller('EmployeeController', function($scope, $location, TableFactory, L
   
 });
 
-app.controller('AdminController', function($scope, $location, TableFactory, ListFactory, UserFactory, BusinessFactory) {
+app.controller('AdminController', function($scope, $location, TableFactory, ListFactory, BusinessFactory) {
 
   $scope.user = {
     page : 'dash'
@@ -334,10 +329,9 @@ app.controller('AdminController', function($scope, $location, TableFactory, List
   ];
 
   //from admin dash
-  $scope.currentUser = '';
+//  $scope.currentUser = '';
   $scope.modalShown = false;
-  $scope.toggleModal = function(currentUser) {
-    $scope.currentUser = currentUser;
+  $scope.toggleModal = function() {
     $scope.modalShown = !$scope.modalShown;
   };
 
@@ -354,7 +348,9 @@ app.controller('AdminController', function($scope, $location, TableFactory, List
      , biz : 1
    };
 
-   BusinessFactory.factory_update_business_info(newSettings);
+   BusinessFactory.factory_update_business_info(newSettings, function(){
+      $scope.modalShown = false;
+    });
  }
 
   //in admin dash may need to rename directive
