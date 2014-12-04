@@ -312,8 +312,11 @@ app.controller('AdminController', function($scope, $location, TableFactory, List
   });
 
   TableFactory.factory_history_table(function(data){
-    $scope.table = data;
-    $scope.order = '-created_at';
+    console.log(data);
+    //$scope.myIP = data;
+
+   $scope.table = data;
+   $scope.order = '-created_at';
   });
 
   $scope.csvHead = [
@@ -466,6 +469,5 @@ app.controller('AdminController', function($scope, $location, TableFactory, List
       $scope.table=table2;
     });
 
-  }
-  
+  } //end of $scope.dateFilter function
 });

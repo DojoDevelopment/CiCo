@@ -103,7 +103,6 @@ module.exports = {
         }
 
         res.json(data.rows);
-        
         client.end();
       });
     });
