@@ -24,7 +24,6 @@ app.directive('modalClockout', function() {
   return{
     restrict: 'E',
     scope: {
-
       personal: '=',
       report: '=',
       user: '=',

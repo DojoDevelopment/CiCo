@@ -52,7 +52,7 @@ module.exports = {
           + ", sessions.clock_in"
           + ", sessions.clock_out"
         + " FROM sessions"
-        + " WHERE DATE(sessions.clock_in) = current_date"
+        + " WHERE sessions.clock_out is null"
       + " ) AS sessions2 on sessions2.member_id = members.id"
       + " WHERE members.business_id = 1;";
 
@@ -85,14 +85,28 @@ module.exports = {
       + " LEFT JOIN locations ON locations.id = members.location_id";
 
     var client = new pg.Client(conString);
-
+    
     client.connect(function(err) {
       if(err) { return console.error('could not connect dude, check stuff!', err); }
       client.query(qry, function(err, data) {
         if(err) { return console.error('error running history_table', err); }
+        //replace billed with the previous info
+        for (var i=0; i<data.rows.length; i++){
+          if (data.rows[i].clock_out > data.rows[i].clock_in) {
+            var hours = (data.rows[i].clock_out - data.rows[i].clock_in)/(3600*1000);
+            hours = hours.toFixed(2);
+            data.rows[i].billed = hours;
+          }
+          else{
+            data.rows[i].billed = '0.00';
+          }
+        }
+
         res.json(data.rows);
+        
         client.end();
       });
     });
+  
   }
 }
