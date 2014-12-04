@@ -21,6 +21,7 @@ span, .emphasis { color:salmon; }
 .container ul li{ display: inline; }
 .container-fluid h5{ margin-bottom: 2%; }
 
+.navbar-fixed-top{ top:-1px; } 
 .navbar-inverse{ border-radius:0px !important; }
 
 .jumbotron h1{ text-align: center; }
@@ -79,12 +80,14 @@ hr{ border:1px solid #CECDCC; }
 
 .ng-modal-dialog-content { padding:10px; text-align: left; }
 
-.ng-modal-close {  color:salmon; position: absolute; top: 3px; right: 5px; padding: 5px; cursor: pointer; 
+.ng-modal-close {  color:white; position: absolute; top: 3px; right: 5px; padding: 5px; cursor: pointer; z-index: inherit; 
                    font-size: 120%; display: inline-block; font-weight: bold; font-family: 'arial', 'sans-serif'; }
 
 .ng-modal-settings { background-color: lightgray; }    
 
 .dialog-content-settings {  margin-top: 15%; }
+
+ .clockout-form { margin-top: 15%; }
 
 .modal-settings h1{ color:white; }
 .modal-settings button { margin-top: .5em }

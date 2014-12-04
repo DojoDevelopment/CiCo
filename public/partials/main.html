@@ -132,12 +132,15 @@
 
   </div>
 </div>
-
+<!--************************  CLOCKOUT MODAL CONTENT *******************************-->
 <modal-clockout user='currentUser' personal='personal' report='report' show='modalShown' width='750px' height='70%'>
 
-  <div class='container'>
-    <h1 align='center'>Clock Out</h1>
-    <form name='clockout_form'>
+  <div class='container modal-settings'>
+    <nav class='navbar navbar-fixed-top navbar-inverse'>
+        <h1 align='center'>Employee Clockout</h1>
+    </nav>
+
+    <form class='clockout-form' name='clockout_form'>
       <select name='select' ng-model="personal">
         <option value="" disabled selected>Choose Time</option>  
         <option value="0">None</option>
@@ -156,3 +159,6 @@
   </div>
 
 </modal-clockout>
+<!--*********************  END CLOCKOUT MODAL CONTENT *******************************--> 
+
+
