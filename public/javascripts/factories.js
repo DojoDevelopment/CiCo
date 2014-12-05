@@ -190,6 +190,12 @@ app.factory('LoginFactory', function($http, $location){
             $location.path('main')
           } 
         });
+    }, logout : function(){
+      $http
+        .post('/api/logout')
+        .success(function(){
+          $location.path('/')
+        });
     }
 
   };

@@ -23,8 +23,7 @@
           <option value="">All</option>
           <option ng-repeat="m in members | filter:m" value="{{m.name}}" ng-bind="m.name"></option>
         </select>
-        
-        
+
         <p ng-if="user.page=='history'">Filter by Date:</p>
         <form ng-if="user.page=='history'">
           <input type='date'> to <input type='date'>

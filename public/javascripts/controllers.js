@@ -1,12 +1,14 @@
-var BIZ_ID = 1;
-
 //No ID in the URL
-app.controller('employee', function($scope, EmployeeFactory, ListFactory, TableFactory) {
+app.controller('employee', function($scope, EmployeeFactory, ListFactory, TableFactory, LoginFactory) {
 
   ListFactory.factory_supervisors(function(data){ $scope.supervisors = data; });
   ListFactory.factory_all_locations(function(data){ $scope.locations = data; });
   $scope.update = false;
   
+  $scope.logout = function(){
+    LoginFactory.logout();
+  }
+
   $scope.addEmployee = function(){
 
     var admin      = (document.getElementById('inputAdmin').checked == true ? 'contractor' : 'employee');
@@ -33,7 +35,7 @@ app.controller('employee', function($scope, EmployeeFactory, ListFactory, TableF
 });
 
 //Requires employee ID in the URL
-app.controller('employeeInfo', function($scope, $location, EmployeeFactory, ListFactory, TableFactory){
+app.controller('employeeInfo', function($scope, $location, EmployeeFactory, ListFactory, TableFactory, LoginFactory){
 
   //get id from url
   var userID = $location.path().split('/')[3];
@@ -82,6 +84,10 @@ app.controller('employeeInfo', function($scope, $location, EmployeeFactory, List
     EmployeeFactory.factory_update_employee(userID, info);
   }
 
+  $scope.logout = function(){
+    LoginFactory.logout();
+  }
+
 });
 
 app.controller('LoginController', function($scope, $rootScope, LoginFactory) {
@@ -100,9 +106,13 @@ app.controller('LoginController', function($scope, $rootScope, LoginFactory) {
   };
 });
 
-app.controller('EmployeeController', function($scope, $location, TableFactory, ListFactory,  ClockingFactory) {
+app.controller('EmployeeController', function($scope, $location, TableFactory, ListFactory,  ClockingFactory, LoginFactory) {
 
   $scope.user = { page : 'dash'};
+
+  $scope.logout = function(){
+    LoginFactory.logout();
+  }
 
   $scope.changePage = function(state){
     $scope.user.page = state;
@@ -145,7 +155,7 @@ app.controller('EmployeeController', function($scope, $location, TableFactory, L
 
   //user dashboard
   $scope.clockOut = function(personal, report) {
-    console.log($scope.currentUser);
+
     var info = {
       session  : $scope.currentUser.session_id
       , personal : personal
@@ -154,12 +164,14 @@ app.controller('EmployeeController', function($scope, $location, TableFactory, L
 
     ClockingFactory.factory_clock_out(info);
 
-    for (var i=0; i < $scope.table.length; i++){
-      if( $scope.table[i].id == $scope.currentUser.id){
+    console.log($scope.dashboard_table);
+
+    for (var i=0; i < $scope.dashboard_table.length; i++){
+      if( $scope.dashboard_table[i].id == $scope.currentUser.id){
         var row = i;
       }
     }
-    $scope.table[row].clock_out = Date.now();
+    $scope.dashboard_table[row].clock_out = Date.now();
     $scope.modalShown = false;
   };
 
@@ -168,15 +180,15 @@ app.controller('EmployeeController', function($scope, $location, TableFactory, L
 
     var user = this.row.id;
 
-    for (var i=0; i < $scope.table.length; i++){
-      if( $scope.table[i].id == user){
+    for (var i=0; i < $scope.dashboard_table.length; i++){
+      if( $scope.dashboard_table[i].id == user){
         var row = i;
       }
     }
 
     ClockingFactory.factory_clock_in(user, function(data){
-      $scope.table[row].session_id = data;
-      $scope.table[row].clock_in = Date.now();
+      $scope.dashboard_table[row].session_id = data;
+      $scope.dashboard_table[row].clock_in = Date.now();
     });
   };
 
@@ -288,10 +300,14 @@ app.controller('EmployeeController', function($scope, $location, TableFactory, L
   
 });
 
-app.controller('AdminController', function($scope, $location, TableFactory, ListFactory, BusinessFactory) {
+app.controller('AdminController', function($scope, $location, TableFactory, ListFactory, BusinessFactory, LoginFactory) {
 
   $scope.user = {
     page : 'dash'
+  }
+
+  $scope.logout = function(){
+    LoginFactory.logout();
   }
 
   $scope.changePage = function(page){
@@ -496,4 +512,8 @@ app.controller('AdminLoginController', function($scope, LoginFactory){
   $scope.login = function(credentials){
     LoginFactory.login(credentials);
   };
+
+  $scope.logout = function(){
+    LoginFactory.logout();
+  }
 });

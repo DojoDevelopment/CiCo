@@ -142,10 +142,22 @@ module.exports = {
 
     pg.connect(conString, function(err, client, done) {
       if(err) { return console.error('error fetching client from pool', err); }
-      client.query(qry, [id], function(err, result) {
+      client.query(qry, [id], function(err, data) {
         done();
         if(err) { return console.error('error running query', err); }
-        res.json(result.rows);
+       
+        for (var i=0; i< data.rows.length; i++){
+          if (data.rows[i].clock_out > data.rows[i].clock_in) {
+            var hours = (data.rows[i].clock_out - data.rows[i].clock_in)/(3600*1000);
+            hours = hours.toFixed(2);
+            data.rows[i].billed = hours;
+          }
+          else{
+            data.rows[i].billed = '0.00';
+          }
+        }
+
+        res.json(data.rows);
       });
     });
 
