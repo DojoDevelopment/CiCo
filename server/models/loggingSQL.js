@@ -63,8 +63,7 @@ module.exports = {
           res.status(401).end();
         } else {
           req.session.user = {login : true, admin : (result.type == 'contractor' ? true : false ) };
-          
-          res.json({link : (req.session.admin == true ? '../#/admin' : '../#/main' )});
+          res.json(req.session.user);
         }
         client.end();
       });

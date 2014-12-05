@@ -160,7 +160,7 @@ app.factory('ClockingFactory', function($http){
   };
 });
 
-app.factory('LoginFactory', function($http){
+app.factory('LoginFactory', function($http, $location){
 
   return {
     
@@ -181,7 +181,15 @@ app.factory('LoginFactory', function($http){
       });
 
     }, login : function(credentials){
-      $http.post('/api/login', credentials);
+      $http
+        .post('/api/login', credentials)
+        .success(function(data){
+          if (data.login && data.admin){
+            $location.path('admin');
+          } else if (data.login && !data.admin) {
+            $location.path('main')
+          } 
+        });
     }
 
   };
