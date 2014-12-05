@@ -43,7 +43,7 @@ app.controller('employeeInfo', function($scope, $location, EmployeeFactory, List
   $scope.update = true;
 
   TableFactory.factory_user_history_table(userID, function(data){
-    $scope.history_table = data;
+    $scope.table = data;
     $scope.order = '-created_at';
   });
 
@@ -82,22 +82,6 @@ app.controller('employeeInfo', function($scope, $location, EmployeeFactory, List
     EmployeeFactory.factory_update_employee(userID, info);
   }
 
-});
-
-app.controller('LoginController', function($scope, $rootScope, AUTH_EVENTS, LoginFactory) {
-
-  LoginFactory.factory_get_ip(function(ip){ 
-    LoginFactory.factory_ip_login({ip : ip});
-  });
-
-  $scope.credentials  = {
-    email : '',
-    password : ''
-  };
-
-  $scope.login = function(credentials){
-    LoginFactory.login(credentials);
-  };
 });
 
 app.controller('EmployeeController', function($scope, $location, TableFactory, ListFactory,  ClockingFactory) {
@@ -307,7 +291,6 @@ app.controller('AdminController', function($scope, $location, TableFactory, List
   });
 
   TableFactory.factory_history_table(function(data){
-    console.log(data);
     //$scope.myIP = data;
 
    $scope.history_table = data;
@@ -336,15 +319,14 @@ app.controller('AdminController', function($scope, $location, TableFactory, List
   };
 
   BusinessFactory.factory_get_business_info(1, function(data){ 
-    $scope.name = data.name;
-    $scope.ip = data.ip_addresses;
+    $scope.business = data
   });
 
   $scope.updateSettings = function(){
 
     var newSettings = {
-     name : $scope.name
-     , ip  : $scope.ip
+     name : $scope.business.name
+     , ip  : $scope.business.ip_addresses
      , biz : 1
    };
 
@@ -466,4 +448,36 @@ app.controller('AdminController', function($scope, $location, TableFactory, List
     });
 
   } //end of $scope.dateFilter function
+});
+
+app.controller('LoginController', function($scope, LoginFactory) {
+
+  LoginFactory.factory_get_ip(function(ip){ 
+    LoginFactory.factory_ip_login({ip : ip});
+  });
+
+  $scope.credentials  = {
+    email : 'afenech@gmail.com',
+    password : 'password'
+  };
+
+  $scope.login = function(credentials){
+    LoginFactory.login(credentials);
+  };
+});
+
+app.controller('AuthController', function($scope, AuthFactory){
+
+    AuthFactory.factory_check_current('stuff');
+});
+
+app.controller('AdminLoginController', function($scope, LoginFactory){
+  $scope.credentials  = {
+    email : 'mchoi@gmail.com',
+    password : 'password'
+  };
+
+  $scope.login = function(credentials){
+    LoginFactory.login(credentials);
+  };
 });

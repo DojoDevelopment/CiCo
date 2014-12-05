@@ -1,10 +1,3 @@
-
-// var express = require('express');
-// var app = express();
-
-// app.use(express.cookieParser());
-// app.use(express.session({secret: '1234567890QWERTY'}));
-
 var main        = require('../server/controllers/main.js');
 var listsSQL    = require('../server/models/listsSQL.js');
 var tableSQL    = require('../server/models/tableSQL.js');
@@ -14,31 +7,7 @@ var loggingSQL  = require('../server/models/loggingSQL.js');
 
 module.exports = function Routes(app) { 
 
-  //MAIN INDEX CALL
-
-  // app.get('/', function(req, res){ 
-              
-  //           var MyIP = req.ip;
-
-  //             main.index(req,res); 
-              
-              
-
-  //             //res.json(MyIP);
-
-  //             console.log("ip from req.ip -> ", req.ip);
-  //             console.log("ip from req.connection.remoteAddress -> ",req.connection.remoteAddress);
-  //             console.log("ip from req.socket.remoteAddress-> ",req.socket.remoteAddress);
-  //             //console.log("ip making the request from req.connection.socket.remoteAddress -> ",req.connection.socket.remoteAddress);
-  //             console.log("ip  from req.headers['x-forwarded-for'] -> ", req.headers['x-forwarded-for']);
-  //             req.session.logged_in = true;
-  //             req.session.ip_address = req.connection.remoteAddress;
-  //             console.log("session information follows: ", req.session);
-  //             console.log("user logged in?: ",res.req.session.logged_in);
-  //         });
-
   app.get('/', function(req, res){ main.index(req,res); });
-
 
   //Lists
   app.get('/api/list_all_locations',  function(req, res){ listsSQL.get_list_locations(req, res);      });
@@ -71,7 +40,12 @@ module.exports = function Routes(app) {
   app.post('/api/login',              function(req, res){ loggingSQL.login(req, res);    });
   app.post('/api/ip_login',           function(req, res){ loggingSQL.ip_login(req, res); });
 
-  app.get('/api/check_login', function(req, res){
-    res.status((req.session.login === true ? 200 : 401 )).end();
+  app.get('/api/get_session', function(req, res){
+
+    if (req.session.user == undefined ) {
+      req.session.user = {login : false, admin : false }
+    }
+    res.json({ user : req.session.user });
+
   });
 }
