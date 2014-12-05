@@ -84,6 +84,22 @@ app.controller('employeeInfo', function($scope, $location, EmployeeFactory, List
 
 });
 
+app.controller('LoginController', function($scope, $rootScope, LoginFactory) {
+
+  LoginFactory.factory_get_ip(function(ip){ 
+    LoginFactory.factory_ip_login({ip : ip});
+  });
+
+  $scope.credentials  = {
+    email : '',
+    password : ''
+  };
+
+  $scope.login = function(credentials){
+    LoginFactory.login(credentials);
+  };
+});
+
 app.controller('EmployeeController', function($scope, $location, TableFactory, ListFactory,  ClockingFactory) {
 
   $scope.user = { page : 'dash'};
