@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute', 'routeStyles', 'ngSanitize', 'ngCsv', 'angularFileUpload']);
+var app = angular.module('myApp', ['ngRoute', 'routeStyles', 'ngSanitize', 'ngCsv']);
 
 app.config(function($routeProvider){
 
@@ -60,7 +60,7 @@ app.config(function($routeProvider){
   }).when('/admin/edit/:id', {
 
     templateUrl: 'partials/add_employee.html',
-    controller: 'employeeInfo',
+    controller: 'employee',
      data: {
       login : true,
       admin : true
@@ -73,24 +73,24 @@ app.config(function($routeProvider){
   });
 })
 
-.run(function ($rootScope, $location, AuthFactory) {
+// .run(function ($rootScope, $location, AuthFactory) {
 
- $rootScope.$on('$routeChangeStart', function (event, next, current) {
+//  $rootScope.$on('$routeChangeStart', function (event, next, current) {
     
-    if (next && next.$$route && next.$$route.data) { 
-      var login = next.$$route.data.login;
-      var admin = next.$$route.data.admin;
+//     if (next && next.$$route && next.$$route.data) { 
+//       var login = next.$$route.data.login;
+//       var admin = next.$$route.data.admin;
 
-      AuthFactory.getSession(function(user){
+//       AuthFactory.getSession(function(user){
 
-        if (login && !user.login){
-          $location.path('/');
-        };
+//         if (login && !user.login){
+//           $location.path('/');
+//         };
 
-        if (admin && !user.admin){
-          $location.path('/admin/login');
-        }
-      });       
-    } 
-  })
-});
+//         if (admin && !user.admin){
+//           $location.path('/admin/login');
+//         }
+//       });       
+//     } 
+//   })
+// });

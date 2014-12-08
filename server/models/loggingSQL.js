@@ -19,24 +19,19 @@ module.exports = {
       client.query(qry, function(err, result) {
         done();
         if(err) { return console.error('error running query', err); }
-        
-        var id_string = result.rows[0].ip_addresses;
 
-        if (id_string) {ip_array = id_string.split(',');}
-        
-        var match = false; 
+        if (result.rows[0].ip_addresses != null) {
+          var ip_array = result.rows[0].ip_addresses.split(',');
+          
+          for (var i = 0; i < ip_array.length; i++) {
 
-        for (var i = 0; i < ip_array.length; i++) {
-
-          if (ip_array[i].trim() === user_ip){
-            req.session.user = {login : true, admin : false }
-            match = true;
-          }
-            //the ip_login works fine but I add the line below to test email login
-            //match = false;
-        };
-
-        res.status((match === true ? 200 : 401)).end();
+            if (ip_array[i].trim() === user_ip){
+              req.session.user = {login : true, admin : false }
+              res.status(200).end();
+            }
+          };
+        }
+        res.status(401).end();
       });
     });
   }, login : function(req, res){

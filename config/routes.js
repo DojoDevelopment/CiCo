@@ -6,7 +6,6 @@ var employeeSQL = require('../server/models/employeeSQL.js');
 var loggingSQL  = require('../server/models/loggingSQL.js');
 
 module.exports = function Routes(app) { 
-
   app.get('/', function(req, res){ main.index(req,res); });
 
   //Lists
@@ -20,20 +19,20 @@ module.exports = function Routes(app) {
   app.get('/api/table_dashboard',     function(req, res){ tableSQL.get_table_dash_user(req, res);  });
 
   //History
-  app.get('/api/table_hist',          function(req, res){ tableSQL.get_table_history(req, res); });
-  app.get('/api/table_user/:id',      function(req, res){ employeeSQL.history(req, res);        });
-
+  app.get('/api/table_hist',          function(req, res){ tableSQL.get_table_history(req, res);    });
+  app.get('/api/table_user/:id',      function(req, res){ employeeSQL.history(req, res);           });
+  app.post('/api/date_range',         function(req, res){ tableSQL.get_table_date_range(req, res); });
   //Business CRUD
   app.get('/api/business/:id',        function(req, res){ businessSQL.info(req, res)    });
-  app.put('/api/business/:id',        function(req, res){ businessSQL.update(req, res); });
+  app.put('/api/business',            function(req, res){ businessSQL.update(req, res); });
 
   //Employee CRUD
   app.post('/api/employee',           function(req, res){ employeeSQL.create(req, res); });
   app.get( '/api/employee/:id',       function(req, res){ employeeSQL.show(req, res);   });
   app.put( '/api/employee/:id',       function(req, res){ employeeSQL.update(req, res); });
-
+  
   //Clock in / out
-  app.post('/api/clock_in/:id',       function(req, res){ employeeSQL.clock_in(req, res);  });
+  app.post('/api/clock_in/:id',       function(req, res){ employeeSQL.clock_in( req, res); });
   app.post('/api/clock_out/:session', function(req, res){ employeeSQL.clock_out(req, res); });
 
   //log in
@@ -41,7 +40,6 @@ module.exports = function Routes(app) {
   app.post('/api/ip_login',           function(req, res){ loggingSQL.ip_login(req, res); });
 
   app.get('/api/get_session', function(req, res){
-
     if (req.session.user == undefined ) {
       req.session.user = {login : false, admin : false }
     }

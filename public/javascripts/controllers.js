@@ -1,48 +1,102 @@
 //No ID in the URL
-app.controller('employee', function($scope, EmployeeFactory, ListFactory, TableFactory, LoginFactory) {
+app.controller('employee', function($scope, $location, EmployeeFactory, ListFactory, TableFactory, LoginFactory) {
 
-  ListFactory.factory_supervisors(function(data){ $scope.supervisors = data; });
-  ListFactory.factory_all_locations(function(data){ $scope.locations = data; });
-  $scope.update = false;
-  
-  $scope.logout = function(){
-    LoginFactory.logout();
+  ListFactory.factory_supervisors(function(data){ $scope.supervisors = data; console.log(data);});
+  ListFactory.factory_all_locations(function(data){ $scope.locations = data; console.log(data);});
+  $scope.update = ($location.path() == '/admin/add_employee' ? false : true )  
+
+  if ( $scope.update == false ){
+
+    $scope.user  = {
+        name       : ''
+      , title      : ''
+      , team       : ''
+      , location   : ''
+      , supervisor : ''
+      , status     : ''
+      , note       : ''
+      , pic        : ''
+      , start_date : ''
+      , email      : ''
+      , password   : ''
+      , admin      : ''
+    };
+
+  } else {
+
+    //get id from url
+    var userID = $location.path().split('/')[3];
+
+    EmployeeFactory.factory_get_employee(userID, function(data){
+      $scope.user  = {
+          name       : data.name
+        , title      : data.title
+        , team       : data.team
+        , location   : data.location_id
+        , supervisor : data.supervisor_id
+        , status     : data.status
+        , note       : data.note
+        , pic        : ''
+        , start_date : data.start_date.substring(0,10)
+        , email      : data.email
+        , password   : data.password
+        , admin      : (data.type == 'employee' ? '' : 'true' )
+      };
+
+    });
   }
-
+  
   $scope.addEmployee = function(){
 
-    var admin      = (document.getElementById('inputAdmin').checked == true ? 'contractor' : 'employee');
-    // var picture    =  document.getElementById('inputPicPath').value;
+    var admin = (document.getElementById('inputAdmin').checked == true ? 'contractor' : 'employee');
 
     var info = {
-      name       : $scope.name
-      , title      : $scope.title
-      , team       : $scope.team
-      , location   : $scope.location
-      , supervisor : $scope.supervisor
-      , status     : $scope.status
-      , note       : $scope.note
-      , start_date : $scope.start_date
-      , email      : $scope.email
-      , password   : $scope.password
+      name       : $scope.user.name
+      , title      : $scope.user.title
+      , team       : $scope.user.team
+      , location   : $scope.user.location
+      , supervisor : $scope.user.supervisor
+      , status     : $scope.user.status
+      , note       : $scope.user.note
+      , pic        : $scope.user.pic
+      , start_date : $scope.user.start_date
+      , email      : $scope.user.email
+      , password   : $scope.user.password
       , admin      : admin 
     }
-
-    //upload picture function here//
     EmployeeFactory.factory_create_employee(info);
+  }
+
+  $scope.update_employee = function(){
+    //get id from url
+    var userID = $location.path().split('/')[3];
+
+    var admin = (document.getElementById('inputAdmin').checked == true ? 'contractor' : 'employee');
+
+    var info  = {
+        name       : $scope.user.name
+      , title      : $scope.user.title
+      , team       : $scope.user.team
+      , location   : $scope.user.location
+      , supervisor : $scope.user.supervisor
+      , status     : $scope.user.status
+      , note       : $scope.user.note
+      , start_date : $scope.user.start_date
+      , email      : $scope.user.email
+      , password   : $scope.user.password
+      , admin      : admin 
+    }
+    EmployeeFactory.factory_update_employee(userID, info);
+  }
+
+  $scope.logout = function(){
+    LoginFactory.logout();
   }
 
 });
 
 //Requires employee ID in the URL
 app.controller('employeeInfo', function($scope, $location, EmployeeFactory, ListFactory, TableFactory, LoginFactory){
-
-  //get id from url
-  var userID = $location.path().split('/')[3];
-
-  ListFactory.factory_supervisors(function(data){ $scope.supervisors = data; });
-  ListFactory.factory_all_locations(function(data){ $scope.locations = data; });
-  $scope.update = true;
 
   TableFactory.factory_user_history_table(userID, function(data){
     $scope.table = data;
@@ -51,38 +105,18 @@ app.controller('employeeInfo', function($scope, $location, EmployeeFactory, List
 
   EmployeeFactory.factory_get_employee(userID, function(data){
 
-    $scope.name       =  data.name;
-    $scope.title      =  data.title;
-    $scope.team       =  data.team;
-    $scope.location   =  data.location_id;
-    $scope.supervisor =  data.supervisor_id;
-    $scope.status     =  data.status;
-    $scope.note       =  data.note;
-    $scope.start_date =  data.start_date.substring(0,10);
-    $scope.email      =  data.email;
-    $scope.password   =  data.password;
-    $scope.admin      = (data.type == 'employee' ? '' : 'true');
+    $scope.user.name       =  data.name;
+    $scope.user.title      =  data.title;
+    $scope.user.team       =  data.team;
+    $scope.user.location   =  data.location_id;
+    $scope.user.supervisor =  data.supervisor_id;
+    $scope.user.status     =  data.status;
+    $scope.user.note       =  data.note;
+    $scope.user.start_date =  data.start_date.substring(0,10);
+    $scope.user.email      =  data.email;
+    $scope.user.password   =  data.password;
+    $scope.user.admin      = (data.type == 'employee' ? '' : 'true');
   });
-
-  $scope.update_employee = function(){
-
-    var admin = (document.getElementById('inputAdmin').checked == true ? 'contractor' : 'employee');
-
-    var info  = {
-      name       : $scope.name
-      , title      : $scope.title
-      , team       : $scope.team
-      , location   : $scope.location
-      , supervisor : $scope.supervisor
-      , status     : $scope.status
-      , note       : $scope.note
-      , start_date : $scope.start_date
-      , email      : $scope.email
-      , password   : $scope.password
-      , admin      : admin 
-    }
-    EmployeeFactory.factory_update_employee(userID, info);
-  }
 
   $scope.logout = function(){
     LoginFactory.logout();
@@ -164,8 +198,6 @@ app.controller('EmployeeController', function($scope, $location, TableFactory, L
 
     ClockingFactory.factory_clock_out(info);
 
-    console.log($scope.dashboard_table);
-
     for (var i=0; i < $scope.dashboard_table.length; i++){
       if( $scope.dashboard_table[i].id == $scope.currentUser.id){
         var row = i;
@@ -207,95 +239,10 @@ app.controller('EmployeeController', function($scope, $location, TableFactory, L
     return ary;
   }
 
-  $scope.dateFilter = function(date_range) {
-    var SECONDS_IN_DAY = 86400000; // 24 * 60 * 60 * 1000
-    var today = new Date (Date.now());
-    var day_of_the_week = today.getDay();
-    var day_of_the_month = today.getDate();
-    var start_date;
-    var end_date;
-    var days_back;
-
-    // if (typeof(date_range) != 'string' && (date_range[0] < date_range[1]) ) {
-    //   start_date = new Date(date_range[0]);
-    //   end_date = new Date(date_range[1]);
-    // } else {
-    //   switch( date_range ){
-    //     case 'this_week' : 
-    //       end_date = new Date (Date.now());
-    //       days_back  = day_of_the_week;
-    //       start_date = Date.now() - ( days_back * SECONDS_IN_DAY);
-    //       break;
-    //     case 'last_week' : 
-    //       end_date = new Date (Date.now());
-    //       days_back  = day_of_the_week;
-    //       start_date = Date.now() - ( days_back * SECONDS_IN_DAY);
-    //       break;
-    //     case 'this_month' : 
-    //       end_date = today;
-    //       start_date = today - ( (day_of_the_month) * SECONDS_IN_DAY);
-    //       break;
-    //     case 'last_month' : 
-    //       end_date = today - ( (day_of_the_month) * SECONDS_IN_DAY);;
-    //       start_date = today - ( (day_of_the_month + 30 ) * SECONDS_IN_DAY);
-    //       break;
-    //     default:
-    //       start_date = new Date(2010,0,0,0,0,0,0);
-    //       end_date = today;
-    //     break
-    //   }
-    // }
-
-    if (date_range === 'all') {
-
-      start_date = new Date(2010,0,0,0,0,0,0);
-      end_date = today;
-
-    } else if (date_range === 'this_week') {
-
-      end_date = new Date ( Date.now() );
-      days_back  = day_of_the_week;
-      start_date = Date.now() - ( days_back * SECONDS_IN_DAY);
-
-    } else if (date_range === 'last_week') {
-
-      end_date   = today - ( (day_of_the_week + 1) * SECONDS_IN_DAY);
-      start_date = today - ( (day_of_the_week + 6) * SECONDS_IN_DAY);
-
-    } else if (date_range === 'this_month') {
-
-      end_date = today;
-      start_date = today - ( (day_of_the_month) * SECONDS_IN_DAY);
-
-    } else if (date_range === 'last_month') {
-
-      end_date = today - ( (day_of_the_month) * SECONDS_IN_DAY);
-      start_date = today - ( (day_of_the_month + 30 ) * SECONDS_IN_DAY)
-
-    } else if ( ( typeof(date_range) != 'string' ) && (date_range[0] < date_range[1]) ) {
-
-      start_date = new Date(date_range[0]);
-      end_date = new Date(date_range[1]);
-
-    };
-
-    TableFactory.factory_history_table(function(data){
-
-      $scope.table = data;
-      var table2=[]
-
-      for (var i = 0; i < $scope.table.length - 1; i++) {
-
-        work_session_date = new Date($scope.table[i].created_at);
-
-        if (work_session_date > start_date && work_session_date < end_date){
-          table2.push($scope.table[i]);
-        }
-      }
-
-      $scope.table=table2;
+  $scope.dateFilter = function(from, to) {
+    TableFactory.factory_date_range({from: from, to : to}, function(data){
+      $scope.history_table = data;
     });
-
   }
   
 });
@@ -359,7 +306,6 @@ app.controller('AdminController', function($scope, $location, TableFactory, List
     var newSettings = {
      name : $scope.business.name
      , ip  : $scope.business.ip_addresses
-     , biz : 1
    };
 
    BusinessFactory.factory_update_business_info(newSettings, function(){
@@ -390,96 +336,12 @@ app.controller('AdminController', function($scope, $location, TableFactory, List
     return ary;
   }
 
-  $scope.dateFilter = function(date_range) {
-    var SECONDS_IN_DAY = 86400000; // 24 * + * 60 * 1000
-    var today = new Date (Date.now());
-    var day_of_the_week = today.getDay();
-    var day_of_the_month = today.getDate();
-    var start_date;
-    var end_date;
-    var days_back;
-
-    // if (typeof(date_range) != 'string' && (date_range[0] < date_range[1]) ) {
-    //   start_date = new Date(date_range[0]);
-    //   end_date = new Date(date_range[1]);
-    // } else {
-    //   switch( date_range ){
-    //     case 'this_week' : 
-    //       end_date = new Date (Date.now());
-    //       days_back  = day_of_the_week;
-    //       start_date = Date.now() - ( days_back * SECONDS_IN_DAY);
-    //       break;
-    //     case 'last_week' : 
-    //       end_date = new Date (Date.now());
-    //       days_back  = day_of_the_week;
-    //       start_date = Date.now() - ( days_back * SECONDS_IN_DAY);
-    //       break;
-    //     case 'this_month' : 
-    //       end_date = today;
-    //       start_date = today - ( (day_of_the_month) * SECONDS_IN_DAY);
-    //       break;
-    //     case 'last_month' : 
-    //       end_date = today - ( (day_of_the_month) * SECONDS_IN_DAY);;
-    //       start_date = today - ( (day_of_the_month + 30 ) * SECONDS_IN_DAY);
-    //       break;
-    //     default:
-    //       start_date = new Date(2010,0,0,0,0,0,0);
-    //       end_date = today;
-    //     break
-    //   }
-    // }
-
-    if (date_range === 'all') {
-
-      start_date = new Date(2010,0,0,0,0,0,0);
-      end_date = today;
-
-    } else if (date_range === 'this_week') {
-
-      end_date = new Date ( Date.now() );
-      days_back  = day_of_the_week;
-      start_date = Date.now() - ( days_back * SECONDS_IN_DAY);
-
-    } else if (date_range === 'last_week') {
-
-      end_date   = today - ( (day_of_the_week + 1) * SECONDS_IN_DAY);
-      start_date = today - ( (day_of_the_week + 6) * SECONDS_IN_DAY);
-
-    } else if (date_range === 'this_month') {
-
-      end_date = today;
-      start_date = today - ( (day_of_the_month) * SECONDS_IN_DAY);
-
-    } else if (date_range === 'last_month') {
-
-      end_date = today - ( (day_of_the_month) * SECONDS_IN_DAY);
-      start_date = today - ( (day_of_the_month + 30 ) * SECONDS_IN_DAY)
-
-    } else if ( ( typeof(date_range) != 'string' ) && (date_range[0] < date_range[1]) ) {
-
-      start_date = new Date(date_range[0]);
-      end_date = new Date(date_range[1]);
-
-    };
-
-    TableFactory.factory_history_table(function(data){
-
-      $scope.table = data;
-      var table2=[]
-
-      for (var i = 0; i < $scope.table.length - 1; i++) {
-
-        work_session_date = new Date($scope.table[i].created_at);
-
-        if (work_session_date > start_date && work_session_date < end_date){
-          table2.push($scope.table[i]);
-        }
-      }
-
-      $scope.table=table2;
+  $scope.dateFilter = function(from, to) {
+    TableFactory.factory_date_range({from: from, to : to}, function(data){
+      $scope.history_table = data;
     });
+  }
 
-  } //end of $scope.dateFilter function
 });
 
 app.controller('LoginController', function($scope, LoginFactory) {

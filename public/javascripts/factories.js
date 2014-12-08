@@ -1,12 +1,12 @@
 //USED IN CONTROLLER: employee, employeeInfo
-app.factory('EmployeeFactory', function($http){
+app.factory('EmployeeFactory', function($http, $location){
   return {
     factory_create_employee : function(data){
 
       $http
         .post('/api/employee', data)
         .success(function(){
-          document.location.href = '../#/admin/dashboard';
+          $location.path('./#/admin');
       });
 
     }, factory_update_employee : function(id, data){
@@ -24,7 +24,6 @@ app.factory('EmployeeFactory', function($http){
         .success(function(data){
           callback(data);
       });
-
     }
   }
 });
@@ -44,7 +43,7 @@ app.factory('BusinessFactory', function($http){
     }, factory_update_business_info : function(info, callback) {
 
       $http
-        .put('/api/business/'+ info.biz, info)
+        .put('/api/business', info)
         .success(function(data){
           callback(data);
       });
@@ -90,6 +89,12 @@ app.factory('TableFactory', function($http){
           callback(data);
       });
     
+    }, factory_date_range : function(info, callback){
+      $http
+        .post('/api/date_range/', info)
+        .success(function(data){
+          callback(data);
+        });
     }
 
   };
@@ -197,7 +202,6 @@ app.factory('LoginFactory', function($http, $location){
           $location.path('/')
         });
     }
-
   };
 });
 

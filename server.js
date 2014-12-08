@@ -1,17 +1,14 @@
-
 //dependencies
-var express = require('express');
-var connect = require('connect')
-var http = require('http');
-var path = require('path');
-var session = require('express-session');
-var cookieParser = require('cookie-parser');
+var express = require('express')
+ ,  connect = require('connect')
+ ,  inspect = require('util').inspect
+ ,  http = require('http')
+ ,  path = require('path')
+ ,  session = require('express-session')
+ ,  cookieParser = require('cookie-parser');
 
 // set the app variable 
 var app = express();
-
-// app.use(express.cookieParser());
-// app.use(express.session({secret: '1234567890QWERTY'}));
 
 app.use(session({
   secret: 'qwerty',
@@ -19,7 +16,6 @@ app.use(session({
   saveUninitialized: true
 }))
 
-// var config = require('./config/config');
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, './server/views'));
