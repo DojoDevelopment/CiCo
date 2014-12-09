@@ -36,7 +36,7 @@
         <td><h4>Location</h4></td>
         <td>
           <label for="inputLocation" class="sr-only">Location</label>
-          <select type='button' ng-model="user.location" id="inputLocation" name="location" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
+          <select type='button' ng-model="user.location" id="inputLocation" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
             <option value="" disabled selected>Location</option>
             <option ng-repeat="l in locations" value="{{l.id}}" ng-bind="l.name"></option>
           </select>
@@ -45,7 +45,7 @@
       <tr>
         <td><h4>Supervisor</h4></td>
         <td>
-          <select type='button' id="inputSupervisor" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
+          <select type='button' ng-model="user.supervisor" id="inputSupervisor" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
             <option value="" disabled selected>Supervisor</option>
             <option value="{{s.id}}" ng-repeat="s in supervisors" ng-bind="s.name" ng-selected="s.id == user.supervisor"></option>
           </select>

@@ -36,41 +36,14 @@ module.exports = {
       +   ", created_at"
       + " ) VALUES (1,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,NOW())"
       + " RETURNING id";
-
-      var server = connect.createServer(
-          form({ keepExtensions: true }),
-          function(req, res, next){
-              // Form was submitted
-              if (req.form) {
-                console.log(req.form)
-                  // Do something when parsing is finished
-                  // and respond, or respond immediately
-                  // and work with the files.
-                  req.form.complete(function(err, fields, files){
-                      res.writeHead(200, {});
-                      if (err) res.write(JSON.stringify(err.message));
-                      res.write(JSON.stringify(fields));
-                      res.write(JSON.stringify(files));
-                      res.end();
-                  });
-              // Regular request, pass to next middleware
-              } else {
-                  next();
-              }
-          }
-      );
-
+console.log(req.body);
     var client = new pg.Client(conString);
     client.connect(function(err) {
       if(err) { return console.error('could not connect to postgres', err); }
 
       client.query(qry, form, function(err, data) {
         if(err) { return console.error('error running query', err); }
-        var done = false;
-//        data.rows[0].id;
-        if(done==true){
-          res.end("File uploaded.");
-        }
+
         client.end();
       });
     });
@@ -138,14 +111,6 @@ module.exports = {
                 status, note, team, supervisor, type]
 
     var client = new pg.Client(conString);
-
-      var data = _.pick(req.body, 'type')
-        , uploadPath = path.normalize(cfg.data + '/uploads')
-        , file = req.files.file;
-
-        console.log(file.name); //original name (ie: sunset.png)
-        console.log(file.path); //tmp path (ie: /tmp/12345-xyaz.png)
-    console.log(uploadPath); //uploads directory: (ie: /home/user/data/uploads)
 
     pg.connect(conString, function(err, client, done) {
       if(err) { return console.error('error fetching client from pool', err); }

@@ -46,7 +46,7 @@ app.controller('employee', function($scope, $location, EmployeeFactory, ListFact
     });
   }
   
-  $scope.addEmployee = function(){
+  $scope.add_employee = function(){
 
     var admin = (document.getElementById('inputAdmin').checked == true ? 'contractor' : 'employee');
 
@@ -122,22 +122,6 @@ app.controller('employeeInfo', function($scope, $location, EmployeeFactory, List
     LoginFactory.logout();
   }
 
-});
-
-app.controller('LoginController', function($scope, $rootScope, LoginFactory) {
-
-  LoginFactory.factory_get_ip(function(ip){ 
-    LoginFactory.factory_ip_login({ip : ip});
-  });
-
-  $scope.credentials  = {
-    email : '',
-    password : ''
-  };
-
-  $scope.login = function(credentials){
-    LoginFactory.login(credentials);
-  };
 });
 
 app.controller('EmployeeController', function($scope, $location, TableFactory, ListFactory,  ClockingFactory, LoginFactory) {

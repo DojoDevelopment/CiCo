@@ -66,7 +66,7 @@ ALTER TABLE sessions
 	ADD FOREIGN KEY (updated_by)
 	REFERENCES members (id);
 
-INSERT INTO businesses(id, name, ip_addresses, created_at, updated_at) VALUES (1, 'Coding Dojo', null, '2014-11-18 16:33:35', null);
+INSERT INTO businesses(id, name, ip_addresses, created_at, updated_at) VALUES (1, 'Coding Dojo', '73.162.191.130, 2601:9:5001:9bf0:fd9d:6efd:5e6c:7fa5', '2014-11-18 16:33:35', null);
 INSERT INTO locations(id, business_id, name, created_at, updated_at) VALUES (1, 1, 'Mountain View', '2014-11-18 16:33:45', null);
 INSERT INTO locations(id, business_id, name, created_at, updated_at) VALUES (2, 1, 'Seattle', '2014-11-18 17:16:18', null);
 INSERT INTO locations(id, business_id, name, created_at, updated_at) VALUES (3, 1, 'Denver', '2014-11-18 17:16:20', null);
