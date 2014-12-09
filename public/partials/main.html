@@ -32,13 +32,16 @@
           <option value="">All</option>
           <option ng-repeat="m in members | filter:m" value="{{m.name}}" ng-bind="m.name"></option>
         </select>
-        
-        
+
         <p ng-if="user.page=='history'">Filter by Date:</p>
         <form ng-if="user.page=='history'">
           <input type='date' ng-model="from_date"> to <input type='date' ng-model="to_date">
           <br>
+<<<<<<< HEAD
           <button type='submit' class='pull-right btn btn-sm btn-date' ng-click="dateFilter(from_date, to_date)">Submit Date</button>
+=======
+          <button type='submit' ng-click="dateFilter(from_date, to_date)" class='pull-right btn btn-sm btn-date'>Submit Date</button>
+>>>>>>> f8f2214de3ed5d2a143d1ac0fd386cb64510a96a
         </form>       
         
       </div>
@@ -70,7 +73,7 @@
 
       <tbody>
         <tr ng-repeat="row in history_table | filter: { locations:place, name:people } | orderBy:order:reverse">
-          <td ng-bind="row.created_at | date:'M/dd (EEE)'"></td>
+          <td ng-bind="row.clock_in | date:'M/dd (EEE)'"></td>
           <td><img height='30' width='30' class='img-rounded' src="/img/profile_pic/dev.jpg"></td>
           <td ng-bind="row.name"></td>
           <td ng-bind="row.title"></td>

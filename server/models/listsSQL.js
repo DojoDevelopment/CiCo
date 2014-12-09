@@ -62,13 +62,13 @@ module.exports = {
     });
 
   }, get_list_supervisors : function(req, res) {
-  
+  console.log('fire');
     var qry = 
-        "SELECT members.id"
-        + ", members.name"
+        "SELECT id"
+        + ", name"
       + " FROM members"
-      + " WHERE members.type = 'contractor'"
-      + " AND members.business_id = 1";
+      + " WHERE type = 'contractor'"
+      + " AND business_id = 1";
 
     var client = new pg.Client(conString);
 

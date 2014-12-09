@@ -2,7 +2,6 @@
   <table class='table add_table'>
     <thead>
       <th colspan="2">
-
         <h3 ng-if="update == false">
           Add Employee
         </h3>
@@ -16,46 +15,52 @@
         <td><h4>Name</h4></td>
         <td>
           <label for="inputName" class="sr-only">Name</label>
-          <input type="text" ng-model="name" class="form-control" placeholder="Name" required autofocus>
+          <input type="text" ng-model="user.name" class="form-control" name="name" placeholder="Name" required autofocus>
         </td>
       </tr>
       <tr>
         <td><h4>Title</h4></td>
         <td>
           <label for="inputTitle" class="sr-only">Title</label>
-          <input type="text" ng-model="title" class="form-control" placeholder="Title" required>
+          <input type="text" ng-model="user.title" class="form-control" name="title" placeholder="Title" required>
         </td>
       </tr>
       <tr>
         <td><h4>Team</h4></td>
         <td>
           <label for="inputTeam" class="sr-only">Team</label>
-          <input type="text" ng-model="team" class="form-control" placeholder="Team" required autofocus>
+          <input type="text" ng-model="user.team" class="form-control" name="team" placeholder="Team" required>
         </td>
       </tr>
       <tr>
         <td><h4>Location</h4></td>
         <td>
           <label for="inputLocation" class="sr-only">Location</label>
-          <select type='button' ng-model="location" id="inputLocation" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
+          <select type='button' ng-model="user.location" id="inputLocation" name="location" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
             <option value="" disabled selected>Location</option>
             <option ng-repeat="l in locations" value="{{l.id}}" ng-bind="l.name"></option>
           </select>
         </td>
-      </tr>            
+      </tr>
       <tr>
         <td><h4>Supervisor</h4></td>
         <td>
+<<<<<<< HEAD
           <select type='button' ng-model="supervisor" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
             <option value="" disabled selected>Supervisor</option>
             <option ng-repeat="s in supervisors" value="{{s.id}}" ng-bind="s.name"></option>
+=======
+          <select type='button' id="inputSupervisor" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
+            <option value="" disabled selected>Supervisor</option>
+            <option value="{{s.id}}" ng-repeat="s in supervisors" ng-bind="s.name" ng-selected="s.id == user.supervisor"></option>
+>>>>>>> f8f2214de3ed5d2a143d1ac0fd386cb64510a96a
           </select>
         </td>
       </tr>
       <tr>
         <td><h4>Employee Status</h4></td>
         <td>
-          <select type="button" ng-model="status" class="drop-btn dropdown-toggle btn btn-lg" role="menu">
+          <select type="button" ng-model="user.status" name="status" class="drop-btn dropdown-toggle btn btn-lg" role="menu">
             <option value="" disabled selected>Status</option>
             <option value="active" ng-selected="status == 'active'">Active</option>
             <option value="inactive" ng-selected="status == 'inactive'">Inactive</option>
@@ -66,33 +71,49 @@
         <td><h4>Notes</h4></td>
         <td>
           <label for='note' class='sr-only'>only visible to admins</label>
-          <textarea class='form-control' ng-model="note" placeholder='Notes (only visible to admins)'></textarea>
+          <textarea class='form-control' ng-model="user.note" name="note" placeholder='Notes (only visible to admins)'></textarea>
         </td>
       </tr>
       <tr>
         <td><h4>Upload Profile Picture</h4></td>
         <td>
+<<<<<<< HEAD
           <form>
             <input class='file_upload' type="file"
             file-input="files"
             multiple />
             <li ng-repeat='file in files'>{{file.name}}</li>
           </form>
+=======
+          <input type="file" id="pic_path" ng-model="user.pic" name="pic">
+<!--      <div class="input-group">
+            <span class="input-group-btn">
+              <span class="btn btn-primary btn-file">
+              Browse&hellip; <input type="file" ng-model="pic">
+              </span>
+            </span>
+            <input id="inputPicPath" ng-bind="pic" placeholder='Upload Profile Pic' type="text" class="upload_pic form-control" readonly>
+          </div> -->
+>>>>>>> f8f2214de3ed5d2a143d1ac0fd386cb64510a96a
         </td>
       </tr>
       <tr>
         <td><h4>Employee Start Date</h4></td>
+<<<<<<< HEAD
         <td>
           <input type="date" ng-model="start_date">
         </td>
+=======
+        <td><input type="date" ng-model="user.start_date" name="start_date"></td>
+>>>>>>> f8f2214de3ed5d2a143d1ac0fd386cb64510a96a
       </tr>
       <tr>
         <td><h4>Email & Password</h4></td>
         <td>
           <label for="inputEmail" class="sr-only">Email</label>
-          <input type="email" ng-model="email" class="form-control" placeholder="Email" required autofocus>
+          <input type="email" ng-model="user.email" class="form-control" name="email" placeholder="Email" required>
           <label for="inputPassword" class="sr-only">Password</label>
-          <input type="password" ng-model="password" class="form-control" placeholder="Password" required>
+          <input type="password" ng-model="user.password" class="form-control" name="password" placeholder="Password" required>
         </td>
       </tr>
       <tr>
@@ -108,7 +129,7 @@
             <button class="btn btn-lg btn-in pull-right" type="submit" ng-click="update_employee()">Update</button>          
           </div>
           <div ng-if="update == false">
-            <button class="btn btn-lg btn-in pull-right" type="submit" ng-click="addEmployee()">Create</button>
+            <button class="btn btn-lg btn-in pull-right" type="submit" ng-click="add_employee()">Create</button>
           </div>
         </td>
       </tr>                                    

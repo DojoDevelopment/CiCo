@@ -71,7 +71,12 @@ app.config(function($routeProvider){
     redirectTo: '/',
 
   });
+<<<<<<< HEAD
  })
+=======
+})
+
+>>>>>>> f8f2214de3ed5d2a143d1ac0fd386cb64510a96a
 // .run(function ($rootScope, $location, AuthFactory) {
 
 //  $rootScope.$on('$routeChangeStart', function (event, next, current) {
@@ -92,4 +97,8 @@ app.config(function($routeProvider){
 //       });       
 //     } 
 //   })
+<<<<<<< HEAD
 // });
+=======
+// });
+>>>>>>> f8f2214de3ed5d2a143d1ac0fd386cb64510a96a
