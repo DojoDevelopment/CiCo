@@ -9,7 +9,14 @@ textarea{ resize:none; height:10em; width:100%; }
 input[readonly] { background-color: white !important; cursor: text !important; }
 input, button, select, textarea { color: black; }
 
-span, .emphasis { color:salmon; }
+ul a:focus{
+  font-weight: bold;
+  color:#03C8A2;
+  outline:0;
+  text-decoration: none;
+}
+
+.emphasis { color:salmon; }
 
 
 /********************  END  HTML ATTRIBUTE CSS  *************************/
@@ -18,7 +25,7 @@ span, .emphasis { color:salmon; }
 
 
 .container{ width:85%; }
-.container ul li{ display: inline; }
+.container-fluid ul li{ display: inline; }
 .container-fluid h5{ margin-bottom: 2%; }
 
 .navbar-fixed-top{ top:-1px; } 
@@ -41,6 +48,7 @@ span, .emphasis { color:salmon; }
 table, thead, tr{ margin-top: 2%; }
 table th{ background-color: #eee; }
 
+
 table tr:nth-child(odd), table tr:nth-child(even){ background-color: transparent; }
 table tr:nth-child(even) { background-color: #eee; }
 table tr:nth-child(odd) { background-color: #fff; }
@@ -53,9 +61,11 @@ hr{ border:1px solid #CECDCC; }
 .table-head { border:none !important; border-top-right-radius: 1em !important; border-top-left-radius: 1em !important;
               background-color: #676767 !important; color: white; margin-bottom: -2% !important; width:100% !important; }
 
+.add_table{ margin-top: 0; }
 .add_table>tbody>tr>td{ width:25%; }
 .add_table>tbody>tr>td:first-child{ border-right: 1px solid #DDDDDD; }
 .add_table>tbody>tr>td:last-child{ border-right: none; }
+.add_table th{ background-color: #428BCB; color:white; border-bottom: none !important;}
 .add_table .form-control{ font-size:1.3em !important; width:30em; border:none; box-shadow: none; }
 
 .table-head tr td{ border:none !important; }
@@ -68,11 +78,11 @@ hr{ border:1px solid #CECDCC; }
 
 /********************  MODAL CSS  ******************************/
 
-.ng-modal-overlay { position:absolute; z-index:9999; top:0; left:0; width:100%; height:100%; 
+.ng-modal-overlay { position:fixed; z-index:9999; top:0; left:0; width:100%; height:100%; 
                     background-color:#000000; opacity: 0.8; }
 
-.ng-modal-dialog { color:black; padding: 1% 5% 1% 5%; z-index:10000; position: absolute; width: 35%;
-                   height: 60%; overflow-y: scroll; top: 50%; left: 50%;
+.ng-modal-dialog { color:black; padding: 1% 5% 1% 5%; z-index:10000; position: absolute; width: 10em;
+                   height: 3  5em; overflow-y: none; top: 40%; left: 50%;
                    transform: translate(-50%, -50%);
                   -webkit-transform: translate(-50%, -50%);
                   -moz-transform: translate(-50%, -50%);
@@ -80,7 +90,7 @@ hr{ border:1px solid #CECDCC; }
 
 .ng-modal-dialog-content { padding:10px; text-align: left; }
 
-.ng-modal-close {  color:white; position: absolute; top: 3px; right: 5px; padding: 5px; cursor: pointer; z-index: inherit; 
+.ng-modal-close {  color:white; position: fixed; top: 3px; right: 5px; padding: 5px; cursor: pointer; z-index: inherit; 
                    font-size: 120%; display: inline-block; font-weight: bold; font-family: 'arial', 'sans-serif'; }
 
 .ng-modal-settings { background-color: lightgray; }    
@@ -110,17 +120,6 @@ button a:hover{ text-decoration: none; color:#4584EF; }
 .btn-in{ background-color: #008500; color:white }
 .btn-out{ background-color: #EE001D; color:white; }
 
-/*.file_upload::-webkit-file-upload-button { visibility: hidden; }
-
-.file_upload::before { content: 'Select some files'; display: inline-block;
-                       background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3); border: 1px solid #999;
-                       border-radius: 3px; padding: 5px 8px; outline: none; white-space: nowrap;
-                       -webkit-user-select: none; cursor: pointer; text-shadow: 1px 1px #fff;
-                       font-weight: 700; font-size: 10pt; }
-
-.file_upload:hover::before { border-color: black; }
-.file_upload:active::before { background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9); }*/
-
 
 .clk-btn{ width:10em; }
 .drop-btn{ height:auto; }
@@ -147,4 +146,49 @@ button a:hover{ text-decoration: none; color:#4584EF; }
 #settings{ margin-top: 15%; margin-bottom: 2%; }
 
 #hrs{ outline:none; background:none; padding-bottom: 0em; border:none; height:1.5em !important; width:3em; }
+
+
+
+
+  body{
+    min-width: 900px;
+  }
+  /*****************************/
+  /*******top nav bar**********/
+  /*****************************/
+
+  .navbar{ background-color: #242424; border-radius:0% !important; margin-bottom: 0% !important;}
+  .navbar button{margin:1% 1% 0 0;}
+  .nav-logo {height:5em;}
+  .nav-logo img{margin-left:3em; height:70px; width:150px;}
+
+  /*****************************/
+  /*******side nav bar**********/
+  /*****************************/
+
+  .sidenav{background-color: #242424; min-width:14em; margin-top: -1.4em !important;}
+  .sidenav ul{display: inline;}
+  .sidenav li input{width:98%; border-style: none; text-indent: 1em; font-size: 1.5em; outline:none;}
+  .sidenav button:focus{outline:none;}
+  .sidenav-box{background:#525461;height:13em; width:98%; border-style: none; border-bottom: 3px solid #242424;}
+  .sidenav-box:hover{background-color: #242424}
+  .sidenav-box:nth-child(-n+2){ margin-bottom: 2%;}
+  .sidenav-box {color:white;}
+  .sidenav-box a, .sidenav-box a:hover{text-decoration: none;}
+  .sidenav-box img{height:5em; width:5em;}
+
+  /*****************************/
+  /******** table css **********/
+  /*****************************/
+
+  .time-table, .time-table th, .time-table td { border-bottom: 2px solid #428BCB !important;}
+  .time-table img{height:2em; width:1.8em;} 
+
+  /*****************************/
+  /******content information****/
+  /*****************************/
+
+  .main{display: inline-block; position:absolute; margin-top: 1%; margin-left: 5% !important; width:76%;}
+  .e_d{background-color: #428BCB !important; color:white !important;} /*jumbotron employee dashboard*/
+  .a_d{background-color: #03C8A2 !important; color:white !important;} /*jumbotron for admin partials*/
 

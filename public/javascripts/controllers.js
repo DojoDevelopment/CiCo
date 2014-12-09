@@ -1,627 +1,3 @@
-// var BIZ_ID = 1;
-
-// //No ID in the URL
-// app.controller('employee', function($scope, EmployeeFactory, ListFactory, TableFactory) {
-
-//   ListFactory.factory_supervisors(function(data){ $scope.supervisors = data; });
-//   ListFactory.factory_all_locations(function(data){ $scope.locations = data; });
-//   $scope.update = false;
-  
-//   $scope.addEmployee = function(){
-
-//     var admin      = (document.getElementById('inputAdmin').checked == true ? 'contractor' : 'employee');
-//     // var picture    =  document.getElementById('inputPicPath').value;
-
-//     var info = {
-//       name       : $scope.name
-//       , title      : $scope.title
-//       , team       : $scope.team
-//       , location   : $scope.location
-//       , supervisor : $scope.supervisor
-//       , status     : $scope.status
-//       , note       : $scope.note
-//       , start_date : $scope.start_date
-//       , email      : $scope.email
-//       , password   : $scope.password
-//       , admin      : admin 
-//     }
-
-//     //upload picture function here//
-//     EmployeeFactory.factory_create_employee(info);
-//   }
-
-// });
-
-// //Requires employee ID in the URL
-// app.controller('employeeInfo', function($scope, $location, EmployeeFactory, ListFactory, TableFactory){
-
-//   //get id from url
-//   var userID = $location.path().split('/')[3];
-
-//   ListFactory.factory_supervisors(function(data){ $scope.supervisors = data; });
-//   ListFactory.factory_all_locations(function(data){ $scope.locations = data; });
-//   $scope.update = true;
-
-//   TableFactory.factory_user_history_table(userID, function(data){
-//     $scope.table = data;
-//     $scope.order = '-created_at';
-//   });
-
-//   EmployeeFactory.factory_get_employee(userID, function(data){
-
-//     $scope.name       =  data.name;
-//     $scope.title      =  data.title;
-//     $scope.team       =  data.team;
-//     $scope.location   =  data.location_id;
-//     $scope.supervisor =  data.supervisor_id;
-//     $scope.status     =  data.status;
-//     $scope.note       =  data.note;
-//     $scope.start_date =  data.start_date.substring(0,10);
-//     $scope.email      =  data.email;
-//     $scope.password   =  data.password;
-//     $scope.admin      = (data.type == 'employee' ? '' : 'true');
-//   });
-
-//   $scope.update_employee = function(){
-
-//     var admin = (document.getElementById('inputAdmin').checked == true ? 'contractor' : 'employee');
-
-//     var info  = {
-//       name       : $scope.name
-//       , title      : $scope.title
-//       , team       : $scope.team
-//       , location   : $scope.location
-//       , supervisor : $scope.supervisor
-//       , status     : $scope.status
-//       , note       : $scope.note
-//       , start_date : $scope.start_date
-//       , email      : $scope.email
-//       , password   : $scope.password
-//       , admin      : admin 
-//     }
-//     EmployeeFactory.factory_update_employee(userID, info);
-//   }
-
-// });
-
-// app.controller('LoginController', function($scope, $rootScope, AUTH_EVENTS, LoginFactory) {
-
-// <<<<<<< HEAD
-// <<<<<<< HEAD
-//   // TURN BACK ON BEFORE PUSHING!!!!!!!
-
-//   // UserFactory.check_login(function(data){
-//   //   console.log(data);
-//   // });
-//   $scope.currentPath = $location.path();
-// =======
-// =======
-// >>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8
-//   LoginFactory.factory_get_ip(function(ip){ 
-//     LoginFactory.factory_ip_login({ip : ip});
-//   });
-// >>>>>>> 88e00f07214464fcc644c3e360a5e87cba0c392b
-
-//   $scope.credentials  = {
-//     email : 'afenech@gmail.com',
-//     password : 'password'
-//   };
-
-//   $scope.login = function(credentials){
-
-//     LoginFactory.login(credentials)
-//     // .then(function(user) {
-//     //   $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
-//     //   $scope.setCurrentUser(user);
-//     // }, function() {
-//     //   $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
-//     // });
-//   };
-// });
-
-// app.controller('EmployeeController', function($scope, $location, TableFactory, ListFactory, UserFactory, ClockingFactory) {
-
-//   $scope.user = { page : 'dash'};
-
-//   $scope.changePage = function(state){
-//     $scope.user.page = state;
-//   }
-
-//   $scope.credentials  = {
-//     email : '',
-//     password : ''
-//   };
-
-//   $scope.login = function(credentials){
-//     LoginFactory.login(credentials);
-//   };
-// });
-
-// app.controller('EmployeeController', function($scope, $location, TableFactory, ListFactory,  ClockingFactory) {
-
-//   $scope.user = { page : 'dash'};
-
-//   $scope.changePage = function(state){
-//     $scope.user.page = state;
-//   }
-
-//   ListFactory.factory_used_locations(function(data){ $scope.locations = data; });
-//   ListFactory.factory_members( function(data){ $scope.members = data; });
-
-//   TableFactory.factory_history_table(function(data){
-//     $scope.table = data;
-//     $scope.order = '-created_at';
-//   });
-
-//   TableFactory.factory_user_dashboard(function(data){
-//     $scope.table = data;
-//     $scope.order = '-created_at';
-//   });
-
-// <<<<<<< HEAD
-// <<<<<<< HEAD
-//   $scope.clockOut = function(personal, report, clockout_form) {
-// =======
-// =======
-// >>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8
-//   $scope.csvHead = [
-//       'Date'
-//     , 'Picture'
-//     , 'Name'
-//     , 'Title'
-//     , 'Team'
-//     , 'Location'
-//     , 'Clock IN'
-//     , 'Clock OUT'
-//     , 'Personal Time'
-//     , 'Billed Hours'
-//     , 'Report'
-//   ];
-
-// <<<<<<< HEAD
-//   //in admin dash may need to rename directive
-//   $scope.modalShown = false;
-//   $scope.toggleModal = function() {
-//     $scope.modalShown = !$scope.modalShown;
-//   };
-
-//   //user dashboard
-//   $scope.clockOut = function(personal, report) {
-// >>>>>>> 88e00f07214464fcc644c3e360a5e87cba0c392b
-// =======
-//   $scope.currentUser = '';
-//   $scope.modalShown = false;
-//   $scope.toggleModal = function(currentUser) {
-//     $scope.currentUser = currentUser;
-//     $scope.modalShown = !$scope.modalShown;
-//   };
-
-
-//   //user dashboard
-//   $scope.clockOut = function(personal, report) {
-//     console.log($scope.currentUser);
-// >>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8
-//     var info = {
-//       session  : $scope.currentUser.session_id
-//       , personal : personal
-//       , report   : report
-//     };
-
-//     ClockingFactory.factory_clock_out(info);
-// <<<<<<< HEAD
-//     $scope.modalShown = false;
-// =======
-// >>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8
-
-//     for (var i=0; i < $scope.table.length; i++){
-//       if( $scope.table[i].id == $scope.currentUser.id){
-//         var row = i;
-//       }
-//     }
-//     $scope.table[row].clock_out = Date.now();
-// <<<<<<< HEAD
-
-//   };
-
-//   //user dashboard
-//   $scope.clockIn = function() {
-
-//     var user = this.row.id;
-
-//     for (var i=0; i < $scope.table.length; i++){
-//       if( $scope.table[i].id == user){
-//         var row = i;
-//       }
-//     }
-
-//     ClockingFactory.factory_clock_in(user, function(data){
-//       $scope.table[row].session_id = data;
-//       $scope.table[row].clock_in = Date.now();
-//     });
-//   };
-
-//   $scope.csvBody = function(){
-
-// =======
-//     $scope.modalShown = false;
-//   };
-
-//   //user dashboard
-//   $scope.clockIn = function() {
-
-//     var user = this.row.id;
-
-//     for (var i=0; i < $scope.table.length; i++){
-//       if( $scope.table[i].id == user){
-//         var row = i;
-//       }
-//     }
-
-//     ClockingFactory.factory_clock_in(user, function(data){
-//       $scope.table[row].session_id = data;
-//       $scope.table[row].clock_in = Date.now();
-//     });
-//   };
-
-//   $scope.csvBody = function(){
-
-// >>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8
-//     ary = [];
-//     var rows = document.getElementsByTagName('tr');
-    
-//     for (var i=1; i < rows.length; i++){
-//       var obj = new Object();
-//       for (var j=0; j < rows[i].childElementCount; j++){
-//         obj[j] = (j != 1 ? rows[i].cells[j].innerHTML : '*'); //check for picture
-//       }
-//       ary.push(obj);
-//     }
-//     return ary;
-//   }
-
-//   $scope.dateFilter = function(date_range) {
-// <<<<<<< HEAD
-//     var SECONDS_IN_DAY = 86400000; // 24 * + * 60 * 1000
-// =======
-//     var SECONDS_IN_DAY = 86400000; // 24 * 60 * 60 * 1000
-// >>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8
-//     var today = new Date (Date.now());
-//     var day_of_the_week = today.getDay();
-//     var day_of_the_month = today.getDate();
-//     var start_date;
-//     var end_date;
-//     var days_back;
-
-//     // if (typeof(date_range) != 'string' && (date_range[0] < date_range[1]) ) {
-//     //   start_date = new Date(date_range[0]);
-//     //   end_date = new Date(date_range[1]);
-//     // } else {
-//     //   switch( date_range ){
-//     //     case 'this_week' : 
-//     //       end_date = new Date (Date.now());
-//     //       days_back  = day_of_the_week;
-//     //       start_date = Date.now() - ( days_back * SECONDS_IN_DAY);
-//     //       break;
-//     //     case 'last_week' : 
-//     //       end_date = new Date (Date.now());
-//     //       days_back  = day_of_the_week;
-//     //       start_date = Date.now() - ( days_back * SECONDS_IN_DAY);
-//     //       break;
-//     //     case 'this_month' : 
-//     //       end_date = today;
-//     //       start_date = today - ( (day_of_the_month) * SECONDS_IN_DAY);
-//     //       break;
-//     //     case 'last_month' : 
-//     //       end_date = today - ( (day_of_the_month) * SECONDS_IN_DAY);;
-//     //       start_date = today - ( (day_of_the_month + 30 ) * SECONDS_IN_DAY);
-//     //       break;
-//     //     default:
-//     //       start_date = new Date(2010,0,0,0,0,0,0);
-//     //       end_date = today;
-//     //     break
-//     //   }
-//     // }
-
-//     if (date_range === 'all') {
-
-//       start_date = new Date(2010,0,0,0,0,0,0);
-//       end_date = today;
-
-//     } else if (date_range === 'this_week') {
-
-//       end_date = new Date ( Date.now() );
-//       days_back  = day_of_the_week;
-//       start_date = Date.now() - ( days_back * SECONDS_IN_DAY);
-
-//     } else if (date_range === 'last_week') {
-
-//       end_date   = today - ( (day_of_the_week + 1) * SECONDS_IN_DAY);
-//       start_date = today - ( (day_of_the_week + 6) * SECONDS_IN_DAY);
-
-//     } else if (date_range === 'this_month') {
-
-// <<<<<<< HEAD
-// <<<<<<< HEAD
-//    BusinessFactory.factory_update_business_info(newSettings);
-
-//    $scope.modalShown = false;
-//  }
-// =======
-// =======
-// >>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8
-//       end_date = today;
-//       start_date = today - ( (day_of_the_month) * SECONDS_IN_DAY);
-
-//     } else if (date_range === 'last_month') {
-// <<<<<<< HEAD
-// >>>>>>> 88e00f07214464fcc644c3e360a5e87cba0c392b
-// =======
-// >>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8
-
-//       end_date = today - ( (day_of_the_month) * SECONDS_IN_DAY);
-//       start_date = today - ( (day_of_the_month + 30 ) * SECONDS_IN_DAY)
-
-//     } else if ( ( typeof(date_range) != 'string' ) && (date_range[0] < date_range[1]) ) {
-
-//       start_date = new Date(date_range[0]);
-//       end_date = new Date(date_range[1]);
-
-//     };
-// <<<<<<< HEAD
-
-//     TableFactory.factory_history_table(function(data){
-
-//       $scope.table = data;
-//       var table2=[]
-
-//       for (var i = 0; i < $scope.table.length - 1; i++) {
-
-//         work_session_date = new Date($scope.table[i].created_at);
-
-//         if (work_session_date > start_date && work_session_date < end_date){
-//           table2.push($scope.table[i]);
-//         }
-//       }
-
-// =======
-
-//     TableFactory.factory_history_table(function(data){
-
-//       $scope.table = data;
-//       var table2=[]
-
-//       for (var i = 0; i < $scope.table.length - 1; i++) {
-
-//         work_session_date = new Date($scope.table[i].created_at);
-
-//         if (work_session_date > start_date && work_session_date < end_date){
-//           table2.push($scope.table[i]);
-//         }
-//       }
-
-// >>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8
-//       $scope.table=table2;
-//     });
-
-//   }
-  
-// });
-
-// <<<<<<< HEAD
-// app.controller('AdminController', function($scope, $location, TableFactory, ListFactory, UserFactory, BusinessFactory) {
-
-//   $scope.user = {
-//     page : 'dash'
-//   }
-
-// <<<<<<< HEAD
-//    $scope.currentPath = $location.path();
-//   // TURN BACK ON BEFORE PUSHING!!!!
-//   // UserFactory.check_login;
-//   // console.log("in the factory, just checked login");
-// =======
-//   $scope.changePage = function(page){
-//     $scope.user.page = page;
-//   }
-// >>>>>>> 88e00f07214464fcc644c3e360a5e87cba0c392b
-// =======
-// app.controller('AdminController', function($scope, $location, TableFactory, ListFactory, BusinessFactory) {
-
-//   $scope.user = {
-//     page : 'dash'
-//   }
-
-//   $scope.changePage = function(page){
-//     $scope.user.page = page;
-//   }
-// >>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8
-
-//   ListFactory.factory_used_locations(function(data){ $scope.locations = data; });
-//   ListFactory.factory_members( function(data){ $scope.members = data; });
-
-//   TableFactory.factory_admin_dashboard(function(data){
-//     $scope.table = data;
-//     $scope.order = '-created_at';
-//   });
-
-//   TableFactory.factory_history_table(function(data){
-//     console.log(data);
-//     //$scope.myIP = data;
-
-//    $scope.table = data;
-//    $scope.order = '-created_at';
-//   });
-
-//   $scope.csvHead = [
-//       'Date'
-//     , 'Picture'
-//     , 'Name'
-//     , 'Title'
-//     , 'Team'
-//     , 'Location'
-//     , 'Clock IN'
-//     , 'Clock OUT'
-//     , 'Personal Time'
-//     , 'Billed Hours'
-//     , 'Report'
-//   ];
-
-//   //from admin dash
-// <<<<<<< HEAD
-//   $scope.currentUser = '';
-//   $scope.modalShown = false;
-//   $scope.toggleModal = function(currentUser) {
-//     $scope.currentUser = currentUser;
-// =======
-// //  $scope.currentUser = '';
-//   $scope.modalShown = false;
-//   $scope.toggleModal = function() {
-// >>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8
-//     $scope.modalShown = !$scope.modalShown;
-//   };
-
-//   BusinessFactory.factory_get_business_info(1, function(data){ 
-//     $scope.name = data.name;
-//     $scope.ip = data.ip_addresses;
-//   });
-
-//   $scope.updateSettings = function(){
-
-//     var newSettings = {
-//      name : $scope.name
-//      , ip  : $scope.ip
-//      , biz : 1
-//    };
-
-// <<<<<<< HEAD
-//    BusinessFactory.factory_update_business_info(newSettings);
-// =======
-//    BusinessFactory.factory_update_business_info(newSettings, function(){
-//       $scope.modalShown = false;
-//     });
-// >>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8
-//  }
-
-//   //in admin dash may need to rename directive
-//   $scope.modalShown = false;
-//   $scope.toggleModal = function() {
-//     $scope.modalShown = !$scope.modalShown;
-//   };
-
-//   //user dashboard
-
-//   $scope.csvBody = function(){
-
-//     ary = [];
-//     var rows = document.getElementsByTagName('tr');
-    
-//     for (var i=1; i < rows.length; i++){
-//       var obj = new Object();
-//       for (var j=0; j < rows[i].childElementCount; j++){
-//         obj[j] = (j != 1 ? rows[i].cells[j].innerHTML : '*'); //check for picture
-//       }
-//       ary.push(obj);
-//     }
-//     return ary;
-//   }
-
-//   $scope.dateFilter = function(date_range) {
-//     var SECONDS_IN_DAY = 86400000; // 24 * + * 60 * 1000
-//     var today = new Date (Date.now());
-//     var day_of_the_week = today.getDay();
-//     var day_of_the_month = today.getDate();
-//     var start_date;
-//     var end_date;
-//     var days_back;
-
-//     // if (typeof(date_range) != 'string' && (date_range[0] < date_range[1]) ) {
-//     //   start_date = new Date(date_range[0]);
-//     //   end_date = new Date(date_range[1]);
-//     // } else {
-//     //   switch( date_range ){
-//     //     case 'this_week' : 
-//     //       end_date = new Date (Date.now());
-//     //       days_back  = day_of_the_week;
-//     //       start_date = Date.now() - ( days_back * SECONDS_IN_DAY);
-//     //       break;
-//     //     case 'last_week' : 
-//     //       end_date = new Date (Date.now());
-//     //       days_back  = day_of_the_week;
-//     //       start_date = Date.now() - ( days_back * SECONDS_IN_DAY);
-//     //       break;
-//     //     case 'this_month' : 
-//     //       end_date = today;
-//     //       start_date = today - ( (day_of_the_month) * SECONDS_IN_DAY);
-//     //       break;
-//     //     case 'last_month' : 
-//     //       end_date = today - ( (day_of_the_month) * SECONDS_IN_DAY);;
-//     //       start_date = today - ( (day_of_the_month + 30 ) * SECONDS_IN_DAY);
-//     //       break;
-//     //     default:
-//     //       start_date = new Date(2010,0,0,0,0,0,0);
-//     //       end_date = today;
-//     //     break
-//     //   }
-//     // }
-
-//     if (date_range === 'all') {
-
-//       start_date = new Date(2010,0,0,0,0,0,0);
-//       end_date = today;
-
-//     } else if (date_range === 'this_week') {
-
-//       end_date = new Date ( Date.now() );
-//       days_back  = day_of_the_week;
-//       start_date = Date.now() - ( days_back * SECONDS_IN_DAY);
-
-//     } else if (date_range === 'last_week') {
-
-//       end_date   = today - ( (day_of_the_week + 1) * SECONDS_IN_DAY);
-//       start_date = today - ( (day_of_the_week + 6) * SECONDS_IN_DAY);
-
-//     } else if (date_range === 'this_month') {
-
-//       end_date = today;
-//       start_date = today - ( (day_of_the_month) * SECONDS_IN_DAY);
-
-//     } else if (date_range === 'last_month') {
-
-//       end_date = today - ( (day_of_the_month) * SECONDS_IN_DAY);
-//       start_date = today - ( (day_of_the_month + 30 ) * SECONDS_IN_DAY)
-
-//     } else if ( ( typeof(date_range) != 'string' ) && (date_range[0] < date_range[1]) ) {
-
-//       start_date = new Date(date_range[0]);
-//       end_date = new Date(date_range[1]);
-
-//     };
-
-//     TableFactory.factory_history_table(function(data){
-
-//       $scope.table = data;
-//       var table2=[]
-
-//       for (var i = 0; i < $scope.table.length - 1; i++) {
-
-//         work_session_date = new Date($scope.table[i].created_at);
-
-//         if (work_session_date > start_date && work_session_date < end_date){
-//           table2.push($scope.table[i]);
-//         }
-//       }
-
-//       $scope.table=table2;
-//     });
-
-//   } //end of $scope.dateFilter function
-// <<<<<<< HEAD
-// });
-// =======
-// });
-// >>>>>>> 89c315fd407da473874d867a9496e8bf458e0ae8
-
-
 var BIZ_ID = 1;
 
 //No ID in the URL
@@ -708,22 +84,6 @@ app.controller('employeeInfo', function($scope, $location, EmployeeFactory, List
 
 });
 
-app.controller('LoginController', function($scope, $rootScope, AUTH_EVENTS, LoginFactory) {
-
-  LoginFactory.factory_get_ip(function(ip){ 
-    LoginFactory.factory_ip_login({ip : ip});
-  });
-
-  $scope.credentials  = {
-    email : '',
-    password : ''
-  };
-
-  $scope.login = function(credentials){
-    LoginFactory.login(credentials);
-  };
-});
-
 app.controller('EmployeeController', function($scope, $location, TableFactory, ListFactory,  ClockingFactory) {
 
   $scope.user = { page : 'dash'};
@@ -778,12 +138,12 @@ app.controller('EmployeeController', function($scope, $location, TableFactory, L
 
     ClockingFactory.factory_clock_out(info);
 
-    for (var i=0; i < $scope.table.length; i++){
-      if( $scope.table[i].id == $scope.currentUser.id){
+    for (var i=0; i < $scope.dashboard_table.length; i++){
+      if( $scope.dashboard_table[i].id == $scope.currentUser.id){
         var row = i;
       }
     }
-    $scope.table[row].clock_out = Date.now();
+    $scope.dashboard_table[row].clock_out = Date.now();
     $scope.modalShown = false;
   };
 
@@ -792,15 +152,15 @@ app.controller('EmployeeController', function($scope, $location, TableFactory, L
 
     var user = this.row.id;
 
-    for (var i=0; i < $scope.table.length; i++){
-      if( $scope.table[i].id == user){
+    for (var i=0; i < $scope.dashboard_table.length; i++){
+      if( $scope.dashboard_table[i].id == user){
         var row = i;
       }
     }
 
     ClockingFactory.factory_clock_in(user, function(data){
-      $scope.table[row].session_id = data;
-      $scope.table[row].clock_in = Date.now();
+      $scope.dashboard_table[row].session_id = data;
+      $scope.dashboard_table[row].clock_in = Date.now();
     });
   };
 
@@ -819,95 +179,10 @@ app.controller('EmployeeController', function($scope, $location, TableFactory, L
     return ary;
   }
 
-  $scope.dateFilter = function(date_range) {
-    var SECONDS_IN_DAY = 86400000; // 24 * 60 * 60 * 1000
-    var today = new Date (Date.now());
-    var day_of_the_week = today.getDay();
-    var day_of_the_month = today.getDate();
-    var start_date;
-    var end_date;
-    var days_back;
-
-    // if (typeof(date_range) != 'string' && (date_range[0] < date_range[1]) ) {
-    //   start_date = new Date(date_range[0]);
-    //   end_date = new Date(date_range[1]);
-    // } else {
-    //   switch( date_range ){
-    //     case 'this_week' : 
-    //       end_date = new Date (Date.now());
-    //       days_back  = day_of_the_week;
-    //       start_date = Date.now() - ( days_back * SECONDS_IN_DAY);
-    //       break;
-    //     case 'last_week' : 
-    //       end_date = new Date (Date.now());
-    //       days_back  = day_of_the_week;
-    //       start_date = Date.now() - ( days_back * SECONDS_IN_DAY);
-    //       break;
-    //     case 'this_month' : 
-    //       end_date = today;
-    //       start_date = today - ( (day_of_the_month) * SECONDS_IN_DAY);
-    //       break;
-    //     case 'last_month' : 
-    //       end_date = today - ( (day_of_the_month) * SECONDS_IN_DAY);;
-    //       start_date = today - ( (day_of_the_month + 30 ) * SECONDS_IN_DAY);
-    //       break;
-    //     default:
-    //       start_date = new Date(2010,0,0,0,0,0,0);
-    //       end_date = today;
-    //     break
-    //   }
-    // }
-
-    if (date_range === 'all') {
-
-      start_date = new Date(2010,0,0,0,0,0,0);
-      end_date = today;
-
-    } else if (date_range === 'this_week') {
-
-      end_date = new Date ( Date.now() );
-      days_back  = day_of_the_week;
-      start_date = Date.now() - ( days_back * SECONDS_IN_DAY);
-
-    } else if (date_range === 'last_week') {
-
-      end_date   = today - ( (day_of_the_week + 1) * SECONDS_IN_DAY);
-      start_date = today - ( (day_of_the_week + 6) * SECONDS_IN_DAY);
-
-    } else if (date_range === 'this_month') {
-
-      end_date = today;
-      start_date = today - ( (day_of_the_month) * SECONDS_IN_DAY);
-
-    } else if (date_range === 'last_month') {
-
-      end_date = today - ( (day_of_the_month) * SECONDS_IN_DAY);
-      start_date = today - ( (day_of_the_month + 30 ) * SECONDS_IN_DAY)
-
-    } else if ( ( typeof(date_range) != 'string' ) && (date_range[0] < date_range[1]) ) {
-
-      start_date = new Date(date_range[0]);
-      end_date = new Date(date_range[1]);
-
-    };
-
-    TableFactory.factory_history_table(function(data){
-
-      $scope.table = data;
-      var table2=[]
-
-      for (var i = 0; i < $scope.table.length - 1; i++) {
-
-        work_session_date = new Date($scope.table[i].created_at);
-
-        if (work_session_date > start_date && work_session_date < end_date){
-          table2.push($scope.table[i]);
-        }
-      }
-
-      $scope.table=table2;
+  $scope.dateFilter = function(from, to) {
+    TableFactory.factory_date_range({from: from, to : to}, function(data){
+      $scope.history_table = data;
     });
-
   }
   
 });
@@ -1000,96 +275,48 @@ app.controller('AdminController', function($scope, $location, TableFactory, List
     return ary;
   }
 
-  $scope.dateFilter = function(date_range) {
-    var SECONDS_IN_DAY = 86400000; // 24 * + * 60 * 1000
-    var today = new Date (Date.now());
-    var day_of_the_week = today.getDay();
-    var day_of_the_month = today.getDate();
-    var start_date;
-    var end_date;
-    var days_back;
-
-    // if (typeof(date_range) != 'string' && (date_range[0] < date_range[1]) ) {
-    //   start_date = new Date(date_range[0]);
-    //   end_date = new Date(date_range[1]);
-    // } else {
-    //   switch( date_range ){
-    //     case 'this_week' : 
-    //       end_date = new Date (Date.now());
-    //       days_back  = day_of_the_week;
-    //       start_date = Date.now() - ( days_back * SECONDS_IN_DAY);
-    //       break;
-    //     case 'last_week' : 
-    //       end_date = new Date (Date.now());
-    //       days_back  = day_of_the_week;
-    //       start_date = Date.now() - ( days_back * SECONDS_IN_DAY);
-    //       break;
-    //     case 'this_month' : 
-    //       end_date = today;
-    //       start_date = today - ( (day_of_the_month) * SECONDS_IN_DAY);
-    //       break;
-    //     case 'last_month' : 
-    //       end_date = today - ( (day_of_the_month) * SECONDS_IN_DAY);;
-    //       start_date = today - ( (day_of_the_month + 30 ) * SECONDS_IN_DAY);
-    //       break;
-    //     default:
-    //       start_date = new Date(2010,0,0,0,0,0,0);
-    //       end_date = today;
-    //     break
-    //   }
-    // }
-
-    if (date_range === 'all') {
-
-      start_date = new Date(2010,0,0,0,0,0,0);
-      end_date = today;
-
-    } else if (date_range === 'this_week') {
-
-      end_date = new Date ( Date.now() );
-      days_back  = day_of_the_week;
-      start_date = Date.now() - ( days_back * SECONDS_IN_DAY);
-
-    } else if (date_range === 'last_week') {
-
-      end_date   = today - ( (day_of_the_week + 1) * SECONDS_IN_DAY);
-      start_date = today - ( (day_of_the_week + 6) * SECONDS_IN_DAY);
-
-    } else if (date_range === 'this_month') {
-
-      end_date = today;
-      start_date = today - ( (day_of_the_month) * SECONDS_IN_DAY);
-
-    } else if (date_range === 'last_month') {
-
-      end_date = today - ( (day_of_the_month) * SECONDS_IN_DAY);
-      start_date = today - ( (day_of_the_month + 30 ) * SECONDS_IN_DAY)
-
-    } else if ( ( typeof(date_range) != 'string' ) && (date_range[0] < date_range[1]) ) {
-
-      start_date = new Date(date_range[0]);
-      end_date = new Date(date_range[1]);
-
-    };
-
-    TableFactory.factory_history_table(function(data){
-
-      $scope.table = data;
-      var table2=[]
-
-      for (var i = 0; i < $scope.table.length - 1; i++) {
-
-        work_session_date = new Date($scope.table[i].created_at);
-
-        if (work_session_date > start_date && work_session_date < end_date){
-          table2.push($scope.table[i]);
-        }
-      }
-
-      $scope.table=table2;
+  $scope.dateFilter = function(from, to) {
+    TableFactory.factory_date_range({from: from, to : to}, function(data){
+      $scope.history_table = data;
     });
+  }
 
-  } //end of $scope.dateFilter function
+app.controller('LoginController', function($scope, LoginFactory) {
+
+  LoginFactory.factory_get_ip(function(ip){ 
+    LoginFactory.factory_ip_login({ip : ip});
+  });
+
+  $scope.credentials  = {
+    email : 'afenech@gmail.com',
+    password : 'password'
+  };
+
+  $scope.login = function(credentials){
+    LoginFactory.login(credentials);
+  };
+});
+
+app.controller('AuthController', function($scope, AuthFactory){
+
+    AuthFactory.factory_check_current('stuff');
+});
+
+app.controller('AdminLoginController', function($scope, LoginFactory){
+  $scope.credentials  = {
+    email : 'mchoi@gmail.com',
+    password : 'password'
+  };
+
+  $scope.login = function(credentials){
+    LoginFactory.login(credentials);
+  };
+
+  $scope.logout = function(){
+    LoginFactory.logout();
+  }
+})
+
 });
 
 
