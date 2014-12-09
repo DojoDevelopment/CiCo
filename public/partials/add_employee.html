@@ -45,15 +45,9 @@
       <tr>
         <td><h4>Supervisor</h4></td>
         <td>
-<<<<<<< HEAD
-          <select type='button' ng-model="supervisor" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
-            <option value="" disabled selected>Supervisor</option>
-            <option ng-repeat="s in supervisors" value="{{s.id}}" ng-bind="s.name"></option>
-=======
           <select type='button' id="inputSupervisor" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
             <option value="" disabled selected>Supervisor</option>
             <option value="{{s.id}}" ng-repeat="s in supervisors" ng-bind="s.name" ng-selected="s.id == user.supervisor"></option>
->>>>>>> f8f2214de3ed5d2a143d1ac0fd386cb64510a96a
           </select>
         </td>
       </tr>
@@ -77,14 +71,7 @@
       <tr>
         <td><h4>Upload Profile Picture</h4></td>
         <td>
-<<<<<<< HEAD
-          <form>
-            <input class='file_upload' type="file"
-            file-input="files"
-            multiple />
-            <li ng-repeat='file in files'>{{file.name}}</li>
-          </form>
-=======
+
           <input type="file" id="pic_path" ng-model="user.pic" name="pic">
 <!--      <div class="input-group">
             <span class="input-group-btn">
@@ -94,21 +81,16 @@
             </span>
             <input id="inputPicPath" ng-bind="pic" placeholder='Upload Profile Pic' type="text" class="upload_pic form-control" readonly>
           </div> -->
->>>>>>> f8f2214de3ed5d2a143d1ac0fd386cb64510a96a
         </td>
       </tr>
       <tr>
         <td><h4>Employee Start Date</h4></td>
-<<<<<<< HEAD
-        <td>
-          <input type="date" ng-model="start_date">
-        </td>
-=======
+
         <td><input type="date" ng-model="user.start_date" name="start_date"></td>
->>>>>>> f8f2214de3ed5d2a143d1ac0fd386cb64510a96a
+
       </tr>
       <tr>
-        <td><h4>Email & Password</h4></td>
+        <td><h4>Email &amp; Password</h4></td>
         <td>
           <label for="inputEmail" class="sr-only">Email</label>
           <input type="email" ng-model="user.email" class="form-control" name="email" placeholder="Email" required>

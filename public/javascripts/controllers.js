@@ -124,27 +124,8 @@ app.controller('employeeInfo', function($scope, $location, EmployeeFactory, List
 
 });
 
-<<<<<<< HEAD
+
 app.controller('EmployeeController', function($scope, $location, TableFactory, ListFactory,  ClockingFactory) {
-=======
-app.controller('LoginController', function($scope, $rootScope, LoginFactory) {
-
-  LoginFactory.factory_get_ip(function(ip){ 
-    LoginFactory.factory_ip_login({ip : ip});
-  });
-
-  $scope.credentials  = {
-    email : '',
-    password : ''
-  };
-
-  $scope.login = function(credentials){
-    LoginFactory.login(credentials);
-  };
-});
-
-app.controller('EmployeeController', function($scope, $location, TableFactory, ListFactory,  ClockingFactory, LoginFactory) {
->>>>>>> f8f2214de3ed5d2a143d1ac0fd386cb64510a96a
 
   $scope.user = { page : 'dash'};
 
@@ -345,58 +326,6 @@ app.controller('AdminController', function($scope, $location, TableFactory, List
       $scope.history_table = data;
     });
   }
-<<<<<<< HEAD
-
-app.controller('LoginController', function($scope, LoginFactory) {
-
-  LoginFactory.factory_get_ip(function(ip){ 
-    LoginFactory.factory_ip_login({ip : ip});
-  });
-
-  $scope.credentials  = {
-    email : 'afenech@gmail.com',
-    password : 'password'
-  };
-
-  $scope.login = function(credentials){
-    LoginFactory.login(credentials);
-  };
-});
-
-app.controller('AuthController', function($scope, AuthFactory){
-
-    AuthFactory.factory_check_current('stuff');
-});
-
-app.controller('AdminLoginController', function($scope, LoginFactory){
-  $scope.credentials  = {
-    email : 'mchoi@gmail.com',
-    password : 'password'
-  };
-
-  $scope.login = function(credentials){
-    LoginFactory.login(credentials);
-  };
-
-  $scope.logout = function(){
-    LoginFactory.logout();
-  }
-})
-
-});
-
-
-
-
-
-
-
-
-
-
-
-
-=======
 
 });
 
@@ -435,4 +364,4 @@ app.controller('AdminLoginController', function($scope, LoginFactory){
     LoginFactory.logout();
   }
 });
->>>>>>> f8f2214de3ed5d2a143d1ac0fd386cb64510a96a
+
