@@ -20,15 +20,17 @@
         <tr>
           <td>Name</td>
           <td>Logged in</td>
-          <td>Last login</td>
+          <td>Location</td>
+          <td>Team</td>
         </tr>
       </thead>
       <tbody>
         <tr ng-repeat="row in table">
           <td><img width='30' height='30' src="/img/profile_pic/dev.jpg">{{row.name}}</td>
           <td ng-bind="row.is_logged"></td>
-          <td>{{row.age}}</td>
-        </tr>       
+          <td ng-bind="row.locations"></td>
+          <td ng-bind="row.team"></td>
+        </tr>
       </tbody>
     </table>
 

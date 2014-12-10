@@ -99,9 +99,14 @@ module.exports = {
 
   }, get_table_main_users : function(req, res){
 
-    var qry = "SELECT members.id, members.name, members.is_logged"
+    var qry = "SELECT members.id"
+              + ", members.name"
+              + ", members.team"
+              + ", locations2.name AS locations"
+              + ", members.is_logged"
             + " FROM members"
-            + " WHERE business_id = 1"
+            + " LEFT JOIN locations AS locations2 ON locations2.id = members.location_id"
+            + " WHERE members.business_id = 1"
 
     pg.connect(conString, function(err, client, done) {
       if(err) { return console.error('error fetching client from pool', err); }

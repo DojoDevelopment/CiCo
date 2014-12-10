@@ -213,9 +213,6 @@ module.exports = {
       + " SET is_logged=FALSE"
       + " WHERE id=$1"
 
-    console.log('req.params', req.params);
-    console.log('req.body', req.body);
-
     pg.connect(conString, function(err, client, done) {
       if(err) { return console.error('error fetching client from pool', err); }
       client.query(qry, [personal, report, session], function(err, result) {
