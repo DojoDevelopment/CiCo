@@ -39,6 +39,7 @@ ul a:focus{
 .form-signin{ margin-bottom: 10%; }
 .form-group{ margin-top: 0px !important; }
 
+/*#row-report{ width:20px; white-space:nowrap; overflow: hidden; text-overflow: ellipsis; }*/
 
 /********************  END BOOTSTRAP MODIFICATIONS  ********************/
 
@@ -177,10 +178,16 @@ button a:hover{ text-decoration: none; color:#4584EF; }
   /******** table css **********/
   /*****************************/
 
-  .table-wrap {height:34em; overflow-y:scroll; }
-  .table-wrap thead { position:absolute; }
-  .time-table, .time-table th, .time-table td { border-bottom: 2px solid #428BCB !important;}
-  .time-table img{height:2em; width:1.8em;} 
+/*#tester table {width:100%;}
+#tester thead, tbody, tr, td, th { display: block; }
+#tester tr:after { content: ' '; display: block; visibility: hidden; clear: both; }
+
+#tester tbody { height: 25em; overflow-y: auto; }
+
+#tester tbody td, thead th{ width: 9.4em; float: left; }*/
+
+/*  .table-wrap {height:34em; overflow-y:scroll; }*/
+
 
   /*****************************/
   /******content information****/
