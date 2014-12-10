@@ -40,7 +40,7 @@ module.exports = {
     var password = req.body.password;
 
     var qry = 
-      "SELECT members.type"
+      "SELECT members.type, members.id"
     + " FROM members"
     + " WHERE email = $1"
     + " AND password = $2";
@@ -51,13 +51,13 @@ module.exports = {
       if(err) { return console.error('could not connect to postgres', err); }
       client.query(qry, [email, password], function(err, data) {
         if(err) { return console.error('error running query', err); }
-
+        
         result = data.rows[0];
 
         if (result == undefined){
           res.status(401).end();
         } else {
-          req.session.user = {login : true, admin : (result.type == 'contractor' ? true : false ) };
+          req.session.user = {login : true, id : result.id, admin : (result.type == 'contractor' ? true : false ) };
           res.json(req.session.user);
         }
         client.end();

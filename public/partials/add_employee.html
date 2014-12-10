@@ -1,4 +1,4 @@
-<div class='container-fluid'>
+<div class='container'>
   <table class='table add_table'>
     <thead>
       <th colspan="2">
@@ -36,7 +36,7 @@
         <td><h4>Location</h4></td>
         <td>
           <label for="inputLocation" class="sr-only">Location</label>
-          <select type='button' ng-model="user.location" id="inputLocation" name="location" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
+          <select type='button' ng-model="user.location" id="inputLocation" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
             <option value="" disabled selected>Location</option>
             <option ng-repeat="l in locations" value="{{l.id}}" ng-bind="l.name"></option>
           </select>
@@ -45,7 +45,7 @@
       <tr>
         <td><h4>Supervisor</h4></td>
         <td>
-          <select type='button' id="inputSupervisor" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
+          <select type='button' ng-model="user.supervisor" id="inputSupervisor" class='drop-btn dropdown-toggle btn btn-lg' role='menu'>
             <option value="" disabled selected>Supervisor</option>
             <option value="{{s.id}}" ng-repeat="s in supervisors" ng-bind="s.name" ng-selected="s.id == user.supervisor"></option>
           </select>
@@ -71,6 +71,7 @@
       <tr>
         <td><h4>Upload Profile Picture</h4></td>
         <td>
+
           <form action='/api/upload' method='post' enctype='multipart/form-data'>
             <input type="file" id="pic_path" onfocusout='submit()' ng-model="user.pic" name="pic">
             <!-- <input type="submit" value="go" > -->
@@ -88,10 +89,12 @@
       </tr>
       <tr>
         <td><h4>Employee Start Date</h4></td>
+
         <td><input type="date" ng-model="user.start_date" name="start_date"></td>
+
       </tr>
       <tr>
-        <td><h4>Email & Password</h4></td>
+        <td><h4>Email &amp; Password</h4></td>
         <td>
           <label for="inputEmail" class="sr-only">Email</label>
           <input type="email" ng-model="user.email" class="form-control" name="email" placeholder="Email" required>

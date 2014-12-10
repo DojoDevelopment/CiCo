@@ -1,157 +1,65 @@
-<div class='container-fluid'>
-<!-- <div>page   == {{user.page}}</div> -->
-  <div class='row'>
-    <div class='col-md-8'>
-      <div class='container-sm'>
-        <h5>
-          <strong>Contractors or Part Time Employees in CodingDojo (all locations)</strong>
-          <p>If you're paid hourly, it's mandatory that you clock in/out whenever you work.</p>
-        </h5>
-      </div>
+<nav class='navbar navbar-top'>
+    <div class='nav-logo'>
+      <img src="img/coding_dojo.png">
+<!--       <button class='pull-right btn btn-lg btn-danger'>Logout</button> -->
     </div>
-    <div class='filter row-md-4 pull-right'>
-      <div class='container-sm'>
-        
-        <select ng-model="place">
-          <option value="" disabled selected>Filter Location</option>
-          <option value="">All</option>
-          <option ng-repeat="l in locations" value="{{l.name}}" ng-bind="l.name"></option>
-        </select>
-
-        <select class='pull-right' ng-model="people" ng-if="user.page=='history'">
-          <option value="" disabled selected>Filter Name</option>
-          <option value="">All</option>
-          <option ng-repeat="m in members | filter:m" value="{{m.name}}" ng-bind="m.name"></option>
-        </select>
-
-        <p ng-if="user.page=='history'">Filter by Date:</p>
-        <form ng-if="user.page=='history'">
-          <input type='date' ng-model="from_date"> to <input type='date' ng-model="to_date">
-          <br>
-          <button type='submit' ng-click="dateFilter(from_date, to_date)" class='pull-right btn btn-sm btn-date'>Submit Date</button>
-        </form>       
-        
-      </div>
-    </div>
-    <div class='row'>
-      <div class='col-md-12'>
-          
-        <div class="switch-toggle switch-candy">
-          <input id="dashboard" name="view" type="radio" checked>
-          <label for="dashboard" ng-click="changePage('dash')">Dashboard</label>
-
-          <input id="history" name="view" type="radio">
-          <label for="history" ng-click="changePage('history')">History</label>
-
-          <a></a>
-        </div>
-          
-        <ul class='pull-right' ng-if="user.page=='history'">
-          <li><a ng-click="dateFilter('all')">All</a></li>
-          <li><a ng-click="dateFilter('this_week')">This week</a></li>
-          <li><a ng-click="dateFilter('last_week')">Last week</a></li>
-          <li><a ng-click="dateFilter('this_month')">This month</a></li>
-          <li><a ng-click="dateFilter('last_month')">Last Month</a></li>
-        </ul>
-          
-      </div>
-    </div>
-
-    <table class='table' ng-if="user.page=='history'">
+  </nav>
+  <div class='sidenav pull-left'>
+    <ul>
+      <li><input placeholder='email' type='email' ng-model="credentials.email"></li>
+      <li><input placeholder='password' type='password' ng-model="credentials.password"></li>
+      <li><a href="" ng-click="login(credentials)"><button class='sidenav-box'><img src="img/clock-in.png"><br>Log IN</button></a></li>
+    </ul>
+  </div>
+  <div class='jumbotron e_d'>
+    <h2 align='center'>Time Keeper - Employee</h2>
+  </div>
+  <div class='container-fluid main'>
+    <table class='table table-bordered'>
       <thead>
         <tr>
-          <th><a href="" ng-click="order='date'; reverse=!reverse">Date</a></th>
-          <th>Picture</th>
-          <th><a href="" ng-click="order='name'; reverse=!reverse">Name</a></th>
-          <th><a href="" ng-click="order='title'; reverse=!reverse">Title</a></th>
-          <th><a href="" ng-click="order='team'; reverse=!reverse">Team</a></th>
-          <th><a href="" ng-click="order='location'; reverse=!reverse">Location</a></th>
-          <th class='clk-btn'><a href="" ng-click="order='clock_in'; reverse=!reverse">Clock IN</a></th>
-          <th class='clk-btn'><a href="" ng-click="order='clock_out'; reverse=!reverse">Clock OUT</a></th>
-          <th><a href="" ng-click="order='personal'; reverse=!reverse">Personal Time</a></th>
-          <th><a href="" ng-click="order='billed'; reverse=!reverse">Billed Hours</a></th>
-          <th>Report</th>
+          <td>Name</td>
+          <td>Logged in</td>
+          <td>Location</td>
+          <td>Team</td>
         </tr>
       </thead>
-
       <tbody>
-        <tr ng-repeat="row in history_table | filter: { locations:place, name:people } | orderBy:order:reverse">
-          <td ng-bind="row.clock_in | date:'M/dd (EEE)'"></td>
-          <td><img height='30' width='30' class='img-rounded' src="/img/profile_pic/dev.jpg"></td>
-          <td ng-bind="row.name"></td>
-          <td ng-bind="row.title"></td>
-          <td ng-bind="row.team"></td>
+        <tr ng-repeat="row in table">
+          <td><img width='30' height='30' src="/img/profile_pic/dev.jpg">{{row.name}}</td>
+          <td ng-bind="row.is_logged"></td>
           <td ng-bind="row.locations"></td>
-          <td ng-bind="row.clock_in | date:'shortTime'"></td>
-          <td ng-bind="row.clock_out | date:'shortTime'"></td>
-          <td ng-bind="row.personal_time  "></td>
-          <td ng-bind="row.billed"></td>
-          <td ng-bind="row.report"></td>
-        </tr>
-      </tbody>
-    </table>
-
-    <table class='table' ng-if="user.page=='dash'">
-      <thead>
-        <th>Picture</th>
-        <th><a href="" ng-click="order='name'; reverse=!reverse">Name</a></th>
-        <th><a href="" ng-click="order='title'; reverse=!reverse">Title</a></th>
-        <th><a href="" ng-click="order='team'; reverse=!reverse">Team</a></th>
-        <th><a href="" ng-click="order='supervisor'; reverse=!reverse">Supervisor</a></th>
-        <th><a href="" ng-click="order='location'; reverse=!reverse">Location</a></th>
-        <th class='clk-btn'>Clock IN</th>
-        <th class='clk-btn'>Clock OUT</th>
-      </thead>
-      <tbody>
-        <tr value="0" ng-repeat="row in dashboard_table | filter: { locations:place } | orderBy:order:reverse">
-          <td><img height='30' width='30' class='img-rounded' src="/img/profile_pic/dev.jpg"></td>
-          <td ng-bind="row.name"></td>
-          <td ng-bind="row.title"></td>
           <td ng-bind="row.team"></td>
-          <td ng-bind="row.supervisor"></td> 
-          <td ng-bind="row.locations"></td> 
-          <td>
-            <div ng-if="row.clock_in == null">
-              <button class="btn btn-in" ng-click="clockIn()">Clock IN</button>
-            </div>
-            <div ng-if="row.clock_in != null" ng-bind="row.clock_in | date:'shortTime'"></div>
-          </td>
-          <td>
-            <div ng-if="row.clock_in != null &amp;&amp; row.clock_out == null">
-              <a ng-click='toggleModal(row);' class='basic'><button class="btn btn-out">Clock OUT</button></a>
-            </div>
-            <div ng-if="row.clock_out != null" ng-bind="row.clock_out | date:'shortTime'"></div>
-          </td>
         </tr>
       </tbody>
     </table>
 
+<!--************************  CLOCKOUT MODAL CONTENT *******************************-->
+  <modal-clockout user='currentUser' personal='personal' report='report' show='modalShown' width='750px'>
 
-    <button class="btn btn-danger" ng-csv="csvBody" csv-header="csvHead" filename="history.csv" ng-if="user.page=='history'">Download CSV</button>
+    <div class='container modal-settings clockout-content'>
+      <nav class='navbar navbar-fixed-top navbar-inverse'>
+          <h1 align='center'>Employee Clockout</h1>
+      </nav>
 
+      <form class='clockout-form' name='clockout_form'>
+        <select name='select' ng-model="personal">
+          <option value="" disabled selected>Choose Time</option>  
+          <option value="0">None</option>
+          <option value=".25">15 minutes</option>
+          <option value=".5" >30 minutes</option>
+          <option value=".75">45 minutes</option>
+          <option value="1"  >1 hour</option>
+          <option value="1.5">1.5 hours</option>
+          <option value="2"  >2 hours</option>
+        </select>
+        <h3>Report <span class='emphasis'>*mandatory</span></h3>
+        <h4>What did you work on? What did you accomplish?</h4>
+        <textarea ng-model="report" placeholder='example: Curriculum Update (1.5 hours), Lecture (1.0 hours), Assisting Students (3.0 hours), Meeting (!.0 hr), etc.'></textarea><br>
+        <button ng-click='clockOut(personal,report, clockout_form); reloadRoute();' class="btn btn-out">Clock Out</button>
+      </form>
+    </div>
+
+  </modal-clockout>
+<!--*********************  END CLOCKOUT MODAL CONTENT *******************************--> 
   </div>
-</div>
-
-<modal-clockout user='currentUser' personal='personal' report='report' show='modalShown' width='750px' height='70%'>
-
-  <div class='container'>
-    <h1 align='center'>Clock Out</h1>
-    <form name='clockout_form'>
-      <select name='select' ng-model="personal">
-        <option value="" disabled selected>Choose Time</option>  
-        <option value="0">None</option>
-        <option value=".25">15 minutes</option>
-        <option value=".5" >30 minutes</option>
-        <option value=".75">45 minutes</option>
-        <option value="1"  >1 hour</option>
-        <option value="1.5">1.5 hours</option>
-        <option value="2"  >2 hours</option>
-      </select>
-      <h3>Report <span>*mandatory</span></h3>
-      <h4>What did you work on? What did you accomplish?</h4>
-      <textarea ng-model="report" placeholder='example: Curriculum Update (1.5 hours), Lecture (1.0 hours), Assisting Students (3.0 hours), Meeting (!.0 hr), etc.'></textarea><br>
-      <button ng-click='clockOut(personal,report, clockout_form); reloadRoute();' class="btn btn-out">Clock Out</button>
-    </form>
-  </div>
-
-</modal-clockout>

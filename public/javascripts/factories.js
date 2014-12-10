@@ -1,6 +1,7 @@
 //USED IN CONTROLLER: employee, employeeInfo
 app.factory('EmployeeFactory', function($http, $location){
   return {
+
     factory_create_employee : function(data){
     	console.log(data);
 
@@ -108,6 +109,12 @@ app.factory('TableFactory', function($http){
         .success(function(data){
           callback(data);
         });
+    }, factory_general_employee_info : function(callback){
+      $http
+        .get('/api/main')
+        .success(function(data){
+          callback(data);
+        });
     }
 
   };
@@ -155,24 +162,30 @@ app.factory('ListFactory', function($http){
 });
 
 //USED IN CONTROLLER: user_dashboard, clockout
-app.factory('ClockingFactory', function($http){
+app.factory('ClockingFactory', function($http, $location){
   return {
     
     factory_clock_in: function(user, callback){
 
       $http
         .post('/api/clock_in/'+ user)
-        .success(function(data){
-          callback(data);
-      });
+        .success(
+          $location.path('main')
+        );
 
-    }, factory_clock_out: function(info){
+    }, factory_clock_out: function(id, info){
 
       $http
-        .post('api/clock_out/' + info.session, info)
-        .success(function(){
-          // document.location.href = '../#/dashboard';
-      });
+        .post('/api/clock_out/' + id, info)
+        .success(
+          $location.path('main')
+        );
+    }, factory_last_clocking: function(info, callback){
+      $http
+        .get('/api/last_clocking/' + info)
+        .success(function(data){
+          callback(data);
+        })
     }
 
   };
@@ -199,16 +212,20 @@ app.factory('LoginFactory', function($http, $location){
       });
 
     }, login : function(credentials){
+    
       $http
         .post('/api/login', credentials)
         .success(function(data){
+          console.log(data);
           if (data.login && data.admin){
             $location.path('admin');
           } else if (data.login && !data.admin) {
-            $location.path('main')
+            $location.path('user/' + data.id)
           } 
         });
+
     }, logout : function(){
+    
       $http
         .post('/api/logout')
         .success(function(){
@@ -220,12 +237,15 @@ app.factory('LoginFactory', function($http, $location){
 
 app.factory('AuthFactory', function($http){
   return {
+    
     getSession : function(callback){
+    
       $http
         .get('/api/get_session')
         .success(function(data){
           callback(data.user);
       });
+    
     }
   }
 });

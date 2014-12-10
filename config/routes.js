@@ -17,13 +17,14 @@ module.exports = function Routes(app) {
 
   //Dashboard
   app.get('/api/table_admin_dash',    function(req, res){ tableSQL.get_table_dash_admin(req, res); });
-  app.get('/api/table_dashboard',     function(req, res){ tableSQL.get_table_dash_user(req, res);  });
 
   //History
-  app.get('/api/table_hist',          function(req, res){ tableSQL.get_table_history(req, res);    });
   app.get('/api/table_user/:id',      function(req, res){ employeeSQL.history(req, res);           });
   app.post('/api/date_range',         function(req, res){ tableSQL.get_table_date_range(req, res); });
-  
+
+  //business/ip login
+  app.get('/api/main',                function(req, res){ tableSQL.get_table_main_users(req, res);  })
+
   //Business CRUD
   app.get('/api/business/:id',        function(req, res){ businessSQL.info(req, res)    });
   app.put('/api/business',            function(req, res){ businessSQL.update(req, res); });
@@ -33,16 +34,19 @@ module.exports = function Routes(app) {
   app.get( '/api/employee/:id',       function(req, res){ employeeSQL.show(req, res);   });
   app.put( '/api/employee/:id',       function(req, res){ employeeSQL.update(req, res); });
 
+
   //Employee pic file upload
-  app.post('/api/upload',             function( req,res){
-                                          console.log("in routes and this is my req.files: ", req.files); 
-                                          //picUpload.uploadFile(req,res); 
-                                      }
-  );
+  // app.post('/api/upload',             function( req,res){
+  //                                         console.log("in routes and this is my req.files: ", req.files); 
+  //                                         //picUpload.uploadFile(req,res); 
+  //                                     }
+  // );
   
+
   //Clock in / out
-  app.post('/api/clock_in/:id',       function(req, res){ employeeSQL.clock_in( req, res); });
-  app.post('/api/clock_out/:session', function(req, res){ employeeSQL.clock_out(req, res); });
+  app.post('/api/clock_in/:id',       function(req, res){ employeeSQL.clock_in( req, res);   });
+  app.post('/api/clock_out/:session', function(req, res){ employeeSQL.clock_out(req, res);   });
+  app.get( '/api/last_clocking/:id',   function(req, res){ employeeSQL.last_clocking(req, res)});
 
   //log in
   app.post('/api/login',              function(req, res){ loggingSQL.login(req, res);    });
