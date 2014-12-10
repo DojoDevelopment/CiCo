@@ -36,11 +36,11 @@ module.exports = function Routes(app) {
 
 
   //Employee pic file upload
-  // app.post('/api/upload',             function( req,res){
-  //                                         console.log("in routes and this is my req.files: ", req.files); 
-  //                                         //picUpload.uploadFile(req,res); 
-  //                                     }
-  // );
+  app.post('/api/upload',             function( req,res){
+                                          console.log("in routes and this is my req.files: ", req.files); 
+                                          //picUpload.uploadFile(req,res); 
+                                      }
+  );
   
 
   //Clock in / out
