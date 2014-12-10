@@ -52,7 +52,7 @@ app.config(function($routeProvider){
   }).when('/admin/add_employee', {
 
     templateUrl: 'partials/add_employee.html',
-    controller:  'employee',
+    controller:  'EmployeeController',
     data: {
          ip : false,
       login : true,
@@ -74,7 +74,7 @@ app.config(function($routeProvider){
   }).when('/admin/edit/:id', {
 
     templateUrl: 'partials/add_employee.html',
-    controller: 'employee',
+    controller: 'EmployeeController',
      data: {
          ip : false,
       login : true,

@@ -1,5 +1,5 @@
 //ADD / UPDATE EMPLOYEE
-app.controller('employee', function($scope, $location, EmployeeFactory, ListFactory, TableFactory, LoginFactory) {
+app.controller('EmployeeController', function($scope, $location, EmployeeFactory, ListFactory, TableFactory, LoginFactory) {
 
   ListFactory.factory_supervisors(function(data){ $scope.supervisors = data; });
   ListFactory.factory_all_locations(function(data){ $scope.locations = data; });
