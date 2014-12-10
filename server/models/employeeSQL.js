@@ -1,5 +1,6 @@
 var pg = require('pg');
 var conString = require('../../config/db.js');
+var fs = require('fs-extra');
 
 module.exports = {
   
@@ -18,6 +19,10 @@ module.exports = {
       , req.body.supervisor
       , req.body.admin
     ];
+
+    if (form[9]=='') form[9]=1;
+
+    console.log('form[9]: ', form[9]);
 
     var qry = 
         "INSERT INTO members ("
@@ -44,6 +49,26 @@ module.exports = {
       client.query(qry, form, function(err, data) {
         if(err) { return console.error('error running query', err); }
 
+        //var done = false;
+        var done = true;
+//        data.rows[0].id;
+        if(done==true){
+          console.log("this is the data.rows[0].id argument from query callback: ;", data.rows[0].id);
+          var available_files = fs.readdirSync("/Users/Alvaro/Desktop/cico/public/img/profile_pic/");
+          console.log(available_files);
+
+          var rand1000 = Math.floor(Math.random()*(1000-1) + 1);
+          var myFileURL = "/Users/Alvaro/Desktop/cico/public/img/profile_pic/"+available_files[available_files.length-1]; 
+          var myDestination = "/Users/Alvaro/Desktop/cico/uploads/pic_user_id_"+data.rows[0].id+".jpg";
+          console.log(__dirname);
+          fs.move(myFileURL,myDestination, function(err){
+            if (err){
+              throw err
+            }
+            console.log('moved ',myFileURL,' to ', myDestination);
+          });
+          res.end("File uploaded.");
+        }
         client.end();
       });
     });
