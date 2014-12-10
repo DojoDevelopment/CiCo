@@ -15,47 +15,9 @@
     <h2 align='center'>Time Keeper - Employee</h2>
   </div>
   <div class='container-fluid main'>
-<<<<<<< HEAD
-    <!-- <div class='filter row-md-4 pull-right'>
-      <div class='container-sm'>
-        
-        <select ng-model="place">
-          <option value="" disabled selected>Filter Location</option>
-          <option value="">All</option>
-          <option ng-repeat="l in locations" value="{{l.name}}" ng-bind="l.name"></option>
-        </select>
 
-        <select class='pull-right' ng-model="people" ng-if="user.page=='history'">
-          <option value="" disabled selected>Filter Name</option>
-          <option value="">All</option>
-          <option ng-repeat="m in members | filter:m" value="{{m.name}}" ng-bind="m.name"></option>
-        </select>
-
-        <p ng-if="user.page=='history'">Filter by Date:</p>
-        <form ng-if="user.page=='history'">
-          <input type='date' ng-model="from_date"> to <input type='date' ng-model="to_date">
-          <br>
-<<<<<<< HEAD
-          <button type='submit' class='pull-right btn btn-sm btn-date' ng-click="dateFilter(from_date, to_date)">Submit Date</button>
-=======
-          <button type='submit' ng-click="dateFilter(from_date, to_date)" class='pull-right btn btn-sm btn-date'>Submit Date</button>
->>>>>>> f8f2214de3ed5d2a143d1ac0fd386cb64510a96a
-        </form>       
-        
-      </div>
-    </div> -->
-
-    <table table-height='25em' fixed-header class='table' ng-if="user.page=='history'">
-              <ul class='pull-right' ng-if="user.page=='history'">
-          <li><a tabindex='1' ng-click="dateFilter('all')">All</a></li>
-          <li><a tabindex='2' ng-click="dateFilter('this_week')">This week</a></li>
-          <li><a tabindex='3' ng-click="dateFilter('last_week')">Last week</a></li>
-          <li><a tabindex='4' ng-click="dateFilter('this_month')">This month</a></li>
-          <li><a tabindex='5' ng-click="dateFilter('last_month')">Last Month</a></li>
-        </ul>
-=======
     <table class='table table-bordered'>
->>>>>>> 6054e671d2862c726e48e3b4f6a493fe13674e93
+
       <thead>
         <tr>
           <td>Name</td>
