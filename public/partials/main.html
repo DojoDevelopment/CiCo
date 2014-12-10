@@ -6,18 +6,16 @@
   </nav>
   <div class='sidenav pull-left'>
     <ul>
-      <li><input placeholder='User ID #' type='number'></li>
-      <li><a href=""><button class='sidenav-box'><img src="img/clock-in.png"><br>Clock IN</button></a></li>
-      <li><a href=""><button class='sidenav-box'><img src="img/clock-out.png"><br>Clock Out</button></a></li>
-      <li><a ng-click="changePage('dash')"><button class='sidenav-box'><img src="img/dash.png"><br>Dashboard</button></a></li>       
-      <li><a ng-click="changePage('history')"><button class='sidenav-box'><img src="img/history.png"><br>History</button></a></li>
-<!--       <li><a href=""><button class='sidenav-box'><img src="img/settings.png"><br>Settings</button></a></li>      -->
+      <li><input placeholder='email' type='email' ng-model="credentials.email"></li>
+      <li><input placeholder='password' type='password' ng-model="credentials.password"></li>
+      <li><a href="" ng-click="login(credentials)"><button class='sidenav-box'><img src="img/clock-in.png"><br>Log IN</button></a></li>
     </ul>
   </div>
   <div class='jumbotron e_d'>
-    <h2 align='center'>Time Keeper - Employee <span ng-if="user.page=='dash'">Dashboard</span><span ng-if="user.page=='history'">History</span></h2>
+    <h2 align='center'>Time Keeper - Employee</h2>
   </div>
   <div class='container-fluid main'>
+<<<<<<< HEAD
     <!-- <div class='filter row-md-4 pull-right'>
       <div class='container-sm'>
         
@@ -55,76 +53,27 @@
           <li><a tabindex='4' ng-click="dateFilter('this_month')">This month</a></li>
           <li><a tabindex='5' ng-click="dateFilter('last_month')">Last Month</a></li>
         </ul>
+=======
+    <table class='table table-bordered'>
+>>>>>>> 6054e671d2862c726e48e3b4f6a493fe13674e93
       <thead>
         <tr>
-          <th><a href="" ng-click="order='date'; reverse=!reverse">Date</a></th>
-          <th>Picture</th>
-          <th><a href="" ng-click="order='name'; reverse=!reverse">Name</a></th>
-          <th><a href="" ng-click="order='title'; reverse=!reverse">Title</a></th>
-          <th><a href="" ng-click="order='team'; reverse=!reverse">Team</a></th>
-          <th><a href="" ng-click="order='location'; reverse=!reverse">Location</a></th>
-          <th class='clk-btn'><a href="" ng-click="order='clock_in'; reverse=!reverse">Clock IN</a></th>
-          <th class='clk-btn'><a href="" ng-click="order='clock_out'; reverse=!reverse">Clock OUT</a></th>
-          <th><a href="" ng-click="order='personal'; reverse=!reverse">Personal Time</a></th>
-          <th><a href="" ng-click="order='billed'; reverse=!reverse">Billed Hours</a></th>
-          <th>Report</th>
+          <td>Name</td>
+          <td>Logged in</td>
+          <td>Location</td>
+          <td>Team</td>
         </tr>
       </thead>
-
       <tbody>
-        <tr ng-repeat="row in history_table | filter: { locations:place, name:people } | orderBy:order:reverse">
-          <td ng-bind="row.clock_in | date:'M/dd (EEE)'"></td>
-          <td><img height='30' width='30' class='img-rounded' src="/img/profile_pic/dev.jpg"></td>
-          <td ng-bind="row.name"></td>
-          <td ng-bind="row.title"></td>
-          <td ng-bind="row.team"></td>
+        <tr ng-repeat="row in table">
+          <td><img width='30' height='30' src="/img/profile_pic/dev.jpg">{{row.name}}</td>
+          <td ng-bind="row.is_logged"></td>
           <td ng-bind="row.locations"></td>
-          <td ng-bind="row.clock_in | date:'shortTime'"></td>
-          <td ng-bind="row.clock_out | date:'shortTime'"></td>
-          <td ng-bind="row.personal_time  "></td>
-          <td ng-bind="row.billed"></td>
-          <td ng-bind="row.report"></td>
-        </tr>
-      </tbody>
-    </table>    
-
-
-    <table class='table table-striped time-table' ng-if="user.page=='dash'">
-
-      <thead>
-        <th>Picture</th>
-        <th><a href="" ng-click="order='name'; reverse=!reverse">Name</a></th>
-        <th><a href="" ng-click="order='title'; reverse=!reverse">Title</a></th>
-        <th><a href="" ng-click="order='team'; reverse=!reverse">Team</a></th>
-        <th><a href="" ng-click="order='supervisor'; reverse=!reverse">Supervisor</a></th>
-        <th><a href="" ng-click="order='location'; reverse=!reverse">Location</a></th>
-        <th class='clk-btn'>Clock IN</th>
-        <th class='clk-btn'>Clock OUT</th>
-      </thead>
-      <tbody>
-        <tr value="0" ng-repeat="row in dashboard_table | filter: { locations:place } | orderBy:order:reverse">
-          <td><img height='30' width='30' class='img-rounded' src="/img/profile_pic/dev.jpg"></td>
-          <td ng-bind="row.name"></td>
-          <td ng-bind="row.title"></td>
           <td ng-bind="row.team"></td>
-          <td ng-bind="row.supervisor"></td> 
-          <td ng-bind="row.locations"></td> 
-          <td>
-            <div ng-if="row.clock_in == null">
-              <button class="btn btn-in" ng-click="clockIn()">Clock IN</button>
-            </div>
-            <div ng-if="row.clock_in != null" ng-bind="row.clock_in | date:'shortTime'"></div>
-          </td>
-          <td>
-            <div ng-if="row.clock_in != null &amp;&amp; row.clock_out == null">
-              <a ng-click='toggleModal(row);' class='basic'><button class="btn btn-out">Clock OUT</button></a>
-            </div>
-            <div ng-if="row.clock_out != null" ng-bind="row.clock_out | date:'shortTime'"></div>
-          </td>
         </tr>
       </tbody>
     </table>
-    <button class="btn btn-danger" ng-csv="csvBody" csv-header="csvHead" filename="history.csv" ng-if="user.page=='history'">Download CSV</button>
+
 <!--************************  CLOCKOUT MODAL CONTENT *******************************-->
   <modal-clockout user='currentUser' personal='personal' report='report' show='modalShown' width='750px'>
 

@@ -1,35 +1,45 @@
-  <div class='navbar navbar-top'>
-    <div class='nav-logo'>
-      <img src="img/coding_dojo.png">
+<div class='navbar navbar-top'>
+  <div class='nav-logo'>
+    <img src="img/coding_dojo.png">
 <!--       <a href="/#/"><button class='pull-right btn btn-lg btn-danger'>Logout</button></a> -->
-    </div>
   </div>
-  <div class='sidenav pull-left'>
-    <ul>
-      <li><input placeholder='User ID #' type='number'></li>
-      <li><a href="/#/admin/add_employee"><button class='sidenav-box'><img src="img/people.png"><br>Add Employee</button></a></li>
-      <li><a ng-click="changePage('dash')"><button class='sidenav-box'><img src="img/dash.png"><br>Dashboard</button>
-      </a></li>
-      <li><a ng-click="changePage('history')"><button class='sidenav-box'><img src="img/history.png"><br>History</button>
-      </a></li>
-      <li><a ng-click='toggleModal();' href=""><button class='sidenav-box'><img src="img/settings.png"><br>Settings</button></a></li>     
-    </ul>
-  </div>
-  <div class='jumbotron a_d'>
-    <h2 align='center'>Time Keeper - Admin <span ng-if="user.page=='dash'">Dashboard</span><span ng-if="user.page=='history'">History</span></h2>
-  </div>
-  <div class='container-fluid main'>
+</div>
+<div class='sidenav pull-left'>
+  <ul>
+    <li><a href="/#/admin/add_employee"><button class='sidenav-box'><img src="img/people.png"><br>Add Employee</button></a></li>
+    <li><a ng-click="changePage('dash')"><button class='sidenav-box'><img src="img/dash.png"><br>Dashboard</button></a></li>
+    <li><a ng-click="changePage('history')"><button class='sidenav-box'><img src="img/history.png"><br>History</button></a></li>
+    <li><a ng-click='toggleModal();' href=""><button class='sidenav-box'><img src="img/settings.png"><br>Settings</button></a></li>     
+  </ul>
+</div>
+<div class='jumbotron a_d'>
+  <h2 align='center'>Time Keeper - Admin <span ng-if="user.page=='dash'">Dashboard</span><span ng-if="user.page=='history'">History</span></h2>
+</div>
+<div class='container-fluid main'>
 
-<!--     <div class='filter row-md-4 pull-right'>
+  <div class='filter row-md-4 pull-right'>
 
-      <div class='container-sm'>
+    <div class='container-sm'>
 
-        <select ng-model="place">
-          <option value="" disabled selected>Filter Location</option>
-          <option value="">All</option>
-          <option ng-repeat="l in locations" value="{{l.name}}" ng-bind="l.name"></option>
-        </select>
+      <select ng-model="place">
+        <option value="" disabled selected>Filter Location</option>
+        <option value="">All</option>
+        <option ng-repeat="l in locations" value="{{l.name}}" ng-bind="l.name"></option>
+      </select>
 
+      <select class='pull-right' ng-model="people" ng-if="user.page=='history'">
+        <option value="" disabled selected>Filter Name</option>
+        <option value="">All</option>
+        <option ng-repeat="m in members | filter:m" value="{{m.name}}" ng-bind="m.name"></option>
+      </select>
+
+      <p ng-if="user.page=='history'">Filter by Date:</p>
+      <form ng-if="user.page=='history'">
+        <input type='date' ng-model="from_date"> to <input type='date' ng-model="to_date">
+        <button type='submit' ng-click="dateFilter(from_date, to_date)" class='pull-right btn btn-sm btn-date'>Submit Date</button>
+      </form>
+
+<<<<<<< HEAD
         <select class='pull-right' ng-model="people" ng-if="user.page=='history'">
           <option value="" disabled selected>Filter Name</option>
           <option value="">All</option>
@@ -96,12 +106,31 @@
       <table class='table time-table' ng-if="user.page=='dash'">
         <thead>
           <th>Picture</th>
+=======
+    </div>
+  </div> 
+  <div>
+    <ul ng-if="user.page=='history'">
+      <li><a tabindex='1' ng-click="dateFilter('all')">All</a></li>
+      <li><a tabindex='2' ng-click="dateFilter('this_week')">This week</a></li>
+      <li><a tabindex='3' ng-click="dateFilter('last_week')">Last week</a></li>
+      <li><a tabindex='4' ng-click="dateFilter('this_month')">This month</a></li>
+      <li><a tabindex='5' ng-click="dateFilter('last_month')">Last Month</a></li>
+    </ul>
+  </div>
+
+  <div class='table-wrap'>
+
+    <table ng-if="user.page=='history'" class='table table-striped time-table'>
+      <thead>
+        <tr>
+          <th><a href="" ng-click="order='date'; reverse=!reverse">Date</a></th>
+>>>>>>> 6054e671d2862c726e48e3b4f6a493fe13674e93
           <th><a href="" ng-click="order='name'; reverse=!reverse">Name</a></th>
-          <th><a href="" ng-click="order='status'; reverse=!reverse">Status</a></th>
           <th><a href="" ng-click="order='title'; reverse=!reverse">Title</a></th>
           <th><a href="" ng-click="order='team'; reverse=!reverse">Team</a></th>
-          <th><a href="" ng-click="order='supervisor'; reverse=!reverse">Supervisor</a></th>
           <th><a href="" ng-click="order='location'; reverse=!reverse">Location</a></th>
+<<<<<<< HEAD
           <th>Note</th>
           <th>Actions</th>
         </thead>
@@ -120,31 +149,74 @@
         </tbody>
       </table>
 <!--       </div> -->
+=======
+          <th class='clk-btn'><a href="" ng-click="order='clock_in'; reverse=!reverse">Clock IN</a></th>
+          <th class='clk-btn'><a href="" ng-click="order='clock_out'; reverse=!reverse">Clock OUT</a></th>
+          <th><a href="" ng-click="order='personal'; reverse=!reverse">Personal Time</a></th>
+          <th><a href="" ng-click="order='billed'; reverse=!reverse">Billed Hours</a></th>
+          <th>Report</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in history_table | filter: { locations:place, name:people } | orderBy:order:reverse">
+          <td ng-bind="row.clock_in | date:'dd/M (EEE)'"></td>
+          <td><img height='30' width='30' class='img-rounded' src="/img/profile_pic/dev.jpg">{{row.name}}</td>
+          <td ng-bind="row.title"></td>
+          <td ng-bind="row.team"></td>
+          <td ng-bind="row.locations"></td>
+          <td ng-bind="row.clock_in | date:'shortTime'"></td>
+          <td ng-bind="row.clock_out | date:'shortTime'"></td>
+          <td ng-bind="row.personal_time"></td>
+          <td ng-bind="row.billed"></td>
+          <td ng-bind="row.report"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table class='table' ng-if="user.page=='dash'">
+      <thead>
+        <th><a href="" ng-click="order='name'; reverse=!reverse">Name</a></th>
+        <th><a href="" ng-click="order='status'; reverse=!reverse">Status</a></th>
+        <th><a href="" ng-click="order='title'; reverse=!reverse">Title</a></th>
+        <th><a href="" ng-click="order='team'; reverse=!reverse">Team</a></th>
+        <th><a href="" ng-click="order='supervisor'; reverse=!reverse">Supervisor</a></th>
+        <th><a href="" ng-click="order='location'; reverse=!reverse">Location</a></th>
+        <th>Note</th>
+        <th>Actions</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="row in dashboard_table | filter: { locations:place } | orderBy:order:reverse">
+          <td><img height='30' width='30' class='img-rounded' src="/img/profile_pic/dev.jpg">{{row.name}}</td>
+          <td ng-bind="row.status"></td>
+          <td ng-bind="row.title"></td>
+          <td ng-bind="row.team"></td>
+          <td ng-bind="row.supervisor"></td>
+          <td ng-bind="row.locations"></td>
+          <td ng-bind="row.note"></td>
+          <td><a href="/#/admin/show/{{row.id}}">Show</a>/<a href="/#/admin/edit/{{row.id}}">Edit</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+>>>>>>> 6054e671d2862c726e48e3b4f6a493fe13674e93
 <!--         <button class="btn btn-danger" ng-csv="csvBody" csv-header="csvHead" filename="history.csv" ng-if="user.page=='history'">Download CSV</button> -->
-      <div>
-      </div>
+
+</div>
 <!--************************  SETTINGS MODAL CONTENT *******************************-->
-      <modal-dialog show='modalShown' width='750px'>
+<modal-dialog show='modalShown' width='750px'>
+  <div class='container modal-settings'>
+    <nav class='navbar navbar-fixed-top navbar-inverse'>
+      <h1 align='center'>Edit Settings</h1>
+    </nav>
+    <form>
+      Company Name:<label for="inputCompany" class="sr-only">Company Name</label>
+      <input ng-model="name" class="form-control" placeholder="example: Coding Dojo" type="text" required autofocus>
 
+      On-Site IP Address:<label for='ipAdd' class='sr-only'>On-Site IP Addresses</label>
+      <textarea ng-model='ip' class='form-control' placeholder='Separate by comma - example: 192.168.2.1, 192.128.2.2'></textarea>
 
-      <div class='container modal-settings'>
-
-
-        <nav class='navbar navbar-fixed-top navbar-inverse'>
-          <h1 align='center'>Edit Settings</h1>
-        </nav>
-
-        <form>
-          Company Name:<label for="inputCompany" class="sr-only">Company Name</label>
-          <input ng-model="name" class="form-control" placeholder="example: Coding Dojo" type="text" required autofocus>
-
-          On-Site IP Address:<label for='ipAdd' class='sr-only'>On-Site IP Addresses</label>
-          <textarea ng-model='ip' class='form-control' placeholder='Separate by comma - example: 192.168.2.1, 192.128.2.2'></textarea>
-
-          <button class="btn btn-lg btn-in pull-right" type='submit' ng-click="updateSettings()">Save</button>
-        </form>
-
-      </div>
-
-    </modal-dialog>
+      <button class="btn btn-lg btn-in pull-right" type='submit' ng-click="updateSettings()">Save</button>
+    </form>
+  </div>
+</modal-dialog>
 <!--*********************  END SETTINGS MODAL CONTENT *******************************-->
