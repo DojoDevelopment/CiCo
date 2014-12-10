@@ -82,7 +82,7 @@
   <button class="btn btn-danger" ng-csv="csvBody" csv-header="csvHead" filename="history.csv" ng-if="user.page=='history'">Download CSV</button>
 
 <!--************************  CLOCKOUT MODAL CONTENT *******************************-->
-  <modal-clockout session="13" user="user.id" personal='personal' report='report' show='modalShown' width='750px'>
+  <modal-clockout session="user.session_id" user="user.id" personal='personal' report='report' show='modalShown' width='750px'>
 
     <div class='container modal-settings clockout-content'>
       <nav class='navbar navbar-fixed-top navbar-inverse'>

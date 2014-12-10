@@ -53,7 +53,6 @@ module.exports = {
     var id = req.params.id;
     var qry = 
         "SELECT members.id"
-        + ", sessions.id as session_id"
         + ", members.location_id"
         + ", members.name"
         + ", members.title"
@@ -67,9 +66,7 @@ module.exports = {
         + ", members.type"
         + ", members.is_logged"
       + " FROM members"
-      + " LEFT JOIN sessions on members.id = sessions.member_id"
-      + " WHERE members.id = $1"
-      + " AND sessions.clock_out is null";
+      + " WHERE members.id = $1";
 
     var client = new pg.Client(conString);
 
@@ -187,12 +184,11 @@ module.exports = {
       client.query(qry, [id], function(err, result) {
         done();
         if(err) { return console.error('error running query', err); }
-      });
-
-      client.query(qry2, [id], function(err, result){
-        done();
-        if(err) { return console.error('error running query', err); }
-        res.status(200);
+        client.query(qry2, [id], function(err, result){
+          done();
+          if(err) { return console.error('error running query', err); }
+          res.status(200);
+        });
       });
 
     });
@@ -202,7 +198,7 @@ module.exports = {
     var session  = req.params.session;
     var personal = req.body.personal;
     var report   = req.body.report;
-    var user_id  = req.body.id;
+    var user_id  = req.body.user;
 
     var qry = 
          "UPDATE sessions"
@@ -225,14 +221,29 @@ module.exports = {
       client.query(qry, [personal, report, session], function(err, result) {
         done();
         if(err) { return console.error('error running query', err); }
+        client.query(qry2, [user_id], function(err, result){
+          done();
+          if(err) { return console.error('error running query', err); }
+          res.status(200);
+        });
       });
-    
-      client.query(qry2, [user_id], function(err, result){
+    });
+  }, last_clocking : function(req, res){
+
+    var id = req.params.id;
+    var qry = "SELECT sessions.id"
+            + " FROM sessions"
+            + " WHERE member_id = $1"
+            + " AND sessions.clock_out IS NULL"
+            + " LIMIT 1";
+
+    pg.connect(conString, function(err, client, done) {
+      if(err) { return console.error('error fetching client from pool', err); }
+      client.query(qry, [id], function(err, result) {
         done();
         if(err) { return console.error('error running query', err); }
-        res.status(200);
+        res.json(result.rows[0].id);
       });
-
     });
   }
 }

@@ -141,8 +141,14 @@ app.controller('UserController', function($scope, $location, TableFactory, Login
       , start_date : data.start_date
       , email      : data.email
       , is_logged  : data.is_logged
-      , session_id : data.session_id
     }
+
+    if ($scope.user.is_logged == true){
+      ClockingFactory.factory_last_clocking($scope.user.id, function(data){
+        $scope.user.session_id = data;
+      })
+    }
+
   });
 
   $scope.csvHead = [
@@ -198,9 +204,7 @@ app.controller('UserController', function($scope, $location, TableFactory, Login
       , personal : personal
       , report   : report
     };
-
-    ClockingFactory.factory_clock_out(info);
-    // $scope.modalShown = false;
+    ClockingFactory.factory_clock_out(info.session, info);
   };
 
   $scope.logout = function(){

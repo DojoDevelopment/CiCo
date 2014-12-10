@@ -160,13 +160,19 @@ app.factory('ClockingFactory', function($http, $location){
           $location.path('main')
         );
 
-    }, factory_clock_out: function(info){
+    }, factory_clock_out: function(id, info){
 
       $http
-        .post('api/clock_out/' + info.session, info)
+        .post('/api/clock_out/' + id, info)
         .success(
           $location.path('main')
         );
+    }, factory_last_clocking: function(info, callback){
+      $http
+        .get('/api/last_clocking/' + info)
+        .success(function(data){
+          callback(data);
+        })
     }
 
   };

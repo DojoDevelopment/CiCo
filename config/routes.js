@@ -32,10 +32,11 @@ module.exports = function Routes(app) {
   app.post('/api/employee',           function(req, res){ employeeSQL.create(req, res); });
   app.get( '/api/employee/:id',       function(req, res){ employeeSQL.show(req, res);   });
   app.put( '/api/employee/:id',       function(req, res){ employeeSQL.update(req, res); });
-  
+
   //Clock in / out
-  app.post('/api/clock_in/:id',       function(req, res){ employeeSQL.clock_in( req, res); });
-  app.post('/api/clock_out/:session', function(req, res){ employeeSQL.clock_out(req, res); });
+  app.post('/api/clock_in/:id',       function(req, res){ employeeSQL.clock_in( req, res);   });
+  app.post('/api/clock_out/:session', function(req, res){ employeeSQL.clock_out(req, res);   });
+  app.get( '/api/last_clocking/:id',   function(req, res){ employeeSQL.last_clocking(req, res)});
 
   //log in
   app.post('/api/login',              function(req, res){ loggingSQL.login(req, res);    });

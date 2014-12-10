@@ -99,9 +99,9 @@ module.exports = {
 
   }, get_table_main_users : function(req, res){
 
-    var qry = "SELECT members.id, members.name, is_logged"
+    var qry = "SELECT members.id, members.name, members.is_logged"
             + " FROM members"
-            + " WHERE business_id = 1";
+            + " WHERE business_id = 1"
 
     pg.connect(conString, function(err, client, done) {
       if(err) { return console.error('error fetching client from pool', err); }
