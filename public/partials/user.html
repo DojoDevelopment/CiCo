@@ -1,0 +1,112 @@
+<nav class='navbar navbar-top'>
+  <div class='nav-logo'>
+    <img src="img/coding_dojo.png">
+      <button class='pull-right btn btn-lg btn-danger'>Logout</button>
+  </div>
+</nav>
+<div class='sidenav pull-left'>
+  <ul>
+    <li ng-if="user.is_logged == false"><a href="" ng-click="clockIn()"><button class='sidenav-box'><img src="img/clock-in.png"><br>Clock IN</button></a></li>
+    <li ng-if="user.is_logged == true"><a href="" ng-click="toggleModal()"><button class='sidenav-box'><img src="img/clock-out.png"><br>Clock Out</button></a></li>
+  </ul>
+</div>
+<div class='jumbotron e_d'>
+  <h2 align='center'>Time Keeper - Employee</h2>
+</div>
+<div class='container-fluid main'>
+
+  <div class='col-md-6'>
+    <img width='250' height='290' src="/img/profile_pic/dev.jpg">
+  </div>  
+
+  <div class='col-md-6 employee-info'>
+    <div height='690' width='650'>
+      <h2>Employee Snapshot <button class='pull-right btn btn-md btn-warning'><a href="/#/admin/dashboard">Go Back</a></button></h2>
+      <hr>
+      <table class='table snap-shot' ng-model="user">
+        <thead>
+          <tr>
+            <th colspan='2' class='table-head'>
+              <h3 ng-bind="user.name"></h3>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Team</td>
+            <td ng-bind="user.team"></td>
+          </tr>
+          <tr>
+            <td>E-Mail</td>
+            <td ng-bind="user.email"></td>
+          </tr>
+          <tr>
+            <td>Start Date</td>
+            <td ng-bind="user.start_date | date : format : shortDate"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+   <ul class='pull-right'>
+    <li><a tabindex='1' ng-click="dateFilter('all')">All</a></li>
+    <li><a tabindex='2' ng-click="dateFilter('this_week')">This week</a></li>
+    <li><a tabindex='3' ng-click="dateFilter('last_week')">Last week</a></li>
+    <li><a tabindex='4' ng-click="dateFilter('this_month')">This month</a></li>
+    <li><a tabindex='5' ng-click="dateFilter('last_month')">Last Month</a></li>
+  </ul>
+
+  <table class='table' ng-model="table">
+    <thead>
+      <th><a href="" ng-click="order='date'; reverse=!reverse">Date</a></th>
+      <th><a href="" ng-click="order='location'; reverse=!reverse">Location</a></th>
+      <th class='clk-btn'><a href="" ng-click="order='clock_in'; reverse=!reverse">Clock IN</a></th>
+      <th class='clk-btn'><a href="" ng-click="order='clock_out'; reverse=!reverse">Clock OUT</a></th>
+      <th><a href="" ng-click="order='personal'; reverse=!reverse">Personal Time</a></th>
+      <th><a href="" ng-click="order='billed'; reverse=!reverse">Billed Hours</a></th>
+      <th>Report</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="row in table | filter: { locations:place, name:member } | orderBy:order:reverse">
+        <td ng-bind="row.created_at | date:'M/dd (EEE)'"></td>
+        <td ng-bind="row.locations"></td>
+        <td ng-bind="row.clock_in | date:'shortTime'"></td>
+        <td ng-bind="row.clock_out | date:'shortTime'"></td>
+        <td ng-bind="row.personal_time  "></td>
+        <td ng-bind="row.billed"></td>
+        <td ng-bind="row.report"></td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="btn btn-danger" ng-csv="csvBody" csv-header="csvHead" filename="history.csv" ng-if="user.page=='history'">Download CSV</button>
+
+<!--************************  CLOCKOUT MODAL CONTENT *******************************-->
+  <modal-clockout session="13" user="user.id" personal='personal' report='report' show='modalShown' width='750px'>
+
+    <div class='container modal-settings clockout-content'>
+      <nav class='navbar navbar-fixed-top navbar-inverse'>
+        <h1 align='center'>Employee Clockout</h1>
+      </nav>
+
+      <form class='clockout-form' name='clockout_form'>
+        <select name='select' ng-model="personal">
+          <option value="" disabled selected>Choose Time</option>  
+          <option value="0">None</option>
+          <option value=".25">15 minutes</option>
+          <option value=".5" >30 minutes</option>
+          <option value=".75">45 minutes</option>
+          <option value="1"  >1 hour</option>
+          <option value="1.5">1.5 hours</option>
+          <option value="2"  >2 hours</option>
+        </select>
+        <h3>Report <span class='emphasis'>*mandatory</span></h3>
+        <h4>What did you work on? What did you accomplish?</h4>
+        <textarea ng-model="report" placeholder='example: Curriculum Update (1.5 hours), Lecture (1.0 hours), Assisting Students (3.0 hours), Meeting (!.0 hr), etc.'></textarea><br>
+        <button ng-click='clockOut(personal, report); reloadRoute();' class="btn btn-out">Clock Out</button>
+      </form>
+    </div>
+
+  </modal-clockout>
+<!--*********************  END CLOCKOUT MODAL CONTENT *******************************--> 
+</div>

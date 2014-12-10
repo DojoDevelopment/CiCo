@@ -16,12 +16,14 @@ module.exports = function Routes(app) {
 
   //Dashboard
   app.get('/api/table_admin_dash',    function(req, res){ tableSQL.get_table_dash_admin(req, res); });
-  app.get('/api/table_dashboard',     function(req, res){ tableSQL.get_table_dash_user(req, res);  });
 
   //History
-  app.get('/api/table_hist',          function(req, res){ tableSQL.get_table_history(req, res);    });
   app.get('/api/table_user/:id',      function(req, res){ employeeSQL.history(req, res);           });
   app.post('/api/date_range',         function(req, res){ tableSQL.get_table_date_range(req, res); });
+
+  //business/ip login
+  app.get('/api/main',                function(req, res){ tableSQL.get_table_main_users(req, res);  })
+
   //Business CRUD
   app.get('/api/business/:id',        function(req, res){ businessSQL.info(req, res)    });
   app.put('/api/business',            function(req, res){ businessSQL.update(req, res); });

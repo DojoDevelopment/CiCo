@@ -20,14 +20,16 @@ app.directive('modalDialog', function() {
     // controller: 'partials/admin_dash'
   };
 });
-app.directive('modalClockout', function() {
+
+app.directive('modalClockout',  function() {
   return{
     restrict: 'E',
     scope: {
-      personal: '=',
-      report: '=',
-      user: '=',
-      show: '='
+      personal: '='
+      , report: '='
+      , session: '='
+      , user: '='
+      , show: '='
     },
     replace: true, // Replace with the template below
     transclude: true, // custom content inside the directive

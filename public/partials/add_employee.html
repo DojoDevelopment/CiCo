@@ -1,4 +1,4 @@
-<div class='container-fluid'>
+<div class='container'>
   <table class='table add_table'>
     <thead>
       <th colspan="2">
@@ -71,6 +71,7 @@
       <tr>
         <td><h4>Upload Profile Picture</h4></td>
         <td>
+
           <input type="file" id="pic_path" ng-model="user.pic" name="pic">
 <!--      <div class="input-group">
             <span class="input-group-btn">
@@ -84,10 +85,12 @@
       </tr>
       <tr>
         <td><h4>Employee Start Date</h4></td>
+
         <td><input type="date" ng-model="user.start_date" name="start_date"></td>
+
       </tr>
       <tr>
-        <td><h4>Email & Password</h4></td>
+        <td><h4>Email &amp; Password</h4></td>
         <td>
           <label for="inputEmail" class="sr-only">Email</label>
           <input type="email" ng-model="user.email" class="form-control" name="email" placeholder="Email" required>
