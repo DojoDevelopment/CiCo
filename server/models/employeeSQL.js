@@ -1,5 +1,6 @@
 var pg = require('pg');
 var conString = require('../../config/db.js');
+var fs = require('fs-extra');
 
 module.exports = {
   
@@ -19,6 +20,10 @@ module.exports = {
       , req.body.admin
     ];
 
+    if (form[9]=='') form[9]=1;
+
+    console.log('form[9]: ', form[9]);
+
     var qry = 
         "INSERT INTO members ("
       +   " business_id"
@@ -37,28 +42,30 @@ module.exports = {
       + " ) VALUES (1,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,NOW())"
       + " RETURNING id";
 
-      var server = connect.createServer(
-          form({ keepExtensions: true }),
-          function(req, res, next){
-              // Form was submitted
-              if (req.form) {
-                console.log(req.form)
-                  // Do something when parsing is finished
-                  // and respond, or respond immediately
-                  // and work with the files.
-                  req.form.complete(function(err, fields, files){
-                      res.writeHead(200, {});
-                      if (err) res.write(JSON.stringify(err.message));
-                      res.write(JSON.stringify(fields));
-                      res.write(JSON.stringify(files));
-                      res.end();
-                  });
-              // Regular request, pass to next middleware
-              } else {
-                  next();
-              }
-          }
-      );
+      console.log(form);
+      console.log(qry);
+      // var server = connection.createServer(
+      //     form({ keepExtensions: true }),
+      //     function(req, res, next){
+      //         // Form was submitted
+      //         if (req.form) {
+      //           console.log(req.form)
+      //             // Do something when parsing is finished
+      //             // and respond, or respond immediately
+      //             // and work with the files.
+      //             req.form.complete(function(err, fields, files){
+      //                 res.writeHead(200, {});
+      //                 if (err) res.write(JSON.stringify(err.message));
+      //                 res.write(JSON.stringify(fields));
+      //                 res.write(JSON.stringify(files));
+      //                 res.end();
+      //             });
+      //         // Regular request, pass to next middleware
+      //         } else {
+      //             next();
+      //         }
+      //     }
+      // );
 
     var client = new pg.Client(conString);
     client.connect(function(err) {
@@ -66,9 +73,24 @@ module.exports = {
 
       client.query(qry, form, function(err, data) {
         if(err) { return console.error('error running query', err); }
-        var done = false;
+        //var done = false;
+        var done = true;
 //        data.rows[0].id;
         if(done==true){
+          console.log("this is the data.rows[0].id argument from query callback: ;", data.rows[0].id);
+          var available_files = fs.readdirSync("/Users/Alvaro/Desktop/cico/public/img/profile_pic/");
+          console.log(available_files);
+
+          var rand1000 = Math.floor(Math.random()*(1000-1) + 1);
+          var myFileURL = "/Users/Alvaro/Desktop/cico/public/img/profile_pic/"+available_files[available_files.length-1]; 
+          var myDestination = "/Users/Alvaro/Desktop/cico/uploads/pic_user_id_"+data.rows[0].id+".jpg";
+          console.log(__dirname);
+          fs.move(myFileURL,myDestination, function(err){
+            if (err){
+              throw err
+            }
+            console.log('moved ',myFileURL,' to ', myDestination);
+          });
           res.end("File uploaded.");
         }
         client.end();
