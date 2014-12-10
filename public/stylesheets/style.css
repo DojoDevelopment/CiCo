@@ -46,8 +46,7 @@ ul a:focus{
 
 
 table, thead, tr{ margin-top: 2%; }
-table th{ background-color: #eee; }
-
+table th{ background-color: #eee;}
 
 table tr:nth-child(odd), table tr:nth-child(even){ background-color: transparent; }
 table tr:nth-child(even) { background-color: #eee; }
@@ -148,8 +147,6 @@ button a:hover{ text-decoration: none; color:#4584EF; }
 #hrs{ outline:none; background:none; padding-bottom: 0em; border:none; height:1.5em !important; width:3em; }
 
 
-
-
   body{
     min-width: 900px;
   }
@@ -170,10 +167,9 @@ button a:hover{ text-decoration: none; color:#4584EF; }
   .sidenav ul{display: inline;}
   .sidenav li input{width:98%; border-style: none; text-indent: 1em; font-size: 1.5em; outline:none;}
   .sidenav button:focus{outline:none;}
-  .sidenav-box{background:#525461;height:13em; width:98%; border-style: none; border-bottom: 3px solid #242424;}
+  .sidenav-box{background:#525461; color:white; height:12.5em; width:98%; border-style: none; border-bottom: 3px solid #242424;}
   .sidenav-box:hover{background-color: #242424}
   .sidenav-box:nth-child(-n+2){ margin-bottom: 2%;}
-  .sidenav-box {color:white;}
   .sidenav-box a, .sidenav-box a:hover{text-decoration: none;}
   .sidenav-box img{height:5em; width:5em;}
 
@@ -181,6 +177,8 @@ button a:hover{ text-decoration: none; color:#4584EF; }
   /******** table css **********/
   /*****************************/
 
+  .table-wrap {height:34em; overflow-y:scroll; }
+  .table-wrap thead { position:absolute; }
   .time-table, .time-table th, .time-table td { border-bottom: 2px solid #428BCB !important;}
   .time-table img{height:2em; width:1.8em;} 
 
@@ -190,5 +188,5 @@ button a:hover{ text-decoration: none; color:#4584EF; }
 
   .main{display: inline-block; position:absolute; margin-top: 1%; margin-left: 5% !important; width:76%;}
   .e_d{background-color: #428BCB !important; color:white !important;} /*jumbotron employee dashboard*/
-  .a_d{background-color: #03C8A2 !important; color:white !important;} /*jumbotron for admin partials*/
+  .a_d{background-color: #03C8A2 !important; color:white !important; margin-bottom: 2%;} /*jumbotron for admin partials*/
 

@@ -1,7 +1,10 @@
 
 span{ color:salmon; }
 
-#admin_login{ min-width: 700px; background-size:cover; background-image:url(../img/mac_programmer.jpeg); }
+#admin_login{ min-width: 700px;   
+			  background-color: #D4DCE5; /*loads before background image for contrast and usability w/ slow connections*/
+			  background-size:cover; 
+			  background-image:url(../img/mac_programmer.jpeg); }
 
 .login_box{ margin-top: 10%; margin-left: 28%; height: 35em; width:45%; }
 
@@ -29,6 +32,7 @@ span{ color:salmon; }
 
 
 .form-group p{ color: #337AB7; margin-top: 3%; }
-.form-group .btn{ margin-top: 5%; }
+.form-group .btn{ margin-top: 5%; opacity: 0.7 !important; }
+.form-group .btn:hover{ opacity: 1.0 !important; }
 
 #dev-box{ background-color: gray; }
