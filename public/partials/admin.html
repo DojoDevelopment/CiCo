@@ -44,20 +44,21 @@
 
       </div>
     </div>  -->
-    <div>
+<!--     <div>
       
+
+    </div> -->
+
+<!--       <div class='table-wrap'> -->
         <ul ng-if="user.page=='history'">
-          <li><a tabindex='1' ng-click="dateFilter('all')">All</a></li>
-          <li><a tabindex='2' ng-click="dateFilter('this_week')">This week</a></li>
-          <li><a tabindex='3' ng-click="dateFilter('last_week')">Last week</a></li>
-          <li><a tabindex='4' ng-click="dateFilter('this_month')">This month</a></li>
-          <li><a tabindex='5' ng-click="dateFilter('last_month')">Last Month</a></li>
-        </ul>
-    </div>
+            <li><a tabindex='1' ng-click="dateFilter('all')">All</a></li>
+            <li><a tabindex='2' ng-click="dateFilter('this_week')">This week</a></li>
+            <li><a tabindex='3' ng-click="dateFilter('last_week')">Last week</a></li>
+            <li><a tabindex='4' ng-click="dateFilter('this_month')">This month</a></li>
+            <li><a tabindex='5' ng-click="dateFilter('last_month')">Last Month</a></li>
+          </ul>
 
-      <div class='table-wrap'>
-
-        <table ng-if="user.page=='history'" class='table table-striped time-table'>
+        <table fixed-header table-height='25em' ng-if="user.page=='history'" class='table table-striped time-table'>
 
         <thead>
           <tr>
@@ -87,12 +88,12 @@
             <td ng-bind="row.clock_out | date:'shortTime'"></td>
             <td ng-bind="row.personal_time"></td>
             <td ng-bind="row.billed"></td>
-            <td ng-bind="row.report"></td>
+            <td id='row-report' ng-bind="row.report"></td>
           </tr>
         </tbody>
       </table>
 
-      <table class='table' ng-if="user.page=='dash'">
+      <table class='table time-table' ng-if="user.page=='dash'">
         <thead>
           <th>Picture</th>
           <th><a href="" ng-click="order='name'; reverse=!reverse">Name</a></th>
@@ -118,7 +119,7 @@
           </tr>
         </tbody>
       </table>
-      </div>
+<!--       </div> -->
 <!--         <button class="btn btn-danger" ng-csv="csvBody" csv-header="csvHead" filename="history.csv" ng-if="user.page=='history'">Download CSV</button> -->
       <div>
       </div>
