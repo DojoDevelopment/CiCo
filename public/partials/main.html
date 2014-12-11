@@ -1,14 +1,13 @@
 <nav class='navbar navbar-top'>
     <div class='nav-logo'>
       <img src="img/coding_dojo.png">
-<!--       <button class='pull-right btn btn-lg btn-danger'>Logout</button> -->
     </div>
   </nav>
   <div class='sidenav pull-left'>
     <ul>
       <li><input placeholder='email' type='email' ng-model="credentials.email"></li>
       <li><input placeholder='password' type='password' ng-model="credentials.password"></li>
-      <li><a href="" ng-click="login(credentials)"><button class='sidenav-box'><img src="img/clock-in.png"><br>Log IN</button></a></li>
+      <li><a href="" ng-click="login(credentials)"><button class='sidenav-box'><img src="img/login.png"><br>Log IN</button></a></li>
     </ul>
   </div>
   <div class='jumbotron e_d'>
@@ -57,7 +56,7 @@
         </select>
         <h3>Report <span class='emphasis'>*mandatory</span></h3>
         <h4>What did you work on? What did you accomplish?</h4>
-        <textarea ng-model="report" placeholder='example: Curriculum Update (1.5 hours), Lecture (1.0 hours), Assisting Students (3.0 hours), Meeting (!.0 hr), etc.'></textarea><br>
+        <textarea ng-maxlength="30" ng-model="report" placeholder='example: Curriculum Update (1.5 hours), Lecture (1.0 hours), Assisting Students (3.0 hours), Meeting (!.0 hr), etc.'></textarea><br>
         <button ng-click='clockOut(personal,report, clockout_form); reloadRoute();' class="btn btn-out">Clock Out</button>
       </form>
     </div>

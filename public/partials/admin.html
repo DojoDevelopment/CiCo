@@ -1,7 +1,6 @@
 <div class='navbar navbar-top'>
   <div class='nav-logo'>
     <img src="img/coding_dojo.png">
-<!--       <a href="/#/"><button class='pull-right btn btn-lg btn-danger'>Logout</button></a> -->
   </div>
 </div>
 <div class='sidenav pull-left'>
@@ -17,45 +16,49 @@
 </div>
 <div class='container-fluid main'>
 
-<!--   <div class='filter row-md-4 pull-right'>
+  <div class='pull-left'>
+    
+    <form ng-if="user.page=='history'">
+      <input type='date' ng-model="from_date"> to <input type='date' ng-model="to_date">
+      <button type='submit' ng-click="dateFilter(from_date, to_date)" class='pull-right btn btn-sm btn-date'>Filter by Date</button>
+    </form>
 
-    <div class='container-sm'>
-
-      <select ng-model="place">
-        <option value="" disabled selected>Filter Location</option>
-        <option value="">All</option>
-        <option ng-repeat="l in locations" value="{{l.name}}" ng-bind="l.name"></option>
-      </select>
-
-      <select class='pull-right' ng-model="people" ng-if="user.page=='history'">
-        <option value="" disabled selected>Filter Name</option>
-        <option value="">All</option>
-        <option ng-repeat="m in members | filter:m" value="{{m.name}}" ng-bind="m.name"></option>
-      </select>
-
-      <p ng-if="user.page=='history'">Filter by Date:</p>
-      <form ng-if="user.page=='history'">
-        <input type='date' ng-model="from_date"> to <input type='date' ng-model="to_date">
-        <button type='submit' ng-click="dateFilter(from_date, to_date)" class='pull-right btn btn-sm btn-date'>Submit Date</button>
-      </form>
-
-
-    </div>
-  </div>  -->
-  <div>
-    <ul ng-if="user.page=='history'">
-      <li><a tabindex='1' ng-click="dateFilter('all')">All</a></li>
-      <li><a tabindex='2' ng-click="dateFilter('this_week')">This week</a></li>
-      <li><a tabindex='3' ng-click="dateFilter('last_week')">Last week</a></li>
-      <li><a tabindex='4' ng-click="dateFilter('this_month')">This month</a></li>
-      <li><a tabindex='5' ng-click="dateFilter('last_month')">Last Month</a></li>
-    </ul>
   </div>
 
-  <div class='table-wrap'>
+  <div class='pull-right'>
 
-    <table fixed-header table-height='25em' ng-if="user.page=='history'" class='table table-striped time-table'>
+    <div class='container-sm'>
+      <div style='margin-bottom:7px; margin-left:26px;'>
+          <select class='test' ng-model="place">
+            <option value="" disabled selected>Filter Location</option>
+            <option value="">All</option>
+            <option ng-repeat="l in locations" value="{{l.name}}" ng-bind="l.name"></option>
+          </select>
+
+          <select style='margin-left:69px;' ng-model="people">
+            <option value="" disabled selected>Filter Name</option>
+            <option value="">All</option>
+            <option ng-repeat="m in members | filter:m" value="{{m.name}}" ng-bind="m.name"></option>
+          </select>
+      </div>
+
+      <div ng-if="user.page=='history'" style='margin-bottom:-18px; margin-left:-10px;'class='pull-right'>
+        <ul ng-if="user.page=='history'">
+          <li><a tabindex='1' ng-click="dateFilter('all')">All</a></li>
+          <li><a tabindex='2' ng-click="dateFilter('this_week')">This week</a></li>
+          <li><a tabindex='3' ng-click="dateFilter('last_week')">Last week</a></li>
+          <li><a tabindex='4' ng-click="dateFilter('this_month')">This month</a></li>
+          <li><a tabindex='5' ng-click="dateFilter('last_month')">Last Month</a></li>
+        </ul>
+      </div>
+    </div>
+  </div> 
+
+  <div class='container-sm table-wrap'>
+
+    <table fixed-header table-height='19em' ng-if="user.page=='history'" class='table table-striped time-table'>
       <thead>
+
         <tr>
           <th><a href="" ng-click="order='date'; reverse=!reverse">Date</a></th>
 
@@ -73,21 +76,23 @@
       </thead>
       <tbody>
         <tr ng-repeat="row in history_table | filter: { locations:place, name:people } | orderBy:order:reverse">
-          <td ng-bind="row.clock_in | date:'dd/M (EEE)'"></td>
-          <td><img height='30' width='30' class='img-rounded' src="/img/profile_pic/dev.jpg">{{row.name}}</td>
-          <td ng-bind="row.title"></td>
-          <td ng-bind="row.team"></td>
-          <td ng-bind="row.locations"></td>
-          <td ng-bind="row.clock_in | date:'shortTime'"></td>
-          <td ng-bind="row.clock_out | date:'shortTime'"></td>
-          <td ng-bind="row.personal_time"></td>
-          <td ng-bind="row.billed"></td>
-          <td ng-bind="row.report"></td>
+          <td id='date' ng-bind="row.clock_in | date:'dd/M (EEE)'"></td>
+          <td id='name'><img height='30' width='30' class='img-rounded' src="/img/profile_pic/dev.jpg">{{row.name}}</td>
+          <td id='title' ng-bind="row.title"></td>
+          <td id='team'ng-bind="row.team"></td>
+          <td id='location' ng-bind="row.locations"></td>
+          <td id='in' ng-bind="row.clock_in | date:'shortTime'"></td>
+          <td id='out' ng-bind="row.clock_out | date:'shortTime'"></td>
+          <td id='pt' ng-bind="row.personal_time"></td>
+          <td id='billed' ng-bind="row.billed"></td>
+          <td id='report' ng-bind="row.report"></td>
         </tr>
       </tbody>
-    </table>
 
-    <table class='table' ng-if="user.page=='dash'">
+    </table>
+    <button class="btn btn-danger" ng-csv="csvBody" csv-header="csvHead" filename="history.csv" ng-if="user.page=='history'">Download CSV</button>
+
+    <table class='table dash-table' ng-if="user.page=='dash'">
       <thead>
         <th><a href="" ng-click="order='name'; reverse=!reverse">Name</a></th>
         <th><a href="" ng-click="order='status'; reverse=!reverse">Status</a></th>
@@ -113,24 +118,22 @@
     </table>
   </div>
 
-<!--         <button class="btn btn-danger" ng-csv="csvBody" csv-header="csvHead" filename="history.csv" ng-if="user.page=='history'">Download CSV</button> -->
-
 </div>
 <!--************************  SETTINGS MODAL CONTENT *******************************-->
 <modal-dialog show='modalShown' width='750px'>
-  <div class='container modal-settings'>
-    <nav class='navbar navbar-fixed-top navbar-inverse'>
-      <h1 align='center'>Edit Settings</h1>
-    </nav>
-    <form>
-      Company Name:<label for="inputCompany" class="sr-only">Company Name</label>
-      <input ng-model="name" class="form-control" placeholder="example: Coding Dojo" type="text" required autofocus>
+<div class='container modal-settings'>
+  <nav class='navbar navbar-fixed-top navbar-inverse'>
+    <h1 align='center'>Edit Settings</h1>
+  </nav>
+  <form>
+    Company Name:<label for="inputCompany" class="sr-only">Company Name</label>
+    <input ng-model="name" class="form-control" placeholder="example: Coding Dojo" type="text" required autofocus>
 
-      On-Site IP Address:<label for='ipAdd' class='sr-only'>On-Site IP Addresses</label>
-      <textarea ng-model='ip' class='form-control' placeholder='Separate by comma - example: 192.168.2.1, 192.128.2.2'></textarea>
+    On-Site IP Address:<label for='ipAdd' class='sr-only'>On-Site IP Addresses</label>
+    <textarea ng-model='ip' class='form-control' placeholder='Separate by comma - example: 192.168.2.1, 192.128.2.2'></textarea>
 
-      <button class="btn btn-lg btn-in pull-right" type='submit' ng-click="updateSettings()">Save</button>
-    </form>
-  </div>
+    <button class="btn btn-lg btn-in pull-right" type='submit' ng-click="updateSettings()">Save</button>
+  </form>
+</div>
 </modal-dialog>
 <!--*********************  END SETTINGS MODAL CONTENT *******************************-->
