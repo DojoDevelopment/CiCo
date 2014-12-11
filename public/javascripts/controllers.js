@@ -46,6 +46,10 @@ app.controller('employee', function($scope, $location, EmployeeFactory, ListFact
   }
   
   $scope.add_employee = function(){
+    console.log('in add employee function in controllers.js');
+
+    //var admin = (document.getElementById('inputAdmin').checked == true ? 'contractor' : 'employee');
+
 
     var info = {
       name       : $scope.user.name
@@ -64,6 +68,20 @@ app.controller('employee', function($scope, $location, EmployeeFactory, ListFact
     
     EmployeeFactory.factory_create_employee(info);
   }
+
+  $scope.upload_file = function(){
+    
+
+    //var data = {file: $scope.user.pic};
+    var data = {file: $scope.upload_file};
+
+    console.log('in upload_file function in controllers.js, will send this data: ',data);
+
+    EmployeeFactory.factory_upload_file(data);
+  }
+
+  
+
 
   $scope.update_employee = function(){
     //get id from url

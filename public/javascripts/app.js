@@ -3,7 +3,7 @@ var app = angular.module('myApp', ['ngRoute', 'routeStyles', 'ngSanitize', 'ngCs
 app.config(function($routeProvider){
 
   $routeProvider
-  //index page for non loged in users
+  //index page for non logged in users
   .when('/', {
 
     templateUrl: 'partials/index.html',

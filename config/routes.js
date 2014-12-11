@@ -4,6 +4,7 @@ var tableSQL    = require('../server/models/tableSQL.js');
 var businessSQL = require('../server/models/businessSQL.js');
 var employeeSQL = require('../server/models/employeeSQL.js');
 var loggingSQL  = require('../server/models/loggingSQL.js');
+//var picUpload = require('../server/controllers/picUpload.js');
 
 module.exports = function Routes(app) { 
   app.get('/', function(req, res){ main.index(req,res); });
@@ -32,6 +33,15 @@ module.exports = function Routes(app) {
   app.post('/api/employee',           function(req, res){ employeeSQL.create(req, res); });
   app.get( '/api/employee/:id',       function(req, res){ employeeSQL.show(req, res);   });
   app.put( '/api/employee/:id',       function(req, res){ employeeSQL.update(req, res); });
+
+
+  //Employee pic file upload
+  app.post('/api/upload',             function( req,res){
+                                          console.log("in routes and this is my req.files: ", req.files); 
+                                          //picUpload.uploadFile(req,res); 
+                                      }
+  );
+  
 
   //Clock in / out
   app.post('/api/clock_in/:id',       function(req, res){ employeeSQL.clock_in( req, res);   });

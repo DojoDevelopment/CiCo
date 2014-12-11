@@ -5,10 +5,22 @@ var express = require('express')
  ,  http = require('http')
  ,  path = require('path')
  ,  session = require('express-session')
- ,  cookieParser = require('cookie-parser');
+ ,  cookieParser = require('cookie-parser')
+ ,  fs = require('fs-extra') //file system - for file manipulation
+ ,  multer = require('multer'); //middleware for form/file upload
 
 // set the app variable 
 var app = express();
+
+//use multer, important: multer will not process any form which is not multipart/form-data
+app.use(multer({ 
+	dest: './public/img/profile_pic/',
+	rename: function (fieldname, filename) {
+		return filename.replace(/\W+/g, '-').toLowerCase() + Date.now();
+	}
+}));
+
+
 
 app.use(session({
   secret: 'qwerty',
