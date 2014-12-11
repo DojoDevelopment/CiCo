@@ -13,20 +13,24 @@
   <div class='jumbotron e_d'>
     <h2 align='center'>Time Keeper - Employee</h2>
   </div>
+  
+
   <div class='container-fluid main'>
 
-    <table class='table table-bordered'>
+
+    <!-- <table class='table table-bordered'> -->
+    <table class='table' ng-model="table">
 
       <thead>
         <tr>
-          <td>Name</td>
-          <td>Logged in</td>
-          <td>Location</td>
-          <td>Team</td>
+          <td><a href="" ng-click="order='name'; reverse=!reverse">Name</a></td>
+          <td><a href="" ng-click="order='is_logged'; reverse=!reverse">Logged in</a></td>
+          <td><a href="" ng-click="order='locations'; reverse=!reverse">Location</a></td>
+          <td><a href="" ng-click="order='team'; reverse=!reverse">Team</a></td>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="row in table">
+        <tr ng-repeat="row in table | filter: { locations:place, name:member} | orderBy:order:reverse">
           <td><img width='30' height='30' src="/img/profile_pic/dev.jpg">{{row.name}}</td>
           <td ng-bind="row.is_logged"></td>
           <td ng-bind="row.locations"></td>
