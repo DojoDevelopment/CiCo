@@ -74,7 +74,17 @@
       <tbody>
         <tr ng-repeat="row in history_table | filter: { locations:place, name:people } | orderBy:order:reverse">
           <td ng-bind="row.clock_in | date:'dd/M (EEE)'"></td>
-          <td><img height='30' width='30' class='img-rounded' src="/img/profile_pic/dev.jpg">{{row.name}}</td>
+          <td>
+            <div ng-switch on="{{row.pic}}" >
+              <span ng-switch-when="{{row.pic}}">
+                <img height='30' width='30' class='img-rounded' ng-src="/img/profile_pic/profile_{{row.id}}.jpg" />
+              </span>
+              <span ng-switch-default>
+                <img height='30' width='30' class='img-rounded' src="/img/profile_pic/anon.png" />
+              </span>
+            </div>
+            {{row.name}}
+          </td>
           <td ng-bind="row.title"></td>
           <td ng-bind="row.team"></td>
           <td ng-bind="row.locations"></td>
@@ -100,7 +110,17 @@
       </thead>
       <tbody>
         <tr ng-repeat="row in dashboard_table | filter: { locations:place } | orderBy:order:reverse">
-          <td><img height='30' width='30' class='img-rounded' src="/img/profile_pic/dev.jpg">{{row.name}}</td>
+          <td>
+            <div ng-switch on="{{row.pic}}" >
+              <span ng-switch-when="{{row.pic}}">
+                <img height='30' width='30' class='img-rounded' ng-src="/img/profile_pic/profile_{{row.id}}.jpg" />
+              </span>
+              <span ng-switch-default>
+                <img height='30' width='30' class='img-rounded' src="/img/profile_pic/anon.png" />
+              </span>
+            </div>
+            {{row.name}}
+          </td>
           <td ng-bind="row.status"></td>
           <td ng-bind="row.title"></td>
           <td ng-bind="row.team"></td>

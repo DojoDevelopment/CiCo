@@ -326,7 +326,7 @@ app.controller('LoginController', function($scope, LoginFactory) {
   });
 
   $scope.credentials = {
-    email : 'afenech@gmail.com',
+    email : 'tony@gmail.com',
     password : 'password'
   };
 

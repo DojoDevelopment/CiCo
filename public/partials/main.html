@@ -28,7 +28,17 @@
       </thead>
       <tbody>
         <tr ng-repeat="row in table">
-          <td><img width='30' height='30' src="/img/profile_pic/dev.jpg">{{row.name}}</td>
+          <td>
+            <div ng-switch on="{{row.pic}}" >
+              <span ng-switch-when="{{row.pic}}">
+                <img height='30' width='30' class='img-rounded' ng-src="/img/profile_pic/profile_{{row.id}}.jpg" />
+              </span>
+              <span ng-switch-default>
+                <img height='30' width='30' class='img-rounded' src="/img/profile_pic/anon.png" />
+              </span>
+            </div>
+            {{row.name}}
+          </td>
           <td ng-bind="row.is_logged"></td>
           <td ng-bind="row.locations"></td>
           <td ng-bind="row.team"></td>
