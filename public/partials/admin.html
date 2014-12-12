@@ -76,7 +76,6 @@
       </thead>
       <tbody>
         <tr ng-repeat="row in history_table | filter: { locations:place, name:people } | orderBy:order:reverse">
-<<<<<<< HEAD
           <td id='date'     ng-bind="row.clock_in | date:'dd/M (EEE)'"></td>
           <td id='name'>
             <div ng-switch on="{{row.pic}}" >
@@ -97,18 +96,6 @@
           <td id='pt'       ng-bind="row.personal_time"></td>
           <td id='billed'   ng-bind="row.billed"></td>
           <td id='report'   ng-bind="row.report"></td>
-=======
-          <td id='date' ng-bind="row.clock_in | date:'dd/M (EEE)'"></td>
-          <td id='name'><img height='30' width='30' class='img-rounded' src="/img/profile_pic/dev.jpg">{{row.name}}</td>
-          <td id='title' ng-bind="row.title"></td>
-          <td id='team'ng-bind="row.team"></td>
-          <td id='location' ng-bind="row.locations"></td>
-          <td id='in' ng-bind="row.clock_in | date:'shortTime'"></td>
-          <td id='out' ng-bind="row.clock_out | date:'shortTime'"></td>
-          <td id='pt' ng-bind="row.personal_time"></td>
-          <td id='billed' ng-bind="row.billed"></td>
-          <td id='report' ng-bind="row.report"></td>
->>>>>>> ba19df9aa7c40ab33e44b0084678679f7269a7c1
         </tr>
       </tbody>
 

@@ -13,11 +13,7 @@
   <div class='jumbotron e_d'>
     <h2 align='center'>Time Keeper - Employee</h2>
   </div>
-  
-
   <div class='container-fluid main'>
-
-
     <!-- <table class='table table-bordered'> -->
     <table class='table' ng-model="table">
 
@@ -30,8 +26,7 @@
         </tr>
       </thead>
       <tbody>
-<<<<<<< HEAD
-        <tr ng-repeat="row in table">
+        <tr ng-repeat="row in table | filter: { locations:place, name:member} | orderBy:order:reverse">
           <td>
             <div ng-switch on="{{row.pic}}" >
               <span ng-switch-when="{{row.pic}}">
@@ -43,10 +38,6 @@
             </div>
             {{row.name}}
           </td>
-=======
-        <tr ng-repeat="row in table | filter: { locations:place, name:member} | orderBy:order:reverse">
-          <td><img width='30' height='30' src="/img/profile_pic/dev.jpg">{{row.name}}</td>
->>>>>>> ba19df9aa7c40ab33e44b0084678679f7269a7c1
           <td ng-bind="row.is_logged"></td>
           <td ng-bind="row.locations"></td>
           <td ng-bind="row.team"></td>
