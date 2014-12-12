@@ -63,5 +63,13 @@ module.exports = {
         client.end();
       });
     });
+  }, get_session : function(req, res){
+    if (req.session.user == undefined ) {
+      req.session.user = {login : false, admin : false }
+    }
+    res.json({ user : req.session.user });
+  }, logout : function(req, res){
+    req.session.user = {login : false, admin : false }
+    res.status(200).end();
   }
 }

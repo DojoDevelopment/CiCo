@@ -3,7 +3,7 @@ var app = angular.module('myApp', ['ngRoute', 'routeStyles', 'ngSanitize', 'ngCs
 app.config(function($routeProvider){
 
   $routeProvider
-  //index page for non loged in users
+  //index page for non logged in users
   .when('/', {
 
     templateUrl: 'partials/index.html',
@@ -88,14 +88,14 @@ app.config(function($routeProvider){
       var login = next.$$route.data.login;
       var admin = next.$$route.data.admin;
 
-      AuthFactory.getSession(function(user){
+      AuthFactory.factory_getSession(function(user){
 
         if (login && !user.login){
           $location.path('/');
         };
 
         if (admin && !user.admin){
-          $location.path('/admin/login');
+          $location.path('/admin');
         }
       });       
     } 

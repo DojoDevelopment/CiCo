@@ -55,7 +55,7 @@ module.exports = {
         if(done==true){
           console.log("this is the data.rows[0].id argument from query callback: ;", data.rows[0].id);
           var available_files = fs.readdirSync("/Users/Alvaro/Desktop/cico/public/img/profile_pic/");
-          console.log(available_files);
+          console.log("these are the files in public/img/profile_pics: ",available_files);
 
           var rand1000 = Math.floor(Math.random()*(1000-1) + 1);
           var myFileURL = "/Users/Alvaro/Desktop/cico/public/img/profile_pic/"+available_files[available_files.length-1]; 

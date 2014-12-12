@@ -42,25 +42,14 @@ module.exports = function Routes(app) {
                                       }
   );
   
-
   //Clock in / out
   app.post('/api/clock_in/:id',       function(req, res){ employeeSQL.clock_in( req, res);   });
   app.post('/api/clock_out/:session', function(req, res){ employeeSQL.clock_out(req, res);   });
-  app.get( '/api/last_clocking/:id',   function(req, res){ employeeSQL.last_clocking(req, res)});
+  app.get( '/api/last_clocking/:id',  function(req, res){ employeeSQL.last_clocking(req, res)});
 
   //log in
-  app.post('/api/login',              function(req, res){ loggingSQL.login(req, res);    });
-  app.post('/api/ip_login',           function(req, res){ loggingSQL.ip_login(req, res); });
-
-  app.get('/api/get_session', function(req, res){
-    if (req.session.user == undefined ) {
-      req.session.user = {login : false, admin : false }
-    }
-    res.json({ user : req.session.user });
-  });
-
-  app.get('/api/logout', function(req, res){
-    req.session.user = {login : false, admin : false }
-    res.status(200).end();
-  });
+  app.post('/api/login',      function(req, res){ loggingSQL.login(req, res);       });
+  app.post('/api/ip_login',   function(req, res){ loggingSQL.ip_login(req, res);    });
+  app.get('/api/get_session', function(req, res){ loggingSQL.get_session(req, res); });
+  app.get('/api/logout',      function(req, res){ loggingSQL.logout(req, res);      });
 }

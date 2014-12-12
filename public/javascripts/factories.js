@@ -238,11 +238,12 @@ app.factory('LoginFactory', function($http, $location){
 app.factory('AuthFactory', function($http){
   return {
     
-    getSession : function(callback){
+    factory_getSession : function(callback){
     
       $http
         .get('/api/get_session')
         .success(function(data){
+          console.log('getSession data:', data);
           callback(data.user);
       });
     

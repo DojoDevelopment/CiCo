@@ -46,22 +46,29 @@ ul a:focus{
 /********************  TABLES  ******************************/
 
 
-table, thead, tr{ margin-top: 2%; }
+table, thead, tr{ margin-top: 1%; }
 table th{ background-color: #eee;}
 
 table tr:nth-child(odd), table tr:nth-child(even){ background-color: transparent; }
 table tr:nth-child(even) { background-color: #eee; }
 table tr:nth-child(odd) { background-color: #fff; }
 
-td img{ margin-left: 20%; }
+td img{ margin-right: 5%; }
 tr td .names{ font-style: italic; font-size: .9em; color:#9F9F9F; }
 tr td .status{ font-weight: bold; font-size: .9em; color:#9F9F9F; }
 hr{ border:1px solid #CECDCC; }
 
+
+/*Widths for history pages -- bug workaround for sticky table head*/
+#date, #title, #in, #out, #pt, #billed{ width:9%;}
+#name{ width:14%; }
+#team, #location{ width: 10%;}
+#report{ width: 55px;}
+
 .table-head { border:none !important; border-top-right-radius: 1em !important; border-top-left-radius: 1em !important;
               background-color: #676767 !important; color: white; margin-bottom: -2% !important; width:100% !important; }
 
-.add_table{ margin-top: 0; }
+.add_table{ margin-top: 3%;}
 .add_table>tbody>tr>td{ width:25%; }
 .add_table>tbody>tr>td:first-child{ border-right: 1px solid #DDDDDD; }
 .add_table>tbody>tr>td:last-child{ border-right: none; }
@@ -82,7 +89,7 @@ hr{ border:1px solid #CECDCC; }
                     background-color:#000000; opacity: 0.8; }
 
 .ng-modal-dialog { color:black; padding: 1% 5% 1% 5%; z-index:10000; position: absolute; width: 10em;
-                   height: 3  5em; overflow-y: none; top: 40%; left: 50%;
+                   height: 3  5em; overflow-y: none; top: 35%; left: 50%;
                    transform: translate(-50%, -50%);
                   -webkit-transform: translate(-50%, -50%);
                   -moz-transform: translate(-50%, -50%);
@@ -92,6 +99,8 @@ hr{ border:1px solid #CECDCC; }
 
 .ng-modal-close {  color:white; position: fixed; top: 3px; right: 5px; padding: 5px; cursor: pointer; z-index: inherit; 
                    font-size: 120%; display: inline-block; font-weight: bold; font-family: 'arial', 'sans-serif'; }
+
+.ng-modal-close:hover{ color:#03C8A2; }
 
 .ng-modal-settings { background-color: lightgray; }    
 
@@ -112,7 +121,7 @@ hr{ border:1px solid #CECDCC; }
 button a{ text-decoration: none; color:white; }
 button a:hover{ text-decoration: none; color:#4584EF; }
 
-.btn-date{ color:white; margin-top: 3% !important; background-color: #0D81FF; }
+.btn-date{ color:white; background-color: #0D81FF;  height:39px;}
 .btn-file { position: relative; overflow: hidden; }
 .btn-file input[type=file] { position: absolute; top: 0; right: 0; min-width: 100%; min-height: 100%; font-size: 100px; 
                              text-align: right; filter: alpha(opacity=0); opacity: 0; cursor: inherit; display: block; }
@@ -139,9 +148,11 @@ button a:hover{ text-decoration: none; color:#4584EF; }
 
 /********************  MISC CSS  ****************************/
 
+td .checkbox { position:absolute !important; }
+
 .employee-info div{ margin-top: -25px !important; }
 
-.filters{ display: inline-block; margin-left: 5em; margin-bottom: 2%; }
+.filter-box{ margin-bottom:-26px; margin-left:-41px; }
 
 #settings{ margin-top: 15%; margin-bottom: 2%; }
 
@@ -164,29 +175,15 @@ button a:hover{ text-decoration: none; color:#4584EF; }
   /*******side nav bar**********/
   /*****************************/
 
-  .sidenav{background-color: #242424; min-width:14em; margin-top: -1.4em !important;}
+  .sidenav{background-color: #242424; height:56em; min-width:15em; margin-top: -1.4em !important;}
   .sidenav ul{display: inline;}
-  .sidenav li input{width:98%; border-style: none; text-indent: 1em; font-size: 1.5em; outline:none;}
+  .sidenav li input{width:98%; text-indent: 1em; font-size: 1.5em; outline:none;}
   .sidenav button:focus{outline:none;}
-  .sidenav-box{background:#525461; color:white; height:12.5em; width:98%; border-style: none; border-bottom: 3px solid #242424;}
+  .sidenav-box{background:#525461; color:white; height:13em; width:98%; border-style: none; border-bottom: 3px solid #242424;}
   .sidenav-box:hover{background-color: #242424}
   .sidenav-box:nth-child(-n+2){ margin-bottom: 2%;}
   .sidenav-box a, .sidenav-box a:hover{text-decoration: none;}
   .sidenav-box img{height:5em; width:5em;}
-
-  /*****************************/
-  /******** table css **********/
-  /*****************************/
-
-/*#tester table {width:100%;}
-#tester thead, tbody, tr, td, th { display: block; }
-#tester tr:after { content: ' '; display: block; visibility: hidden; clear: both; }
-
-#tester tbody { height: 25em; overflow-y: auto; }
-
-#tester tbody td, thead th{ width: 9.4em; float: left; }*/
-
-/*  .table-wrap {height:34em; overflow-y:scroll; }*/
 
 
   /*****************************/
