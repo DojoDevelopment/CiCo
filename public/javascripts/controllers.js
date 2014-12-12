@@ -111,7 +111,7 @@ app.controller('EmployeeController', function($scope, $location, EmployeeFactory
 });
 
 //SHOW USER
-app.controller('employeeInfo', function($scope, $location, EmployeeFactory, ListFactory, TableFactory, LoginFactory){
+app.controller('EmployeeInfoController', function($scope, $location, EmployeeFactory, ListFactory, TableFactory, LoginFactory){
 
   var userID = $location.path().split('/')[3];
 

@@ -58,7 +58,7 @@ app.config(function($routeProvider){
   }).when('/admin/show/:id', {
   
     templateUrl: 'partials/show_employee.html', 
-    controller:  'employeeInfo',
+    controller:  'EmployeeInfoController',
     data: {
       login : true,
       admin : true
@@ -88,7 +88,7 @@ app.config(function($routeProvider){
       var login = next.$$route.data.login;
       var admin = next.$$route.data.admin;
 
-      AuthFactory.getSession(function(user){
+      AuthFactory.factory_getSession(function(user){
 
         if (login && !user.login){
           $location.path('/');
