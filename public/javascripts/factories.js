@@ -205,15 +205,8 @@ app.factory('LoginFactory', function($http, $location){
 
     }, factory_ip_login : function(info){
 
-      $http
-        .post('/api/ip_login', info)
-        .success(function(){
-          console.log('success');
-          document.location.href = '../#/main';
-        })
-        .error(function(){
-          console.log('error');
-        });
+      $http.post('/api/ip_login', info)
+        .success($location.path('/main'));
 
     }, login : function(credentials){
     
@@ -231,7 +224,7 @@ app.factory('LoginFactory', function($http, $location){
     }, logout : function(){
     
       $http
-        .post('/api/logout')
+        .get('/api/logout')
         .success(function(){
           $location.path('/')
         });

@@ -83,8 +83,12 @@ app.config(function($routeProvider){
 .run(function ($rootScope, $location, AuthFactory) {
 
  $rootScope.$on('$routeChangeStart', function (event, next, current) {
-    
+
+    console.log('current', current);
+    //if (current && current.$$route && current.$$current.data)
+
     if (next && next.$$route && next.$$route.data) { 
+      console.log('in next');
       var login = next.$$route.data.login;
       var admin = next.$$route.data.admin;
 
@@ -97,7 +101,7 @@ app.config(function($routeProvider){
         if (admin && !user.admin){
           $location.path('/main');
         }
-      });       
+      });
     } 
   })
 });
