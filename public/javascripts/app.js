@@ -88,14 +88,22 @@ app.config(function($routeProvider){
       var login = next.$$route.data.login;
       var admin = next.$$route.data.admin;
 
+<<<<<<< HEAD
       AuthFactory.factory_getSession(function(user){
+=======
+      AuthFactory.getSession(function(user){
+>>>>>>> ba19df9aa7c40ab33e44b0084678679f7269a7c1
 
         if (login && !user.login){
           $location.path('/');
         };
 
         if (admin && !user.admin){
+<<<<<<< HEAD
           $location.path('/admin');
+=======
+          $location.path('/admin/login');
+>>>>>>> ba19df9aa7c40ab33e44b0084678679f7269a7c1
         }
       });       
     } 
