@@ -208,8 +208,12 @@ app.factory('LoginFactory', function($http, $location){
       $http
         .post('/api/ip_login', info)
         .success(function(){
+          console.log('success');
           document.location.href = '../#/main';
-      });
+        })
+        .error(function(){
+          console.log('error');
+        });
 
     }, login : function(credentials){
     

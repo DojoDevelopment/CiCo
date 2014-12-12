@@ -6,7 +6,6 @@ module.exports = {
   ip_login : function(req, res){
 
         var user_ip = req.body.ip;
-
         var qry = 
       "SELECT ip_addresses"
     + " FROM businesses"
@@ -22,11 +21,11 @@ module.exports = {
 
         if (result.rows[0].ip_addresses != null) {
           var ip_array = result.rows[0].ip_addresses.split(',');
-          
-          for (var i = 0; i < ip_array.length; i++) {
 
+          for (var i = 0; i < ip_array.length; i++) {
             if (ip_array[i].trim() === user_ip){
               req.session.user = {login : true, admin : false }
+              console.log('correct ip');
               res.status(200).end();
             }
           };
