@@ -80,9 +80,6 @@ app.controller('EmployeeController', function($scope, $location, EmployeeFactory
     EmployeeFactory.factory_upload_file(data);
   }
 
-  
-
-
   $scope.update_employee = function(){
     //get id from url
     var userID = $location.path().split('/')[3];
@@ -114,8 +111,7 @@ app.controller('EmployeeController', function($scope, $location, EmployeeFactory
 app.controller('EmployeeInfoController', function($scope, $location, EmployeeFactory, ListFactory, TableFactory, LoginFactory){
 
   var userID = $location.path().split('/')[3];
-
-  TableFactory.factory_user_history_table(userID, function(data){
+  TableFactory.factory_user_history_table({id : userID, from: 'all', to : ''}, function(data){
     $scope.table = data;
     $scope.order = '-created_at';
   });
@@ -144,7 +140,7 @@ app.controller('UserController', function($scope, $location, TableFactory, Login
 
   var userID = $location.path().split('/')[2];
 
-  TableFactory.factory_user_history_table(userID, function(data){
+  TableFactory.factory_user_history_table(userID, {from: 'all', to : ''}, function(data){
     $scope.table = data;
     $scope.order = '-created_at';
   });
@@ -183,6 +179,13 @@ app.controller('UserController', function($scope, $location, TableFactory, Login
     , 'Report'
   ];
 
+  $scope.dateFilter = function(from, to) {
+  
+    TableFactory.factory_user_history_table(userID, {from: from, to : to}, function(data){
+      $scope.table = data;
+    });
+  }
+
   $scope.csvBody = function(){
 
     ary = [];
@@ -196,12 +199,6 @@ app.controller('UserController', function($scope, $location, TableFactory, Login
       ary.push(obj);
     }
     return ary;
-  }
-
-  $scope.dateFilter = function(from, to) {
-    TableFactory.factory_date_range({from: from, to : to}, function(data){
-      $scope.history_table = data;
-    });
   }
 
   //user dashboard
@@ -322,7 +319,7 @@ app.controller('AdminController', function($scope, $location, TableFactory, List
 app.controller('LoginController', function($scope, LoginFactory) {
 
   LoginFactory.factory_get_ip(function(ip){ 
-    LoginFactory.factory_ip_login({ip : ip});
+    LoginFactory.factory_check_ip({ip : ip});
   });
 
   $scope.credentials = {
@@ -341,6 +338,16 @@ app.controller('LoginController', function($scope, LoginFactory) {
 });
 
 app.controller('MainController', function($scope, TableFactory, LoginFactory){
+
+  LoginFactory.factory_get_ip(function(ip){ 
+    LoginFactory.factory_check_ip({ip : ip});
+  });
+
+  $scope.credentials = {
+    email : 'tony@gmail.com',
+    password : 'password'
+  };
+
   TableFactory.factory_general_employee_info(function(data){
     $scope.table = data;
   });
@@ -352,7 +359,8 @@ app.controller('MainController', function($scope, TableFactory, LoginFactory){
   $scope.logout = function(){
     LoginFactory.logout();
   }
-})
+
+});
 
 app.controller('AuthController', function($scope, AuthFactory, LoginFactory){
   AuthFactory.factory_check_current('data');

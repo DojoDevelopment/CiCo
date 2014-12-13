@@ -16,7 +16,6 @@ app.factory('EmployeeFactory', function($http, $location){
     // 		document.location.href = '../#/admin/dashboard';
     // 	})
 
-
     }, factory_upload_file: function(data){
     	console.log("in factory_upload_file with data: ",data);
     	$http.post('/api/upload',data).success(function(){
@@ -71,15 +70,7 @@ app.factory('BusinessFactory', function($http){
 app.factory('TableFactory', function($http){
   return {
 
-    factory_user_dashboard : function(callback){
-
-      $http
-        .get('/api/table_dashboard')
-        .success(function(data){
-          callback(data);
-      });
-
-    }, factory_admin_dashboard : function(callback){
+    factory_admin_dashboard : function(callback){
 
       $http
         .get('/api/table_admin_dash')
@@ -95,10 +86,10 @@ app.factory('TableFactory', function($http){
           callback(data);
       });
 
-    }, factory_user_history_table : function(id, callback){
+    }, factory_user_history_table : function(id, info, callback){
 
       $http
-        .get('/api/table_user/' + id)
+        .post('/api/table_user/' + id, info)
         .success(function(data){
           callback(data);
       });
@@ -108,13 +99,14 @@ app.factory('TableFactory', function($http){
         .post('/api/date_range/', info)
         .success(function(data){
           callback(data);
-        });
+      });
+
     }, factory_general_employee_info : function(callback){
       $http
         .get('/api/main')
         .success(function(data){
           callback(data);
-        });
+      });
     }
 
   };
@@ -180,21 +172,22 @@ app.factory('ClockingFactory', function($http, $location){
         .success(
           $location.path('main')
         );
+
     }, factory_last_clocking: function(info, callback){
+
       $http
         .get('/api/last_clocking/' + info)
         .success(function(data){
           callback(data);
         })
     }
-
   };
 });
 
 app.factory('LoginFactory', function($http, $location){
 
   return {
-    
+
     factory_get_ip : function(callback){
 
       $http
@@ -203,17 +196,22 @@ app.factory('LoginFactory', function($http, $location){
           callback(data.ip);
       });
 
-    }, factory_ip_login : function(info){
+    }, factory_check_ip : function(info){
 
-      $http.post('/api/ip_login', info)
-        .success($location.path('/main'));
+      $http.post('/api/check_ip', info)
+        .success(function(){
+          $location.path('/main')
+        })
+        .error(function(){
+          $location.path('/')
+        });
 
     }, login : function(credentials){
     
       $http
         .post('/api/login', credentials)
         .success(function(data){
-          console.log(data);
+
           if (data.login && data.admin){
             $location.path('admin');
           } else if (data.login && !data.admin) {
@@ -240,7 +238,6 @@ app.factory('AuthFactory', function($http){
       $http
         .get('/api/get_session')
         .success(function(data){
-          console.log('getSession data:', data);
           callback(data.user);
       });
     

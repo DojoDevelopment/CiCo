@@ -148,10 +148,13 @@ module.exports = {
         res.status(200).end();
       });
     });
-  
+
   }, history : function(req, res){
 
-    var id  = req.params.id;
+    var id = req.params.id;
+    var from = req.body.from;
+    var to = req.body.to;
+
     var qry = 
       "SELECT sessions.created_at"
         + ", locations.name AS locations"
@@ -163,28 +166,54 @@ module.exports = {
       + " FROM sessions"
       + " LEFT JOIN members ON sessions.member_id = members.id"
       + " LEFT JOIN locations ON locations.id = members.location_id"
-      + " WHERE members.id = $1::int";
+      + " WHERE members.id = $1";
+
+      if ( from == 'this_week' || from == 'this_month' || from == 'last_week' || from == 'last_month') {
+
+        var from_sunday = new Date().getDay();
+        var day_in_month = new Date().getDate();
+        var year = new Date().getFullYear();
+        var month = new Date().getMonth();
+
+        switch (from){
+          case 'this_week'  :
+            qry += " AND sessions.clock_in >= CURRENT_DATE - interval '" + from_sunday + " day'";
+            break;
+          case 'this_month' : 
+            qry += " AND sessions.clock_in >= CURRENT_DATE - interval '" + day_in_month + " day'";
+            break;
+          case 'last_week'  : 
+            qry += " AND sessions.clock_in <= CURRENT_DATE - interval '" + from_sunday + " day'";
+            qry += " AND sessions.clock_in > CURRENT_DATE - interval '" + (from_sunday+7) + " day'";
+            break;
+          case 'last_month' : 
+            qry += " AND sessions.clock_in <= CURRENT_DATE - interval '" + day_in_month + " day'";
+            qry += " AND sessions.clock_in > '"+year+"-"+month+"-01'"
+            break;
+        }
+      } else if( from !== 'all' ) {
+        qry += " AND sessions.clock_in >= '" + from + "' AND sessions.clock_in <= '" + to + "'";
+      }
 
     var client = new pg.Client(conString);
-
-    pg.connect(conString, function(err, client, done) {
-      if(err) { return console.error('error fetching client from pool', err); }
+    
+    client.connect(function(err) {
+      if(err) { return console.error('could not connect dude, check stuff!', err); }
       client.query(qry, [id], function(err, data) {
-        done();
-        if(err) { return console.error('error running query', err); }
-       
-        for (var i=0; i< data.rows.length; i++){
+        if(err) { return console.error('error running history_table', err); }
+        //replace billed with the previous info
+        for (var i=0; i<data.rows.length; i++){
           if (data.rows[i].clock_out > data.rows[i].clock_in) {
             var hours = (data.rows[i].clock_out - data.rows[i].clock_in)/(3600*1000);
             hours = hours.toFixed(2);
             data.rows[i].billed = hours;
-          }
-          else{
+          } else{
             data.rows[i].billed = '0.00';
           }
         }
 
         res.json(data.rows);
+        client.end();
       });
     });
 

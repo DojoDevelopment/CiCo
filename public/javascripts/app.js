@@ -84,21 +84,17 @@ app.config(function($routeProvider){
 
  $rootScope.$on('$routeChangeStart', function (event, next, current) {
 
-    console.log('current', current);
-    //if (current && current.$$route && current.$$current.data)
-
     if (next && next.$$route && next.$$route.data) { 
-      console.log('in next');
       var login = next.$$route.data.login;
       var admin = next.$$route.data.admin;
 
       AuthFactory.factory_getSession(function(user){
 
-        if (login && !user.login){
+        if (login == true && user.login == false ){
           $location.path('/');
         };
 
-        if (admin && !user.admin){
+        if (admin == true && user.admin == false ){
           $location.path('/main');
         }
       });
