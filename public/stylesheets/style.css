@@ -47,8 +47,9 @@ ul a:focus{
 
 
 table, thead, tr{ margin-top: 1%; }
-table th{ background-color: #eee;}
+table thead th{ background-color: #C0C5CE; border:none !important;}
 
+table tr:first-child td { border-top: none !important; }
 table tr:nth-child(odd), table tr:nth-child(even){ background-color: transparent; }
 table tr:nth-child(even) { background-color: #eee; }
 table tr:nth-child(odd) { background-color: #fff; }
@@ -66,7 +67,7 @@ hr{ border:1px solid #CECDCC; }
 #report{ width: 55px;}
 
 .table-head { border:none !important; border-top-right-radius: 1em !important; border-top-left-radius: 1em !important;
-              background-color: #676767 !important; color: white; margin-bottom: -2% !important; width:100% !important; }
+              background-color: #C0C5CE !important; color: #333333; margin-bottom: -2% !important; width:100% !important; }
 
 .add_table{ margin-top: 3%;}
 .add_table>tbody>tr>td{ width:25%; }
@@ -79,6 +80,7 @@ hr{ border:1px solid #CECDCC; }
 
 .snap-shot tbody tr:last-child td:last-child { border-bottom-right-radius: 1em !important; }
 .snap-shot tbody tr td:nth-child(2){ background-color: #F5F6F7 !important; }
+
 
 
 /********************  END TABLE CSS  ******************************/
@@ -122,6 +124,20 @@ button a{ text-decoration: none; color:white; }
 button a:hover{ text-decoration: none; color:#4584EF; }
 
 .btn-date{ color:white; background-color: #0D81FF;  height:39px;}
+
+@-moz-document url-prefix() { 
+  .btn-date {
+     height:29px;
+  }
+}
+@-moz-document url-prefix() { 
+
+  ul li:nth-child(-n+4){
+      margin-right:10px;
+  }
+
+}
+
 .btn-file { position: relative; overflow: hidden; }
 .btn-file input[type=file] { position: absolute; top: 0; right: 0; min-width: 100%; min-height: 100%; font-size: 100px; 
                              text-align: right; filter: alpha(opacity=0); opacity: 0; cursor: inherit; display: block; }
@@ -132,7 +148,6 @@ button a:hover{ text-decoration: none; color:#4584EF; }
 
 .clk-btn{ width:10em; }
 .drop-btn{ height:auto; }
-
 
 /********************  END BUTTON CSS  ****************************/
 
@@ -148,7 +163,12 @@ button a:hover{ text-decoration: none; color:#4584EF; }
 
 /********************  MISC CSS  ****************************/
 
+.in { color:#029708; }
+.out { color:#EE001D; }
+.in, .out { font-weight: bold;  }
+
 td .checkbox { position:absolute !important; }
+tr td img { margin-left: 35px; }
 
 .employee-info div{ margin-top: -25px !important; }
 
@@ -168,19 +188,28 @@ td .checkbox { position:absolute !important; }
 
   .navbar{ background-color: #242424; border-radius:0% !important; margin-bottom: 0% !important;}
   .navbar button{margin:1% 1% 0 0;}
-  .nav-logo {height:5em;}
-  .nav-logo img{margin-left:3em; height:70px; width:150px;}
+/*  .nav-logo {height:5em;}*/
+  .nav-logo {height:4em;}
+  .nav-logo img{margin-left:2em; height:70px; width:150px;}
 
   /*****************************/
   /*******side nav bar**********/
   /*****************************/
 
-  .sidenav{background-color: #242424; height:56em; min-width:15em; margin-top: -1.4em !important;}
+  /*.sidenav{background-color: #242424; height:56em; min-width:15em; margin-top: -1.4em !important;}*/
+  .sidenav{background-color: #242424; height:61em; min-width:15em; margin-top: -.4em !important;}
   .sidenav ul{display: inline;}
-  .sidenav li input{width:98%; text-indent: 1em; font-size: 1.5em; outline:none;}
+  .sidenav li input{width:98%; text-indent: 1em; font-size: 1em; outline:none;}
+
+  .sidenav ::-webkit-input-placeholder { font-size: 1.2em; }
+  .sidenav ::-moz-placeholder { font-size: 1.2em; } /* firefox 19+ */
+  .sidenav :-ms-input-placeholder { font-size: 1.2em; } /* ie */
+  .sidenav input:-moz-placeholder { font-size: 1.2em; }
+
   .sidenav button:focus{outline:none;}
-  .sidenav-box{background:#525461; color:white; height:13em; width:98%; border-style: none; border-bottom: 3px solid #242424;}
+  .sidenav-box{background:#525461; color:white; height:12.8em; width:98%; border-style: none; border-bottom: 3px solid #242424;}
   .sidenav-box:hover{background-color: #242424}
+/*  .sidenav-box:first-child { margin-bottom: % !important }*/
   .sidenav-box:nth-child(-n+2){ margin-bottom: 2%;}
   .sidenav-box a, .sidenav-box a:hover{text-decoration: none;}
   .sidenav-box img{height:5em; width:5em;}
@@ -191,6 +220,6 @@ td .checkbox { position:absolute !important; }
   /*****************************/
 
   .main{display: inline-block; position:absolute; margin-top: 1%; margin-left: 5% !important; width:76%;}
-  .e_d{background-color: #428BCB !important; color:white !important;} /*jumbotron employee dashboard*/
-  .a_d{background-color: #03C8A2 !important; color:white !important; margin-bottom: 2%;} /*jumbotron for admin partials*/
+  .e_d{background-color: #428BCB !important; color:white !important; height:12.8em;} /*jumbotron employee dashboard*/
+  .a_d{background-color: #03C8A2 !important; color:white !important; height:12.8em; margin-bottom: 2%;} /*jumbotron for admin partials*/
 

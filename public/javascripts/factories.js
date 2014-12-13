@@ -227,7 +227,7 @@ app.factory('LoginFactory', function($http, $location){
     }, logout : function(){
     
       $http
-        .post('/api/logout')
+        .get('/api/logout')
         .success(function(){
           $location.path('/')
         });

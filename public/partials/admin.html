@@ -1,9 +1,12 @@
-<div class='navbar navbar-top'>
+<!-- <div class='navbar navbar-top'>
   <div class='nav-logo'>
     <img src="img/coding_dojo.png">
   </div>
-</div>
+</div> -->
 <div class='sidenav pull-left'>
+    <div class='nav-logo'>
+    <img src="img/coding_dojo.png">
+  </div>
   <ul>
     <li><a href="/#/admin/add_employee"><button class='sidenav-box'><img src="img/people.png"><br>Add Employee</button></a></li>
     <li><a ng-click="changePage('dash')"><button class='sidenav-box'><img src="img/dash.png"><br>Dashboard</button></a></li>
@@ -16,7 +19,9 @@
 </div>
 <div class='container-fluid main'>
 
-  <div class='pull-left'>
+  <div class='container-fluid row'>
+    
+      <div class='pull-left'>
     
     <form ng-if="user.page=='history'">
       <input type='date' ng-model="from_date"> to <input type='date' ng-model="to_date">
@@ -52,7 +57,9 @@
         </ul>
       </div>
     </div>
-  </div> 
+  </div>     
+
+  </div>
 
   <div class='container-sm table-wrap'>
 

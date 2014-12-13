@@ -1,9 +1,12 @@
-<nav class='navbar navbar-top'>
+<!-- <nav class='navbar navbar-top'>
     <div class='nav-logo'>
       <img src="img/coding_dojo.png">
     </div>
-  </nav>
+  </nav> -->
   <div class='sidenav pull-left'>
+    <div class='nav-logo'>
+      <img src="img/coding_dojo.png">
+    </div>
     <ul>
       <li><input placeholder='email' type='email' ng-model="credentials.email"></li>
       <li><input placeholder='password' type='password' ng-model="credentials.password"></li>
@@ -15,20 +18,21 @@
   </div>
   <div class='container-fluid main'>
 
-    <table class='table table-bordered'>
+    <table class='table time-table'>
 
       <thead>
         <tr>
-          <td>Name</td>
-          <td>Logged in</td>
-          <td>Location</td>
-          <td>Team</td>
+          <th>Name</th>
+          <th>Clocked Status</th>
+          <th>Location</th>
+          <th>Team</th>
         </tr>
       </thead>
       <tbody>
         <tr ng-repeat="row in table">
           <td><img width='30' height='30' src="/img/profile_pic/dev.jpg">{{row.name}}</td>
-          <td ng-bind="row.is_logged"></td>
+          <td ng-if="row.is_logged == true"><img src="../img/in.png"></td>
+          <td ng-if="row.is_logged == false"><img src="../img/out.png"></td>
           <td ng-bind="row.locations"></td>
           <td ng-bind="row.team"></td>
         </tr>
