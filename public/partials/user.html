@@ -16,7 +16,14 @@
 <div class='container-fluid main'>
 
   <div class='col-md-6'>
-    <img width='250' height='290' src="/img/profile_pic/dev.jpg">
+    <div ng-switch on="{{row.pic}}" >
+      <span ng-switch-when="{{row.pic}}">
+        <img height='250' width='290' class='img-rounded' ng-src="/img/profile_pic/profile_{{row.id}}.jpg" />
+      </span>
+      <span ng-switch-default>
+        <img height='250' width='290' class='img-rounded' src="/img/profile_pic/anon.png" />
+      </span>
+    </div>
   </div>  
 
   <div class='col-md-6 employee-info'>

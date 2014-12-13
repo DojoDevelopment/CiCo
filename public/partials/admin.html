@@ -30,17 +30,17 @@
 
     <div class='container-sm'>
       <div style='margin-bottom:7px; margin-left:26px;'>
-          <select class='test' ng-model="place">
-            <option value="" disabled selected>Filter Location</option>
-            <option value="">All</option>
-            <option ng-repeat="l in locations" value="{{l.name}}" ng-bind="l.name"></option>
-          </select>
+        <select class='test' ng-model="place">
+          <option value="" disabled selected>Filter Location</option>
+          <option value="">All</option>
+          <option ng-repeat="l in locations" value="{{l.name}}" ng-bind="l.name"></option>
+        </select>
 
-          <select style='margin-left:69px;' ng-model="people">
-            <option value="" disabled selected>Filter Name</option>
-            <option value="">All</option>
-            <option ng-repeat="m in members | filter:m" value="{{m.name}}" ng-bind="m.name"></option>
-          </select>
+        <select style='margin-left:69px;' ng-model="people">
+          <option value="" disabled selected>Filter Name</option>
+          <option value="">All</option>
+          <option ng-repeat="m in members | filter:m" value="{{m.name}}" ng-bind="m.name"></option>
+        </select>
       </div>
 
       <div ng-if="user.page=='history'" style='margin-bottom:-18px; margin-left:-10px;'class='pull-right'>
