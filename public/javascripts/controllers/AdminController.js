@@ -32,7 +32,6 @@ app.controller('AdminController', function($scope, $location, TableFactory, List
   };
 
   $scope.updateSettings = function(){
-
     var newSettings = {
        name : $scope.business.name
       , ip  : $scope.business.ip_addresses
