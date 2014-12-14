@@ -32,14 +32,13 @@ module.exports = {
       });
     });
 
-
   }, login : function(req, res){
 
     var email = req.body.email;
     var password = req.body.password;
 
     var qry = 
-      "SELECT members.type, members.id"
+      "SELECT members.type, members.id, members.business_id"
     + " FROM members"
     + " WHERE email = $1"
     + " AND password = $2";
@@ -54,26 +53,27 @@ module.exports = {
         result = data.rows[0];
 
         if (result == undefined){
-          res.status(401).end();
+          res.status(401).json(result).end();
         } else {
-          req.session.user = {login : true, id : result.id, admin : (result.type == 'contractor' ? true : false ) };
+          req.session.user = {
+
+            business : result.business_id
+            ,     id : result.id
+            ,  admin : (result.type == 'contractor' ? true : false ) 
+          };
           res.json(req.session.user);
         }
         client.end();
       });
     });
 
-  }, get_session : function(req, res){
-
-    if (req.session.user == undefined ) {
-      req.session.user = {login : false, admin : false }
-    }
-    res.json({ user : req.session.user });
-
   }, logout : function(req, res){
 
-    req.session.user = {login : false, admin : false }
+    req.session.user = {
+      business : null
+      ,     id : null
+      ,  admin : false  
+    }
     res.status(200).end();
-
   }
 }

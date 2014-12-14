@@ -87,10 +87,11 @@ module.exports = {
         + ", members.status"
         + ", members.note"
         + ", members.team"
-        + ", members.supervisor_id"
+        + ", members2.name AS supervisor"
         + ", members.type"
         + ", members.is_logged"
       + " FROM members"
+      + " LEFT JOIN members AS members2 ON members2.id = members.supervisor_id"
       + " WHERE members.id = $1";
 
     var client = new pg.Client(conString);

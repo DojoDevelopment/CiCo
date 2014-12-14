@@ -1,4 +1,4 @@
-app.factory('LoginFactory', function($http, $location){
+app.factory('LoginFactory', function($http, $location, $rootScope){
 
   return {
 
@@ -14,9 +14,11 @@ app.factory('LoginFactory', function($http, $location){
 
       $http.post('/api/check_ip', info)
         .success(function(){
+          $rootScope.business = { id : 1 }
           $location.path('/main')
         })
         .error(function(){
+          console.log('error');
           $location.path('/')
         });
 
@@ -25,12 +27,19 @@ app.factory('LoginFactory', function($http, $location){
       $http
         .post('/api/login', credentials)
         .success(function(data){
+          if (data.id){
+            $rootScope.user = {
+                id    : data.id
+              , admin : data.admin
+              , login : true
+            };
+          }
 
-          if (data.login && data.admin){
-            $location.path('admin');
-          } else if (data.login && !data.admin) {
-            $location.path('user/' + data.id)
-          } 
+          $location.path((data.admin == true ? 'admin/main/' : 'user/') + data.id);
+
+        })
+        .error(function(data){
+          $location.path('/'); 
         });
 
     }, logout : function(){
@@ -38,7 +47,9 @@ app.factory('LoginFactory', function($http, $location){
       $http
         .get('/api/logout')
         .success(function(){
-          $location.path('/')
+          $rootScope.user = null;
+          $rootScope.business = null;
+          $location.path('/'); 
         });
     }
   };

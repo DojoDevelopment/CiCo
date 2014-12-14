@@ -4,6 +4,16 @@ app.controller('AdminController', function($scope, $location, TableFactory, List
     page : 'dash'
   }
 
+  $scope.changePage = function(page){
+    $scope.user.page = page;
+    if (page == 'history') {
+      TableFactory.factory_date_range({from: 'all', to : ''}, function(data){
+        $scope.history_table = data;
+        $scope.order = '-created_at';
+      });
+    }
+  }
+
   ListFactory.factory_used_locations(function(data){ $scope.locations = data; });
   ListFactory.factory_members( function(data){ $scope.members = data; });
 
@@ -15,33 +25,7 @@ app.controller('AdminController', function($scope, $location, TableFactory, List
   BusinessFactory.factory_get_business_info(1, function(data){ 
     $scope.business = data
   });
-
-  $scope.csvHead = [
-      'Date'
-    , 'Picture'
-    , 'Name'
-    , 'Title'
-    , 'Team'
-    , 'Location'
-    , 'Clock IN'
-    , 'Clock OUT'
-    , 'Personal Time'
-    , 'Billed Hours'
-    , 'Report'
-  ];
   
-  $scope.changePage = function(page){
-    $scope.user.page = page;
-    if (page == 'history') {
-      TableFactory.factory_date_range({from: 'all', to : ''}, function(data){
-        $scope.history_table = data;
-        $scope.order = '-created_at';
-      });
-    }
-  }
-
-  //from admin dash
-//  $scope.currentUser = '';
   $scope.modalShown = false;
   $scope.toggleModal = function() {
     $scope.modalShown = !$scope.modalShown;
@@ -59,6 +43,19 @@ app.controller('AdminController', function($scope, $location, TableFactory, List
     });
   }
 
+  $scope.csvHead = [
+      'Date'
+    , 'Name'
+    , 'Title'
+    , 'Team'
+    , 'Location'
+    , 'Clock IN'
+    , 'Clock OUT'
+    , 'Personal Time'
+    , 'Billed Hours'
+    , 'Report'
+  ];
+
   $scope.csvBody = function(){
 
     ary = [];
@@ -67,10 +64,12 @@ app.controller('AdminController', function($scope, $location, TableFactory, List
     for (var i=1; i < rows.length; i++){
       var obj = new Object();
       for (var j=0; j < rows[i].childElementCount; j++){
-        obj[j] = (j != 1 ? rows[i].cells[j].innerHTML : '*'); //check for picture
+        str = rows[i].cells[j].innerHTML
+        obj[j] = str.replace(/(<!--|<img)\s[^>]*?>/g, '').trim(); //check for picture
       }
       ary.push(obj);
     }
+    console.log(ary);
     return ary;
   }
 
