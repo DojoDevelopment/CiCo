@@ -33,7 +33,6 @@
       </span>
     </div>
   </div>  
-
   <div class='col-md-6 employee-info'>
     <div height='630' width='600'>
       <h2>Employee Snapshot</h2>
@@ -48,8 +47,16 @@
         </thead>
         <tbody>
           <tr>
+            <td>Clocked In</td>
+            <td ng-bind="user.is_logged"></td>
+          </tr>
+          <tr>
             <td>Team</td>
             <td ng-bind="user.team"></td>
+          </tr>
+          <tr>
+            <td>Supervisor</td>
+            <td ng-bind="user.supervisor"></td>
           </tr>
           <tr>
             <td>E-Mail</td>
@@ -58,6 +65,14 @@
           <tr>
             <td>Start Date</td>
             <td ng-bind="user.start_date | date : format : shortDate"></td>
+          </tr>
+          <tr ng-if="$root.this.user.admin == true">
+            <td>Status</td>
+            <td ng-bind="user.status"></td>
+          </tr>
+          <tr ng-if="$root.this.user.admin == true">
+            <td>Note</td>
+            <td ng-bind="user.note"></td>
           </tr>
         </tbody>
       </table>

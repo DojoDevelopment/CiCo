@@ -3,6 +3,7 @@ var conString = require('../../config/db.js');
 module.exports = {
 
   get_list_locations : function(req, res) {
+//    var business = req.sessions.user.business
 
     var qry = 
         "SELECT locations.id"
@@ -62,7 +63,7 @@ module.exports = {
     });
 
   }, get_list_supervisors : function(req, res) {
-  console.log('fire');
+
     var qry = 
         "SELECT id"
         + ", name"

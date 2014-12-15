@@ -4,7 +4,7 @@ span{ color:salmon; }
 #admin_login{ min-width: 700px;  
 			  background-color: #D4DCE5; /*loads before background image for contrast and usability w/ slow connections*/
 			  background-size:cover; 
-			  background-image:url(../img/mac_programmer.jpeg); }
+			  background-image:url(../img/mac_programmer.jpg); }
 
 .login_box{ margin-top: 10%; margin-left: 28%; height: 35em; width:45%; }
 

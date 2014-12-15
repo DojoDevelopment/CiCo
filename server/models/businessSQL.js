@@ -26,7 +26,7 @@ module.exports = {
   
   }, update : function(req,res){
   
-    var id = req.body.biz;
+    var id = req.session.user.id;
     var ip = req.body.ip;
     var name = req.body.name;
 

@@ -84,6 +84,7 @@
       <tbody>
         <tr ng-repeat="row in history_table | filter: { locations:place, name:people } | orderBy:order:reverse">
           <td id='date'     ng-bind="row.clock_in | date:'dd/M (EEE)'"></td>
+<!-- <<<<<<< HEAD
           <td id='name'>
             <div ng-switch on="{{row.pic}}" >
               <span ng-switch-when="{{row.pic}}">
@@ -93,6 +94,12 @@
                 <img height='30' width='30' class='img-rounded' src="/img/profile_pic/anon.png" />{{row.name}}                
               </span>
             </div>
+======= -->
+          <td id='name' ng-switch on="{{row.pic}}" >
+            <img ng-switch-when="{{row.pic}}" height='30' width='30' class='img-rounded' ng-src="/img/profile_pic/profile_{{row.id}}.jpg" />
+            <img ng-switch-default height='30' width='30' class='img-rounded' src="/img/profile_pic/anon.png" />
+            {{row.name}}
+<!-- >>>>>>> a8b01271fb73fa5b542c87c44a40724a83301625 -->
           </td>
           <td id='title'    ng-bind="row.title"></td>
           <td id='team'     ng-bind="row.team"></td>
@@ -121,15 +128,10 @@
       </thead>
       <tbody>
         <tr ng-repeat="row in dashboard_table | filter: { locations:place } | orderBy:order:reverse">
-          <td>
-            <div ng-switch on="{{row.pic}}" >
-              <span ng-switch-when="{{row.pic}}">
-                <img height='30' width='30' class='img-rounded' ng-src="/img/profile_pic/profile_{{row.id}}.jpg" />
-              </span>
-              <span ng-switch-default>
-                <img height='30' width='30' class='img-rounded' src="/img/profile_pic/anon.png" />{{row.name}}
-              </span>
-            </div>
+          <td ng-switch on="{{row.pic}}" >
+            <img ng-switch-when="{{row.pic}}" height='30' width='30' class='img-rounded' ng-src="/img/profile_pic/profile_{{row.id}}.jpg" />
+            <img ng-switch-default height='30' width='30' class='img-rounded' src="/img/profile_pic/anon.png" />
+            {{row.name}}
           </td>
           <td ng-bind="row.status"></td>
           <td ng-bind="row.title"></td>
@@ -137,7 +139,7 @@
           <td ng-bind="row.supervisor"></td>
           <td ng-bind="row.locations"></td>
           <td ng-bind="row.note"></td>
-          <td><a href="/#/admin/show/{{row.id}}">Show</a>/<a href="/#/admin/edit/{{row.id}}">Edit</a></td>
+          <td><a href="/#/user/{{row.id}}">Show</a>/<a href="/#/admin/edit/{{row.id}}">Edit</a></td>
         </tr>
       </tbody>
     </table>
@@ -152,10 +154,10 @@
   </nav>
   <form>
     Company Name:<label for="inputCompany" class="sr-only">Company Name</label>
-    <input ng-model="name" class="form-control" placeholder="example: Coding Dojo" type="text" required autofocus>
+    <input ng-model="business.name" class="form-control" placeholder="example: Coding Dojo" type="text" required autofocus>
 
     On-Site IP Address:<label for='ipAdd' class='sr-only'>On-Site IP Addresses</label>
-    <textarea ng-model='ip' class='form-control' placeholder='Separate by comma - example: 192.168.2.1, 192.128.2.2'></textarea>
+    <textarea ng-model='business.ip_addresses' class='form-control' placeholder='Separate by comma - example: 192.168.2.1, 192.128.2.2'></textarea>
 
     <button class="btn btn-lg btn-in pull-right" type='submit' ng-click="updateSettings()">Save</button>
   </form>

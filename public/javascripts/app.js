@@ -18,7 +18,7 @@ app.config(function($routeProvider){
   }).when('/main', {
 
     templateUrl: 'partials/main.html',
-    controller: 'MainController',
+    controller: 'LoginController',
     data: {
       login : false,
       admin : false
@@ -36,7 +36,7 @@ app.config(function($routeProvider){
     
 
   //admin main page
-  }).when('/admin', {
+  }).when('/admin/main/:id', {
 
     templateUrl: 'partials/admin.html',
     controller: 'AdminController',
@@ -50,16 +50,6 @@ app.config(function($routeProvider){
 
     templateUrl: 'partials/add_employee.html',
     controller:  'EmployeeController',
-    data: {
-      login : true,
-      admin : true
-    }
-
-  //admin show user informaiton page
-  }).when('/admin/show/:id', {
-  
-    templateUrl: 'partials/show_employee.html', 
-    controller:  'EmployeeInfoController',
     data: {
       login : true,
       admin : true
@@ -81,24 +71,26 @@ app.config(function($routeProvider){
   });
 
 })
-.run(function ($rootScope, $location, AuthFactory) {
+.run(function ($rootScope, $location) {
 
  $rootScope.$on('$routeChangeStart', function (event, next, current) {
 
-    if (next && next.$$route && next.$$route.data) { 
-      var login = next.$$route.data.login;
-      var admin = next.$$route.data.admin;
+    var req_login = next.$$route.data.login;
+    var req_admin  = next.$$route.data.admin;
 
-      AuthFactory.factory_getSession(function(user){
+    console.log($rootScope);
 
-        if (login == true && user.login == false ){
-          $location.path('/');
-        };
+    //if user isn't on the right ip or logged in send them to index
 
-        if (admin == true && user.admin == false ){
-          $location.path('/main');
-        }
-      });
-    } 
-  })
+
+    if ($rootScope.user == null && $rootScope.business == null ) {
+      if( next.templateUrl !== "partials/index.html") {
+        $location.path('/');
+      }
+    } else if ( req_login && ($rootScope.user === undefined || $rootScope.user.id === undefined) 
+            ||( req_admin && ($rootScope.user === undefined || $rootScope.user.admin === false))) {
+      $location.path('/');
+    }
+
+  });
 });

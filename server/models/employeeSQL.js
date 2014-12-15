@@ -18,6 +18,7 @@ module.exports = {
       , req.body.team
       , req.body.supervisor
       , req.body.admin
+      , req.sessions.user.id
     ];
 
     if (form[9]=='') form[9]=1;
@@ -40,6 +41,7 @@ module.exports = {
       +   ", type"
       +   ", created_at"
       + " ) VALUES (1,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,NOW())"
+      + " WHERE business_id = $12"
       + " RETURNING id";
 
     var client = new pg.Client(conString);
@@ -87,10 +89,11 @@ module.exports = {
         + ", members.status"
         + ", members.note"
         + ", members.team"
-        + ", members.supervisor_id"
+        + ", members2.name AS supervisor"
         + ", members.type"
         + ", members.is_logged"
       + " FROM members"
+      + " LEFT JOIN members AS members2 ON members2.id = members.supervisor_id"
       + " WHERE members.id = $1";
 
     var client = new pg.Client(conString);
