@@ -33,6 +33,7 @@ app.config(function($routeProvider){
       login : true,
       admin : false
     }
+    
 
   //admin main page
   }).when('/admin', {
