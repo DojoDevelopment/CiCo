@@ -3,11 +3,10 @@ var conString = require('../../config/db.js');
 
 module.exports = {
 
-  ip_login : function(req, res){
+  check_ip : function(req, res){
 
-        var user_ip = req.body.ip;
-
-        var qry = 
+    var user_ip = req.body.ip;
+    var qry = 
       "SELECT ip_addresses"
     + " FROM businesses"
     + " WHERE id = 1";
@@ -22,11 +21,9 @@ module.exports = {
 
         if (result.rows[0].ip_addresses != null) {
           var ip_array = result.rows[0].ip_addresses.split(',');
-          
-          for (var i = 0; i < ip_array.length; i++) {
 
+          for (var i = 0; i < ip_array.length; i++) {
             if (ip_array[i].trim() === user_ip){
-              req.session.user = {login : true, admin : false }
               res.status(200).end();
             }
           };
@@ -34,6 +31,8 @@ module.exports = {
         res.status(401).end();
       });
     });
+
+
   }, login : function(req, res){
 
     var email = req.body.email;
@@ -63,5 +62,18 @@ module.exports = {
         client.end();
       });
     });
+
+  }, get_session : function(req, res){
+
+    if (req.session.user == undefined ) {
+      req.session.user = {login : false, admin : false }
+    }
+    res.json({ user : req.session.user });
+
+  }, logout : function(req, res){
+
+    req.session.user = {login : false, admin : false }
+    res.status(200).end();
+
   }
 }

@@ -61,10 +61,11 @@ hr{ border:1px solid #CECDCC; }
 
 
 /*Widths for history pages -- bug workaround for sticky table head*/
-#date, #title, #in, #out, #pt, #billed{ width:9%;}
+#date, #title, #in, #out, #pt, #billed, #created{ width:9%;}
 #name{ width:14%; }
 #team, #location{ width: 10%;}
 #report{ width: 55px;}
+#user-rep {max-width:5%; }
 
 .table-head { border:none !important; border-top-right-radius: 1em !important; border-top-left-radius: 1em !important;
               background-color: #C0C5CE !important; color: #333333; margin-bottom: -2% !important; width:100% !important; }

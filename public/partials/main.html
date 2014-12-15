@@ -11,6 +11,7 @@
       <li><input placeholder='email' type='email' ng-model="credentials.email"></li>
       <li><input placeholder='password' type='password' ng-model="credentials.password"></li>
       <li><a href="" ng-click="login(credentials)"><button class='sidenav-box'><img src="img/login.png"><br>Log IN</button></a></li>
+       <!-- <li><a href="" ng-click="login(credentials)"><button class='sidenav-box'><img src="img/logout.png"><br>Log OUT</button></a></li> -->
     </ul>
   </div>
   <div class='jumbotron e_d'>
@@ -18,19 +19,30 @@
   </div>
   <div class='container-fluid main'>
 
-    <table class='table time-table'>
+    <table class='table time-table' ng-model='table'>
 
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Clocked Status</th>
-          <th>Location</th>
-          <th>Team</th>
+          <th><a href="" ng-click="order='name'; reverse=!reverse">Name</a></th>
+          <th><a href="" ng-click="order='is_logged'; reverse=!reverse">Clocked Status</a></th>
+          <th><a href="" ng-click="order='locations'; reverse=!reverse">Location</a></th>
+          <th><a href="" ng-click="order='team'; reverse=!reverse">Team</a></th>
         </tr>
       </thead>
+
       <tbody>
-        <tr ng-repeat="row in table">
-          <td><img width='30' height='30' src="/img/profile_pic/dev.jpg">{{row.name}}</td>
+        <tr ng-repeat="row in table | filter: { locations:place, name:member} | orderBy:order:reverse">
+          <td>
+            <div ng-switch on="{{row.pic}}" >
+              <span ng-switch-when="{{row.pic}}">
+                <img height='30' width='30' class='img-rounded' ng-src="/img/profile_pic/profile_{{row.id}}.jpg" />
+              </span>
+              <span ng-switch-default>
+                <img height='30' width='30' class='img-rounded' src="/img/profile_pic/anon.png" />
+                {{row.name}}
+              </span>
+            </div>
+          </td>
           <td ng-if="row.is_logged == true"><img src="../img/in.png"></td>
           <td ng-if="row.is_logged == false"><img src="../img/out.png"></td>
           <td ng-bind="row.locations"></td>

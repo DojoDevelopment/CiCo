@@ -1,6 +1,10 @@
 <!-- <nav class='navbar navbar-top'>
   <div class='nav-logo'>
     <img src="img/coding_dojo.png">
+<<<<<<< HEAD
+=======
+    <button class='pull-right btn btn-lg btn-danger' ng-click="logout()">Logout</button>
+>>>>>>> 884a877db248eaf5e50cb7255686cd0d7dc33f99
   </div>
 </nav> -->
 <div class='sidenav pull-left'>
@@ -8,8 +12,8 @@
     <img src="img/coding_dojo.png">
   </div>
   <ul>
-    <li ng-if="user.is_logged == false"><a href="" ng-click="clockIn()"><button class='sidenav-box'><img src="img/clock-in.png"><br>Clock IN</button></a></li><li ng-if="user.is_logged == true"><a href="" ng-click="toggleModal()"><button class='sidenav-box'><img src="img/clock-out.png"><br>Clock Out</button></a></li><li><a href=""><button class='sidenav-box'><img src='img/.png'></button></a></li>
-    <li><a href=""><button class='sidenav-box'><img src='img/.png'></button></a></li>    
+    <li ng-if="user.is_logged == false"><a href="" ng-click="clockIn()"><button class='sidenav-box'><img src="img/clock-in.png"><br>Clock IN</button></a></li><li ng-if="user.is_logged == true"><a href="" ng-click="toggleModal()"><button class='sidenav-box'><img src="img/clock-out.png"><br>Clock Out</button></a></li><li><a href=""><button class='sidenav-box'><img src='img/edit.png'><br>Request Time Edit</button></a></li>
+    <li><a href=""><button class='sidenav-box'><img src='img/vacay.png'><br>Request Time Off</button></a></li>    
     <li><a href="" ng-click="logout()"><button class='sidenav-box'><img src="img/logout.png"><br>Log OUT</button></a></li>
 
   </ul>
@@ -20,7 +24,14 @@
 <div class='container-fluid main'>
 
   <div class='col-md-6'>
-    <img width='250' height='290' src="/img/profile_pic/dev.jpg">
+    <div ng-switch on="{{row.pic}}" >
+      <span ng-switch-when="{{row.pic}}">
+        <img height='250' width='290' class='img-rounded' ng-src="/img/profile_pic/profile_{{row.id}}.jpg" />
+      </span>
+      <span ng-switch-default>
+        <img height='250' width='290' class='img-rounded' src="/img/profile_pic/anon.png" />
+      </span>
+    </div>
   </div>  
 
   <div class='col-md-6 employee-info'>
@@ -75,16 +86,17 @@
     </thead>
     <tbody>
       <tr ng-repeat="row in table | filter: { locations:place, name:member } | orderBy:order:reverse">
-        <td ng-bind="row.created_at | date:'M/dd (EEE)'"></td>
-        <td ng-bind="row.locations"></td>
-        <td ng-bind="row.clock_in | date:'shortTime'"></td>
-        <td ng-bind="row.clock_out | date:'shortTime'"></td>
-        <td ng-bind="row.personal_time  "></td>
-        <td ng-bind="row.billed"></td>
+        <td id='created' ng-bind="row.created_at | date:'M/dd (EEE)'"></td>
+        <td id='location' ng-bind="row.locations"></td>
+        <td id='in' ng-bind="row.clock_in | date:'shortTime'"></td>
+        <td id='out' ng-bind="row.clock_out | date:'shortTime'"></td>
+        <td id='pt' ng-bind="row.personal_time  "></td>
+        <td id='billed' ng-bind="row.billed"></td>
         <td ng-bind="row.report"></td>
       </tr>
     </tbody>
   </table>
+  <button class="btn btn-danger" ng-csv="csvBody" csv-header="csvHead" filename="history.csv">Download CSV</button>
    
 <!--************************  CLOCKOUT MODAL CONTENT *******************************-->
   <modal-clockout session="user.session_id" user="user.id" personal='personal' report='report' show='modalShown' width='750px'>

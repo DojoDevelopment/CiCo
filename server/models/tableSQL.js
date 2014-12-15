@@ -29,7 +29,7 @@ module.exports = {
         client.end();
       });
     });
-  
+
   }, get_table_date_range : function(req, res){
 
     var from = req.body.from;
@@ -55,6 +55,7 @@ module.exports = {
         var day_in_month = new Date().getDate();
         var year = new Date().getFullYear();
         var month = new Date().getMonth();
+     
         switch (from){
           case 'this_week'  :
             qry += " WHERE sessions.clock_in >= CURRENT_DATE - interval '"+from_sunday+" day'";

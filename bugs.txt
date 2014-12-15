@@ -1,1 +1,5 @@
-- no upload picture function
+-admin dashboard location column filter no working
+-admin dashboard location select combo box not showing
+
+-admin history all select combo boxs not showing (member, location, date range)
+-admin history location column filter no working

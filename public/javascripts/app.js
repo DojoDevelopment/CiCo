@@ -10,7 +10,6 @@ app.config(function($routeProvider){
     controller:  'LoginController',
     css: 'stylesheets/login.css',
     data: {
-         ip : false,
       login : false,
       admin : false
     }
@@ -21,7 +20,6 @@ app.config(function($routeProvider){
     templateUrl: 'partials/main.html',
     controller: 'MainController',
     data: {
-         ip : true,
       login : false,
       admin : false
     }
@@ -32,7 +30,6 @@ app.config(function($routeProvider){
     templateUrl: 'partials/user.html',
     controller: 'UserController',
     data: {
-         ip : false,
       login : true,
       admin : false
     }
@@ -43,7 +40,6 @@ app.config(function($routeProvider){
     templateUrl: 'partials/admin.html',
     controller: 'AdminController',
     data: {
-         ip : false,
       login : true,
       admin : true
     }
@@ -52,9 +48,8 @@ app.config(function($routeProvider){
   }).when('/admin/add_employee', {
 
     templateUrl: 'partials/add_employee.html',
-    controller:  'employee',
+    controller:  'EmployeeController',
     data: {
-         ip : false,
       login : true,
       admin : true
     }
@@ -63,9 +58,8 @@ app.config(function($routeProvider){
   }).when('/admin/show/:id', {
   
     templateUrl: 'partials/show_employee.html', 
-    controller:  'employeeInfo',
+    controller:  'EmployeeInfoController',
     data: {
-        ip : false,
       login : true,
       admin : true
     }
@@ -74,9 +68,8 @@ app.config(function($routeProvider){
   }).when('/admin/edit/:id', {
 
     templateUrl: 'partials/add_employee.html',
-    controller: 'employee',
+    controller: 'EmployeeController',
      data: {
-         ip : false,
       login : true,
       admin : true
     }
@@ -87,24 +80,24 @@ app.config(function($routeProvider){
   });
 
 })
-// .run(function ($rootScope, $location, AuthFactory) {
+.run(function ($rootScope, $location, AuthFactory) {
 
-//  $rootScope.$on('$routeChangeStart', function (event, next, current) {
-    
-//     if (next && next.$$route && next.$$route.data) { 
-//       var login = next.$$route.data.login;
-//       var admin = next.$$route.data.admin;
+ $rootScope.$on('$routeChangeStart', function (event, next, current) {
 
-//       AuthFactory.getSession(function(user){
+    if (next && next.$$route && next.$$route.data) { 
+      var login = next.$$route.data.login;
+      var admin = next.$$route.data.admin;
 
-//         if (login && !user.login){
-//           $location.path('/');
-//         };
+      AuthFactory.factory_getSession(function(user){
 
-//         if (admin && !user.admin){
-//           $location.path('/admin/login');
-//         }
-//       });       
-//     } 
-//   })
-// });
+        if (login == true && user.login == false ){
+          $location.path('/');
+        };
+
+        if (admin == true && user.admin == false ){
+          $location.path('/main');
+        }
+      });
+    } 
+  })
+});

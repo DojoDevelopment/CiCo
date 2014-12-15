@@ -1,121 +1,8 @@
-//ADD / UPDATE EMPLOYEE
-app.controller('employee', function($scope, $location, EmployeeFactory, ListFactory, TableFactory, LoginFactory) {
-
-  ListFactory.factory_supervisors(function(data){ $scope.supervisors = data; });
-  ListFactory.factory_all_locations(function(data){ $scope.locations = data; });
-  
-  $scope.update = ($location.path() == '/admin/add_employee' ? false : true )  
-
-  if ( $scope.update == false ){
-
-    $scope.user  = {
-        name       : ''
-      , title      : ''
-      , team       : ''
-      , location   : ''
-      , supervisor : ''
-      , status     : ''
-      , note       : ''
-      , start_date : ''
-      , email      : ''
-      , password   : ''
-      , admin      : ''
-    };
-
-  } else {
-
-    //get id from url
-    var userID = $location.path().split('/')[3];
-
-    EmployeeFactory.factory_get_employee(userID, function(data){
-      $scope.user  = {
-          name       : data.name
-        , title      : data.title
-        , team       : data.team
-        , location   : data.location_id
-        , supervisor : data.supervisor_id
-        , status     : data.status
-        , note       : data.note
-        , start_date : data.start_date.substring(0,10)
-        , email      : data.email
-        , password   : data.password
-        , admin      : (data.type == 'employee' ? '' : 'true' )
-      };
-
-    });
-  }
-  
-  $scope.add_employee = function(){
-    console.log('in add employee function in controllers.js');
-
-    //var admin = (document.getElementById('inputAdmin').checked == true ? 'contractor' : 'employee');
-
-
-    var info = {
-      name       : $scope.user.name
-      , title      : $scope.user.title
-      , team       : $scope.user.team
-      , location   : $scope.user.location
-      , supervisor : $scope.user.supervisor
-      , status     : $scope.user.status
-      , note       : $scope.user.note
-      , pic        : $scope.user.pic
-      , start_date : $scope.user.start_date
-      , email      : $scope.user.email
-      , password   : $scope.user.password
-      , admin      : (document.getElementById('inputAdmin').checked == true ? 'contractor' : 'employee')
-    }
-    
-    EmployeeFactory.factory_create_employee(info);
-  }
-
-  $scope.upload_file = function(){
-    
-
-    //var data = {file: $scope.user.pic};
-    var data = {file: $scope.upload_file};
-
-    console.log('in upload_file function in controllers.js, will send this data: ',data);
-
-    EmployeeFactory.factory_upload_file(data);
-  }
-
-  
-
-
-  $scope.update_employee = function(){
-    //get id from url
-    var userID = $location.path().split('/')[3];
-
-    var info  = {
-        name       : $scope.user.name
-      , title      : $scope.user.title
-      , team       : $scope.user.team
-      , location   : $scope.user.location
-      , supervisor : $scope.user.supervisor
-      , status     : $scope.user.status
-      , note       : $scope.user.note
-      , start_date : $scope.user.start_date
-      , email      : $scope.user.email
-      , password   : $scope.user.password
-      , admin      : (document.getElementById('inputAdmin').checked == true ? 'contractor' : 'employee')
-    }
-
-    EmployeeFactory.factory_update_employee(userID, info);
-  }
-
-  $scope.logout = function(){
-    LoginFactory.logout();
-  }
-
-});
-
 //SHOW USER
-app.controller('employeeInfo', function($scope, $location, EmployeeFactory, ListFactory, TableFactory, LoginFactory){
+app.controller('EmployeeInfoController', function($scope, $location, EmployeeFactory, ListFactory, TableFactory, LoginFactory){
 
   var userID = $location.path().split('/')[3];
-
-  TableFactory.factory_user_history_table(userID, function(data){
+  TableFactory.factory_user_history_table({id : userID, from: 'all', to : ''}, function(data){
     $scope.table = data;
     $scope.order = '-created_at';
   });
@@ -144,7 +31,7 @@ app.controller('UserController', function($scope, $location, TableFactory, Login
 
   var userID = $location.path().split('/')[2];
 
-  TableFactory.factory_user_history_table(userID, function(data){
+  TableFactory.factory_user_history_table(userID, {from: 'all', to : ''}, function(data){
     $scope.table = data;
     $scope.order = '-created_at';
   });
@@ -183,6 +70,13 @@ app.controller('UserController', function($scope, $location, TableFactory, Login
     , 'Report'
   ];
 
+  $scope.dateFilter = function(from, to) {
+  
+    TableFactory.factory_user_history_table(userID, {from: from, to : to}, function(data){
+      $scope.table = data;
+    });
+  }
+
   $scope.csvBody = function(){
 
     ary = [];
@@ -196,12 +90,6 @@ app.controller('UserController', function($scope, $location, TableFactory, Login
       ary.push(obj);
     }
     return ary;
-  }
-
-  $scope.dateFilter = function(from, to) {
-    TableFactory.factory_date_range({from: from, to : to}, function(data){
-      $scope.history_table = data;
-    });
   }
 
   //user dashboard
@@ -322,11 +210,11 @@ app.controller('AdminController', function($scope, $location, TableFactory, List
 app.controller('LoginController', function($scope, LoginFactory) {
 
   LoginFactory.factory_get_ip(function(ip){ 
-    LoginFactory.factory_ip_login({ip : ip});
+    LoginFactory.factory_check_ip({ip : ip});
   });
 
   $scope.credentials = {
-    email : 'afenech@gmail.com',
+    email : 'tony@gmail.com',
     password : 'password'
   };
 
@@ -341,6 +229,16 @@ app.controller('LoginController', function($scope, LoginFactory) {
 });
 
 app.controller('MainController', function($scope, TableFactory, LoginFactory){
+
+  LoginFactory.factory_get_ip(function(ip){ 
+    LoginFactory.factory_check_ip({ip : ip});
+  });
+
+  $scope.credentials = {
+    email : 'tony@gmail.com',
+    password : 'password'
+  };
+
   TableFactory.factory_general_employee_info(function(data){
     $scope.table = data;
   });
@@ -352,7 +250,8 @@ app.controller('MainController', function($scope, TableFactory, LoginFactory){
   $scope.logout = function(){
     LoginFactory.logout();
   }
-})
+
+});
 
 app.controller('AuthController', function($scope, AuthFactory, LoginFactory){
   AuthFactory.factory_check_current('data');
