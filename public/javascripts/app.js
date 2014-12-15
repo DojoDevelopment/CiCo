@@ -74,16 +74,22 @@ app.config(function($routeProvider){
 
  $rootScope.$on('$routeChangeStart', function (event, next, current) {
 
-    var is_logged = next.$$route.data.login;
-    var is_admin  = next.$$route.data.admin;
+    var req_login = next.$$route.data.login;
+    var req_admin  = next.$$route.data.admin;
+
+    console.log($rootScope);
+
+    //if user isn't on the right ip or logged in send them to index
+
 
     if ($rootScope.user == null && $rootScope.business == null ) {
       if( next.templateUrl !== "partials/index.html") {
         $location.path('/');
       }
-    } else if ((is_logged && $rootScope.user.id === null) || (is_admin && $rootScope.user.admin === false)) {
+    } else if ( req_login && ($rootScope.user === undefined || $rootScope.user.id === undefined) 
+            ||( req_admin && ($rootScope.user === undefined || $rootScope.user.admin === false))) {
       $location.path('/');
     }
-    
+
   });
 });

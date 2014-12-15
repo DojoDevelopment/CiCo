@@ -16,6 +16,7 @@ app.controller('LoginController', function($scope, $rootScope, $location, LoginF
   }
 
   $scope.login = function(credentials){
+    console.log('controller', credentials);
     LoginFactory.login(credentials);
   };
 

@@ -37,9 +37,7 @@ module.exports = {
     + "WHERE id=$3";
 
     var client = new pg.Client(conString);
-console.log('id', id);
-console.log('ip', ip);
-console.log('name', name);
+
     client.connect(function(err) {
       if(err) { return console.error('could not connect to postgres', err); }
       client.query(qry, [name, ip, id], function(err, data) {
