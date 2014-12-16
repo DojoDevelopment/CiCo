@@ -72,5 +72,4 @@ app.use(multer({
 // set server to listen on the appropriate port
 app.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
-}); 
-
+});

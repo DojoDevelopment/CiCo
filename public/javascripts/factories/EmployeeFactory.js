@@ -17,8 +17,8 @@ app.factory('EmployeeFactory', function($http, $location){
     // 	})
 
     }, factory_upload_file: function(data){
-    	console.log("in factory_upload_file with data: ",data);
-    	$http.post('/api/upload',data).success(function(){
+    	console.log("in factory_upload_file with data: ", data);
+    	$http.post('/api/upload', data).success(function(){
     		$location.path('./#/admin');
     	})
 
