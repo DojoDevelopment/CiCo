@@ -1,9 +1,4 @@
-<!-- <div class='navbar navbar-top'>
-  <div class='nav-logo'>
-    <img src="img/coding_dojo.png">
-    <button class='pull-right btn btn-lg btn-danger' ng-click="logout()">Logout</button>
-  </div>
-</div> -->
+
 <div class='sidenav pull-left'>
     <div class='nav-logo'>
     <img src="img/coding_dojo.png">
@@ -84,22 +79,10 @@
       <tbody>
         <tr ng-repeat="row in history_table | filter: { locations:place, name:people } | orderBy:order:reverse">
           <td id='date'     ng-bind="row.clock_in | date:'dd/M (EEE)'"></td>
-<!-- <<<<<<< HEAD
-          <td id='name'>
-            <div ng-switch on="{{row.pic}}" >
-              <span ng-switch-when="{{row.pic}}">
-                <img height='30' width='30' class='img-rounded' ng-src="/img/profile_pic/profile_{{row.id}}.jpg" />
-              </span>
-              <span ng-switch-default>
-                <img height='30' width='30' class='img-rounded' src="/img/profile_pic/anon.png" />{{row.name}}                
-              </span>
-            </div>
-======= -->
           <td id='name' ng-switch on="{{row.pic}}" >
             <img ng-switch-when="{{row.pic}}" height='30' width='30' class='img-rounded' ng-src="/img/profile_pic/profile_{{row.id}}.jpg" />
             <img ng-switch-default height='30' width='30' class='img-rounded' src="/img/profile_pic/anon.png" />
             {{row.name}}
-<!-- >>>>>>> a8b01271fb73fa5b542c87c44a40724a83301625 -->
           </td>
           <td id='title'    ng-bind="row.title"></td>
           <td id='team'     ng-bind="row.team"></td>

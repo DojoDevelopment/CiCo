@@ -110,8 +110,9 @@
         <td ng-bind="row.report"></td>
       </tr>
     </tbody>
+      <button class="btn btn-danger" ng-csv="csvBody" csv-header="csvHead" filename="history.csv">Download CSV</button>
   </table>
-  <button class="btn btn-danger" ng-csv="csvBody" csv-header="csvHead" filename="history.csv">Download CSV</button>
+
    
 <!--************************  CLOCKOUT MODAL CONTENT *******************************-->
   <modal-clockout session="user.session_id" user="user.id" personal='personal' report='report' show='modalShown' width='750px'>
