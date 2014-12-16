@@ -18,16 +18,15 @@ app.factory('LoginFactory', function($http, $location, $rootScope){
           $location.path('/main')
         })
         .error(function(){
-          console.log('error');
           $location.path('/')
         });
 
     }, login : function(credentials){
-    console.log('factory', credentials);
+
       $http
         .post('/api/login', credentials)
         .success(function(data){
-          console.log('in success');
+
           if (data.id){
             $rootScope.user = {
                 id    : data.id
@@ -35,11 +34,11 @@ app.factory('LoginFactory', function($http, $location, $rootScope){
               , login : true
             };
           }
+
           $location.path((data.admin == true ? 'admin/main/' : 'user/') + data.id);
 
         })
         .error(function(data){
-          console.log('in error');
           $location.path('/'); 
         });
 

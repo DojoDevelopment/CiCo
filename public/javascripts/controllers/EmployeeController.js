@@ -9,17 +9,17 @@ app.controller('EmployeeController', function($scope, $location, EmployeeFactory
   if ( $scope.update == false ){
 
     $scope.user  = {
-        name       : ''
-      , title      : ''
-      , team       : ''
-      , location   : ''
-      , supervisor : ''
-      , status     : ''
-      , note       : ''
-      , start_date : ''
-      , email      : ''
-      , password   : ''
-      , admin      : ''
+        name       : 'test'
+      , title      : 'test_title'
+      , team       : 'test_team'
+      , location   : 1
+      , supervisor : 1
+      , status     : 'active'
+      , note       : 'some_notes'
+      , start_date : '2013-10-01'
+      , email      : 'test@gmail.com'
+      , password   : 'password'
+      , admin      : false
     };
 
   } else {

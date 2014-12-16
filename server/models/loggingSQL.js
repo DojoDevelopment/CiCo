@@ -37,16 +37,11 @@ module.exports = {
     var email = req.body.email;
     var password = req.body.password;
 
-console.log('email', email);
-console.log('password', password);
-
     var qry = 
       "SELECT members.type, members.id, members.business_id"
     + " FROM members"
     + " WHERE email = $1"
     + " AND password = $2";
-
-console.log('qry', qry);
 
     var client = new pg.Client(conString);
   
@@ -54,9 +49,9 @@ console.log('qry', qry);
       if(err) { return console.error('could not connect to postgres', err); }
       client.query(qry, [email, password], function(err, data) {
         if(err) { return console.error('error running query', err); }
-        console.log('data', data);
+
         result = data.rows[0];
-        console.log('result', result);
+
         if (result == undefined){
           res.status(401).json(result).end();
         } else {

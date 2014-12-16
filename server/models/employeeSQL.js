@@ -7,7 +7,8 @@ module.exports = {
   create : function(req, res) {
 
     var form = [
-        req.body.location
+        req.session.user.business
+      , req.body.location
       , req.body.name
       , req.body.title
       , req.body.email
@@ -18,16 +19,13 @@ module.exports = {
       , req.body.team
       , req.body.supervisor
       , req.body.admin
-      , req.sessions.user.id
     ];
 
-    if (form[9]=='') form[9]=1;
-
-    console.log('form[9]: ', form[9]);
+//    if (form[9]=='') form[9]=1; //supervisor id
 
     var qry = 
         "INSERT INTO members ("
-      +   " business_id"
+      +    " business_id"
       +   ", location_id"
       +   ", name"
       +   ", title"
@@ -40,8 +38,7 @@ module.exports = {
       +   ", supervisor_id"
       +   ", type"
       +   ", created_at"
-      + " ) VALUES (1,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,NOW())"
-      + " WHERE business_id = $12"
+      + " ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,NOW())"
       + " RETURNING id";
 
     var client = new pg.Client(conString);

@@ -33,7 +33,6 @@ app.config(function($routeProvider){
       login : true,
       admin : false
     }
-    
 
   //admin main page
   }).when('/admin/main/:id', {
@@ -77,11 +76,6 @@ app.config(function($routeProvider){
 
     var req_login = next.$$route.data.login;
     var req_admin  = next.$$route.data.admin;
-
-    console.log($rootScope);
-
-    //if user isn't on the right ip or logged in send them to index
-
 
     if ($rootScope.user == null && $rootScope.business == null ) {
       if( next.templateUrl !== "partials/index.html") {
