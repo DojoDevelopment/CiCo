@@ -6,9 +6,8 @@
 module.exports = (function(){
 	return {
 		uploadFile: function(req,res){
-			console.log('this is req.body: ',req.body);
-			console.log('this is req.dat: ', req.data);
-
+			console.log('this is in server/controllers/picUpload : req.body: ',req.body);
+			console.log('this is in server/controllers/picUpload : req.dat: ', req.data);
 		}
 	};
 }());

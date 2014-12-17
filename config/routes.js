@@ -1,9 +1,12 @@
+var fs = require('fs-extra');
+
 var main        = require('../server/controllers/main.js');
 var listsSQL    = require('../server/models/listsSQL.js');
 var tableSQL    = require('../server/models/tableSQL.js');
 var businessSQL = require('../server/models/businessSQL.js');
 var employeeSQL = require('../server/models/employeeSQL.js');
 var loggingSQL  = require('../server/models/loggingSQL.js');
+var testSQL  = require('../server/models/testSQL.js');
 //var picUpload = require('../server/controllers/picUpload.js');
 
 module.exports = function Routes(app) { 
@@ -36,11 +39,7 @@ module.exports = function Routes(app) {
 
 
   //Employee pic file upload
-  app.post('/api/upload',             function( req,res){
-                                          console.log("in routes and this is my req.files: ", req.files); 
-                                          //picUpload.uploadFile(req,res); 
-                                      }
-  );
+  app.post('/api/upload',             function( req,res){ testSQL.upload(req, res);     });
   
   //Clock in / out
   app.post('/api/clock_in/:id',       function(req, res){ employeeSQL.clock_in( req, res);   });
@@ -52,4 +51,25 @@ module.exports = function Routes(app) {
   app.post('/api/check_ip',   function(req, res){ loggingSQL.check_ip(req, res);    });
   app.get('/api/get_session', function(req, res){ loggingSQL.get_session(req, res); });
   app.get('/api/logout',      function(req, res){ loggingSQL.logout(req, res);      });
+
+
+  app.post('/upload_file', function (req, res){
+
+    var file = req.files.file;  //file location within req
+    //first the temp file must be read
+    fs.readFile(file.path, function(err, data){
+      //where the upload will be saved along with what it will be named
+      var path = __dirname + "/../public/img/profile_pic/profile_" + file.originalname;
+      //writes the temp file to upload location/name
+      fs.writeFile(path, data, function(err){
+        //deletes temp file
+        fs.unlinkSync(file.path);
+        if(err) {
+          console.log(err);
+        } else {
+          console.log("The file was saved!");
+        }
+      });
+    });
+  });
 }

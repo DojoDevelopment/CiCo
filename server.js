@@ -29,7 +29,7 @@ app.use(morgan('dev'));
 
 // body parser for getting data through the request
 var bodyParser = require('body-parser')
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json())
 
 // allows you to use http verbs that aren't supported by the browser if the header is 'X-HTTP-Method-Override'
@@ -47,28 +47,32 @@ if ('development' == app.get('env')) {
 
 // load up and invoke the routes function returned as an export in routes.js 
 // found in the config folder
-var routes = require('./config/routes')(app);
+
 
 //use multer, important: multer will not process any form which is not multipart/form-data
+var done = false;
 app.use(multer({ 
-	dest: './public/img/profile_pic/'
-	, rename: function (fieldname, filename) {
-			return filename.replace(/\W+/g, '-').toLowerCase() + Date.now();
-		}
-	, limits: {
-			files : 1
-		}
-	, onFileUploadStart: function (file) {
-  		console.log(file.fieldname + ' is starting ...')
-		}
-	, onFileUploadComplete: function (file) {
-  		console.log(file.fieldname + ' uploaded to  ' + file.path)
-		}
-	, onFilesLimit: function () {
-		  console.log('Crossed file limit!')
-		}
+	//dest: './public/img/profile_pic/'
+	dest: './uploads/'
+	// , rename: function (fieldname, filename) {
+	// 		return filename.replace(/\W+/g, '-').toLowerCase() + Date.now();
+	// 	}
+	// , limits: {
+	// 		files : 1
+	// 	}
+	// , onFileUploadStart: function (file) {
+ //  		console.log(file.fieldname + ' is starting ...')
+	// 	}
+	// , onFileUploadComplete: function (file) {
+ //  		console.log(file.fieldname + ' uploaded to  ' + file.path);
+ //  		done = true;
+	// 	}
+	// , onFilesLimit: function () {
+	// 	  console.log('Crossed file limit!')
+	// 	}
 }));
 
+var routes = require('./config/routes')(app);
 // set server to listen on the appropriate port
 app.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
