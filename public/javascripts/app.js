@@ -79,43 +79,21 @@ app.config(function($routeProvider){
   });
 
 })
-// .run(function ($rootScope, $location) {
+.run(function ($rootScope, $location) {
 
-//  $rootScope.$on('$routeChangeStart', function (event, next, current) {
+ $rootScope.$on('$routeChangeStart', function (event, next, current) {
 
-//     var req_login = next.$$route.data.login;
-//     var req_admin  = next.$$route.data.admin;
+    var req_login = next.$$route.data.login;
+    var req_admin  = next.$$route.data.admin;
 
-//     if ($rootScope.user == null && $rootScope.business == null ) {
-//       if( next.templateUrl !== "partials/index.html") {
-//         $location.path('/');
-//       }
-//     } else if ( req_login && ($rootScope.user === undefined || $rootScope.user.id === undefined) 
-//             ||( req_admin && ($rootScope.user === undefined || $rootScope.user.admin === false))) {
-//       $location.path('/');
-//     }
-
-//   });
-// });
-
-
-//file upload service: created service so could be accessed in multiple controller or could have been written directly in controller
-app.service('fileUpload', function($http) {
-    var fileUpload = {};
-    fileUpload.uploadFileToUrl = function(file, uploadUrl) {
-        console.log(file)
-        //encapsulates the file in form data to pass it to the route
-        var fd = new FormData();
-        fd.append('file', file);
-        $http.post(uploadUrl, fd, {
-            transformRequest: angular.identity,
-            //lets the browser decide that it's multipart form, if defined as multipart process throws error
-            headers: {
-                'Content-Type': undefined
-            }
-        })
-            .success(function() {})
-            .error(function() {});
+    if ($rootScope.user == null && $rootScope.business == null ) {
+      if( next.templateUrl !== "partials/index.html") {
+        $location.path('/');
+      }
+    } else if ( req_login && ($rootScope.user === undefined || $rootScope.user.id === undefined) 
+            ||( req_admin && ($rootScope.user === undefined || $rootScope.user.admin === false))) {
+      $location.path('/');
     }
-    return fileUpload;
+
+  });
 });

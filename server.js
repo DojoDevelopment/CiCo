@@ -57,9 +57,9 @@ app.use(multer({
 	// , rename: function (fieldname, filename) {
 	// 		return filename.replace(/\W+/g, '-').toLowerCase() + Date.now();
 	// 	}
-	// , limits: {
-	// 		files : 1
-	// 	}
+	, limits: {
+			files : 1
+		}
 	// , onFileUploadStart: function (file) {
  //  		console.log(file.fieldname + ' is starting ...')
 	// 	}
@@ -67,9 +67,9 @@ app.use(multer({
  //  		console.log(file.fieldname + ' uploaded to  ' + file.path);
  //  		done = true;
 	// 	}
-	// , onFilesLimit: function () {
-	// 	  console.log('Crossed file limit!')
-	// 	}
+	, onFilesLimit: function () {
+		  console.log('Crossed file limit!')
+		}
 }));
 
 var routes = require('./config/routes')(app);

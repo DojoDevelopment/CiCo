@@ -1,10 +1,8 @@
-app.controller('TestController', function($scope, fileUpload) {
+app.controller('TestController', function($scope, EmployeeFactory) {
 
   $scope.upload_file = function(){
     var imgFile = $scope.imgFile;
-    console.log(imgFile);
-    fileUpload.uploadFileToUrl(imgFile, '/upload_file');
-    
+    EmployeeFactory.factory_upload_file(imgFile);
   }
 
 });
