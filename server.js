@@ -53,7 +53,7 @@ if ('development' == app.get('env')) {
 var done = false;
 app.use(multer({ 
 	//dest: './public/img/profile_pic/'
-	dest: './uploads/'
+	dest: './temp_uploads/'
 	// , rename: function (fieldname, filename) {
 	// 		return filename.replace(/\W+/g, '-').toLowerCase() + Date.now();
 	// 	}

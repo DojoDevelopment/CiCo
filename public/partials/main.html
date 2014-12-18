@@ -23,11 +23,8 @@
     </thead>
     <tbody>
       <tr ng-repeat="row in table | filter: { locations:place, name:member} | orderBy:order:reverse">
-        <td ng-switch on="{{row.pic}}">
-          <img ng-switch-when="{{row.pic}}" height='30' width='30' class='img-rounded' ng-src="/img/profile_pic/profile_{{row.id}}.jpg" />
-          <img ng-switch-default height='30' width='30' class='img-rounded' src="/img/profile_pic/anon.png" />
-          {{row.name}}
-        </td>
+        <td ng-if="row.picture == true"><img height='30' width='30' class='img-rounded' ng-src="/img/profile_pic/profile_{{row.id}}.jpg" />{{row.name}}</td>
+        <td ng-if="row.picture == false"><img height='30' width='30' class='img-rounded' src="/img/profile_pic/anon.png" />{{row.name}}</td>
         <td ng-if="row.is_logged == true"><img src="../img/icons/in.png"></td>
         <td ng-if="row.is_logged == false"><img src="../img/icons/out.png"></td>
         <td ng-bind="row.locations"></td>

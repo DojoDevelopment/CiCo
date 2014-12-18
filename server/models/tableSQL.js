@@ -37,6 +37,8 @@ module.exports = {
 
     var qry = 
         "SELECT sessions.created_at"
+        + ", members.id"
+        + ", members.picture"
         + ", members.name"
         + ", members.title"
         + ", members.team"
@@ -101,6 +103,7 @@ module.exports = {
   }, get_table_main_users : function(req, res){
 
     var qry = "SELECT members.id"
+              + ", members.picture"
               + ", members.name"
               + ", members.team"
               + ", locations2.name AS locations"

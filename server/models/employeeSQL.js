@@ -21,8 +21,6 @@ module.exports = {
       , req.body.admin
     ];
 
-//    if (form[9]=='') form[9]=1; //supervisor id
-
     var qry = 
         "INSERT INTO members ("
       +    " business_id"
@@ -42,33 +40,13 @@ module.exports = {
       + " RETURNING id";
 
     var client = new pg.Client(conString);
-    client.connect(function(err) {
-      if(err) { return console.error('could not connect to postgres', err); }
 
-      client.query(qry, form, function(err, data) {
+    pg.connect(conString, function(err, client, done) {
+      if(err) { return console.error('error fetching client from pool', err); }
+      client.query(qry, form, function(err, result) {
+        done();
         if(err) { return console.error('error running query', err); }
-
-        //var done = false;
-        var done = true;
-//        data.rows[0].id;
-        if(done==true){
-          console.log("this is the data.rows[0].id argument from query callback: ;", data.rows[0].id);
-          var available_files = fs.readdirSync("/Users/Alvaro/Desktop/cico/public/img/profile_pic/");
-          console.log("these are the files in public/img/profile_pics: ",available_files);
-
-          var rand1000 = Math.floor(Math.random()*(1000-1) + 1);
-          var myFileURL = "/Users/Alvaro/Desktop/cico/public/img/profile_pic/"+available_files[available_files.length-1]; 
-          var myDestination = "/Users/Alvaro/Desktop/cico/uploads/pic_user_id_"+data.rows[0].id+".jpg";
-          console.log(__dirname);
-          fs.move(myFileURL,myDestination, function(err){
-            if (err){
-              throw err
-            }
-            console.log('moved ',myFileURL,' to ', myDestination);
-          });
-          res.end("File uploaded.");
-        }
-        client.end();
+        res.json(result.rows[0].id);
       });
     });
 
@@ -79,6 +57,7 @@ module.exports = {
         "SELECT members.id"
         + ", members.location_id"
         + ", members.name"
+        + ", members.picture"
         + ", members.title"
         + ", members.email"
         + ", members.password"
@@ -146,6 +125,40 @@ module.exports = {
         done();
         if(err) { return console.error('error running query', err); }
         res.status(200).end();
+      });
+    });
+  }, upload : function(req, res){
+
+    var id = req.params.id;
+    var pic_file = req.files.file; 
+
+    //first the temp file must be read
+    fs.readFile(pic_file.path, function(err, data){
+      //where the upload will be saved along with what it will be named
+      var path = __dirname + "/../../public/img/profile_pic/profile_" + id + '.jpg';
+      //writes the temp file to upload location/name
+      fs.writeFile(path, data, function(err){
+        //deletes temp file
+        fs.unlinkSync(pic_file.path);
+        if(err) {
+          console.log(err);
+        } else {
+          var qry = 
+            'UPDATE members'
+            + ' SET picture=TRUE' 
+            + ' WHERE id = $1';
+
+          var client = new pg.Client(conString);
+
+          pg.connect(conString, function(err, client, done) {
+            if(err) { return console.error('error fetching client from pool', err); }
+            client.query(qry, [id], function(err, result) {
+              done();
+              if(err) { return console.error('error running query', err); }
+              res.status(200).end();
+            });
+          });
+        }
       });
     });
 

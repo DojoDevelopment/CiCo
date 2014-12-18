@@ -71,27 +71,16 @@
       <tr>
         <td><h4>Upload Profile Picture</h4></td>
         <td>
-
-          <form action='/api/upload' method='post' enctype='multipart/form-data'>
-            <input type="file" id="pic_path" onfocusout='submit()' ng-model="user.pic" name="pic">
-            <!-- <input type="submit" value="go" > -->
-       <!--    <button class="btn btn-lg btn-in pull-right" type="submit" ng-click="upload_file()">Upload</button> -->
-          </form>
-<!--      <div class="input-group">
-            <span class="input-group-btn">
-              <span class="btn btn-primary btn-file">
-              Browse&hellip; <input type="file" ng-model="pic">
-              </span>
-            </span>
-            <input id="inputPicPath" ng-bind="pic" placeholder='Upload Profile Pic' type="text" class="upload_pic form-control" readonly>
-          </div> -->
+          <span id='file'>
+          <!-- to use the directive file-model is used -->
+            <input type="file" file-model="imgFile" name="pic_path">
+          </span>
+          <!-- <input type="file" id="pic_path" ng-model="user.pic" name="pic"> -->
         </td>
       </tr>
       <tr>
         <td><h4>Employee Start Date</h4></td>
-
         <td><input type="date" ng-model="user.start_date" name="start_date"></td>
-
       </tr>
       <tr>
         <td><h4>Email &amp; Password</h4></td>

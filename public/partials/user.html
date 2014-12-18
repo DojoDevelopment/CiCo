@@ -6,7 +6,6 @@
     <li ng-if="user.is_logged == false"><a href="" ng-click="clockIn()"><button class='sidenav-box'><img src="img/icons/clock-in.png"><br>Clock IN</button></a></li><li ng-if="user.is_logged == true"><a href="" ng-click="toggleModal()"><button class='sidenav-box'><img src="img/icons/clock-out.png"><br>Clock Out</button></a></li><li><a href=""><button class='sidenav-box'><img src='img/icons/edit.png'><br>Request Time Edit</button></a></li>
     <li><a href=""><button class='sidenav-box'><img src='img/icons/vacay.png'><br>Request Time Off</button></a></li>    
     <li><a href="" ng-click="logout()"><button class='sidenav-box'><img src="img/icons/logout.png"><br>Log OUT</button></a></li>
-
   </ul>
 </div>
 <div class='jumbotron e_d'>
@@ -15,14 +14,8 @@
 <div class='container-fluid main'>
 
   <div class='col-md-6'>
-    <div ng-switch on="{{row.pic}}" >
-      <span ng-switch-when="{{row.pic}}">
-        <img height='250' width='290' class='img-rounded' ng-src="/img/profile_pic/profile_{{row.id}}.jpg" />
-      </span>
-      <span ng-switch-default>
-        <img height='250' width='290' class='img-rounded' src="/img/profile_pic/anon.png" />
-      </span>
-    </div>
+    <div ng-if="user.picture == true"><img height='250' width='290' class='img-rounded' ng-src="/img/profile_pic/profile_{{user.id}}.jpg" /></div>
+    <div ng-if="user.picture == false"><img height='250' width='290' class='img-rounded' src="/img/profile_pic/anon.png" /></div>
   </div>  
   <div class='col-md-6 employee-info'>
     <div height='630' width='600'>

@@ -14,15 +14,6 @@ app.config(function($routeProvider){
       admin : false
     }
 
-  }).when('/test', {
-
-    templateUrl: 'partials/test.html',
-    controller: 'TestController',
-    data: {
-      login : false,
-      admin : false
-    }
-
   //index page for businesses who have a matching ip
   }).when('/main', {
 

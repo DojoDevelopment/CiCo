@@ -6,6 +6,7 @@ app.controller('EmployeeController', function($scope, $location, EmployeeFactory
   
   $scope.update = ($location.path() == '/admin/add_employee' ? false : true )  
 
+  //check if page is to update or create new employee
   if ( $scope.update == false ){
 
     $scope.user  = {
@@ -55,25 +56,13 @@ app.controller('EmployeeController', function($scope, $location, EmployeeFactory
       , supervisor : $scope.user.supervisor
       , status     : $scope.user.status
       , note       : $scope.user.note
-      , pic        : $scope.user.pic
+      , pic        : $scope.imgFile
       , start_date : $scope.user.start_date
       , email      : $scope.user.email
       , password   : $scope.user.password
       , admin      : (document.getElementById('inputAdmin').checked == true ? 'contractor' : 'employee')
     }
-    
     EmployeeFactory.factory_create_employee(info);
-  }
-
-  $scope.upload_file = function(){
-    
-
-    //var data = {file: $scope.user.pic};
-    var data = {file: $scope.upload_file};
-
-    console.log('in upload_file function in controllers.js, will send this data: ', data);
-
-    EmployeeFactory.factory_upload_file(data);
   }
 
   $scope.update_employee = function(){
@@ -88,6 +77,7 @@ app.controller('EmployeeController', function($scope, $location, EmployeeFactory
       , supervisor : $scope.user.supervisor
       , status     : $scope.user.status
       , note       : $scope.user.note
+      , pic        : $scope.imgFile
       , start_date : $scope.user.start_date
       , email      : $scope.user.email
       , password   : $scope.user.password

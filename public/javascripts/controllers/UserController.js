@@ -11,7 +11,9 @@ app.controller('UserController', function($scope, $rootScope, $location, Employe
   EmployeeFactory.factory_get_employee(userID, function(data){
   if ($rootScope.user.admin){
     $scope.user = {
-        name       : data.name
+        id         : data.id
+      , name       : data.name
+      , picture    : data.picture
       , title      : data.title
       , team       : data.team
       , supervisor : data.supervisor
@@ -25,6 +27,7 @@ app.controller('UserController', function($scope, $rootScope, $location, Employe
     $scope.user = {
         id         : data.id
       , name       : data.name
+      , picture    : data.picture
       , title      : data.title
       , team       : data.team
       , supervisor : data.supervisor
