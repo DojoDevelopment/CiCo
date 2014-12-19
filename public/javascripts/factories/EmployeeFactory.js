@@ -33,6 +33,7 @@ app.factory('EmployeeFactory', function($http, $location, $rootScope){
             })
           }
           $location.path('/admin/main/' + $rootScope.user.id);
+        }
         });
 
     }, factory_get_employee : function(id, callback){

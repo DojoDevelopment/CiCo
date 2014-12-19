@@ -84,19 +84,22 @@ module.exports = {
       });
     });
 
-  }, update : function(req, res, next) {
+  }, update : function(req, res) {
 
-    var location   = req.body.location;
-    var name       = req.body.name;
-    var title      = req.body.title;
-    var email      = req.body.email;
-    var password   = req.body.password;
-    var start_date = req.body.start_date;
-    var status     = req.body.status;
-    var note       = req.body.note;
-    var team       = req.body.team;
-    var supervisor = req.body.supervisor;
-    var type       = req.body.admin;
+    var form = [
+        req.body.location
+      , req.body.name
+      , req.body.title
+      , req.body.email
+      , req.body.password
+      , req.body.start_date
+      , req.body.status
+      , req.body.note
+      , req.body.team
+      , req.body.supervisor
+      , req.body.admin
+      , req.params.id
+    ]
 
     var qry = 
          "UPDATE members"
@@ -112,10 +115,7 @@ module.exports = {
       +   ", supervisor_id=$10"
       +   ", type=$11"
       +   ", updated_at=NOW()"
-      + " WHERE id=1";
-
-    var form = [location, name, title, email, password, start_date, 
-                status, note, team, supervisor, type]
+      + " WHERE id=$12";
 
     var client = new pg.Client(conString);
 
