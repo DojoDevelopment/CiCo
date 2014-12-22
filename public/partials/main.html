@@ -2,13 +2,15 @@
   <div class='nav-logo'>
     <img src="img/icons/coding_dojo.png">
   </div>
-  <ul>
-    <li><input placeholder='email' type='email' ng-model="credentials.email"></li>
-    <li><input placeholder='password' type='password' ng-model="credentials.password"></li>
-    <li><a href="" ng-click="login(credentials)"><button class='sidenav-box'><img src="img/icons/login.png"><br>Log IN</button></a></li>
-  </ul>
+  <form name="login_form" class='form-group' ng-submit="submitForm(login_form.$valid)" novalidate>
+    <ul>
+      <li><input placeholder='email' type='email' ng-model="credentials.email" required autofocus></li>
+      <li><input placeholder='password' type='password' ng-model="credentials.password" required></li>
+      <li><button class='sidenav-box' type="submit" ng-disabled="login_form.$invalid"><img src="img/icons/login.png"><br>Log IN</button></li>
+    </ul>
+  </form>
 </div>
-<div class='jumbotron e_d'>
+<div class='e_d'>
   <h2 align='center'>Time Keeper - Employee</h2>
 </div>
 <div class='container-fluid main'>
@@ -23,8 +25,8 @@
     </thead>
     <tbody>
       <tr ng-repeat="row in table | filter: { locations:place, name:member} | orderBy:order:reverse">
-        <td ng-if="row.picture == true"><img height='30' width='30' class='img-rounded' ng-src="/img/profile_pic/profile_{{row.id}}.jpg" />{{row.name}}</td>
-        <td ng-if="row.picture == false"><img height='30' width='30' class='img-rounded' src="/img/profile_pic/anon.png" />{{row.name}}</td>
+        <td ng-if="row.picture != null"><img height='30' width='30' class='img-rounded' ng-src="/img/profile_pic/{{biz_id}}/{{row.picture}}" />{{row.name}}</td>
+        <td ng-if="row.picture == null"><img height='30' width='30' class='img-rounded' src="/img/profile_pic/anon.png" />{{row.name}}</td>
         <td ng-if="row.is_logged == true"><img src="../img/icons/in.png"></td>
         <td ng-if="row.is_logged == false"><img src="../img/icons/out.png"></td>
         <td ng-bind="row.locations"></td>

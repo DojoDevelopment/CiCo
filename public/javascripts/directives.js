@@ -16,7 +16,7 @@ app.directive('modalDialog', function() {
         scope.show = false;
       };
     },
-    templateUrl:'partials/admin_settings.html'
+   templateUrl:'partials/modals/admin_settings.html'
     // controller: 'partials/admin_dash'
   };
 });
@@ -43,7 +43,7 @@ app.directive('modalClockout',  function() {
         scope.show = false;
       };
     },
-    templateUrl:'partials/clockout.html'
+   templateUrl:'partials/modals/clockout.html'
   };
 });
 

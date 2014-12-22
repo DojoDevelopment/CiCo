@@ -34,20 +34,30 @@ app.config(function($routeProvider){
       admin : false
     }
 
-  //admin main page
-  }).when('/admin/main/:id', {
+  //admin dashboard
+  }).when('/dashboard', {
 
-    templateUrl: 'partials/admin.html',
-    controller: 'AdminController',
+    templateUrl: 'partials/dashboard.html',
+    controller: 'DashboardController',
+    data: {
+      login : true,
+      admin : true
+    }
+
+  //admin history
+  }).when('/history', {
+
+    templateUrl: 'partials/history.html',
+    controller: 'HistoryController',
     data: {
       login : true,
       admin : true
     }
 
   //add employee page  
-  }).when('/admin/add_employee', {
+  }).when('/add_employee', {
 
-    templateUrl: 'partials/add_employee.html',
+    templateUrl: 'partials/add-edit.html',
     controller:  'EmployeeController',
     data: {
       login : true,
@@ -55,9 +65,9 @@ app.config(function($routeProvider){
     }
 
   //admin edit user page
-  }).when('/admin/edit/:id', {
+  }).when('/edit/:id', {
 
-    templateUrl: 'partials/add_employee.html',
+    templateUrl: 'partials/add-edit.html',
     controller: 'EmployeeController',
      data: {
       login : true,
@@ -72,17 +82,21 @@ app.config(function($routeProvider){
 })
 .run(function ($rootScope, $location) {
 
- $rootScope.$on('$routeChangeStart', function (event, next, current) {
+  $rootScope.$on('$routeChangeStart', function (event, next, current) {
 
-    var req_login = next.$$route.data.login;
-    var req_admin  = next.$$route.data.admin;
+    if (next.$$route.data){
+      var req_login = next.$$route.data.login;
+      var req_admin  = next.$$route.data.admin;
 
-    if ($rootScope.user == null && $rootScope.business == null ) {
-      if( next.templateUrl !== "partials/index.html") {
+      if ($rootScope.user == null && $rootScope.business == null ) {
+        if( next.templateUrl !== "partials/index.html") {
+          $location.path('/');
+        }
+      } else if ( req_login && ($rootScope.user === undefined || $rootScope.user.id === undefined) 
+              ||( req_admin && ($rootScope.user === undefined || $rootScope.user.admin === false))) {
         $location.path('/');
       }
-    } else if ( req_login && ($rootScope.user === undefined || $rootScope.user.id === undefined) 
-            ||( req_admin && ($rootScope.user === undefined || $rootScope.user.admin === false))) {
+    } else {
       $location.path('/');
     }
 

@@ -1,41 +1,38 @@
 app.factory('LoginFactory', function($http, $location, $rootScope){
 
   return {
-
-    factory_get_ip : function(callback){
+    factory_check_ip : function(){
 
       $http
         .get('http://ipinfo.io/json')
         .success(function(data){
-          callback(data.ip);
+          $http
+            .post('/api/check_ip', {ip : data.ip})
+            .success(function(data){
+              $rootScope.business = { id : data.id }
+              $location.path('/main')
+          })
+            .error(function(){
+              $location.path('/')
+          });
       });
-
-    }, factory_check_ip : function(info){
-
-      $http.post('/api/check_ip', info)
-        .success(function(){
-          $rootScope.business = { id : 1 }
-          $location.path('/main')
-        })
-        .error(function(){
-          $location.path('/')
-        });
 
     }, login : function(credentials){
 
       $http
         .post('/api/login', credentials)
         .success(function(data){
-
+console.log(data);
           if (data.id){
             $rootScope.user = {
                 id    : data.id
               , admin : data.admin
               , login : true
             };
+            $rootScope.business = {id : 1}
           }
 
-          $location.path((data.admin == true ? 'admin/main/' : 'user/') + data.id);
+          $location.path((data.admin == true ? '/dashboard' : '/user/' + data.id));
 
         })
         .error(function(data){

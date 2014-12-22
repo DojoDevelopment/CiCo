@@ -3,15 +3,14 @@
     <img src="img/icons/coding_dojo.png">
   </div>
   <ul>
-    <li><a href="/#/admin/add_employee"><button class='sidenav-box'><img src="img/icons/people.png"><br>Add Employee</button></a></li>
-    <li><a ng-click="changePage('dash')"><button class='sidenav-box'><img src="img/icons/dash.png"><br>Dashboard</button></a></li>
-    <li><a ng-click="changePage('history')"><button class='sidenav-box'><img src="img/icons/history.png"><br>History</button></a></li>
-    <li ng-if="user.page=='history'"><a ng-click='toggleModal();' href=""><button class='sidenav-box'><img src="img/icons/settings.png"><br>Settings</button></a></li>
-    <li ng-if="user.page=='dash'" ><a ng-click='logout();' href=""><button class='sidenav-box'><img src="img/icons/logout.png"><br>Logout</button></a></li>      
+    <li><a href="/#/add_employee"><button class='sidenav-box'><img src="img/icons/people.png"><br>Add Employee</button></a></li>
+    <li><a href="/#/dashboard"><button class='sidenav-box'><img src="img/icons/dash.png"><br>Dashboard</button></a></li>
+    <li><button class='sidenav-box' ng-click='toggleModal()'><img src="img/icons/settings.png"><br>Settings</button></li>
+    <li><button class='sidenav-box' ng-click='logout()'><img src="img/icons/logout.png"><br>Logout</button></li>      
   </ul>
 </div>
-<div class='jumbotron a_d'>
-  <h2 align='center'>Time Keeper - Admin <span ng-if="user.page=='dash'">Dashboard</span><span ng-if="user.page=='history'">History</span></h2>
+<div class='a_d'>
+  <h2 align='center'>Time Keeper - Admin History</h2>
 </div>
 <div class='container-fluid main'>
 
@@ -19,7 +18,7 @@
     
       <div class='pull-left'>
     
-    <form ng-if="user.page=='history'">
+    <form>
       <input type='date' ng-model="from_date"> to <input type='date' ng-model="to_date">
       <button type='submit' ng-click="dateFilter(from_date, to_date)" class='pull-right btn btn-sm btn-date'>Filter by Date</button>
     </form>
@@ -43,8 +42,8 @@
         </select>
       </div>
 
-      <div ng-if="user.page=='history'" style='margin-bottom:-18px; margin-left:-10px;'class='pull-right'>
-        <ul ng-if="user.page=='history'">
+      <div style='margin-bottom:-18px; margin-left:-10px;'class='pull-right'>
+        <ul>
           <li><a tabindex='1' ng-click="dateFilter('all')">All</a></li>
           <li><a tabindex='2' ng-click="dateFilter('this_week')">This week</a></li>
           <li><a tabindex='3' ng-click="dateFilter('last_week')">Last week</a></li>
@@ -59,7 +58,7 @@
 
   <div class='container-sm table-wrap'>
 
-    <table fixed-header table-height='19em' ng-if="user.page=='history'" class='table table-striped time-table'>
+    <table fixed-header table-height='40em' class='table table-striped time-table'>
       <thead>
 
         <tr>
@@ -78,8 +77,8 @@
       <tbody>
         <tr ng-repeat="row in history_table | filter: { locations:place, name:people } | orderBy:order:reverse">
           <td id='date' ng-bind="row.clock_in | date:'dd/M (EEE)'"></td>
-          <td ng-if="row.picture == true"><img height='30' width='30' class='img-rounded' ng-src="/img/profile_pic/profile_{{row.id}}.jpg" />{{row.name}}</td>
-          <td ng-if="row.picture == false"><img height='30' width='30' class='img-rounded' src="/img/profile_pic/anon.png" />{{row.name}}</td>
+          <td ng-if="row.picture != null"><img height='30' width='30' class='img-rounded' ng-src="/img/profile_pic/{{biz_id}}/{{row.picture}}" />{{row.name}}</td>
+          <td ng-if="row.picture == null"><img height='30' width='30' class='img-rounded' src="/img/profile_pic/anon.png" />{{row.name}}</td>
           <td id='title'    ng-bind="row.title"></td>
           <td id='team'     ng-bind="row.team"></td>
           <td id='location' ng-bind="row.locations"></td>
@@ -93,32 +92,6 @@
 
     </table>
     <button class="btn btn-danger" ng-csv="csvBody" csv-header="csvHead" filename="history.csv" ng-if="user.page=='history'">Download CSV</button>
-
-    <table class='table dash-table' ng-if="user.page=='dash'">
-      <thead>
-        <th><a href="" ng-click="order='name'; reverse=!reverse">Name</a></th>
-        <th><a href="" ng-click="order='status'; reverse=!reverse">Status</a></th>
-        <th><a href="" ng-click="order='title'; reverse=!reverse">Title</a></th>
-        <th><a href="" ng-click="order='team'; reverse=!reverse">Team</a></th>
-        <th><a href="" ng-click="order='supervisor'; reverse=!reverse">Supervisor</a></th>
-        <th><a href="" ng-click="order='location'; reverse=!reverse">Location</a></th>
-        <th>Note</th>
-        <th>Actions</th>
-      </thead>
-      <tbody>
-        <tr ng-repeat="row in dashboard_table | filter: { locations:place } | orderBy:order:reverse">
-          <td ng-if="row.picture == true"><img height='30' width='30' class='img-rounded' ng-src="/img/profile_pic/profile_{{row.id}}.jpg" />{{row.name}}</td>
-          <td ng-if="row.picture == false"><img height='30' width='30' class='img-rounded' src="/img/profile_pic/anon.png" />{{row.name}}</td>
-          <td ng-bind="row.status"></td>
-          <td ng-bind="row.title"></td>
-          <td ng-bind="row.team"></td>
-          <td ng-bind="row.supervisor"></td>
-          <td ng-bind="row.locations"></td>
-          <td ng-bind="row.note"></td>
-          <td><a href="/#/user/{{row.id}}">Show</a>/<a href="/#/admin/edit/{{row.id}}">Edit</a></td>
-        </tr>
-      </tbody>
-    </table>
   </div>
 
 </div>

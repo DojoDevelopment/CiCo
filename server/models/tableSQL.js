@@ -2,7 +2,9 @@ var pg = require('pg');
 var conString = require('../../config/db.js');
 module.exports = {
 
-  get_table_dash_admin : function(req, res) {
+  get_table_dashboard : function(req, res) {
+
+    var biz_id = req.session.user.business;
 
     var qry = 
         "SELECT members.id"
@@ -17,13 +19,14 @@ module.exports = {
       + " FROM members"
       + " LEFT JOIN locations AS locations2 ON locations2.id = members.location_id"
       + " LEFT JOIN members AS members2 ON members2.id = members.supervisor_id"
-      + " WHERE members.business_id = 1";
+      + " WHERE members.business_id = $1"
+      + " AND members.type = 'employee'";
     
     var client = new pg.Client(conString);
 
     client.connect(function(err) {
       if(err) { return console.error('could not connect dude, check stuff!', err); }
-      client.query(qry, function(err, data) {
+      client.query(qry, [biz_id], function(err, data) {
         if(err) { return console.error('error running admin_dash', err); }
         res.json(data.rows);
         client.end();
@@ -32,6 +35,7 @@ module.exports = {
 
   }, get_table_date_range : function(req, res){
 
+    var biz_id = req.session.user.business;
     var from = req.body.from;
     var to = req.body.to;
 
@@ -50,7 +54,8 @@ module.exports = {
         + ", age(sessions.clock_out, sessions.clock_in) AS billed"
       + " FROM sessions"
       + " LEFT JOIN members ON sessions.member_id = members.id"
-      + " LEFT JOIN locations ON locations.id = members.location_id";
+      + " LEFT JOIN locations ON locations.id = members.location_id"
+      + " WHERE members.business_id = $1";
 
       if ( from == 'this_week' || from == 'this_month' || from == 'last_week' || from == 'last_month') {
         var from_sunday = new Date().getDay();
@@ -60,29 +65,29 @@ module.exports = {
      
         switch (from){
           case 'this_week'  :
-            qry += " WHERE sessions.clock_in >= CURRENT_DATE - interval '"+from_sunday+" day'";
+            qry += " AND sessions.clock_in >= CURRENT_DATE - interval '"+from_sunday+" day'";
             break;
           case 'this_month' : 
-            qry += " WHERE sessions.clock_in >= CURRENT_DATE - interval '" + day_in_month + " day'";
+            qry += " AND sessions.clock_in >= CURRENT_DATE - interval '" + day_in_month + " day'";
             break;
           case 'last_week'  : 
-            qry += " WHERE sessions.clock_in <= CURRENT_DATE - interval '" + from_sunday + " day'";
+            qry += " AND sessions.clock_in <= CURRENT_DATE - interval '" + from_sunday + " day'";
             qry += " AND sessions.clock_in > CURRENT_DATE - interval '" + (from_sunday+7) + " day'";
             break;
           case 'last_month' : 
-            qry += " WHERE sessions.clock_in <= CURRENT_DATE - interval '" + day_in_month + " day'";
+            qry += " AND sessions.clock_in <= CURRENT_DATE - interval '" + day_in_month + " day'";
             qry += " AND sessions.clock_in > '"+year+"-"+month+"-01'"
             break;
         }
       } else if( from !== 'all' ) {
-        qry += " WHERE sessions.clock_in >= '" + from + "' AND sessions.clock_in <= '" + to + "'";
+        qry += " AND sessions.clock_in >= '" + from + "' AND sessions.clock_in <= '" + to + "'";
       }
 
     var client = new pg.Client(conString);
     
     client.connect(function(err) {
       if(err) { return console.error('could not connect dude, check stuff!', err); }
-      client.query(qry, function(err, data) {
+      client.query(qry, [biz_id], function(err, data) {
         if(err) { return console.error('error running history_table', err); }
         //replace billed with the previous info
         for (var i=0; i<data.rows.length; i++){
@@ -102,6 +107,7 @@ module.exports = {
 
   }, get_table_main_users : function(req, res){
 
+    var biz_id = req.session.user.business;
     var qry = "SELECT members.id"
               + ", members.picture"
               + ", members.name"
@@ -110,11 +116,13 @@ module.exports = {
               + ", members.is_logged"
             + " FROM members"
             + " LEFT JOIN locations AS locations2 ON locations2.id = members.location_id"
-            + " WHERE members.business_id = 1"
+            + " WHERE members.business_id = $1"
+            + " AND members.type = 'employee'"
+            + " AND members.status = 'active'";
 
     pg.connect(conString, function(err, client, done) {
       if(err) { return console.error('error fetching client from pool', err); }
-      client.query(qry, function(err, result) {
+      client.query(qry, [biz_id], function(err, result) {
         done();
         if(err) { return console.error('error running query', err); }
         res.json(result.rows);

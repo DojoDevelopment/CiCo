@@ -7,7 +7,7 @@ module.exports = {
 
     var user_ip = req.body.ip;
     var qry = 
-      "SELECT ip_addresses"
+      "SELECT businesses.id, businesses.ip_addresses"
     + " FROM businesses"
     + " WHERE id = 1";
 
@@ -23,8 +23,16 @@ module.exports = {
           var ip_array = result.rows[0].ip_addresses.split(',');
 
           for (var i = 0; i < ip_array.length; i++) {
+
             if (ip_array[i].trim() === user_ip){
-              res.status(200).end();
+              
+              req.session.user = {
+                business : result.rows[0].id
+                ,     id : null
+                ,  admin : false
+              };
+              
+              res.json({id : result.rows[0].id}).end();
             }
           };
         }
@@ -59,9 +67,9 @@ module.exports = {
 
             business : result.business_id
             ,     id : result.id
-            ,  admin : (result.type == 'contractor' ? true : false ) 
+            ,  admin : (result.type == 'employee' ? false : true ) 
           };
-          console.log(req.session.user)
+
           res.json(req.session.user);
 
         }

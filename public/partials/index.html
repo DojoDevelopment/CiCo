@@ -3,7 +3,7 @@
 		<h2>Coding Dojo TimeKeeper Login</h2>
 	</div>
 	<div class='login_form'>
-		<form class='form-group' ng-submit="login(credentials)" novalidate>
+		<form name="login_form" class='form-group' ng-submit="submitForm(login_form.$valid)" novalidate>
 
 			<label for="inputEmail" class="sr-only">Email</label>
 			<input type="email" ng-model="credentials.email" class="form-control" placeholder="Email" required autofocus>
@@ -11,7 +11,7 @@
 			<label for="inputPassword" class="sr-only">Password</label>
 			<input type="password" ng-model="credentials.password" class="form-control" placeholder="Password" required>
 
-			<button class='btn btn-md btn-success' type="submit">Sign In</button>
+			<button class='btn btn-md btn-success' type="submit" ng-disabled="login_form.$invalid">Sign In</button>
 
 		</form>
 

@@ -6,6 +6,8 @@ module.exports = {
   
   create : function(req, res) {
 
+    checkEmail(req.body.email);
+
     var form = [
         req.session.user.business
       , req.body.location
@@ -20,6 +22,11 @@ module.exports = {
       , req.body.supervisor
       , req.body.admin
     ];
+
+    //script for script tags
+    for (var i = 0; i < form.length; i++){
+      form[i] = String(form[i]).replace(/<script\b[^>]*>(.*?)<\/script>/i, '').trim();
+    }
 
     var qry = 
         "INSERT INTO members ("
@@ -123,42 +130,68 @@ module.exports = {
       if(err) { return console.error('error fetching client from pool', err); }
       client.query(qry, form, function(err, result) {
         done();
-        if(err) { return console.error('error running query', err); }
+        if(err) { return console.error('error running query', err, qry); }
         res.status(200).end();
       });
     });
   }, upload : function(req, res){
 
     var id = req.params.id;
+    var biz_id = req.session.user.business;
     var pic_file = req.files.file; 
+    var pic_name = 'profile_' + Date.now() + '.jpg';
 
-    //first the temp file must be read
-    fs.readFile(pic_file.path, function(err, data){
-      //where the upload will be saved along with what it will be named
-      var path = __dirname + "/../../public/img/profile_pic/profile_" + id + '.jpg';
-      //writes the temp file to upload location/name
-      fs.writeFile(path, data, function(err){
-        //deletes temp file
-        fs.unlinkSync(pic_file.path);
-        if(err) {
-          console.log(err);
-        } else {
-          var qry = 
-            'UPDATE members'
-            + ' SET picture=TRUE' 
-            + ' WHERE id = $1';
+    var qry1 = 
+        'SELECT members.picture' 
+      + ' FROM members'
+      + ' WHERE members.id = $1'
 
-          var client = new pg.Client(conString);
+    var qry2 = 
+        'UPDATE members'
+      + ' SET picture = $1' 
+      + ' WHERE id = $2';
 
-          pg.connect(conString, function(err, client, done) {
-            if(err) { return console.error('error fetching client from pool', err); }
-            client.query(qry, [id], function(err, result) {
-              done();
-              if(err) { return console.error('error running query', err); }
-              res.status(200).end();
-            });
+    //Connect to database
+    pg.connect(conString, function(err, client, done) {
+      if(err) { return console.error('error fetching client from pool', err); }
+      //check if member has old pic
+      client.query(qry1, [id], function(err, result) {
+        done();
+        if(err) { return console.error('error running query', err, qry1); }
+        old_pic = result.rows[0].picture;
+        //add new img
+
+        //first the temp file must be read
+        fs.readFile(pic_file.path, function(err, data){
+          //where the upload will be saved along with what it will be named
+          var path = __dirname + "/../../public/img/profile_pic/" + biz_id + "/" + pic_name;
+          
+          fs.writeFile(path, data, function(err){ //writes the temp file to upload location/name
+            fs.unlinkSync(pic_file.path); //deletes temp file
+            if(err) {
+              console.log(err);
+            } else {
+              var client = new pg.Client(conString);
+
+              //update member with new pic
+              pg.connect(conString, function(err, client, done) {
+                if(err) { return console.error('error fetching client from pool', err); }
+                client.query(qry2, [pic_name, id], function(err, result) {
+                  done();
+                  if(err) { return console.error('error running query', err, qry2); }
+                });
+              });
+
+              if (old_pic !== null ){
+                fs.unlinkSync(__dirname + "/../../public/img/profile_pic/" + biz_id + "/" + old_pic);
+              }
+
+            }
           });
-        }
+        });
+
+      res.status(200);
+  
       });
     });
 
@@ -310,4 +343,10 @@ module.exports = {
       });
     });
   }
+}
+
+function checkEmail(email){
+  if (!email.match(/[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}/)){
+    return res.json({error: "Email is invalid."}).status(400).end();
+  };
 }

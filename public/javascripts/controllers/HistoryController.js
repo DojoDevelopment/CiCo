@@ -1,34 +1,21 @@
-app.controller('AdminController', function($scope, $location, TableFactory, ListFactory, BusinessFactory, LoginFactory) {
+app.controller('HistoryController', function($scope, $location, $rootScope, TableFactory, ListFactory, BusinessFactory, LoginFactory) {
 
-  $scope.user = {
-    page : 'dash'
-  }
-
-  $scope.changePage = function(page){
-    $scope.user.page = page;
-    if (page == 'history') {
-      TableFactory.factory_date_range({from: 'all', to : ''}, function(data){
-        $scope.history_table = data;
-        $scope.order = '-created_at';
-      });
-    }
-  }
+  $scope.biz_id = $rootScope.business.id;
 
   ListFactory.factory_used_locations(function(data){ $scope.locations = data; });
   ListFactory.factory_members( function(data){ $scope.members = data; });
-
-  TableFactory.factory_admin_dashboard(function(data){
-    $scope.dashboard_table = data;
+  
+  TableFactory.factory_date_range({from: 'all', to : ''}, function(data){
+    $scope.history_table = data;
     $scope.order = '-created_at';
   });
 
-  BusinessFactory.factory_get_business_info(1, function(data){ 
-    $scope.business = data
-  });
-  
   $scope.modalShown = false;
   $scope.toggleModal = function() {
-    $scope.modalShown = !$scope.modalShown;
+    BusinessFactory.factory_get_business_info($rootScope.business.id, function(data){ 
+      $scope.business = data
+      $scope.modalShown = !$scope.modalShown;
+    });
   };
 
   $scope.updateSettings = function(){
@@ -36,7 +23,6 @@ app.controller('AdminController', function($scope, $location, TableFactory, List
        name : $scope.business.name
       , ip  : $scope.business.ip_addresses
     };
-
     BusinessFactory.factory_update_business_info(newSettings, function(){
       $scope.modalShown = false;
     });

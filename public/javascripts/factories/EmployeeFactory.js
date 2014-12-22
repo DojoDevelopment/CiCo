@@ -1,8 +1,9 @@
 //USED IN CONTROLLER: employee, employeeInfo
-app.factory('EmployeeFactory', function($http, $location, $rootScope){
+app.factory('EmployeeFactory', function($http, $location){
   return {
 
     factory_create_employee : function(data){
+
       $http
         .post('/api/employee', data)
         .success(function(id){
@@ -15,7 +16,7 @@ app.factory('EmployeeFactory', function($http, $location, $rootScope){
               , headers: { 'Content-Type': undefined }  
             })
           }
-          $location.path('/admin/main/' + $rootScope.user.id);
+          $location.path('/dashboard');
         });      
 
 	  }, factory_update_employee : function(id, data){
@@ -32,8 +33,7 @@ app.factory('EmployeeFactory', function($http, $location, $rootScope){
               , headers: { 'Content-Type': undefined }  
             })
           }
-          $location.path('/admin/main/' + $rootScope.user.id);
-        }
+          $location.path('/dashboard');
         });
 
     }, factory_get_employee : function(id, callback){

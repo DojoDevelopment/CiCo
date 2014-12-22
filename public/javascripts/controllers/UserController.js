@@ -3,6 +3,8 @@ app.controller('UserController', function($scope, $rootScope, $location, Employe
 
   var userID = $location.path().split('/')[$location.path().split('/').length - 1];
 
+  $scope.biz_id = $rootScope.business.id;
+
   TableFactory.factory_user_history_table(userID, {from: 'all', to : ''}, function(data){
     $scope.table = data;
     $scope.order = '-created_at';

@@ -15,7 +15,7 @@ module.exports = function Routes(app) {
   app.get('/api/list_supervisors',    function (req, res){ listsSQL.get_list_supervisors(req, res);    });
 
   //Dashboard
-  app.get('/api/table_admin_dash',    function (req, res){ tableSQL.get_table_dash_admin(req, res); });
+  app.get('/api/table_admin_dash',    function (req, res){ tableSQL.get_table_dashboard(req, res); });
 
   //History
   app.post('/api/table_user/:id',     function (req, res){ employeeSQL.history(req, res);           });

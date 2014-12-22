@@ -70,7 +70,7 @@ hr{ border:1px solid #CECDCC; }
               background-color: #C0C5CE !important; color: #333333; margin-bottom: -2% !important; width:100% !important; }
 
 .add_table{ margin-top: 3%;}
-.add_table>tbody>tr>td{ width:25%; }
+.add_table>tbody>tr>td{ width:25%; min-width: 195px;}
 .add_table>tbody>tr>td:first-child{ border-right: 1px solid #DDDDDD; }
 .add_table>tbody>tr>td:last-child{ border-right: none; }
 .add_table th{ background-color: #428BCB; color:white; border-bottom: none !important;}
@@ -168,7 +168,7 @@ button a:hover{ text-decoration: none; color:#4584EF; }
 .in, .out { font-weight: bold;  }
 
 td .checkbox { position:absolute !important; }
-tr td img { margin-left: 35px; }
+tr td img { margin-left: 4px; }
 
 .employee-info div{ margin-top: -25px !important; }
 
@@ -220,6 +220,7 @@ tr td img { margin-left: 35px; }
   /*****************************/
 
   .main{display: inline-block; position:absolute; margin-top: 1%; margin-left: 5% !important; width:76%;}
-  .e_d{background-color: #428BCB !important; color:white !important; height:12.8em;} /*jumbotron employee dashboard*/
-  .a_d{background-color: #03C8A2 !important; color:white !important; height:12.8em; margin-bottom: 2%;} /*jumbotron for admin partials*/
+  .e_d{background-color: #428BCB !important; color:white !important; height:5em;} /*jumbotron employee dashboard*/
+  .a_d{background-color: #03C8A2 !important; color:white !important; height:5em; margin-bottom: 2%;} /*jumbotron for admin partials*/
 
+h2 { margin-top: 0px;}

@@ -1,1 +1,3 @@
--admin dashboard members select combo box not showing
+Things to do CSS
+- aside color not going to bottom of page
+- shrink all titles to the same height as coding dojo logo

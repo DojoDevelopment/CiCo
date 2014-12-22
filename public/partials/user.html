@@ -14,9 +14,9 @@
 <div class='container-fluid main'>
 
   <div class='col-md-6'>
-    <div ng-if="user.picture == true"><img height='250' width='290' class='img-rounded' ng-src="/img/profile_pic/profile_{{user.id}}.jpg" /></div>
-    <div ng-if="user.picture == false"><img height='250' width='290' class='img-rounded' src="/img/profile_pic/anon.png" /></div>
-  </div>  
+    <div ng-if="user.picture != null"><img height='250' width='290' class='img-rounded' ng-src="/img/profile_pic/{{biz_id}}/{{user.picture}}" /></div>
+    <div ng-if="user.picture == null"><img height='250' width='290' class='img-rounded' src="/img/profile_pic/anon.png" /></div>
+  </div>
   <div class='col-md-6 employee-info'>
     <div height='630' width='600'>
       <h2>Employee Snapshot</h2>

@@ -1,22 +1,22 @@
-app.controller('LoginController', function($scope, $rootScope, $location, LoginFactory, TableFactory) {
+app.controller('LoginController', function($scope, $rootScope, LoginFactory, TableFactory) {
 
-  LoginFactory.factory_get_ip(function(ip){ 
-    LoginFactory.factory_check_ip({ip : ip});
-  });
+  LoginFactory.factory_check_ip();
 
   $scope.credentials = {
     email : 'mike@gmail.com',
     password : 'password'
   };
 
-  if ($rootScope.business !== null ){
+  if ($rootScope.business !== undefined ){
+    $scope.biz_id = $rootScope.business.id;
     TableFactory.factory_general_employee_info(function(data){
       $scope.table = data;
+      $scope.order = 'name';
     });
   }
 
-  $scope.login = function(credentials){
-    LoginFactory.login(credentials);
+  $scope.submitForm = function(isValid){
+    if (isValid){ LoginFactory.login($scope.credentials); }
   };
 
   $scope.logout = function(){
