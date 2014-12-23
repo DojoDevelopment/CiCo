@@ -22,7 +22,7 @@ app.factory('LoginFactory', function($http, $location, $rootScope){
       $http
         .post('/api/login', credentials)
         .success(function(data){
-console.log(data);
+
           if (data.id){
             $rootScope.user = {
                 id    : data.id

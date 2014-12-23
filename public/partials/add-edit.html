@@ -19,53 +19,79 @@
     <table class='table add_table'>
       <tbody>
         <tr>
-          <td><h4>Name*</h4></td>
           <td>
-            <label for="inputName" class="sr-only">Name*</label>
-            <input type="text" ng-model="user.name" class="form-control" name="name" placeholder="Name" required autofocus>
-            <p ng-show="employeeForm.name.$invalid && !employeeForm.name.$pristine" class="help-block">Name is required.</p>
+            <label for="inputName">Name*</label>
+          </td>
+          <td>
+            <input type="text" ng-model="form.name" ng-pattern="pattern.letter" ngTrim="true" name="name" id="inputName" class="form-control" placeholder="Name" required autofocus />
+            <div ng-messages="employeeForm.name.$error" ng-if="employeeForm.$submitted || !employeeForm.name.$pristine">
+              <p ng-message="required" class="help-block">Name is required</p>
+              <p ng-message="pattern" class="help-block">Only letters</p>
+            </div>
           </td>
         </tr>
         <tr>
-          <td><h4>Email*</h4></td>
           <td>
-            <label for="inputEmail" class="sr-only">Email</label>
-            <input type="email" ng-model="user.email" class="form-control" name="email" placeholder="Email (Used for Login)" required/>
+            <label for="inputEmail">Email*</label>
+          </td>
+          <td>
+            <input type="email" ng-model="form.email" ng-pattern="pattern.email" ngTrim="true" name="email" id="inputEmail" class="form-control" placeholder="Email (Used for Login)" required />
+            <div ng-messages="employeeForm.email.$error" ng-if="employeeForm.$submitted || !employeeForm.email.$pristine">
+              <p ng-message="required" class="help-block">Email is required.</p>
+              <p ng-message="pattern" class="help-block">Invalid email.</p>
+            </div>
           </td>
         </tr>
         <tr>
-          <td><h4>Password*</h4></td>
           <td>
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" ng-model="user.password" id="inputPassword" class="form-control" name="password" placeholder="Password" ng-minlength="6" ng-maxlength="72" required>
-            <label for="confirmPassword" class="sr-only">Confirm Password</label>
-            <input type="password" ng-model="user.confirm" id="confirmPassword" class="form-control" name="confirm" placeholder="Confirm Password" ng-match="user.password" required>
-            <p ng-show="employeeForm.password.$error.minlength" class="help-block">Password must have at least 6 characters.</p>
-            <p ng-show="employeeForm.password.$error.maxlength" class="help-block">Password can only have 10 characters.</p>
-            <p ng-show="isMatch() === false" class="help-block">Passwords must match.</p>
+            <label for="inputPassword">Password*</label>
+          </td>
+          <td>
+            <input type="password" ng-model="form.password" ng-change="isMatch()" ng-pattern="pattern.password" name="password" id="inputPassword" class="form-control" placeholder="Password" ng-minlength="6" ng-maxlength="72" required />
+            <label for="inputConfirm" class="sr-only">Confirm Password</label>
+
+            <input type="password" ng-model="form.confirm" ng-change="isMatch()" name="confirm" id="confirm" class="form-control" placeholder="Confirm Password" id="inputConfirm" required />
+            <div ng-messages="employeeForm.password.$error" ng-if="employeeForm.$submitted || !employeeForm.password.$pristine">
+              <p ng-message="required" class="help-block">Password is required.</p>
+              <p ng-message="minlength" class="help-block">Password is too short.</p>
+              <p ng-message="maxlength" class="help-block">Password is too long.</p>
+              <p ng-message="pattern" class="help-block">Password can containe letters and numbers only.</p>
+            </div>
+            <div ng-messages="employeeForm.confirm.$error" ng-if="employeeForm.$submitted || !employeeForm.confirm.$pristine">
+              <p ng-message="required" class="help-block">Password confirmation is required.</p>
+              <p ng-message="match" class="help-block">Password doesn't match</p>
+            </div>
           </td>
         </tr>
         <tr>
-          <td><h4>Upload Profile Picture</h4></td>
+          <td>
+            <label for="inputFile">Upload Profile Picture</label>
+          </td>
           <td>
             <span id='file'>
             <!-- to use the directive file-model is used -->
-              <input type="file" file-model="user.imgFile" name="pic_path">
+              <input type="file" file-model="form.imgFile" name="pic_path" id="inputFile" />
             </span>
           </td>
         </tr>
         <tr>
-          <td><h4>Employee Start Date*</h4></td>
           <td>
-            <input type="date" ng-model="user.start_date" name="start_date" placeholder="yyyy-MM-dd" required />
-            <span class="help-block" ng-show="employeeForm.start_date.$error.required">Required!</span>
-            <span class="help-block" ng-show="employeeForm.start_date.$error.date">Not a valid date!</span>
+            <label for="inputStartDate">Employee Start Date*</label>
+          </td>
+          <td>
+            <input type="date" ng-model="form.start_date" name="start_date" id="inputStartDate" placeholder="yyyy-MM-dd" required />
+            <div ng-messages="employeeForm.start_date.$error" ng-if="employeeForm.$submitted || !employeeForm.start_date.$pristine">
+              <p ng-message="required" class="help-block">Start Date is required.</p>
+              <p ng-message="date" class="help-block">Not a valid date.</p>
+            </div>
           </td>
         </tr>
         <tr>
-          <td><h4>Employee Status*</h4></td>
           <td>
-            <select type="button" ng-model="user.status" name="status" class="drop-btn dropdown-toggle btn btn-lg" role="menu" required>
+            <label for="inputStatus">Employee Status*</label>
+          </td>
+          <td>
+            <select type="button" ng-model="form.status" name="status" id="inputStatus" class="drop-btn dropdown-toggle btn btn-lg" required>
               <option value="" disabled selected>Status</option>
               <option value="active" ng-selected="status == 'active'">Active</option>
               <option value="inactive" ng-selected="status == 'inactive'">Inactive</option>
@@ -75,48 +101,71 @@
               <option value="vacation" ng-selected="status == 'vacation'">Vacation</option>
             </select>
           </td>
+          <div ng-messages="employeeForm.status.$error" ng-if="employeeForm.$submitted || !employeeForm.status.$pristine">
+            <p ng-message="required" class="help-block">Status is required.</p>
+          </div>
         </tr>
         <tr>
-          <td><h4>Supervisor*</h4></td>
           <td>
-            <select type='button' ng-model="user.supervisor" id="inputSupervisor" class='drop-btn dropdown-toggle btn btn-lg' name="supervisor" role='menu'  required>
+            <label for="inputSupervisor">Supervisor*</label>
+          </td>
+          <td>
+            <select type='button' ng-model="form.supervisor" name="supervisor" id="inputSupervisor" class='drop-btn dropdown-toggle btn btn-lg' required>
               <option value="" disabled selected>Supervisor</option>
-              <option value="{{s.id}}" ng-repeat="s in supervisors" ng-bind="s.name" ng-selected="s.id == user.supervisor"></option>
+              <option value="{{s.id}}" ng-repeat="s in supervisors" ng-bind="s.name" ng-selected="s.id == form.supervisor"></option>
             </select>
+            <div ng-messages="employeeForm.supervisor.$error" ng-if="employeeForm.$submitted || !employeeForm.supervisor.$pristine">
+              <p ng-message="required" class="help-block">Supervisor is required.</p>
+            </div>
           </td>
         </tr>
         <tr>
-          <td><h4>Team</h4></td>
           <td>
-            <label for="inputTeam" class="sr-only">Team</label>
-            <input type="text" ng-model="user.team" class="form-control" name="team" placeholder="Team">
+            <label for="inputTeam">Team</label>
+          </td>
+          <td>
+            <input type="text" ng-model="form.team" ngTrim="true" ng-pattern="lettersNumbers" name="team" id="inputTeam" class="form-control" placeholder="Team" />
+            <div ng-messages="employeeForm.team.$error" ng-if="employeeForm.$submitted || !employeeForm.team.$pristine">
+              <p ng-message="pattern" class="help-block">Team can only have letters and numbers.</p>
+            </div>
           </td>
         </tr>
         <tr>
-          <td><h4>Title*</h4></td>
           <td>
-            <label for="inputTitle" class="sr-only">Title*</label>
-            <input type="text" ng-model="user.title" class="form-control" name="title" placeholder="Title" required>
-            <p ng-show="employeeForm.title.$invalid && !employeeForm.title.$pristine" class="help-block">Title is required.</p>
+            <label for="inputTitle">Title*</label>
+          </td>
+          <td>
+            <input type="text" ng-model="form.title" ng-pattern="pattern.lettersNumbers" ngTrim="true" name="title" id="inputTitle" class="form-control" placeholder="Title" required/>
+            <div ng-messages="employeeForm.title.$error" ng-if="employeeForm.$submitted || !employeeForm.title.$pristine">
+              <p ng-message="required" class="help-block">Title is required.</p>
+              <p ng-message="pattern" class="help-block">Title can only have letters and numbers.</p>
+            </div>
           </td>
         </tr>
         <tr>
-          <td><h4>Location*</h4></td>
           <td>
-            <label for="inputLocation" class="sr-only">Location</label>
-            <select type='button' ng-model="user.location" id="inputLocation" name="location" class='drop-btn dropdown-toggle btn btn-lg' role='menu' required>
+            <label for="inputLocation">Location*</label>
+          </td>
+          <td>
+            <select type='button' ng-model="form.location" name="location" id="inputLocation" class='drop-btn dropdown-toggle btn btn-lg' required>
               <option value="" disabled selected>Location</option>
               <option ng-repeat="l in locations" value="{{l.id}}" ng-bind="l.name"></option>
             </select>
-            <p ng-show="employeeForm.location.$invalid && !employeeForm.location.$pristine" class="help-block">Location is required.</p>
+            <div ng-messages="employeeForm.location.$error" ng-if="employeeForm.$submitted || !employeeForm.location.$pristine">
+              <p ng-message="required" class="help-block">Location is required.</p>
+            </div>
           </td>
         </tr>
         <tr>
-          <td><h4>Notes</h4></td>
           <td>
-            <label for='note' class='sr-only'>only visible to admins</label>
-            <textarea class='form-control' ng-model="user.note" name="note" placeholder='Notes (only visible to admins)'></textarea>
+            <label for='inputNote'>Notes</label>
           </td>
+          <td>
+            <textarea ng-model="form.note" ngTrim="true" ng-pattern="lettersNumbers" name="note" id="inputNote" class='form-control' placeholder='Notes (only visible to admins)'></textarea>
+          </td>
+          <div ng-messages="employeeForm.note.$error" ng-if="employeeForm.$submitted || !employeeForm.note.$pristine">
+            <p ng-message="pattern" class="help-block">Title can only have letters and numbers.</p>
+          </div>
         </tr>
         <tr>
           <td colspan="2">
@@ -127,8 +176,8 @@
                 <span class='emphasis'>*Be careful who you give admin access to*</span>
               </label>
             </div>
-            <button ng-if="update == true" class="btn btn-lg btn-in pull-right" type="submit">Update</button>
-            <button ng-if="update == false" class="btn btn-lg btn-in pull-right" type="submit">Add Employee</button>
+            <button type="submit" ng-if="update == true" class="btn btn-lg btn-in pull-right">Update</button>
+            <button type="submit" ng-if="update == false" class="btn btn-lg btn-in pull-right">Add Employee</button>
           </td>
         </tr>                                    
       </tbody>

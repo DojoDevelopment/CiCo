@@ -23,10 +23,7 @@ module.exports = {
       , req.body.admin
     ];
 
-    //script for script tags
-    for (var i = 0; i < form.length; i++){
-      form[i] = String(form[i]).replace(/<script\b[^>]*>(.*?)<\/script>/i, '').trim();
-    }
+    form = sanitizeForm(form);
 
     var qry = 
         "INSERT INTO members ("
@@ -108,21 +105,23 @@ module.exports = {
       , req.params.id
     ]
 
+    form = sanitizeForm(form);
+
     var qry = 
          "UPDATE members"
       + " SET location_id=$1"
-      +   ", name=$2"
-      +   ", title=$3"
-      +   ", email=$4"
-      +   ", password=$5"
-      +   ", start_date=$6"
-      +   ", status=$7"
-      +   ", note=$8"
-      +   ", team=$9"
-      +   ", supervisor_id=$10"
-      +   ", type=$11"
-      +   ", updated_at=NOW()"
-      + " WHERE id=$12";
+      +   ", name = $2"
+      +   ", title = $3"
+      +   ", email = $4"
+      +   ", password = $5"
+      +   ", start_date = $6"
+      +   ", status = $7"
+      +   ", note = $8"
+      +   ", team = $9"
+      +   ", supervisor_id = $10"
+      +   ", type = $11"
+      +   ", updated_at = NOW()"
+      + " WHERE id = $12";
 
     var client = new pg.Client(conString);
 
@@ -234,7 +233,7 @@ module.exports = {
             break;
           case 'last_month' : 
             qry += " AND sessions.clock_in <= CURRENT_DATE - interval '" + day_in_month + " day'";
-            qry += " AND sessions.clock_in > '"+year+"-"+month+"-01'"
+            qry += " AND sessions.clock_in > '" + year + "-" + month + "-01'"
             break;
         }
       } else if( from !== 'all' ) {
@@ -277,7 +276,7 @@ module.exports = {
     var qry2 = 
         "UPDATE members"
       + " SET is_logged=TRUE"
-      + " WHERE id=$1"
+      + " WHERE id = $1"
 
     pg.connect(conString, function(err, client, done) {
       if(err) { return console.error('error fetching client from pool', err); }
@@ -304,14 +303,14 @@ module.exports = {
          "UPDATE sessions"
       + " SET clock_out=NOW()"
       +   ", personal_time=$1"
-      +   ", report=$2"
+      +   ", report = $2"
       +   ", updated_at=Now()"
-      + " WHERE id=$3";
+      + " WHERE id = $3";
 
     var qry2 = 
         "UPDATE members"
       + " SET is_logged=FALSE"
-      + " WHERE id=$1"
+      + " WHERE id = $1"
 
     pg.connect(conString, function(err, client, done) {
       if(err) { return console.error('error fetching client from pool', err); }
@@ -325,6 +324,7 @@ module.exports = {
         });
       });
     });
+
   }, last_clocking : function(req, res){
 
     var id = req.params.id;
@@ -349,4 +349,11 @@ function checkEmail(email){
   if (!email.match(/[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}/)){
     return res.json({error: "Email is invalid."}).status(400).end();
   };
+}
+
+function sanitizeForm(array){
+  for (var i = 0; i < array.length; i++){
+    array[i] = String(array[i]).replace(/<script\b[^>]*>(.*?)<\/script>/i, '').trim();
+  }
+  return array;
 }
