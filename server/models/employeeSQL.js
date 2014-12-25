@@ -127,7 +127,7 @@ module.exports = {
     });
 
   }, update : function(req, res) {
-console.log('update');
+
     var form = req.body;
     var password = true;
 
@@ -165,18 +165,6 @@ console.log('update');
         user.splice(11,2);
         password = false;
       }
-
-console.log(user[0], !regex.isNumber(user[0]))
-console.log(user[1], !regex.isNumber(user[1]))
-console.log(user[2], !regex.isNumber(user[2]))
-console.log(user[3], !regex.isString(user[3]))
-console.log(user[4], !regex.isEmail(user[4]))
-console.log(user[5], !regex.isWord(user[5]))
-console.log(user[6], !regex.isDateTime(user[6]))
-console.log(user[7], !regex.isAlphaNumeric(user[7]))
-console.log(user[8], !regex.isAlphaNumeric(user[8]))
-console.log(user[9], !regex.isAlphaNumeric(user[9]))
-console.log(user[10], !regex.isWord(user[10]))
 
       if (
              !regex.isNumber(user[0])       //user_id
