@@ -1,5 +1,5 @@
 var pg = require('pg');
-var conString = require('../../config/db.js');
+var conString = require('./db_config.js');
 module.exports = {
 
   get_list_locations : function(req, res) {
@@ -72,6 +72,7 @@ module.exports = {
   }, get_list_supervisors : function(req, res) {
 
     var biz_id = req.session.user.business;
+    
     var qry = 
         "SELECT id"
         + ", name"

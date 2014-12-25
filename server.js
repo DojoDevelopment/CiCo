@@ -45,10 +45,6 @@ if ('development' == app.get('env')) {
   app.use(errorhandler());
 }
 
-// load up and invoke the routes function returned as an export in routes.js 
-// found in the config folder
-
-
 //use multer, important: multer will not process any form which is not multipart/form-data
 var done = false;
 app.use(multer({ 
@@ -72,7 +68,9 @@ app.use(multer({
 		}
 }));
 
-var routes = require('./config/routes')(app);
+// load up and invoke the routes function returned as an export in routes.js 
+var routes = require('./server/routes')(app);
+
 // set server to listen on the appropriate port
 app.listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

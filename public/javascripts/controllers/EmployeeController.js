@@ -4,6 +4,8 @@ app.controller('EmployeeController', function($scope, $location, EmployeeFactory
   ListFactory.factory_supervisors(function(data){ $scope.supervisors = data; });
   ListFactory.factory_all_locations(function(data){ $scope.locations = data; });
 
+  $scope.error = null;
+  $scope.match = true;
   $scope.update = ($location.path() == '/add_employee' ? false : true )  
   $scope.pattern = {
       email : /[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}/
@@ -15,16 +17,14 @@ app.controller('EmployeeController', function($scope, $location, EmployeeFactory
   //check if page is to update or create new employee
   if ( $scope.update == false ){
 
-    $scope.form  = {
-      start_date : new Date()
-    };
-    $scope.match = ($scope.form.password === $scope.form.confirm);
+    $scope.form  = { start_date : new Date() };
 
   } else {
 
     var userID = $location.path().split('/')[2];
 
     EmployeeFactory.factory_get_employee(userID, function(data){
+
       $scope.form  = {
           name       : data.name
         , title      : data.title
@@ -35,9 +35,8 @@ app.controller('EmployeeController', function($scope, $location, EmployeeFactory
         , note       : data.note
         , start_date : new Date(data.start_date)
         , email      : data.email
-        , admin      : (data.type == 'employee' ? '' : 'true' )
+        , admin      : (data.type == 'admin' ? true : false )
       };
-      $scope.match = ($scope.form.password === $scope.form.confirm);
 
     });
   }
@@ -48,42 +47,18 @@ app.controller('EmployeeController', function($scope, $location, EmployeeFactory
   }
 
   $scope.submitForm = function(isValid){
+    $scope.employeeForm.$submitted = true;
     if (isValid){ 
-      if (!$scope.update){
-        var info = {
-          name       : $scope.form.name
-          , title      : $scope.form.title
-          , team       : $scope.form.team
-          , location   : $scope.form.location
-          , supervisor : $scope.form.supervisor
-          , status     : $scope.form.status
-          , note       : $scope.form.note
-          , pic        : $scope.form.imgFile
-          , start_date : $scope.form.start_date
-          , email      : $scope.form.email
-          , password   : $scope.form.password
-          , admin      : (document.getElementById('inputAdmin').checked == true ? 'contractor' : 'employee')
-        }
+      if ($scope.update && $scope.match){
 
-        EmployeeFactory.factory_create_employee(info);
-      } else {
         var userID = $location.path().split('/')[2];
-        var info = {
-            name       : $scope.form.name
-          , title      : $scope.form.title
-          , team       : $scope.form.team
-          , location   : $scope.form.location
-          , supervisor : $scope.form.supervisor
-          , status     : $scope.form.status
-          , note       : $scope.form.note
-          , pic        : $scope.form.imgFile
-          , start_date : $scope.form.start_date
-          , email      : $scope.form.email
-          , password   : $scope.form.password
-          , admin      : (document.getElementById('inputAdmin').checked == true ? 'contractor' : 'employee')
-        }
-
-        EmployeeFactory.factory_update_employee(userID, info);
+        EmployeeFactory.factory_update_employee(userID, $scope.form, function(data){
+          $scope.serverError = data;
+        });
+      } else if (!$scope.update){
+        EmployeeFactory.factory_create_employee($scope.form, function(data){
+          $scope.serverError = data;
+        });
       }
     }
   };

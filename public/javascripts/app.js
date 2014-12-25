@@ -15,6 +15,16 @@ app.config(function($routeProvider){
     }
 
   //index page for businesses who have a matching ip
+  }).when('/register', {
+
+    templateUrl: 'partials/register.html',
+    controller:  'LoginController',
+    css: 'stylesheets/login.css',
+    data: {
+      login : false,
+      admin : false
+    }
+
   }).when('/main', {
 
     templateUrl: 'partials/main.html',

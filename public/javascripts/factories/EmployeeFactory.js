@@ -2,14 +2,15 @@
 app.factory('EmployeeFactory', function($http, $location){
   return {
 
-    factory_create_employee : function(data){
+    factory_create_employee : function(data, callback){
 
       $http
         .post('/api/employee', data)
         .success(function(id){
-          if (data.pic !== undefined ){
+
+          if (data.imgFile !== undefined){
             var fd = new FormData();
-            fd.append('file', data.pic);
+            fd.append('file', data.imgFile);
             $http.post('/api/upload_file/' + id, fd, {
               transformRequest: angular.identity
               //lets the browser decide that it's multipart form, if defined as multipart process throws error
@@ -17,16 +18,19 @@ app.factory('EmployeeFactory', function($http, $location){
             })
           }
           $location.path('/dashboard');
-        });      
+        })
+        .error(function(data){
+          callback(data);
+        });
 
-	  }, factory_update_employee : function(id, data){
+	  }, factory_update_employee : function(id, data, callback){
 
       $http
         .put('/api/employee/' + id, data)
         .success(function(){
-          if (data.pic !== undefined ){
+          if (data.imgFile !== undefined){
             var fd = new FormData();
-            fd.append('file', data.pic);
+            fd.append('file', data.imgFile);
             $http.post('/api/upload_file/' + id, fd, {
               transformRequest: angular.identity
               //lets the browser decide that it's multipart form, if defined as multipart process throws error
@@ -34,7 +38,11 @@ app.factory('EmployeeFactory', function($http, $location){
             })
           }
           $location.path('/dashboard');
+        })
+        .error(function(data){
+          callback(data);
         });
+;
 
     }, factory_get_employee : function(id, callback){
 

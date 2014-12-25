@@ -2,11 +2,11 @@
   <div class='nav-logo'>
     <img src="img/icons/coding_dojo.png">
   </div>
-  <form name="login_form" class='form-group' ng-submit="submitForm(login_form.$valid)" novalidate>
+    <form name="loginForm" ng-submit="submitForm(loginForm.$valid)" class='form-group' novalidate>
     <ul>
-      <li><input placeholder='email' type='email' ng-model="credentials.email" required autofocus></li>
-      <li><input placeholder='password' type='password' ng-model="credentials.password" required></li>
-      <li><button class='sidenav-box' type="submit" ng-disabled="login_form.$invalid"><img src="img/icons/login.png"><br>Log IN</button></li>
+      <li><input type='email' ng-model="form.email" name="email" placeholder='email' required autofocus></li>
+      <li><input type='password' ng-model="form.password" name="password" placeholder='password' required></li>
+      <li><button type="submit" ng-disabled="login_form.$invalid" class='sidenav-box'><img src="img/icons/login.png"><br>Log IN</button></li>
     </ul>
   </form>
 </div>
@@ -34,30 +34,4 @@
       </tr>
     </tbody>
   </table>
-
-<!--************************  CLOCKOUT MODAL CONTENT *******************************-->
-  <modal-clockout user='currentUser' personal='personal' report='report' show='modalShown' width='750px'>
-    <div class='container modal-settings clockout-content'>
-      <nav class='navbar navbar-fixed-top navbar-inverse'>
-        <h1 align='center'>Employee Clockout</h1>
-      </nav>
-      <form class='clockout-form' name='clockout_form'>
-        <select name='select' ng-model="personal">
-          <option value="" disabled selected>Choose Time</option>  
-          <option value="0">None</option>
-          <option value=".25">15 minutes</option>
-          <option value=".5" >30 minutes</option>
-          <option value=".75">45 minutes</option>
-          <option value="1"  >1 hour</option>
-          <option value="1.5">1.5 hours</option>
-          <option value="2"  >2 hours</option>
-        </select>
-        <h3>Report <span class='emphasis'>*mandatory</span></h3>
-        <h4>What did you work on? What did you accomplish?</h4>
-        <textarea ng-maxlength="30" ng-model="report" placeholder='example: Curriculum Update (1.5 hours), Lecture (1.0 hours), Assisting Students (3.0 hours), Meeting (!.0 hr), etc.'></textarea><br>
-        <button ng-click='clockOut(personal,report, clockout_form); reloadRoute();' class="btn btn-out">Clock Out</button>
-      </form>
-    </div>
-  </modal-clockout>
-<!--*********************  END CLOCKOUT MODAL CONTENT *******************************--> 
 </div>

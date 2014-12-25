@@ -2,7 +2,7 @@ app.controller('LoginController', function($scope, $rootScope, LoginFactory, Tab
 
   LoginFactory.factory_check_ip();
 
-  $scope.credentials = {
+  $scope.form = {
     email : 'mike@gmail.com',
     password : 'password'
   };
@@ -16,7 +16,7 @@ app.controller('LoginController', function($scope, $rootScope, LoginFactory, Tab
   }
 
   $scope.submitForm = function(isValid){
-    if (isValid){ LoginFactory.login($scope.credentials); }
+    if (isValid){ LoginFactory.login($scope.form); }
   };
 
   $scope.logout = function(){

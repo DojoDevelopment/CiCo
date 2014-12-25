@@ -1,80 +1,118 @@
 var pg = require('pg');
-var conString = require('../../config/db.js');
 var fs = require('fs-extra');
+var conString = require('./db_config.js');
+var regex = require('./regex_functions.js');
 
 module.exports = {
   
   create : function(req, res) {
+    var form = req.body;
 
-    checkEmail(req.body.email);
+    if(  !form.name 
+      || !form.email 
+      || !form.password 
+      || !form.confirm
+      || !form.status 
+      || !form.supervisor 
+      || !form.title 
+      || !form.location 
+      || !form.start_date
+    ) {
+      res.status(400).json('The form is missing required information.');
+    } else {
 
-    var form = [
-        req.session.user.business
-      , req.body.location
-      , req.body.name
-      , req.body.title
-      , req.body.email
-      , req.body.password
-      , req.body.start_date
-      , req.body.status
-      , req.body.note
-      , req.body.team
-      , req.body.supervisor
-      , req.body.admin
-    ];
+      var user = [
+           req.session.user.business 
+        ,  form.name
+        ,  form.email
+        ,  form.title
+        ,  form.supervisor
+        , (form.team == undefined ? '' : form.team)
+        ,  form.location
+        ,  form.status
+        , (form.admin == true ? 'admin' : 'employee')
+        , (form.note == undefined ? '' : form.note)
+        ,  form.start_date
+        ,  form.password
+        ,  form.confirm
+      ];
 
-    form = sanitizeForm(form);
+      //remove any script tags
+      user = sanitizeForm(user);
 
-    var qry = 
-        "INSERT INTO members ("
-      +    " business_id"
-      +   ", location_id"
-      +   ", name"
-      +   ", title"
-      +   ", email"
-      +   ", password"
-      +   ", start_date"
-      +   ", status"
-      +   ", note"
-      +   ", team"
-      +   ", supervisor_id"
-      +   ", type"
-      +   ", created_at"
-      + " ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,NOW())"
-      + " RETURNING id";
+      //check format for biz_id, location, and supervisor
+      if (
+             !regex.isNumber(user[0])       //biz_id
+          || !regex.isString(user[1])       //name
+          || !regex.isEmail(user[2])        //email
+          || !regex.isAlphaNumeric(user[3]) //title
+          || !regex.isNumber(user[4])       //supervisor_id
+          || !regex.isAlphaNumeric(user[5]) //team
+          || !regex.isNumber(user[6])       //location
+          || !regex.isWord(user[7])         //status
+          || !regex.isWord(user[8])         //admin
+          || !regex.isAlphaNumeric(user[9]) //note
+          || !regex.isDateTime(user[10])    //start_date
+          || !regex.isPassword(user[11])    //password
+        ) 
+      { 
+        res.status(400).json('Information is in an incorrect format.');
+      } else if (user[11] !== user[12]) { //password matches confirm
+        res.status(400).json('Password and confirmation do not match.');
+      } else {
+        user.splice(12,1);
+        var qry = 
+                  "INSERT INTO members ("
+                +    " business_id"
+                +   ", name"
+                +   ", email"
+                +   ", title"
+                +   ", supervisor_id"
+                +   ", team"
+                +   ", location_id"
+                +   ", status"
+                +   ", type"
+                +   ", note"
+                +   ", start_date"
+                +   ", password"
+                +   ", created_at"
+                + " ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,NOW())"
+                + " RETURNING id";
 
-    var client = new pg.Client(conString);
+        var client = new pg.Client(conString);
 
-    pg.connect(conString, function(err, client, done) {
-      if(err) { return console.error('error fetching client from pool', err); }
-      client.query(qry, form, function(err, result) {
-        done();
-        if(err) { return console.error('error running query', err); }
-        res.json(result.rows[0].id);
-      });
-    });
-
+        pg.connect(conString, function(err, client, done) {
+          if(err) { return console.error('error fetching client from pool', err); }
+          client.query(qry, user, function(err, result) {
+            done();
+            if(err) { return console.error('error running query', err); }
+            res.json(result.rows[0].id);
+          });
+        });
+      }
+    }
   }, show : function(req, res){
 
     var id = req.params.id;
     var qry = 
-        "SELECT members.id"
-        + ", members.location_id"
-        + ", members.name"
-        + ", members.picture"
-        + ", members.title"
-        + ", members.email"
-        + ", members.password"
-        + ", members.start_date"
-        + ", members.status"
-        + ", members.note"
-        + ", members.team"
-        + ", members2.name AS supervisor"
-        + ", members.type"
-        + ", members.is_logged"
-      + " FROM members"
-      + " LEFT JOIN members AS members2 ON members2.id = members.supervisor_id"
-      + " WHERE members.id = $1";
+              "SELECT members.id"
+              + ", members.location_id"
+              + ", members.name"
+              + ", members.picture"
+              + ", members.title"
+              + ", members.email"
+              + ", members.password"
+              + ", members.start_date"
+              + ", members.status"
+              + ", members.note"
+              + ", members.team"
+              + ", members.supervisor_id"
+              + ", members2.name AS supervisor"
+              + ", members.type"
+              + ", members.is_logged"
+            + " FROM members"
+            + " LEFT JOIN members AS members2 ON members2.id = members.supervisor_id"
+            + " WHERE members.id = $1";
 
     var client = new pg.Client(conString);
 
@@ -89,50 +127,109 @@ module.exports = {
     });
 
   }, update : function(req, res) {
+console.log('update');
+    var form = req.body;
+    var password = true;
 
-    var form = [
-        req.body.location
-      , req.body.name
-      , req.body.title
-      , req.body.email
-      , req.body.password
-      , req.body.start_date
-      , req.body.status
-      , req.body.note
-      , req.body.team
-      , req.body.supervisor
-      , req.body.admin
-      , req.params.id
-    ]
+    if(  !form.name 
+      || !form.email 
+      || !form.status 
+      || !form.supervisor 
+      || !form.title 
+      || !form.location 
+      || !form.start_date
+    ) {
+      res.status(400).json('The form is missing required information.');
+    } else {
 
-    form = sanitizeForm(form);
+      var user = [
+           req.params.id
+        ,  form.supervisor
+        ,  form.location
+        ,  form.name
+        ,  form.email
+        ,  form.status
+        ,  form.start_date
+        ,  form.title
+        , (form.note === undefined ? '' : form.note)
+        , (form.team === undefined ? '' : form.team)
+        , (form.admin === true ? 'admin' : 'employee')
+        , (form.password === undefined ? '' : form.password)
+        , (form.confirm === undefined ? '' : form.confirm)
+      ];
 
-    var qry = 
-         "UPDATE members"
-      + " SET location_id=$1"
-      +   ", name = $2"
-      +   ", title = $3"
-      +   ", email = $4"
-      +   ", password = $5"
-      +   ", start_date = $6"
-      +   ", status = $7"
-      +   ", note = $8"
-      +   ", team = $9"
-      +   ", supervisor_id = $10"
-      +   ", type = $11"
-      +   ", updated_at = NOW()"
-      + " WHERE id = $12";
+      //remove any script tags
+      user = sanitizeForm(user);
 
-    var client = new pg.Client(conString);
+      if (form.password === undefined || form.confirm === undefined ){
+        user.splice(11,2);
+        password = false;
+      }
 
-    pg.connect(conString, function(err, client, done) {
-      if(err) { return console.error('error fetching client from pool', err); }
-      client.query(qry, form, function(err, result) {
-        done();
-        if(err) { return console.error('error running query', err, qry); }
-        res.status(200).end();
-      });
-    });
+console.log(user[0], !regex.isNumber(user[0]))
+console.log(user[1], !regex.isNumber(user[1]))
+console.log(user[2], !regex.isNumber(user[2]))
+console.log(user[3], !regex.isString(user[3]))
+console.log(user[4], !regex.isEmail(user[4]))
+console.log(user[5], !regex.isWord(user[5]))
+console.log(user[6], !regex.isDateTime(user[6]))
+console.log(user[7], !regex.isAlphaNumeric(user[7]))
+console.log(user[8], !regex.isAlphaNumeric(user[8]))
+console.log(user[9], !regex.isAlphaNumeric(user[9]))
+console.log(user[10], !regex.isWord(user[10]))
+
+      if (
+             !regex.isNumber(user[0])       //user_id
+          || !regex.isNumber(user[1])       //supervisor_id
+          || !regex.isNumber(user[2])       //location
+          || !regex.isString(user[3])       //name
+          || !regex.isEmail(user[4])        //email
+          || !regex.isWord(user[5])         //status
+          || !regex.isDateTime(user[6])     //start_date
+          || !regex.isAlphaNumeric(user[7]) //title
+          || !regex.isAlphaNumeric(user[8]) //note
+          || !regex.isAlphaNumeric(user[9]) //team
+          || !regex.isWord(user[10])        //admin
+          || (password == true && !regex.isPassword(user[11]))   //password
+          || (password == true && !regex.isPassword(user[12]))   //confirm
+        ) 
+      { 
+        res.status(400).json('Information is in an incorrect format.');
+      } else if (password === true && user[11] !== user[12]) {    //password matches confirm
+        res.status(400).json('password does not match confirmation.')
+      } else {
+
+        user.splice(12,1);
+        var qry = 
+                   "UPDATE members"
+                + " SET supervisor_id = $2"
+                +   ", location_id = $3"
+                +   ", name = $4"
+                +   ", email = $5"
+                +   ", status = $6"
+                +   ", start_date = $7"
+                +   ", title = $8"
+                +   ", note = $9"
+                +   ", team = $10"
+                +   ", type = $11";
+                +   ", updated_at = NOW()";
+        if (password){
+          qry   +=  ", password = $12";
+        } 
+          qry   +=  " WHERE id = $1";
+
+        var client = new pg.Client(conString);
+
+        pg.connect(conString, function(err, client, done) {
+          if(err) { return console.error('error fetching client from pool', err); }
+          client.query(qry, user, function(err, result) {
+            done();
+            if(err) { return console.error('error running query', err, qry); }
+            res.status(200).end();
+          });
+        });
+      }
+    }
   }, upload : function(req, res){
 
     var id = req.params.id;
@@ -343,12 +440,6 @@ module.exports = {
       });
     });
   }
-}
-
-function checkEmail(email){
-  if (!email.match(/[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}/)){
-    return res.json({error: "Email is invalid."}).status(400).end();
-  };
 }
 
 function sanitizeForm(array){
