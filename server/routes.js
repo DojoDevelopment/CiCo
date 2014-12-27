@@ -1,9 +1,9 @@
 var main        = require('../server/controllers/main.js');
 var listsSQL    = require('../server/models/listsSQL.js');
 var tableSQL    = require('../server/models/tableSQL.js');
+var loggingSQL  = require('../server/models/loggingSQL.js');
 var businessSQL = require('../server/models/businessSQL.js');
 var employeeSQL = require('../server/models/employeeSQL.js');
-var loggingSQL  = require('../server/models/loggingSQL.js');
 
 module.exports = function Routes(app) { 
   app.get('/', function (req, res){ main.index(req,res); });
@@ -15,14 +15,15 @@ module.exports = function Routes(app) {
   app.get('/api/list_supervisors',    function (req, res){ listsSQL.get_list_supervisors(req, res);    });
 
   //Dashboard
-  app.get('/api/table_admin_dash',    function (req, res){ tableSQL.get_table_dashboard(req, res); });
+  app.get('/api/table_admin_dash',    function (req, res){ tableSQL.get_table_dashboard(req, res);    });
 
   //History
-  app.post('/api/table_user/:id',     function (req, res){ employeeSQL.history(req, res);           });
-  app.post('/api/date_range',         function (req, res){ tableSQL.get_table_date_range(req, res); });
+  app.post('/api/table_user/:id',     function (req, res){ tableSQL.get_table_user_history(req, res); });
+  app.post('/api/date_range',         function (req, res){ tableSQL.get_table_date_range(req, res);   });
 
   //business/ip login
-  app.get('/api/main',                function (req, res){ tableSQL.get_table_main_users(req, res);  })
+  app.get('/api/main',                function (req, res){ tableSQL.get_table_main_users(req, res);   });
+  app.post('/api/register',           function (req, res){ businessSQL.register(req, res)             });
 
   //Business CRUD
   app.get('/api/business/:id',        function (req, res){ businessSQL.info(req, res)          });

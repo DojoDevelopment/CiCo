@@ -2,7 +2,7 @@
 app.factory('ListFactory', function($http){
   return {
 
-    factory_used_locations : function(callback){
+    used_locations : function(callback){
 
       $http
         .get('/api/list_used_locations')
@@ -10,7 +10,7 @@ app.factory('ListFactory', function($http){
           callback(data);
       });
 
-    }, factory_all_locations : function(callback){
+    }, all_locations : function(callback){
 
       $http
         .get('api/list_all_locations')
@@ -18,7 +18,7 @@ app.factory('ListFactory', function($http){
           callback(data);
       });
 
-    }, factory_members : function(callback){
+    }, members : function(callback){
 
       $http
         .get('api/list_members')
@@ -26,7 +26,7 @@ app.factory('ListFactory', function($http){
           callback(data);
       });
 
-    }, factory_supervisors : function(callback){
+    }, supervisors : function(callback){
 
       $http
         .get('/api/list_supervisors')

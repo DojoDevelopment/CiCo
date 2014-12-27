@@ -7,7 +7,7 @@ span{ color:salmon; }
 			  background-size:cover; 
 			  background:url(../img/backgrounds/mac_programmer.jpg) no-repeat center center fixed; }
 
-.login_box{ margin-top: 10%; margin-left: 28%; height: 35em; width:45%; }
+.login_box{ margin-top: 10%; margin-left: 28%; height: 35em; width:45%; background-color: white; opacity: .8;}
 
 .login_header{ padding-top:10%; color:#3E97D1; }
 

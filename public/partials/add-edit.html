@@ -190,9 +190,7 @@
           <td colspan="2">
             <div class="checkbox">
               <label>
-                <input type="checkbox" ng-model="form.type" ng-true-value="1" ng-false-value="0" ng-checked="admin" name="admin" id="inputAdmin">
-                Admin
-                <span class='emphasis'>*Be careful who you give admin access to*</span>
+                <input type="checkbox" ng-model="form.type" ng-true-value="1" ng-false-value="0" ng-checked="admin" name="admin" id="inputAdmin">Admin <span class='emphasis'>*Be careful who you give admin access to*</span>
               </label>
             </div>
             <button type="submit" ng-if="update == true"  class="btn btn-lg btn-in pull-right">Update</button>
@@ -202,6 +200,4 @@
       </tbody>
     </table>
   </form>
-  <div>error:{{employeeForm.$error}}</div>
-  <div>invalid:{{employeeForm.$invalid}}</div>
 </div>

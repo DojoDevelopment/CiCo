@@ -2,7 +2,7 @@
 app.factory('EmployeeFactory', function($http, $location){
   return {
 
-    factory_create_employee : function(data, callback){
+    create_employee : function(data, callback){
 
       $http
         .post('/api/employee', data)
@@ -23,7 +23,7 @@ app.factory('EmployeeFactory', function($http, $location){
           callback(data);
         });
 
-	  }, factory_update_employee : function(id, data, callback){
+	  }, update_employee : function(id, data, callback){
 
       $http
         .put('/api/employee/' + id, data)
@@ -44,7 +44,7 @@ app.factory('EmployeeFactory', function($http, $location){
         });
 ;
 
-    }, factory_get_employee : function(id, callback){
+    }, get_employee : function(id, callback){
 
       $http
         .get('/api/employee/' + id)

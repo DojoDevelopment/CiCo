@@ -2,7 +2,7 @@
 app.factory('ClockingFactory', function($http, $location){
   return {
     
-    factory_clock_in: function(user, callback){
+    clock_in: function(user, callback){
 
       $http
         .post('/api/clock_in/'+ user)
@@ -10,7 +10,7 @@ app.factory('ClockingFactory', function($http, $location){
           $location.path('main')
         );
 
-    }, factory_clock_out: function(id, info){
+    }, clock_out: function(id, info){
 
       $http
         .post('/api/clock_out/' + id, info)
@@ -18,7 +18,7 @@ app.factory('ClockingFactory', function($http, $location){
           $location.path('main')
         );
 
-    }, factory_last_clocking: function(info, callback){
+    }, last_clocking: function(info, callback){
 
       $http
         .get('/api/last_clocking/' + info)

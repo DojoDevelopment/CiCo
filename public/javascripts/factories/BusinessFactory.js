@@ -2,7 +2,7 @@
 app.factory('BusinessFactory', function($http){
   return {
 
-    factory_get_business_info : function(business_id, callback) {
+    get_business_info : function(business_id, callback) {
 
       $http
         .get('/api/business/' + business_id)
@@ -10,7 +10,7 @@ app.factory('BusinessFactory', function($http){
           callback(data);
       });
       
-    }, factory_update_business_info : function(info, callback) {
+    }, update_business_info : function(info, callback) {
 
       $http
         .put('/api/business', info)

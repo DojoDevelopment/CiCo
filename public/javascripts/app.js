@@ -98,7 +98,7 @@ app.config(function($routeProvider){
       var req_login = next.$$route.data.login;
       var req_admin  = next.$$route.data.admin;
 
-      if ($rootScope.user == null && $rootScope.business == null ) {
+      if ($rootScope.user == null && $rootScope.business == null && req_login == true ) {
         if( next.templateUrl !== "partials/index.html") {
           $location.path('/');
         }

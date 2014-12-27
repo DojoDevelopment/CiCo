@@ -2,17 +2,17 @@ app.controller('HistoryController', function($scope, $location, $rootScope, Tabl
 
   $scope.biz_id = $rootScope.business.id;
 
-  ListFactory.factory_used_locations(function(data){ $scope.locations = data; });
-  ListFactory.factory_members( function(data){ $scope.members = data; });
+  ListFactory.used_locations(function(data){ $scope.locations = data; });
+  ListFactory.members( function(data){ $scope.members = data; });
   
-  TableFactory.factory_date_range({from: 'all', to : ''}, function(data){
+  TableFactory.date_range({from: 'all', to : ''}, function(data){
     $scope.history_table = data;
     $scope.order = '-created_at';
   });
 
   $scope.modalShown = false;
   $scope.toggleModal = function() {
-    BusinessFactory.factory_get_business_info($rootScope.business.id, function(data){ 
+    BusinessFactory.get_business_info($rootScope.business.id, function(data){ 
       $scope.business = data
       $scope.modalShown = !$scope.modalShown;
     });
@@ -23,7 +23,7 @@ app.controller('HistoryController', function($scope, $location, $rootScope, Tabl
        name : $scope.business.name
       , ip  : $scope.business.ip_addresses
     };
-    BusinessFactory.factory_update_business_info(newSettings, function(){
+    BusinessFactory.update_business_info(newSettings, function(){
       $scope.modalShown = false;
     });
   }
@@ -59,7 +59,7 @@ app.controller('HistoryController', function($scope, $location, $rootScope, Tabl
   }
 
   $scope.dateFilter = function(from, to) {
-    TableFactory.factory_date_range({from: from, to : to}, function(data){
+    TableFactory.date_range({from: from, to : to}, function(data){
       $scope.history_table = data;
     });
   }

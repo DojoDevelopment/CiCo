@@ -1,13 +1,25 @@
 <div class='sidenav pull-left'>
-    <div class='nav-logo'>
+  
+  <div class='nav-logo'>
     <img src="img/icons/coding_dojo.png">
   </div>
-  <ul>
-    <li ng-if="user.is_logged == false"><a href="" ng-click="clockIn()"><button class='sidenav-box'><img src="img/icons/clock-in.png"><br>Clock IN</button></a></li><li ng-if="user.is_logged == true"><a href="" ng-click="toggleModal()"><button class='sidenav-box'><img src="img/icons/clock-out.png"><br>Clock Out</button></a></li><li><a href=""><button class='sidenav-box'><img src='img/icons/edit.png'><br>Request Time Edit</button></a></li>
-    <li><a href=""><button class='sidenav-box'><img src='img/icons/vacay.png'><br>Request Time Off</button></a></li>    
-    <li><a href="" ng-click="logout()"><button class='sidenav-box'><img src="img/icons/logout.png"><br>Log OUT</button></a></li>
+  
+  <!-- admin is viewing -->
+  <ul ng-if="isAdmin == true">
+    <li><a href="/#/add_employee"><button class='sidenav-box'><img src="img/icons/people.png"><br>Add Employee</button></a></li>
+    <li><a href="/#/dashboard"><button class='sidenav-box'><img src="img/icons/dash.png"><br>Dashboard</button></a></li>
+    <li><a href="/#/history"><button class='sidenav-box'><img src="img/icons/history.png"><br>History</button></a></li>
+    <li><button class='sidenav-box' ng-click='logout()'><img src="img/icons/logout.png"><br>Logout</button></li>
   </ul>
+
+  <!-- user is viewing -->
+  <ul ng-if="isAdmin == false">
+    <li ng-if="user.is_logged == false"><a href="" ng-click="clockIn()"><button class='sidenav-box'><img src="img/icons/clock-in.png"><br>Clock IN</button></a></li><li ng-if="user.is_logged == true"><a href="" ng-click="toggleModal()"><button class='sidenav-box'><img src="img/icons/clock-out.png"><br>Clock Out</button></a></li><!-- <li><a href=""><button class='sidenav-box'><img src='img/icons/edit.png'><br>Request Time Edit</button></a></li>
+    <li><a href=""><button class='sidenav-box'><img src='img/icons/vacay.png'><br>Request Time Off</button></a></li> --><li><a href="" ng-click="logout()"><button class='sidenav-box'><img src="img/icons/logout.png"><br>Log OUT</button></a></li>
+  </ul>
+
 </div>
+
 <div class='jumbotron e_d'>
   <h2 align='center'>Time Keeper - Employee</h2>
 </div>

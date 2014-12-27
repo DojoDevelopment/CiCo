@@ -1,7 +1,7 @@
 app.factory('LoginFactory', function($http, $location, $rootScope){
 
   return {
-    factory_check_ip : function(){
+    check_ip : function(){
 
       $http
         .get('http://ipinfo.io/json')
@@ -17,10 +17,10 @@ app.factory('LoginFactory', function($http, $location, $rootScope){
           });
       });
 
-    }, login : function(credentials){
+    }, login : function(form){
 
       $http
-        .post('/api/login', credentials)
+        .post('/api/login', form)
         .success(function(data){
 
           if (data.id){
@@ -44,10 +44,28 @@ app.factory('LoginFactory', function($http, $location, $rootScope){
       $http
         .get('/api/logout')
         .success(function(){
-          $rootScope.user = null;
+          $rootScope.user.id = null;
           $rootScope.business = null;
           $location.path('/'); 
         });
+        
+    }, register : function(form, callback){
+
+      $http
+        .post('/api/register', form)
+        .success(function(data){
+          console.log(data);
+          $rootScope.user = {
+              id : data.id
+            , admin : true
+            , login : true
+          }
+         $rootScope.business = {id : data.business}
+         $location.path('/add_employee');
+        })
+        .error(function(data){
+          callback(data);
+        })
     }
   };
 });

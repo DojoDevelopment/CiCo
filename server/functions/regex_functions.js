@@ -10,7 +10,7 @@ module.exports = {
 	
 	}, isString : function(input){ //letters and spaces
 	
-	  return input.match(/^[a-zA-Z\s]*$/);
+	  return input.match(/^[a-zA-Z\s'"()\[\]]*$/);
 	
 	}, isWord : function(input){ //letters no spaces
 	

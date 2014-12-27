@@ -3,15 +3,17 @@ app.controller('UserController', function($scope, $rootScope, $location, Employe
 
   var userID = $location.path().split('/')[$location.path().split('/').length - 1];
 
+  $scope.modalShown = false;
   $scope.biz_id = $rootScope.business.id;
+  $scope.isAdmin = ($rootScope.user.admin);
 
-  TableFactory.factory_user_history_table(userID, {from: 'all', to : ''}, function(data){
+  TableFactory.user_history_table(userID, {from: 'all', to : ''}, function(data){
     $scope.table = data;
     $scope.order = '-created_at';
   });
 
-  EmployeeFactory.factory_get_employee(userID, function(data){
-  if ($rootScope.user.admin){
+  EmployeeFactory.get_employee(userID, function(data){
+  if ($scope.isAdmin){
     $scope.user = {
         id         : data.id
       , name       : data.name
@@ -40,7 +42,7 @@ app.controller('UserController', function($scope, $rootScope, $location, Employe
   }
 
     if ($scope.user.is_logged == true){
-      ClockingFactory.factory_last_clocking($scope.user.id, function(data){
+      ClockingFactory.last_clocking($scope.user.id, function(data){
         $scope.user.session_id = data;
       });
     }
@@ -59,7 +61,7 @@ app.controller('UserController', function($scope, $rootScope, $location, Employe
 
   $scope.dateFilter = function(from, to) {
   
-    TableFactory.factory_user_history_table(userID, {from: from, to : to}, function(data){
+    TableFactory.user_history_table(userID, {from: from, to : to}, function(data){
       $scope.table = data;
     });
   }
@@ -81,10 +83,9 @@ app.controller('UserController', function($scope, $rootScope, $location, Employe
 
   //user dashboard
   $scope.clockIn = function() {
-    ClockingFactory.factory_clock_in(userID);
+    ClockingFactory.clock_in(userID);
   };
 
-  $scope.modalShown = false;
   $scope.toggleModal = function() {
     $scope.modalShown = !$scope.modalShown;
   };
@@ -97,7 +98,7 @@ app.controller('UserController', function($scope, $rootScope, $location, Employe
       , personal : personal
       , report   : report
     };
-    ClockingFactory.factory_clock_out(info.session, info);
+    ClockingFactory.clock_out(info.session, info);
   };
 
   $scope.logout = function(){

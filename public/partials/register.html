@@ -1,3 +1,20 @@
-<form>
-	
-</form>
+<div class='login_box'>
+	<div align='center' class='login_header'>
+		<h2>Coding Dojo TimeKeeper Login</h2>
+	</div>
+  <div ng-if="serverError !== null" ng-bind="serverError"></div>
+	<div class='login_form'>
+	  <form name="regForm" ng-submit="submitForm(regForm.$valid)" class='form-group' novalidate>
+			<input type="email"    ng-model="form.user.email"    ng-pattern="pattern.email" class="form-control" placeholder="Email" required autofocus>
+			<input type="password" ng-model="form.user.password" ng-pattern="pattern.password" class="form-control" placeholder="Password" required>
+			<input type="password" ng-model="form.user.confirm" class="form-control" placeholder="Confirm Password" required>
+			<input type="text"     ng-model="form.user.name"     ng-pattern="pattern.letters" class="form-control" placeholder="User's Name" name="userName" ng-trim="true" required>
+			<input type="text"     ng-model="form.business.name" ng-pattern="pattern.string" class="form-control" placeholder="Business name" name="businessName" id="inputBusinessName" ng-trim="true" required>
+			<input type="text"     ng-model="form.location.name" ng-pattern="pattern.string" class="form-control" placeholder="Location" name="location" ng-trim="true" required>
+
+			<a href="/"><button class='btn btn-md btn-info'>Sign IN</button></a>
+			<button class='btn btn-md btn-success pull-right' type="submit" ng-disabled="login_form.$invalid">Register</button>
+
+		</form>
+	</div>
+</div>

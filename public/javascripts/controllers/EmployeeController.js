@@ -1,8 +1,8 @@
 //ADD / UPDATE EMPLOYEE
 app.controller('EmployeeController', function($scope, $location, EmployeeFactory, ListFactory, LoginFactory) {
 
-  ListFactory.factory_supervisors(function(data){ $scope.supervisors = data; });
-  ListFactory.factory_all_locations(function(data){ $scope.locations = data; });
+  ListFactory.supervisors(function(data){ $scope.supervisors = data; });
+  ListFactory.all_locations(function(data){ $scope.locations = data; });
 
   $scope.error = null;
   $scope.match = true;
@@ -23,7 +23,7 @@ app.controller('EmployeeController', function($scope, $location, EmployeeFactory
 
     var userID = $location.path().split('/')[2];
 
-    EmployeeFactory.factory_get_employee(userID, function(data){
+    EmployeeFactory.get_employee(userID, function(data){
 
       $scope.form  = {
           name       : data.name
@@ -52,11 +52,11 @@ app.controller('EmployeeController', function($scope, $location, EmployeeFactory
       if ($scope.update && $scope.match){
 
         var userID = $location.path().split('/')[2];
-        EmployeeFactory.factory_update_employee(userID, $scope.form, function(data){
+        EmployeeFactory.update_employee(userID, $scope.form, function(data){
           $scope.serverError = data;
         });
       } else if (!$scope.update){
-        EmployeeFactory.factory_create_employee($scope.form, function(data){
+        EmployeeFactory.create_employee($scope.form, function(data){
           $scope.serverError = data;
         });
       }

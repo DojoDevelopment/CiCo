@@ -1,7 +1,8 @@
 var pg = require('pg');
 var fs = require('fs-extra');
 var conString = require('./db_config.js');
-var regex = require('./regex_functions.js');
+var regex = require('../functions/regex_functions.js');
+var form_tools = require('../functions/form_functions.js');
 
 module.exports = {
   
@@ -38,7 +39,7 @@ module.exports = {
       ];
 
       //remove any script tags
-      user = sanitizeForm(user);
+      user = form_tools.sanitizeForm(user);
 
       //check format for biz_id, location, and supervisor
       if (
@@ -159,7 +160,7 @@ module.exports = {
       ];
 
       //remove any script tags
-      user = sanitizeForm(user);
+      user = form_tools.sanitizeForm(user);
 
       if (form.password === undefined || form.confirm === undefined ){
         user.splice(11,2);
@@ -279,74 +280,6 @@ module.exports = {
       });
     });
 
-  }, history : function(req, res){
-
-    var id = req.params.id;
-    var from = req.body.from;
-    var to = req.body.to;
-
-    var qry = 
-      "SELECT sessions.created_at"
-        + ", locations.name AS locations"
-        + ", sessions.clock_in"
-        + ", sessions.clock_out"
-        + ", sessions.personal_time"
-        + ", sessions.report"
-        + ", age(sessions.clock_out, sessions.clock_in) AS billed "
-      + " FROM sessions"
-      + " LEFT JOIN members ON sessions.member_id = members.id"
-      + " LEFT JOIN locations ON locations.id = members.location_id"
-      + " WHERE members.id = $1";
-
-      if ( from == 'this_week' || from == 'this_month' || from == 'last_week' || from == 'last_month') {
-
-        var from_sunday = new Date().getDay();
-        var day_in_month = new Date().getDate();
-        var year = new Date().getFullYear();
-        var month = new Date().getMonth();
-
-        switch (from){
-          case 'this_week'  :
-            qry += " AND sessions.clock_in >= CURRENT_DATE - interval '" + from_sunday + " day'";
-            break;
-          case 'this_month' : 
-            qry += " AND sessions.clock_in >= CURRENT_DATE - interval '" + day_in_month + " day'";
-            break;
-          case 'last_week'  : 
-            qry += " AND sessions.clock_in <= CURRENT_DATE - interval '" + from_sunday + " day'";
-            qry += " AND sessions.clock_in > CURRENT_DATE - interval '" + (from_sunday+7) + " day'";
-            break;
-          case 'last_month' : 
-            qry += " AND sessions.clock_in <= CURRENT_DATE - interval '" + day_in_month + " day'";
-            qry += " AND sessions.clock_in > '" + year + "-" + month + "-01'"
-            break;
-        }
-      } else if( from !== 'all' ) {
-        qry += " AND sessions.clock_in >= '" + from + "' AND sessions.clock_in <= '" + to + "'";
-      }
-
-    var client = new pg.Client(conString);
-    
-    client.connect(function(err) {
-      if(err) { return console.error('could not connect dude, check stuff!', err); }
-      client.query(qry, [id], function(err, data) {
-        if(err) { return console.error('error running history_table', err); }
-        //replace billed with the previous info
-        for (var i=0; i<data.rows.length; i++){
-          if (data.rows[i].clock_out > data.rows[i].clock_in) {
-            var hours = (data.rows[i].clock_out - data.rows[i].clock_in)/(3600*1000);
-            hours = hours.toFixed(2);
-            data.rows[i].billed = hours;
-          } else{
-            data.rows[i].billed = '0.00';
-          }
-        }
-
-        res.json(data.rows);
-        client.end();
-      });
-    });
-
   }, clock_in : function(req, res){
 
     var id = req.params.id;
@@ -428,11 +361,4 @@ module.exports = {
       });
     });
   }
-}
-
-function sanitizeForm(array){
-  for (var i = 0; i < array.length; i++){
-    array[i] = String(array[i]).replace(/<script\b[^>]*>(.*?)<\/script>/i, '').trim();
-  }
-  return array;
 }
