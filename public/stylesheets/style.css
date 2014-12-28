@@ -1,8 +1,8 @@
 
 /********************  HTML ATTRIBUTE CSS  ******************************/
 
-
-body{ min-width: 70em; }
+html{ height: 100%;}
+/*body{ min-width: 70em; }*/
 select{ height: auto !important; }
 textarea{ resize:none; height:10em; width:100%; }
 
@@ -197,7 +197,7 @@ tr td img { margin-left: 4px; }
   /*****************************/
 
   /*.sidenav{background-color: #242424; height:56em; min-width:15em; margin-top: -1.4em !important;}*/
-  .sidenav{background-color: #242424; height:65em; min-width:15em; margin-top: -.4em !important;}
+  .sidenav{background-color: #242424; /*height:65em;*/ min-width:15em; margin-top: -.4em !important;}
   .sidenav ul{display: inline;}
   .sidenav li input{width:98%; text-indent: 1em; font-size: 1em; outline:none;}
 

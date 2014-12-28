@@ -1,7 +1,7 @@
 
 span{ color:salmon; }
 
-#admin_login{ min-width: 700px;  
+body{ min-width: 700px;  
 			  background-color: #D4DCE5; /*loads before background image for contrast and usability w/ slow connections*/
 			  background-repeat: no-repeat;
 			  background-size:cover; 

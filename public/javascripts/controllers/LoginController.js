@@ -1,7 +1,7 @@
 app.controller('LoginController', function($scope, $rootScope, $location, LoginFactory, TableFactory) {
 
   //delete before publishing
-  $scope.loginForm = {
+  $scope.form = {
     email : 'mike@gmail.com',
     password : 'password'
   };

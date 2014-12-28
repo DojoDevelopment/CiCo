@@ -5,7 +5,7 @@
   <ul>
     <li><a href="/#/add_employee"><button class='sidenav-box'><img src="img/icons/people.png"><br>Add Employee</button></a></li>
     <li><a href="/#/dashboard"><button class='sidenav-box'><img src="img/icons/dash.png"><br>Dashboard</button></a></li>
-    <li><button class='sidenav-box' ng-click='toggleModal()'><img src="img/icons/settings.png"><br>Settings</button></li>
+    <li><a href="/#/settings"><button class='sidenav-box'><img src="img/icons/settings.png"><br>Settings</button></a></li>
     <li><button class='sidenav-box' ng-click='logout()'><img src="img/icons/logout.png"><br>Logout</button></li>      
   </ul>
 </div>
@@ -89,27 +89,7 @@
           <td id='report'   ng-bind="row.report"></td>
         </tr>
       </tbody>
-
     </table>
     <button class="btn btn-danger" ng-csv="csvBody" csv-header="csvHead" filename="history.csv" ng-if="user.page=='history'">Download CSV</button>
   </div>
-
 </div>
-<!--************************  SETTINGS MODAL CONTENT *******************************-->
-<modal-dialog show='modalShown' width='750px'>
-<div class='container modal-settings'>
-  <nav class='navbar navbar-fixed-top navbar-inverse'>
-    <h1 align='center'>Edit Settings</h1>
-  </nav>
-  <form>
-    Company Name:<label for="inputCompany" class="sr-only">Company Name</label>
-    <input ng-model="business.name" class="form-control" placeholder="example: Coding Dojo" type="text" required autofocus>
-
-    On-Site IP Address:<label for='ipAdd' class='sr-only'>On-Site IP Addresses</label>
-    <textarea ng-model='business.ip_addresses' class='form-control' placeholder='Separate by comma - example: 192.168.2.1, 192.128.2.2'></textarea>
-
-    <button class="btn btn-lg btn-in pull-right" type='submit' ng-click="updateSettings()">Save</button>
-  </form>
-</div>
-</modal-dialog>
-<!--*********************  END SETTINGS MODAL CONTENT *******************************-->

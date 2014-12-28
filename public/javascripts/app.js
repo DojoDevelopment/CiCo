@@ -74,6 +74,18 @@ app.config(function($routeProvider){
       admin : true
     }
 
+  //admin settings
+  }).when('/settings', {
+
+    templateUrl: 'partials/settings.html',
+    controller:  'BusinessController',
+    css: 'stylesheets/settings.css',
+    data: {
+      login : false,
+      admin : false
+    }
+
+
   //admin edit user page
   }).when('/edit/:id', {
 

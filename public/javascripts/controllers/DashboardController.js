@@ -10,24 +10,6 @@ app.controller('DashboardController', function($scope, $location, $rootScope, Ta
     $scope.order = 'name';
   });
 
-  $scope.modalShown = false;
-  $scope.toggleModal = function() {
-    BusinessFactory.get_business_info($rootScope.business.id, function(data){ 
-      $scope.business = data
-      $scope.modalShown = !$scope.modalShown;
-    });
-  };
-
-  $scope.updateSettings = function(){
-    var newSettings = {
-       name : $scope.business.name
-      , ip  : $scope.business.ip_addresses
-    };
-    BusinessFactory.update_business_info(newSettings, function(){
-      $scope.modalShown = false;
-    });
-  }
-
   $scope.logout = function(){
     LoginFactory.logout();
   }

@@ -1,0 +1,36 @@
+body, #content, aside, section { height: 100%; }
+#content {width: 100%; min-width: 910px;}
+aside {
+  background-color: #242424;
+	display: inline-block;
+	width: 210px;
+	min-height: 820px;
+}
+
+aside img {
+	height: 70px;
+	width: 150px;
+	margin: -6px 0 5px 2em;
+}
+
+aside ul {
+	list-style: none;
+	padding: 0px;
+}
+
+section {
+	background-color: white;
+	display: inline-block;
+	vertical-align: top;
+	min-width: 700px;
+	width: auto;
+}
+
+section h2 {
+  margin: 0px;
+	padding-top: 18px;
+	height: 70px;
+	text-align: center;
+  color: white;
+	background-color: #03C8A2;
+}
