@@ -61,7 +61,7 @@ hr{ border:1px solid #CECDCC; }
 
 
 /*Widths for history pages -- bug workaround for sticky table head*/
-#date, #title, #in, #out, #pt, #billed, #created{ width:9%;}
+#date, #title, #in, #out, #pt, #billed, #created{ width:10%;}
 #name{ width:14%; }
 #team, #location{ width: 10%;}
 #report{ width: 55px;}

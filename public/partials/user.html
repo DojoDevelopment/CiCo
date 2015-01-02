@@ -1,19 +1,11 @@
-<!-- <nav class='navbar navbar-top'>
-  <div class='nav-logo'>
-    <img src="img/coding_dojo.png">
-<<<<<<< HEAD
-=======
-    <button class='pull-right btn btn-lg btn-danger' ng-click="logout()">Logout</button>
->>>>>>> 884a877db248eaf5e50cb7255686cd0d7dc33f99
-  </div>
-</nav> -->
+
 <div class='sidenav pull-left'>
     <div class='nav-logo'>
     <img src="img/coding_dojo.png">
   </div>
   <ul>
-    <li ng-if="user.is_logged == false"><a href="" ng-click="clockIn()"><button class='sidenav-box'><img src="img/clock-in.png"><br>Clock IN</button></a></li><li ng-if="user.is_logged == true"><a href="" ng-click="toggleModal()"><button class='sidenav-box'><img src="img/clock-out.png"><br>Clock Out</button></a></li><li><a href=""><button class='sidenav-box'><img src='img/edit.png'><br>Request Time Edit</button></a></li>
-    <li><a href=""><button class='sidenav-box'><img src='img/vacay.png'><br>Request Time Off</button></a></li>    
+    <li ng-if="user.is_logged == false"><a href="" ng-click="clockIn()"><button class='sidenav-box'><img src="img/clock-in.png"><br>Clock IN</button></a></li><li ng-if="user.is_logged == true"><a href="" ng-click="toggleModal()"><button class='sidenav-box'><img src="img/clock-out.png"><br>Clock Out</button></a></li><li><a href=""><button class='sidenav-box' disabled><img src='img/edit.png'><br>Request Time Edit</button></a></li>
+    <li><a href=""><button class='sidenav-box' disabled><img src='img/vacay.png'><br>Request Time Off</button></a></li>    
     <li><a href="" ng-click="logout()"><button class='sidenav-box'><img src="img/logout.png"><br>Log OUT</button></a></li>
 
   </ul>
