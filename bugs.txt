@@ -1,5 +1,13 @@
--admin dashboard location column filter no working
--admin dashboard location select combo box not showing
+Things to do CSS
+ - settings tabs need to be placed
+ - error message and validation needs to be stylized 
+ 		- index
+ 		- main
+ 		- add/edit employee
+ 		- registration
+ - date and select boxes weird allignment add employee page
+ - user page aside doesn't have color all the way down could be caused by table protroding out of view ?position maybe
+ - user page change pointer to finger on date filters
 
--admin history all select combo boxs not showing (member, location, date range)
--admin history location column filter no working
+
+ - when filtering by location should filter out members who are not in that location

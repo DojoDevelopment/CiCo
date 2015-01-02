@@ -1,8 +1,8 @@
 
 /********************  HTML ATTRIBUTE CSS  ******************************/
 
-
-body{ min-width: 70em; }
+html{ height: 100%; }
+body{ min-width: 970px; }
 select{ height: auto !important; }
 textarea{ resize:none; height:10em; width:100%; }
 
@@ -45,8 +45,7 @@ ul a:focus{
 
 /********************  TABLES  ******************************/
 
-
-table, thead, tr{ margin-top: 1%; }
+table, thead, tr{ margin-top: 3%; }
 table thead th{ background-color: #C0C5CE; border:none !important;}
 
 table tr:first-child td { border-top: none !important; }
@@ -70,7 +69,7 @@ hr{ border:1px solid #CECDCC; }
               background-color: #C0C5CE !important; color: #333333; margin-bottom: -2% !important; width:100% !important; }
 
 .add_table{ margin-top: 3%;}
-.add_table>tbody>tr>td{ width:25%; }
+.add_table>tbody>tr>td{ width:25%; min-width: 195px;}
 .add_table>tbody>tr>td:first-child{ border-right: 1px solid #DDDDDD; }
 .add_table>tbody>tr>td:last-child{ border-right: none; }
 .add_table th{ background-color: #428BCB; color:white; border-bottom: none !important;}
@@ -168,7 +167,7 @@ button a:hover{ text-decoration: none; color:#4584EF; }
 .in, .out { font-weight: bold;  }
 
 td .checkbox { position:absolute !important; }
-tr td img { margin-left: 35px; }
+tr td img { margin-left: 4px; }
 
 .employee-info div{ margin-top: -25px !important; }
 
@@ -181,6 +180,7 @@ tr td img { margin-left: 35px; }
 
   body{
     min-width: 900px;
+    height: 100%;
   }
   /*****************************/
   /*******top nav bar**********/
@@ -197,7 +197,7 @@ tr td img { margin-left: 35px; }
   /*****************************/
 
   /*.sidenav{background-color: #242424; height:56em; min-width:15em; margin-top: -1.4em !important;}*/
-  .sidenav{background-color: #242424; height:65em; min-width:15em; margin-top: -.4em !important;}
+  .sidenav{background-color: #242424; height:100%; min-width:15em; }
   .sidenav ul{display: inline;}
   .sidenav li input{width:98%; text-indent: 1em; font-size: 1em; outline:none;}
 
@@ -219,7 +219,13 @@ tr td img { margin-left: 35px; }
   /******content information****/
   /*****************************/
 
-  .main{display: inline-block; position:absolute; margin-top: 1%; margin-left: 5% !important; width:76%;}
-  .e_d{background-color: #428BCB !important; color:white !important; height:12.8em;} /*jumbotron employee dashboard*/
-  .a_d{background-color: #03C8A2 !important; color:white !important; height:12.8em; margin-bottom: 2%;} /*jumbotron for admin partials*/
+  .main{display: inline-block; position:absolute; margin-top: 1%; margin-left: 3% !important; width:76%;}
+  .e_d{background-color: #428BCB !important; color:white !important; height:5.4em; text-align: center;} /*jumbotron employee dashboard*/
+  .a_d{background-color: #03C8A2 !important; color:white !important; height:5.4em; margin-bottom: 2%; text-align: center;} /*jumbotron for admin partials*/
 
+h2 { margin-top: 0px;}
+#content { height: 100%;}
+.e_d h2 { padding-top: 20px;}
+.a_d h2 { padding-top: 20px;}
+.main .table {width: 95%; min-width: 640px;}
+.main .table tr td:nth-child(2) {text-align: center;}

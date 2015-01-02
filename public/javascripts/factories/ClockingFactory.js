@@ -1,24 +1,24 @@
 //USED IN CONTROLLER: user_dashboard, clockout
-app.factory('ClockingFactory', function($http, $location){
+app.factory('ClockingFactory', function($http, $location, $rootScope){
   return {
     
-    factory_clock_in: function(user, callback){
+    clock_in: function(location, callback){
 
       $http
-        .post('/api/clock_in/'+ user)
-        .success(
-          $location.path('main')
-        );
+        .post('/api/clock_in', {location : location})
+        .success(function(data){
+          callback(data);
+        });
 
-    }, factory_clock_out: function(id, info){
+    }, clock_out: function(info, callback){
 
       $http
-        .post('/api/clock_out/' + id, info)
-        .success(
-          $location.path('main')
-        );
+        .post('/api/clock_out/' + info.session, info)
+        .success(function(data){
+          callback(data);
+      });
 
-    }, factory_last_clocking: function(info, callback){
+    }, last_clocking: function(info, callback){
 
       $http
         .get('/api/last_clocking/' + info)

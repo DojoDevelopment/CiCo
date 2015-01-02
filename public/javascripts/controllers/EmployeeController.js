@@ -1,34 +1,35 @@
 //ADD / UPDATE EMPLOYEE
-app.controller('EmployeeController', function($scope, $location, EmployeeFactory, ListFactory, TableFactory, LoginFactory) {
+app.controller('EmployeeController', function($scope, $location, EmployeeFactory, LocationFactory, LoginFactory) {
 
-  ListFactory.factory_supervisors(function(data){ $scope.supervisors = data; });
-  ListFactory.factory_all_locations(function(data){ $scope.locations = data; });
-  
-  $scope.update = ($location.path() == '/admin/add_employee' ? false : true )  
+  $scope.lists = {};
+  $scope.forms = {};
 
-  if ( $scope.update == false ){
+  EmployeeFactory.supervisors(function(data){ $scope.lists.supervisors = data; });
+  LocationFactory.all_locations(function(data){ $scope.lists.locations = data; });
 
-    $scope.user  = {
-        name       : ''
-      , title      : ''
-      , team       : ''
-      , location   : ''
-      , supervisor : ''
-      , status     : ''
-      , note       : ''
-      , start_date : ''
-      , email      : ''
-      , password   : ''
-      , admin      : ''
+  $scope.variables = {
+      message : null
+    ,  update : ($location.path() == '/add_employee' ? false : true )
+    , pattern : {
+                    email : /[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}/
+                  , letter : /^[a-zA-Z\s]*$/
+                  , password : /^[a-zA-Z0-9_]{6,72}$/
+                  , lettersNumbers : /^[a-zA-Z0-9\s]*$/
+                }
+  }
+
+  //check if page is to update or create new employee
+  if ( $scope.variables.update == false ){
+    $scope.forms.employee = { 
+      start_date : new Date() 
+      ,    match : true
     };
-
   } else {
+    var userID = $location.path().split('/')[$location.path().split('/').length - 1];
 
-    //get id from url
-    var userID = $location.path().split('/')[3];
+    EmployeeFactory.get_employee(userID, function(data){
 
-    EmployeeFactory.factory_get_employee(userID, function(data){
-      $scope.user  = {
+      $scope.forms.employee = {
           name       : data.name
         , title      : data.title
         , team       : data.team
@@ -36,73 +37,32 @@ app.controller('EmployeeController', function($scope, $location, EmployeeFactory
         , supervisor : data.supervisor_id
         , status     : data.status
         , note       : data.note
-        , start_date : data.start_date.substring(0,10)
+        , start_date : new Date(data.start_date)
         , email      : data.email
-        , password   : data.password
-        , admin      : (data.type == 'employee' ? '' : 'true' )
+        , admin      : (data.type == 'admin' ? true : false )
+        , match      : true
       };
-
     });
   }
-  
-  $scope.add_employee = function(){
-    console.log('in add employee function in controllers.js');
 
-    //var admin = (document.getElementById('inputAdmin').checked == true ? 'contractor' : 'employee');
-
-
-    var info = {
-      name       : $scope.user.name
-      , title      : $scope.user.title
-      , team       : $scope.user.team
-      , location   : $scope.user.location
-      , supervisor : $scope.user.supervisor
-      , status     : $scope.user.status
-      , note       : $scope.user.note
-      , pic        : $scope.user.pic
-      , start_date : $scope.user.start_date
-      , email      : $scope.user.email
-      , password   : $scope.user.password
-      , admin      : (document.getElementById('inputAdmin').checked == true ? 'contractor' : 'employee')
+ $scope.functions = {
+    isMatch : function(){
+      $scope.forms.employee.match = ($scope.forms.employee.password === $scope.forms.employee.confirm);
+      $scope.forms.employeeForm.confirm.$setValidity('match', ($scope.forms.employee.match == false ? false : true ));
+    }, submitForm : function(isValid){
+      if (isValid){ 
+        if ($scope.variables.update && $scope.forms.employee.match){
+          EmployeeFactory.update_employee(userID, $scope.forms.employee, function(data){
+            $scope.variables.message = data;
+          });
+        } else if (!$scope.update){
+          EmployeeFactory.create_employee($scope.forms.employee, function(data){
+            $scope.variables.message = data;
+          });
+        }
+      }
+    }, logout : function(){
+      LoginFactory.logout();
     }
-    
-    EmployeeFactory.factory_create_employee(info);
   }
-
-  $scope.upload_file = function(){
-    
-
-    //var data = {file: $scope.user.pic};
-    var data = {file: $scope.upload_file};
-
-    console.log('in upload_file function in controllers.js, will send this data: ',data);
-
-    EmployeeFactory.factory_upload_file(data);
-  }
-
-  $scope.update_employee = function(){
-    //get id from url
-    var userID = $location.path().split('/')[3];
-
-    var info  = {
-        name       : $scope.user.name
-      , title      : $scope.user.title
-      , team       : $scope.user.team
-      , location   : $scope.user.location
-      , supervisor : $scope.user.supervisor
-      , status     : $scope.user.status
-      , note       : $scope.user.note
-      , start_date : $scope.user.start_date
-      , email      : $scope.user.email
-      , password   : $scope.user.password
-      , admin      : (document.getElementById('inputAdmin').checked == true ? 'contractor' : 'employee')
-    }
-
-    EmployeeFactory.factory_update_employee(userID, info);
-  }
-
-  $scope.logout = function(){
-    LoginFactory.logout();
-  }
-
 });

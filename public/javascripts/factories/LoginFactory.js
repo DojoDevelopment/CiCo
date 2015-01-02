@@ -1,46 +1,42 @@
 app.factory('LoginFactory', function($http, $location, $rootScope){
 
   return {
-
-    factory_get_ip : function(callback){
+    check_ip : function(){
 
       $http
         .get('http://ipinfo.io/json')
         .success(function(data){
-          callback(data.ip);
+          $http
+            .post('/api/check_ip', {ip : data.ip})
+            .success(function(data){
+              $rootScope.user = { 
+                  id    : null
+                , business : data.id
+                , admin : false
+              }
+              $location.path('/main')
+          })
+            .error(function(){
+              $location.path('/')
+          });
       });
 
-    }, factory_check_ip : function(info){
+    }, login : function(form, callback){
 
-      $http.post('/api/check_ip', info)
-        .success(function(){
-          $rootScope.business = { id : 1 }
-          $location.path('/main')
-        })
-        .error(function(){
-          console.log('error');
-          $location.path('/')
-        });
-
-    }, login : function(credentials){
-    console.log('factory', credentials);
       $http
-        .post('/api/login', credentials)
+        .post('/api/login', form)
         .success(function(data){
-          console.log('in success');
           if (data.id){
             $rootScope.user = {
                 id    : data.id
+              , business : data.business
               , admin : data.admin
-              , login : true
             };
           }
-          $location.path((data.admin == true ? 'admin/main/' : 'user/') + data.id);
-
+          $location.path((data.admin == true ? '/dashboard' : '/user/' + data.id));
         })
         .error(function(data){
-          console.log('in error');
-          $location.path('/'); 
+          callback(data);
         });
 
     }, logout : function(){
@@ -48,10 +44,26 @@ app.factory('LoginFactory', function($http, $location, $rootScope){
       $http
         .get('/api/logout')
         .success(function(){
-          $rootScope.user = null;
-          $rootScope.business = null;
+          $rootScope.user = undefined;
           $location.path('/'); 
         });
+        
+    }, register : function(form, callback){
+
+      $http
+        .post('/api/register', form)
+        .success(function(data){
+          console.log(data);
+          $rootScope.user = {
+              id : data.id
+            , business : data.business
+            , admin : true
+          }
+         $location.path('/add_employee');
+        })
+        .error(function(data){
+          callback(data);
+        })
     }
   };
 });

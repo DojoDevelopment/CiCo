@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute', 'routeStyles', 'ngSanitize', 'ngCsv', 'anguFixedHeaderTable']);
+var app = angular.module('myApp', ['ngRoute', 'routeStyles', 'ngSanitize', 'ngCsv', 'anguFixedHeaderTable', 'ngMessages']);
 
 app.config(function($routeProvider){
 
@@ -10,18 +10,31 @@ app.config(function($routeProvider){
     controller:  'LoginController',
     css: 'stylesheets/login.css',
     data: {
-      login : false,
-      admin : false
+      business : false
+      ,  login : false
+      ,  admin : false
     }
 
   //index page for businesses who have a matching ip
+  }).when('/register', {
+
+    templateUrl: 'partials/register.html',
+    controller:  'LoginController',
+    css: 'stylesheets/login.css',
+    data: {
+      business : false
+      ,  login : false
+      ,  admin : false
+    }
+
   }).when('/main', {
 
     templateUrl: 'partials/main.html',
     controller: 'LoginController',
     data: {
-      login : false,
-      admin : false
+      business : true
+      ,  login : false
+      ,  admin : false
     }
 
   //user main page
@@ -30,39 +43,64 @@ app.config(function($routeProvider){
     templateUrl: 'partials/user.html',
     controller: 'UserController',
     data: {
-      login : true,
-      admin : false
+      business : true
+      ,  login : true
+      ,  admin : false
     }
-    
 
-  //admin main page
-  }).when('/admin/main/:id', {
+  //admin dashboard
+  }).when('/dashboard', {
 
-    templateUrl: 'partials/admin.html',
-    controller: 'AdminController',
+    templateUrl: 'partials/dashboard.html',
+    controller: 'DashboardController',
     data: {
-      login : true,
-      admin : true
+      business : true
+      ,  login : true
+      ,  admin : true
+    }
+
+  //admin history
+  }).when('/history', {
+
+    templateUrl: 'partials/history.html',
+    controller: 'HistoryController',
+    data: {
+      business : true
+      ,  login : true
+      ,  admin : true
     }
 
   //add employee page  
-  }).when('/admin/add_employee', {
+  }).when('/add_employee', {
 
-    templateUrl: 'partials/add_employee.html',
+    templateUrl: 'partials/add-edit.html',
     controller:  'EmployeeController',
     data: {
-      login : true,
-      admin : true
+      business : true
+      ,  login : true
+      ,  admin : true
+    }
+
+  //admin settings
+  }).when('/settings', {
+
+    templateUrl: 'partials/settings.html',
+    controller:  'BusinessController',
+    data: {
+      business : true
+      ,  login : true
+      ,  admin : true
     }
 
   //admin edit user page
-  }).when('/admin/edit/:id', {
+  }).when('/edit/:id', {
 
-    templateUrl: 'partials/add_employee.html',
+    templateUrl: 'partials/add-edit.html',
     controller: 'EmployeeController',
      data: {
-      login : true,
-      admin : true
+      business : true
+      ,  login : true
+      ,  admin : true
     }
 
   //route to root index
@@ -73,24 +111,30 @@ app.config(function($routeProvider){
 })
 .run(function ($rootScope, $location) {
 
- $rootScope.$on('$routeChangeStart', function (event, next, current) {
+  $rootScope.$on('$routeChangeStart', function (event, next, current) {
 
-    var req_login = next.$$route.data.login;
-    var req_admin  = next.$$route.data.admin;
+    if (next.$$route.data){
+      var req_biz   = next.$$route.data.business;
+      var req_login = next.$$route.data.login;
+      var req_admin = next.$$route.data.admin;
+      var verifciation = (req_biz || req_login || req_admin ? true : false );
 
-    console.log($rootScope);
-
-    //if user isn't on the right ip or logged in send them to index
-
-
-    if ($rootScope.user == null && $rootScope.business == null ) {
-      if( next.templateUrl !== "partials/index.html") {
+      if ( verifciation && $rootScope.user === undefined ) {
         $location.path('/');
+      } else {
+        //check business is a num
+        if (req_biz && isNaN($rootScope.user.business) ) {
+          $location.path('/');
+        }
+        //check id is a num
+        if (req_login && isNaN($rootScope.user.id) ) {
+          $location.path('/main');
+        }
+        //check admin is true or false
+        if (req_admin && !Boolean($rootScope.user.admin) && $rootScope.user.admin === false ){
+          $location.path('/main');
+        }
       }
-    } else if ( req_login && ($rootScope.user === undefined || $rootScope.user.id === undefined) 
-            ||( req_admin && ($rootScope.user === undefined || $rootScope.user.admin === false))) {
-      $location.path('/');
     }
-
   });
 });
