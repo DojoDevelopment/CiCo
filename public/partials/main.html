@@ -25,8 +25,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="row in table | filter: { locations:place, name:member} | orderBy:order:reverse">
-        <td ng-if="row.picture != null"><img height='30' width='30' class='img-rounded' ng-src="/img/profile_pic/{{biz_id}}/{{row.picture}}" />{{row.name}}</td>
+      <tr ng-repeat="row in tables.users | filter: { locations:place, name:member} | orderBy:tables.users.order:reverse">
+        <td ng-if="row.picture != null"><img height='30' width='30' class='img-rounded' ng-src="/img/profile_pic/{{variables.biz_id}}/{{row.picture}}" />{{row.name}}</td>
         <td ng-if="row.picture == null"><img height='30' width='30' class='img-rounded' src="/img/profile_pic/anon.png" />{{row.name}}</td>
         <td ng-if="row.is_logged == true"><img src="../img/icons/in.png"></td>
         <td ng-if="row.is_logged == false"><img src="../img/icons/out.png"></td>

@@ -20,6 +20,7 @@ app.controller('LoginController', function($scope, $rootScope, $location, LoginF
   //variables object
   $scope.variables = {
           msg : null
+    ,  biz_id : ($rootScope.user && !isNaN($rootScope.user.business) ? $rootScope.user.business : null)
     , pattern : {
                   email : /[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}/
                 , letters : /^[a-zA-Z\s]*$/
@@ -31,10 +32,10 @@ app.controller('LoginController', function($scope, $rootScope, $location, LoginF
 
   //if on main page and business id is in rootscope
   if ($rootScope.user && !isNaN($rootScope.user.business) ){
-    $scope.biz_id = $rootScope.user.business;
+    $scope.tables = {};
     TableFactory.general_employee_info(function(data){
-      $scope.table = data;
-      $scope.order = 'name';
+      $scope.tables.users = data;
+      $scope.tables.users.order = 'name';
     });
   }
 

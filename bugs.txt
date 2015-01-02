@@ -1,10 +1,8 @@
-Add a registration page
-Add IP Address table
-function insert business
-function insert location
-validate add/edit user page
-pic path may need to be corrected
-
 Things to do CSS
-- aside color not going to bottom of page
-- shrink all titles to the same height as coding dojo logo
+ - settings tabs need to be placed
+ - error message and validation needs to be stylized 
+ 		- index
+ 		- main
+ 		- add/edit employee
+ 		- registration
+ - date and select boxes weird allignment add employee page
