@@ -3,11 +3,9 @@ app.factory('EmployeeFactory', function($http, $location){
   return {
 
     create_employee : function(data, callback){
-
       $http
         .post('/api/employee', data)
         .success(function(id){
-
           if (data.imgFile !== undefined){
             var fd = new FormData();
             fd.append('file', data.imgFile);
