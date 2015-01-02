@@ -9,7 +9,11 @@ app.factory('LoginFactory', function($http, $location, $rootScope){
           $http
             .post('/api/check_ip', {ip : data.ip})
             .success(function(data){
-              $rootScope.business = { id : data.id }
+              $rootScope.user = { 
+                  id    : null
+                , business : data.id
+                , admin : false
+              }
               $location.path('/main')
           })
             .error(function(){
@@ -17,26 +21,22 @@ app.factory('LoginFactory', function($http, $location, $rootScope){
           });
       });
 
-    }, login : function(form){
+    }, login : function(form, callback){
 
       $http
         .post('/api/login', form)
         .success(function(data){
-
           if (data.id){
             $rootScope.user = {
                 id    : data.id
+              , business : data.business
               , admin : data.admin
-              , login : true
             };
-            $rootScope.business = {id : 1}
           }
-
           $location.path((data.admin == true ? '/dashboard' : '/user/' + data.id));
-
         })
         .error(function(data){
-          $location.path('/'); 
+          callback(data);
         });
 
     }, logout : function(){
@@ -44,8 +44,7 @@ app.factory('LoginFactory', function($http, $location, $rootScope){
       $http
         .get('/api/logout')
         .success(function(){
-          $rootScope.user.id = null;
-          $rootScope.business = null;
+          $rootScope.user = undefined;
           $location.path('/'); 
         });
         
@@ -57,10 +56,9 @@ app.factory('LoginFactory', function($http, $location, $rootScope){
           console.log(data);
           $rootScope.user = {
               id : data.id
+            , business : data.business
             , admin : true
-            , login : true
           }
-         $rootScope.business = {id : data.business}
          $location.path('/add_employee');
         })
         .error(function(data){

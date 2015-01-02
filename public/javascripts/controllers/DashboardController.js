@@ -1,9 +1,9 @@
-app.controller('DashboardController', function($scope, $location, $rootScope, TableFactory, ListFactory, BusinessFactory, LoginFactory) {
+app.controller('DashboardController', function($scope, $location, $rootScope, TableFactory, LocationFactory, EmployeeFactory, BusinessFactory, LoginFactory) {
 
-  ListFactory.used_locations(function(data){ $scope.locations = data; });
-  ListFactory.members( function(data){ $scope.members = data; });
+  LocationFactory.used_locations(function(data){ $scope.locations = data; });
+  EmployeeFactory.members( function(data){ $scope.members = data; });
 
-  $scope.biz_id = $rootScope.business.id;
+  $scope.biz_id = $rootScope.user.business;
 
   TableFactory.admin_dashboard(function(data){
     $scope.dashboard_table = data;

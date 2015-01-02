@@ -4,7 +4,7 @@ app.controller('UserController', function($scope, $rootScope, $location, Employe
   var userID = $location.path().split('/')[$location.path().split('/').length - 1];
 
   $scope.modalShown = false;
-  $scope.biz_id = $rootScope.business.id;
+  $scope.biz_id = $rootScope.user.business;
   $scope.isAdmin = ($rootScope.user.admin);
 
   TableFactory.user_history_table(userID, {from: 'all', to : ''}, function(data){
@@ -13,6 +13,7 @@ app.controller('UserController', function($scope, $rootScope, $location, Employe
   });
 
   EmployeeFactory.get_employee(userID, function(data){
+
   if ($scope.isAdmin){
     $scope.user = {
         id         : data.id

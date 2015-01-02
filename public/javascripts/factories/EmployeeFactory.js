@@ -42,7 +42,17 @@ app.factory('EmployeeFactory', function($http, $location){
         .error(function(data){
           callback(data);
         });
-;
+
+    }, update_admin : function(form, callback){
+      console.log(form);
+      $http
+        .put('/api/admin', form)
+        .success(function(data){
+          callback(data);
+        })
+        .error(function(data){
+          callback(data);
+        });
 
     }, get_employee : function(id, callback){
 
@@ -51,6 +61,22 @@ app.factory('EmployeeFactory', function($http, $location){
         .success(function(data){
           callback(data);
       });
+    }, members : function(callback){
+
+      $http
+        .get('api/list_members')
+        .success(function(data){
+          callback(data);
+      });
+
+    }, supervisors : function(callback){
+
+      $http
+        .get('/api/list_supervisors')
+        .success(function(data){
+          callback(data);
+      });
+
     }
   }
 });

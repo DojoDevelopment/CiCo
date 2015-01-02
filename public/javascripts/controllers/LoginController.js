@@ -1,46 +1,62 @@
 app.controller('LoginController', function($scope, $rootScope, $location, LoginFactory, TableFactory) {
 
-  //delete before publishing
-  $scope.form = {
-    email : 'mike@gmail.com',
-    password : 'password'
-  };
-  
-  $scope.serverError = null;
-  $scope.match = true;
-  $scope.pattern = {
-      email : /[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}/
-    , letters : /^[a-zA-Z\s]*$/
-    , password : /^[a-zA-Z0-9_]{6,72}$/
-    , string : /^[a-zA-Z\s'"()\[\]]*$/
-  }; 
-
+  //check if at registration page
   if ($location.$$path !== "/register"){ 
     LoginFactory.check_ip();
   }
 
-  if ($rootScope.business !== undefined && $rootScope.business !== null ){
-    $scope.biz_id = $rootScope.business.id;
+  //forms object
+  $scope.forms = {
+    login : {
+         //delete before publishing
+         email : 'mike@gmail.com',
+      password : 'password'
+    }, 
+    registration : {
+      isMatch : true
+    }
+  };
+  
+  //variables object
+  $scope.variables = {
+          msg : null
+    , pattern : {
+                  email : /[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+\.[a-zA-Z]{2,4}/
+                , letters : /^[a-zA-Z\s]*$/
+                , password : /^[a-zA-Z0-9_]{6,72}$/
+                , string : /^[a-zA-Z\s'"()\[\]]*$/
+                , lettersNumbers : /^[a-zA-Z0-9\s]*$/
+              }
+  }
+
+  //if on main page and business id is in rootscope
+  if ($rootScope.user && !isNaN($rootScope.user.business) ){
+    $scope.biz_id = $rootScope.user.business;
     TableFactory.general_employee_info(function(data){
       $scope.table = data;
       $scope.order = 'name';
     });
   }
 
-  $scope.submitForm = function(isValid){
-    if (isValid){
-      if($location.$$path !== "/register"){
-        LoginFactory.login($scope.form);
-      } else {
-        LoginFactory.register($scope.form, function(data){
-          $scope.serverError = data;
-        });
-      }
-    } 
-  };
-
-  $scope.logout = function(){
-    LoginFactory.logout();
+  $scope.functions = {
+    isMatch : function(){
+      
+      $scope.forms.registration.isMatch = ($scope.forms.registration.user.password === $scope.forms.registration.user.confirm);
+      $scope.forms.regForm.confirm.$setValidity('match', ($scope.forms.registration.isMatch == false ? false : true ));
+    
+    }, submitForm : function(isValid){
+      if (isValid){
+        ($location.$$path !== "/register" 
+          ? LoginFactory.login($scope.forms.login, function(data){
+              $scope.variables.errorMessage = data;
+            })
+          : LoginFactory.register($scope.forms.registration, function(data){
+              $scope.variables.errorMessage = data;
+            })
+        )
+      } 
+    }, logout : function(){
+      LoginFactory.logout();
+    }
   }
-
 });

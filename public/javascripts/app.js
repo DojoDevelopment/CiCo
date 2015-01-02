@@ -10,8 +10,9 @@ app.config(function($routeProvider){
     controller:  'LoginController',
     css: 'stylesheets/login.css',
     data: {
-      login : false,
-      admin : false
+      business : false
+      ,  login : false
+      ,  admin : false
     }
 
   //index page for businesses who have a matching ip
@@ -21,8 +22,9 @@ app.config(function($routeProvider){
     controller:  'LoginController',
     css: 'stylesheets/login.css',
     data: {
-      login : false,
-      admin : false
+      business : false
+      ,  login : false
+      ,  admin : false
     }
 
   }).when('/main', {
@@ -30,8 +32,9 @@ app.config(function($routeProvider){
     templateUrl: 'partials/main.html',
     controller: 'LoginController',
     data: {
-      login : false,
-      admin : false
+      business : true
+      ,  login : false
+      ,  admin : false
     }
 
   //user main page
@@ -40,8 +43,9 @@ app.config(function($routeProvider){
     templateUrl: 'partials/user.html',
     controller: 'UserController',
     data: {
-      login : true,
-      admin : false
+      business : true
+      ,  login : true
+      ,  admin : false
     }
 
   //admin dashboard
@@ -50,8 +54,9 @@ app.config(function($routeProvider){
     templateUrl: 'partials/dashboard.html',
     controller: 'DashboardController',
     data: {
-      login : true,
-      admin : true
+      business : true
+      ,  login : true
+      ,  admin : true
     }
 
   //admin history
@@ -60,8 +65,9 @@ app.config(function($routeProvider){
     templateUrl: 'partials/history.html',
     controller: 'HistoryController',
     data: {
-      login : true,
-      admin : true
+      business : true
+      ,  login : true
+      ,  admin : true
     }
 
   //add employee page  
@@ -70,8 +76,9 @@ app.config(function($routeProvider){
     templateUrl: 'partials/add-edit.html',
     controller:  'EmployeeController',
     data: {
-      login : true,
-      admin : true
+      business : true
+      ,  login : true
+      ,  admin : true
     }
 
   //admin settings
@@ -79,12 +86,11 @@ app.config(function($routeProvider){
 
     templateUrl: 'partials/settings.html',
     controller:  'BusinessController',
-    css: 'stylesheets/settings.css',
     data: {
-      login : false,
-      admin : false
+      business : true
+      ,  login : true
+      ,  admin : true
     }
-
 
   //admin edit user page
   }).when('/edit/:id', {
@@ -92,8 +98,9 @@ app.config(function($routeProvider){
     templateUrl: 'partials/add-edit.html',
     controller: 'EmployeeController',
      data: {
-      login : true,
-      admin : true
+      business : true
+      ,  login : true
+      ,  admin : true
     }
 
   //route to root index
@@ -107,20 +114,27 @@ app.config(function($routeProvider){
   $rootScope.$on('$routeChangeStart', function (event, next, current) {
 
     if (next.$$route.data){
+      var req_biz   = next.$$route.data.business;
       var req_login = next.$$route.data.login;
-      var req_admin  = next.$$route.data.admin;
+      var req_admin = next.$$route.data.admin;
+      var verifciation = (req_biz || req_login || req_admin ? true : false );
 
-      if ($rootScope.user == null && $rootScope.business == null && req_login == true ) {
-        if( next.templateUrl !== "partials/index.html") {
+      if ( verifciation && $rootScope.user === undefined ) {
+        $location.path('/');
+      } else {
+        //check business is a num
+        if (req_biz && isNaN($rootScope.user.business) ) {
           $location.path('/');
         }
-      } else if ( req_login && ($rootScope.user === undefined || $rootScope.user.id === undefined) 
-              ||( req_admin && ($rootScope.user === undefined || $rootScope.user.admin === false))) {
-        $location.path('/');
+        //check id is a num
+        if (req_login && isNaN($rootScope.user.id) ) {
+          $location.path('/main');
+        }
+        //check admin is true or false
+        if (req_admin && !Boolean($rootScope.user.admin) && $rootScope.user.admin === false ){
+          $location.path('/main');
+        }
       }
-    } else {
-      $location.path('/');
     }
-
   });
 });

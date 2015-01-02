@@ -5,13 +5,11 @@ var form_tools = require('../functions/form_functions.js');
 
 module.exports = {
 
- info : function(req, res){
+ get_name : function(req, res){
   
-    var id = req.params.id;
-
+    var biz_id = req.session.user.business;
     var qry = 
         "SELECT businesses.name"
-      +   ", businesses.ip_addresses"
       + " FROM businesses"
       + " WHERE businesses.id = $1";
 
@@ -19,35 +17,113 @@ module.exports = {
   
     client.connect(function(err) {
       if(err) { return console.error('could not connect to postgres', err); }
-      client.query(qry, [id], function(err, data) {
+      client.query(qry, [biz_id], function(err, data) {
         if(err) { return console.error('error running query', err); }
         res.json(data.rows[0]);
         client.end();
       });
     });
-  
-  }, update : function(req, res){
-  
-    var id = req.session.user.id;
-    var ip = req.body.ip;
-    var name = req.body.name;
 
+  }, update_name : function(req, res){
+
+    var biz_id = req.session.user.business;
+    var name = req.body.name;
     var qry = 
-      "UPDATE businesses "
-    + "SET name=$1 "
-    +   ", ip_addresses=$2 "
-    + "WHERE id=$3";
+              "UPDATE businesses"
+            + " SET name=$1"
+            + " , updated_at=NOW()"
+            + " WHERE id=$2";
 
     var client = new pg.Client(conString);
 
     client.connect(function(err) {
       if(err) { return console.error('could not connect to postgres', err); }
-      client.query(qry, [name, ip, id], function(err, data) {
+      client.query(qry, [name, biz_id], function(err, data) {
         if(err) { return console.error('error running query', err); }
-        res.json(data.rows[0]);
+        res.json({id: data.rows[0], msg: 'Company name updated successfully.'});
         client.end();
       });
     });
+
+  }, add_ip : function(req, res){
+
+    var biz_id = req.session.user.business;
+    var ip = req.body.ip;
+
+    var qry = 
+      "INSERT INTO ip_addresses ("
+      + "  business_id"
+      + ", address"
+      + ", created_at"
+      + " ) VALUES ($1, $2, NOW())"
+      + " RETURNING id";
+
+    var client = new pg.Client(conString);
+  
+    client.connect(function(err) {
+      if(err) { return console.error('could not connect to postgres', err); }
+      client.query(qry, [biz_id, ip], function(err, data) {
+        if(err) { return console.error('error running query', err); }
+        res.json({id: data.rows[0].id, msg: 'Address successfully added.'});
+        client.end();
+      });
+    });
+
+  }, get_ip : function(req, res){
+    var biz_id = req.session.user.business;
+
+    var qry = 
+        "SELECT ip_addresses.address"
+      + " , id"
+      + " FROM ip_addresses"
+      + " WHERE ip_addresses.business_id = $1"
+      + " ORDER BY id";
+
+    var client = new pg.Client(conString);
+  
+    client.connect(function(err) {
+      if(err) { return console.error('could not connect to postgres', err); }
+      client.query(qry, [biz_id], function(err, data) {
+        if(err) { return console.error('error running query', err); }
+        res.json(data.rows);
+        client.end();
+      });
+    });
+
+  }, delete_ip : function(req, res){
+    var id = req.params.id;
+    var qry = "DELETE FROM ip_addresses WHERE id=$1";
+    var client = new pg.Client(conString);
+
+    client.connect(function(err) {
+      if(err) { return console.error('could not connect to postgres', err); }
+      client.query(qry, [id], function(err, data) {
+        if(err) { return console.error('error running query', err); }
+        res.json('Address has been successfully deleted.');
+        client.end();
+      });
+    });
+
+  }, update_ip : function(req, res){
+
+    var id = req.params.id;
+    var address = req.body.ip;
+    var qry = 
+        "UPDATE ip_addresses"
+      + " SET address=$1"
+      + " , updated_at=NOW()"
+      + " WHERE id=$2";
+
+    var client = new pg.Client(conString);
+    client.connect(function(err) {
+      if(err) { return console.error('could not connect to postgres', err); }
+      client.query(qry, [address, id], function(err, data) {
+        if(err) { return console.error('error running query', err); }
+        res.json('Address has been saved');
+        client.end();
+      });
+    });
+
 
   }, register : function(req, res){
 
@@ -107,16 +183,14 @@ module.exports = {
         var qry3 =
             "INSERT INTO members ("
           + "  business_id"
-          + ", location_id"
           + ", name"
-          + ", title"
           + ", email"
           + ", password"
           + ", status"
           + ", type"
           + ", is_logged"
           + ", created_at"
-          + " ) VALUES ( $1, $2, $3, 'Founder', $4, $5, 'active', 'owner', 'true', NOW())"
+          + " ) VALUES ( $1, $2, $3, $4, 'active', 'owner', 'true', NOW())"
           + " RETURNING id";
 
         var client = new pg.Client(conString);
@@ -143,9 +217,9 @@ module.exports = {
 
               location_id = data.rows[0].id
               user.splice(3,1); //get rid of password confirm
-              user.unshift(business_id, location_id);
+              user.unshift(business_id);
     
-              client.query(qry2, location, function(err, data) {
+              client.query(qry3, user, function(err, data) {
                 if(err) return rollback(client);
 
                 req.session.user = {

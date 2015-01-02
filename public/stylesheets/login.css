@@ -9,7 +9,7 @@ body{ min-width: 700px;
 
 .login_box{ margin-top: 10%; margin-left: 28%; height: 35em; width:45%; background-color: white; opacity: .8;}
 
-.login_header{ padding-top:10%; color:#3E97D1; }
+.login_header{ padding-top:10%; color:#3E97D1; text-align: center;}
 
 .login_form{ margin-top: 10%; margin-left: 10%; width:80%; }
 .login_form a{ font-weight: bold; color:#61C2C2; text-shadow:

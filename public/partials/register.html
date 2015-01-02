@@ -1,19 +1,51 @@
 <div class='login_box'>
-	<div align='center' class='login_header'>
+	<div class='login_header'>
 		<h2>Coding Dojo TimeKeeper Login</h2>
 	</div>
-  <div ng-if="serverError !== null" ng-bind="serverError"></div>
+  <p ng-if="variables.msg !== null" ng-bind="variables.msg"></p>
 	<div class='login_form'>
-	  <form name="regForm" ng-submit="submitForm(regForm.$valid)" class='form-group' novalidate>
-			<input type="email"    ng-model="form.user.email"    ng-pattern="pattern.email" class="form-control" placeholder="Email" required autofocus>
-			<input type="password" ng-model="form.user.password" ng-pattern="pattern.password" class="form-control" placeholder="Password" required>
-			<input type="password" ng-model="form.user.confirm" class="form-control" placeholder="Confirm Password" required>
-			<input type="text"     ng-model="form.user.name"     ng-pattern="pattern.letters" class="form-control" placeholder="User's Name" name="userName" ng-trim="true" required>
-			<input type="text"     ng-model="form.business.name" ng-pattern="pattern.string" class="form-control" placeholder="Business name" name="businessName" id="inputBusinessName" ng-trim="true" required>
-			<input type="text"     ng-model="form.location.name" ng-pattern="pattern.string" class="form-control" placeholder="Location" name="location" ng-trim="true" required>
+	  <form name="forms.regForm" ng-submit="functions.submitForm(forms.regForm.$valid)" class='form-group' novalidate>
 
-			<a href="/"><button class='btn btn-md btn-info'>Sign IN</button></a>
-			<button class='btn btn-md btn-success pull-right' type="submit" ng-disabled="login_form.$invalid">Register</button>
+			<input type="email"    ng-model="forms.registration.user.email"    ng-pattern="variables.pattern.email"    class="form-control" placeholder="Email"         name="email"        ng-trim="true" required autofocus>
+			<div ng-messages="forms.regForm.email.$error" ng-if="forms.regForm.$submitted || !forms.regForm.email.$pristine">
+        <p ng-message="required" class="help-block">Email is required.</p>
+        <p ng-message="pattern"  class="help-block">Email is invalid.</p>
+      </div>
+
+			<input type="password" ng-model="forms.registration.user.password" ng-pattern="variables.pattern.password" ng-minlength="6" ng-maxlength="72" class="form-control" placeholder="Password" name="password" required>
+      <div ng-messages="forms.regForm.password.$error" ng-if="forms.regForm.$submitted || !forms.regForm.password.$pristine">
+        <p ng-message="required"  class="help-block">Password is required.</p>
+        <p ng-message="minlength" class="help-block">Password is too short.</p>
+        <p ng-message="maxlength" class="help-block">Password is too long.</p>
+        <p ng-message="pattern"   class="help-block">Password can containe letters and numbers only.</p>
+      </div>
+
+			<input type="password" ng-model="forms.registration.user.confirm"  ng-pattern="variables.pattern.password" ng-change="functions.isMatch()" class="form-control" placeholder="Confirm Password" name="confirm" required>
+      <div ng-messages="forms.regForm.confirm.$error" ng-if="forms.regForm.password.$valid && !forms.regForm.confirm.$pristine">
+        <p ng-message="required" class="help-block">Password confirmation is required.</p>
+        <p ng-message="match"    class="help-block">Password doesn't match</p>
+      </div>
+			
+			<input type="text"     ng-model="forms.registration.user.name"     ng-pattern="variables.pattern.letters" ng-change="functions.isMatch()" class="form-control" placeholder="User's Name"   name="name"     ng-trim="true" required>
+      <div ng-messages="forms.regForm.name.$error" ng-if="forms.regForm.$submitted || !forms.regForm.name.$pristine">
+        <p ng-message="required" class="help-block">Name is required</p>
+        <p ng-message="pattern" class="help-block">Only letters</p>
+      </div>
+
+			<input type="text"     ng-model="forms.registration.business.name" ng-pattern="variables.pattern.lettersNumbers"  class="form-control" placeholder="Business name" name="businessName" ng-trim="true" required>
+      <div ng-messages="forms.regForm.businessName.$error" ng-if="forms.regForm.$submitted || !forms.regForm.businessName.$pristine">
+        <p ng-message="required" class="help-block">Name is required</p>
+        <p ng-message="pattern" class="help-block">Only letters and numbers</p>
+      </div>
+
+			<input type="text"     ng-model="forms.registration.location.name" ng-pattern="variables.pattern.lettersNumbers"  class="form-control" placeholder="Location"      name="location"     ng-trim="true" required>
+      <div ng-messages="forms.regForm.location.$error" ng-if="forms.regForm.$submitted || !forms.regForm.location.$pristine">
+        <p ng-message="required" class="help-block">Name is required</p>
+        <p ng-message="pattern" class="help-block">Only letters and numbers</p>
+      </div>
+
+			<a href="/#/"><button class='btn btn-md btn-info'>Sign IN</button></a>
+			<button class='btn btn-md btn-success pull-right' type="submit" ng-disabled="forms.regForm.$invalid">Register</button>
 
 		</form>
 	</div>

@@ -7,39 +7,29 @@ module.exports = {
 
     var user_ip = req.body.ip;
     var qry = 
-      "SELECT businesses.id, businesses.ip_addresses"
-    + " FROM businesses"
-    + " WHERE id = 1";
+      "SELECT business_id"
+    + " FROM ip_addresses"
+    + " WHERE address = $1";
 
     var client = new pg.Client(conString);
 
     pg.connect(conString, function(err, client, done) {
       if(err) { return console.error('error fetching client from pool', err); }
-      client.query(qry, function(err, result) {
+      client.query(qry, [user_ip], function(err, result) {
         done();
         if(err) { return console.error('error running query', err); }
-
-        if (result.rows[0].ip_addresses != null) {
-          var ip_array = result.rows[0].ip_addresses.split(',');
-
-          for (var i = 0; i < ip_array.length; i++) {
-
-            if (ip_array[i].trim() === user_ip){
-              
-              req.session.user = {
-                business : result.rows[0].id
-                ,     id : null
-                ,  admin : false
-              };
-              
-              res.json({id : result.rows[0].id}).end();
-            }
-          };
-        }
-        res.status(401).end();
+          if (result.rows.length === 1){
+            req.session.user = {
+              business : result.rows[0].business_id
+              ,     id : null
+              ,  admin : false
+            };
+            res.json({id : result.rows[0].business_id}).end();
+          } else {
+            res.status(400).end();
+          }
       });
     });
-
   }, login : function(req, res){
 
     var email = req.body.email;
@@ -61,7 +51,7 @@ module.exports = {
         result = data.rows[0];
 
         if (result == undefined){
-          res.status(401).json(result).end();
+          res.status(401).json('Username and Password do not match.').end();
         } else {
           req.session.user = {
 

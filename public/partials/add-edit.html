@@ -10,8 +10,8 @@
   </ul>
 </div>
 <div class='a_d'>
-  <h2 align='center' ng-if="update == true">Update Employee</h2>
-  <h2 align='center' ng-if="update == false">Add Employee</h2>
+  <h2 ng-if="update == true">Update Employee</h2>
+  <h2 ng-if="update == false">Add Employee</h2>
 </div>
 <div class='container-fluid main'>
   <div ng-if="serverError !== null" ng-bind="serverError"></div>

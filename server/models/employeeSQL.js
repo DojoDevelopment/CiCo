@@ -127,6 +127,65 @@ module.exports = {
       });
     });
 
+  }, update_admin : function(req, res){
+
+    var form = req.body
+    var id = req.session.user.id;
+    var password = true;
+
+    if(  !form.name || !form.email ){
+      res.status(400).json('The form is missing required information.');      
+    } else {
+      var user = [
+          id
+        , form.name
+        , form.email
+        , (form.password === undefined ? '' : form.password)
+        , (form.confirm === undefined ? '' : form.confirm)
+      ];
+
+      user = form_tools.sanitizeForm(user);
+
+      if (user[3] === '' && user[4] === ''){
+        password = false;
+      }
+
+      if (
+             !regex.isNumber(user[0])       //user_id
+          || !regex.isString(user[1])       //name
+          || !regex.isEmail(user[2])        //email
+          || (password === true && !regex.isPassword(user[3]))   //password
+          || (password === true && !regex.isPassword(user[4]))   //confirm
+        ) 
+      { 
+        res.status(400).json('Information is in an incorrect format.');
+      } else if (password === true && user[3] !== user[4]) {    //password matches confirm
+        res.status(400).json('password does not match confirmation.')
+      } else {
+
+        password == false ? user.splice(3,2) : user.splice(4,1);
+        var qry = 
+                   "UPDATE members"
+                + " SET name = $2"
+                +   ", email = $3"
+                +   ", updated_at = NOW()";
+        if (password){
+          qry   +=  ", password = $4";
+        } 
+          qry   +=  " WHERE id = $1";
+    
+        var client = new pg.Client(conString);
+
+        pg.connect(conString, function(err, client, done) {
+          if(err) { return console.error('error fetching client from pool', err); }
+          client.query(qry, user, function(err, result) {
+            done();
+            if(err) { return console.error('error running query', err, qry); }
+            res.json('User has been updated successfully').end();
+          });
+        });
+      }
+    }
   }, update : function(req, res) {
 
     var form = req.body;
@@ -360,5 +419,52 @@ module.exports = {
         res.json(result.rows[0].id);
       });
     });
+
+  }, get_list_members : function(req, res) {
+
+    var biz_id = req.session.user.business;
+
+    var qry = 
+        "SELECT members.name"
+        + ", locations.name as location"
+      + " FROM members "
+      + " LEFT JOIN locations ON members.location_id = locations.id "
+      + " WHERE members.business_id = $1"
+      + " AND members.type = 'employee'";
+    
+    var client = new pg.Client(conString);
+
+    client.connect(function(err) {
+      if(err) { return console.error('could not connect to postgres', err); }
+      client.query(qry, [biz_id], function(err, data) {
+        if(err) { return console.error('error running query', err); }
+        res.json(data.rows);
+        client.end();
+      });
+    });
+
+  }, get_list_supervisors : function(req, res) {
+
+    var biz_id = req.session.user.business;
+    
+    var qry = 
+        "SELECT id"
+        + ", name"
+      + " FROM members"
+      + " WHERE members.type = 'admin'"
+      + " OR members.type = 'owner'"
+      + " AND business_id = $1";
+
+    var client = new pg.Client(conString);
+
+    client.connect(function(err) {
+      if(err) { return console.error('could not connect to postgres', err); }
+      client.query(qry, [biz_id], function(err, data) {
+        if(err) { return console.error('error running query', err); }
+        res.json(data.rows);
+        client.end();
+      });
+    });
+
   }
 }
