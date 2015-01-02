@@ -6,3 +6,5 @@ Things to do CSS
  		- add/edit employee
  		- registration
  - date and select boxes weird allignment add employee page
+ - user page aside doesn't have color all the way down could be caused by table protroding out of view ?position maybe
+ - user page change pointer to finger on date filters

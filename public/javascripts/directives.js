@@ -5,7 +5,6 @@ app.directive('modalClockout',  function() {
       personal: '='
       , report: '='
       , session: '='
-      , user: '='
       , show: '='
     },
     replace: true, // Replace with the template below

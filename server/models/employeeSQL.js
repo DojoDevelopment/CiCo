@@ -341,63 +341,96 @@ module.exports = {
 
   }, clock_in : function(req, res){
 
-    var id = req.params.id;
-    
-    var qry = 
+    var id = req.session.user.id;
+    var location = req.body.location;
+
+    var qry1 = 
         "INSERT INTO sessions ("
-      +   "member_id"
+      +   " member_id"
+      +   ", location_id"
       +   ", clock_in"
       +   ", created_at"
-      + ") VALUES ($1, NOW(), NOW())";
+      + " ) VALUES ($1, $2, NOW(), NOW())"
+      + " RETURNING id";
 
     var qry2 = 
         "UPDATE members"
       + " SET is_logged=TRUE"
       + " WHERE id = $1"
 
-    pg.connect(conString, function(err, client, done) {
-      if(err) { return console.error('error fetching client from pool', err); }
-      client.query(qry, [id], function(err, result) {
-        done();
-        if(err) { return console.error('error running query', err); }
-        client.query(qry2, [id], function(err, result){
-          done();
-          if(err) { return console.error('error running query', err); }
-          res.status(200);
+    var qry3 =
+        "SELECT name"
+      + " FROM locations"
+      + " WHERE id = $1";
+
+    var client = new pg.Client(conString);
+
+    client.connect();
+
+    client.query('BEGIN', function(err, result) {
+      if(err) return rollback(client);
+
+      client.query(qry1, [id, location], function(err, data) {
+        if(err) return rollback(client);
+        var session = data.rows[0].id;
+
+        client.query(qry2, [id], function(err, data) {
+          if(err) return rollback(client);
+
+          client.query(qry3, [location], function(err, data) {
+            if(err) return rollback(client);
+            res.json({id: session, location: data.rows[0].name});
+            client.query('COMMIT', client.end.bind(client));
+          });
         });
       });
-
     });
 
   }, clock_out : function(req, res){
 
     var session  = req.params.session;
-    var personal = req.body.personal;
-    var report   = req.body.report;
-    var user_id  = req.body.user;
+    var personal = (req.body.personal === undefined ? '0' : req.body.personal);
+    var report   = (req.body.report === undefined   ? ' ' : req.body.report);
+    var user_id  = req.session.user.id;
 
-    var qry = 
+    var qry1 = 
          "UPDATE sessions"
       + " SET clock_out=NOW()"
       +   ", personal_time=$1"
       +   ", report = $2"
       +   ", updated_at=Now()"
-      + " WHERE id = $3";
+      +   ", updated_by=$3"
+      + " WHERE id = $4";
 
     var qry2 = 
         "UPDATE members"
       + " SET is_logged=FALSE"
       + " WHERE id = $1"
 
-    pg.connect(conString, function(err, client, done) {
-      if(err) { return console.error('error fetching client from pool', err); }
-      client.query(qry, [personal, report, session], function(err, result) {
-        done();
-        if(err) { return console.error('error running query', err); }
-        client.query(qry2, [user_id], function(err, result){
-          done();
-          if(err) { return console.error('error running query', err); }
-          res.status(200);
+    var qry3 = 
+      "SELECT ((Extract(EPOCH FROM(clock_out - clock_in - personal_time * interval '1 hour'))/ 60)::int * interval '1 minute')::text as billed"
+      + " FROM sessions"
+      + " WHERE id = $1";
+
+
+    var client = new pg.Client(conString);
+
+    client.connect();
+
+    client.query('BEGIN', function(err, result) {
+      if(err) return rollback(client);
+
+      client.query(qry1, [personal, report, user_id, session], function(err, data) {
+        if(err) return rollback(client);
+
+        client.query(qry2, [user_id], function(err, data) {
+          if(err) return rollback(client);
+
+          client.query(qry3, [session], function(err, data) {
+            if(err) return rollback(client);
+            res.json({billed: data.rows[0].billed});
+            client.query('COMMIT', client.end.bind(client));
+          });
         });
       });
     });
@@ -405,7 +438,7 @@ module.exports = {
   }, last_clocking : function(req, res){
 
     var id = req.params.id;
-    var qry = "SELECT sessions.id"
+    var qry = "SELECT sessions.id, date_part('EPOCH', sessions.clock_in)*1000 as clock_in"
             + " FROM sessions"
             + " WHERE member_id = $1"
             + " AND sessions.clock_out IS NULL"
@@ -416,14 +449,13 @@ module.exports = {
       client.query(qry, [id], function(err, result) {
         done();
         if(err) { return console.error('error running query', err); }
-        res.json(result.rows[0].id);
+        res.json(result.rows[0]);
       });
     });
 
   }, get_list_members : function(req, res) {
 
     var biz_id = req.session.user.business;
-
     var qry = 
         "SELECT members.name"
         + ", locations.name as location"
@@ -468,3 +500,9 @@ module.exports = {
 
   }
 }
+
+function rollback(client) {
+  client.query('ROLLBACK', function() {
+    client.end();
+  });
+};

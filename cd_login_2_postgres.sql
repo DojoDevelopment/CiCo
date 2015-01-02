@@ -46,9 +46,10 @@ CREATE TABLE members (
 CREATE TABLE sessions (
 	id SERIAL PRIMARY KEY,
 	member_id int NOT NULL,
+	location_id int NOT NULL,
 	clock_in timestamp NOT NULL,
 	clock_out timestamp,
-	personal_time float DEFAULT 0.00,
+	personal_time float,
 	report text,
 	created_at timestamp NOT NULL,
 	updated_at timestamp,
@@ -92,9 +93,9 @@ INSERT INTO members(business_id, location_id, name, title, email, password, star
 INSERT INTO members(business_id, location_id, name, title, email, password, start_date, status, note, picture, team, supervisor_id, type, created_at, updated_at, updated_by) VALUES (1, 2, 'Julian Nguyen', 'Intern', 'julian@gmail.com', 'password', '2014-11-18 17:18:01', 'active', null, 'profile_4.jpg', 'development', 1, 'employee', '2014-11-18 17:18:01', null, null);
 INSERT INTO members(business_id, location_id, name, title, email, password, start_date, status, note, picture, team, supervisor_id, type, created_at, updated_at, updated_by) VALUES (1, 2, 'Trey Villafane', 'Intructor', 'trey@gmail.com', 'password', '2014-11-18 17:18:01', 'active', null, null, 'instructors', 1, 'employee', '2014-01-01 05:00:00', null, null);
 INSERT INTO members(business_id, location_id, name, title, email, password, start_date, status, note, picture, team, supervisor_id, type, created_at, updated_at, updated_by) VALUES (1, 1, 'Jay Patel', 'Intructor', 'jay@gmail.com', 'password', '2014-11-18 17:18:01', 'active', null, null, 'instructors', 1, 'employee', '2014-01-01 01:00:00', null, null);
-INSERT INTO sessions(member_id, clock_in, clock_out, personal_time, report, created_at, updated_at, updated_by) VALUES (2, '2014-11-18 18:41:52', '2014-11-18 18:43:24', 1.5, 'Coffee break', '2014-11-18 18:41:52', '2014-11-18 18:43:24', 2);
-INSERT INTO sessions(member_id, clock_in, clock_out, personal_time, report, created_at, updated_at, updated_by) VALUES (2, '2014-11-18 18:41:52', '2014-11-18 18:43:24', 0.5, 'Coffee break', '2014-11-18 18:41:52', '2014-11-18 18:43:24', 2);
-INSERT INTO sessions(member_id, clock_in, clock_out, personal_time, report, created_at, updated_at, updated_by) VALUES (3, '2014-11-17 05:41:52', '2014-11-18 18:00:24', 1.5, 'Coffee break', '2014-11-17 05:41:52', '2014-11-18 18:00:24', 3);
-INSERT INTO sessions(member_id, clock_in, clock_out, personal_time, report, created_at, updated_at, updated_by) VALUES (4, '2014-11-24 13:51:14', '2014-11-24 13:51:19', 1.5, 'Coffee break', '2014-10-02 13:51:14', '2014-11-24 13:51:19', 4);
-INSERT INTO sessions(member_id, clock_in, clock_out, personal_time, report, created_at, updated_at, updated_by) VALUES (2, '2014-11-24 13:56:08', '2014-11-24 13:56:13', 1.5, 'Coffee break', '2014-09-24 13:56:08', '2014-11-24 13:56:13', 2);
-INSERT INTO sessions(member_id, clock_in, clock_out, personal_time, report, created_at, updated_at, updated_by) VALUES (3, '2014-12-01 13:56:08', '2014-12-01 13:56:13', 1.5, 'Coffee break', '2014-12-01 13:56:08', '2014-11-24 13:56:13', 2);
+INSERT INTO sessions(member_id, location_id, clock_in, clock_out, personal_time, report, created_at, updated_at, updated_by) VALUES (2, 1, '2014-11-18 18:41:52', '2014-11-18 18:43:24', 1.5, 'Coffee break', '2014-11-18 18:41:52', '2014-11-18 18:43:24', 2);
+INSERT INTO sessions(member_id, location_id, clock_in, clock_out, personal_time, report, created_at, updated_at, updated_by) VALUES (2, 1, '2014-11-18 18:41:52', '2014-11-18 18:43:24', 0.5, 'Coffee break', '2014-11-18 18:41:52', '2014-11-18 18:43:24', 2);
+INSERT INTO sessions(member_id, location_id, clock_in, clock_out, personal_time, report, created_at, updated_at, updated_by) VALUES (3, 2, '2014-11-17 05:41:52', '2014-11-18 18:00:24', 1.5, 'Coffee break', '2014-11-17 05:41:52', '2014-11-18 18:00:24', 3);
+INSERT INTO sessions(member_id, location_id, clock_in, clock_out, personal_time, report, created_at, updated_at, updated_by) VALUES (4, 2, '2014-11-24 13:51:14', '2014-11-24 13:51:19', 1.5, 'Coffee break', '2014-10-02 13:51:14', '2014-11-24 13:51:19', 4);
+INSERT INTO sessions(member_id, location_id, clock_in, clock_out, personal_time, report, created_at, updated_at, updated_by) VALUES (2, 1, '2014-11-24 13:56:08', '2014-11-24 13:56:13', 1.5, 'Coffee break', '2014-09-24 13:56:08', '2014-11-24 13:56:13', 2);
+INSERT INTO sessions(member_id, location_id, clock_in, clock_out, personal_time, report, created_at, updated_at, updated_by) VALUES (3, 2, '2014-12-01 13:56:08', '2014-12-01 13:56:13', 1.5, 'Coffee break', '2014-12-01 13:56:08', '2014-11-24 13:56:13', 2);

@@ -67,21 +67,21 @@
           <th><a href="" ng-click="order='title'; reverse=!reverse">Title</a></th>
           <th><a href="" ng-click="order='team'; reverse=!reverse">Team</a></th>
           <th><a href="" ng-click="order='location'; reverse=!reverse">Location</a></th>
-          <th class='clk-btn'><a href="" ng-click="order='clock_in'; reverse=!reverse">Clock IN</a></th>
-          <th class='clk-btn'><a href="" ng-click="order='clock_out'; reverse=!reverse">Clock OUT</a></th>
+          <th><a href="" ng-click="order='clock_in'; reverse=!reverse">Clock IN</a></th>
+          <th><a href="" ng-click="order='clock_out'; reverse=!reverse">Clock OUT</a></th>
           <th><a href="" ng-click="order='personal'; reverse=!reverse">Personal Time</a></th>
           <th><a href="" ng-click="order='billed'; reverse=!reverse">Billed Hours</a></th>
           <th>Report</th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="row in history_table | filter: { locations:place, name:people } | orderBy:order:reverse">
+        <tr ng-repeat="row in history_table | filter: { location:place, name:people } | orderBy:order:reverse">
           <td id='date' ng-bind="row.clock_in | date:'dd/M (EEE)'"></td>
           <td ng-if="row.picture != null"><img height='30' width='30' class='img-rounded' ng-src="/img/profile_pic/{{biz_id}}/{{row.picture}}" />{{row.name}}</td>
           <td ng-if="row.picture == null"><img height='30' width='30' class='img-rounded' src="/img/profile_pic/anon.png" />{{row.name}}</td>
           <td id='title'    ng-bind="row.title"></td>
           <td id='team'     ng-bind="row.team"></td>
-          <td id='location' ng-bind="row.locations"></td>
+          <td id='location' ng-bind="row.location"></td>
           <td id='in'       ng-bind="row.clock_in | date:'shortTime'"></td>
           <td id='out'      ng-bind="row.clock_out | date:'shortTime'"></td>
           <td id='pt'       ng-bind="row.personal_time"></td>

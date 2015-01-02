@@ -9,7 +9,7 @@ app.controller('LoginController', function($scope, $rootScope, $location, LoginF
   $scope.forms = {
     login : {
          //delete before publishing
-         email : 'mike@gmail.com',
+         email : 'tony@gmail.com',
       password : 'password'
     }, 
     registration : {

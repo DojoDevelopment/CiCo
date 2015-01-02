@@ -25,8 +25,7 @@ app.factory('TableFactory', function($http){
         .success(function(data){
           callback(data);
       });
-    
-    
+        
     }, date_range : function(info, callback){
       $http
         .post('/api/date_range/', info)
@@ -42,6 +41,5 @@ app.factory('TableFactory', function($http){
           callback(data);
       });
     }
-
   };
 });

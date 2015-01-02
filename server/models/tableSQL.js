@@ -46,26 +46,26 @@ module.exports = {
         + ", members.name"
         + ", members.title"
         + ", members.team"
-        + ", locations.name AS locations"
+        + ", locations.name AS location"
         + ", sessions.clock_in"
         + ", sessions.clock_out"
         + ", sessions.personal_time"
         + ", sessions.report"
-        + ", age(sessions.clock_out, sessions.clock_in) AS billed"
+        + ", ((Extract(EPOCH FROM(clock_out - clock_in - personal_time * interval '1 hour'))/ 60)::int * interval '1 minute')::text as billed"
       + " FROM sessions"
       + " LEFT JOIN members ON sessions.member_id = members.id"
-      + " LEFT JOIN locations ON locations.id = members.location_id"
+      + " LEFT JOIN locations ON locations.id = sessions.location_id"
       + " WHERE members.business_id = $1";
 
       if ( from == 'this_week' || from == 'this_month' || from == 'last_week' || from == 'last_month') {
         var from_sunday = new Date().getDay();
         var day_in_month = new Date().getDate();
         var year = new Date().getFullYear();
-        var month = new Date().getMonth();
+        var month = new Date().getMonth()+1;
      
         switch (from){
           case 'this_week'  :
-            qry += " AND sessions.clock_in >= CURRENT_DATE - interval '"+from_sunday+" day'";
+            qry += " AND sessions.clock_in >= CURRENT_DATE - interval '" + from_sunday + " day'";
             break;
           case 'this_month' : 
             qry += " AND sessions.clock_in >= CURRENT_DATE - interval '" + day_in_month + " day'";
@@ -89,17 +89,6 @@ module.exports = {
       if(err) { return console.error('could not connect dude, check stuff!', err); }
       client.query(qry, [biz_id], function(err, data) {
         if(err) { return console.error('error running history_table', err); }
-        //replace billed with the previous info
-        for (var i=0; i<data.rows.length; i++){
-          if (data.rows[i].clock_out > data.rows[i].clock_in) {
-            var hours = (data.rows[i].clock_out - data.rows[i].clock_in)/(3600*1000);
-            hours = hours.toFixed(2);
-            data.rows[i].billed = hours;
-          } else{
-            data.rows[i].billed = '0.00';
-          }
-        }
-
         res.json(data.rows);
         client.end();
       });
@@ -136,23 +125,24 @@ module.exports = {
 
     var qry = 
       "SELECT sessions.created_at"
-        + ", locations.name AS locations"
+        + ", locations.name AS location"
         + ", sessions.clock_in"
         + ", sessions.clock_out"
         + ", sessions.personal_time"
         + ", sessions.report"
-        + ", age(sessions.clock_out, sessions.clock_in) AS billed "
+        + ", ((Extract(EPOCH FROM(clock_out - clock_in - personal_time * interval '1 hour'))/ 60)::int * interval '1 minute')::text as billed"
       + " FROM sessions"
       + " LEFT JOIN members ON sessions.member_id = members.id"
-      + " LEFT JOIN locations ON locations.id = members.location_id"
-      + " WHERE members.id = $1";
+      + " LEFT JOIN locations ON locations.id = sessions.location_id"
+      + " WHERE members.id = $1"
+      + " ORDER BY clock_in DESC";
 
       if ( from == 'this_week' || from == 'this_month' || from == 'last_week' || from == 'last_month') {
 
         var from_sunday = new Date().getDay();
         var day_in_month = new Date().getDate();
         var year = new Date().getFullYear();
-        var month = new Date().getMonth();
+        var month = new Date().getMonth()+1;
 
         switch (from){
           case 'this_week'  :
@@ -180,16 +170,6 @@ module.exports = {
       if(err) { return console.error('could not connect dude, check stuff!', err); }
       client.query(qry, [id], function(err, data) {
         if(err) { return console.error('error running history_table', err); }
-        //replace billed with the previous info
-        for (var i=0; i<data.rows.length; i++){
-          if (data.rows[i].clock_out > data.rows[i].clock_in) {
-            var hours = (data.rows[i].clock_out - data.rows[i].clock_in)/(3600*1000);
-            hours = hours.toFixed(2);
-            data.rows[i].billed = hours;
-          } else{
-            data.rows[i].billed = '0.00';
-          }
-        }
 
         res.json(data.rows);
         client.end();

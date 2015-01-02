@@ -5,29 +5,32 @@
   </div>
   
   <!-- admin is viewing -->
-  <ul ng-if="isAdmin == true">
+  <ul ng-if="variables.isAdmin == true">
     <li><a href="/#/add_employee"><button class='sidenav-box'><img src="img/icons/people.png"><br>Add Employee</button></a></li>
     <li><a href="/#/dashboard"><button class='sidenav-box'><img src="img/icons/dash.png"><br>Dashboard</button></a></li>
     <li><a href="/#/history"><button class='sidenav-box'><img src="img/icons/history.png"><br>History</button></a></li>
-    <li><button class='sidenav-box' ng-click='logout()'><img src="img/icons/logout.png"><br>Logout</button></li>
+    <li><button class='sidenav-box' ng-click='functions.logout()'><img src="img/icons/logout.png"><br>Logout</button></li>
   </ul>
 
   <!-- user is viewing -->
-  <ul ng-if="isAdmin == false">
-    <li ng-if="user.is_logged == false"><a href="" ng-click="clockIn()"><button class='sidenav-box'><img src="img/icons/clock-in.png"><br>Clock IN</button></a></li><li ng-if="user.is_logged == true"><a href="" ng-click="toggleModal()"><button class='sidenav-box'><img src="img/icons/clock-out.png"><br>Clock Out</button></a></li><!-- <li><a href=""><button class='sidenav-box'><img src='img/icons/edit.png'><br>Request Time Edit</button></a></li>
-    <li><a href=""><button class='sidenav-box'><img src='img/icons/vacay.png'><br>Request Time Off</button></a></li> --><li><a href="" ng-click="logout()"><button class='sidenav-box'><img src="img/icons/logout.png"><br>Log OUT</button></a></li>
+  <ul ng-if="variables.isAdmin == false">
+    <li ng-if="tables.user.is_logged == false"><a href="" ng-click="functions.clock_in()"><button class='sidenav-box'><img src="img/icons/clock-in.png"><br>Clock IN</button></a></li><!--
+ --><li ng-if="tables.user.is_logged == true"><a href="" ng-click="functions.toggleModal()"><button class='sidenav-box'><img src="img/icons/clock-out.png"><br>Clock Out</button></a></li><!-- 
+    <li><a href=""><button class='sidenav-box'><img src='img/icons/edit.png'><br>Request Time Edit</button></a></li>
+    <li><a href=""><button class='sidenav-box'><img src='img/icons/vacay.png'><br>Request Time Off</button></a></li> 
+ --><li><a href="" ng-click="functions.logout()"><button class='sidenav-box'><img src="img/icons/logout.png"><br>Log OUT</button></a></li>
   </ul>
 
 </div>
 
-<div class='jumbotron e_d'>
+<div class='e_d'>
   <h2>Time Keeper - Employee</h2>
 </div>
 <div class='container-fluid main'>
 
   <div class='col-md-6'>
-    <div ng-if="user.picture != null"><img height='250' width='290' class='img-rounded' ng-src="/img/profile_pic/{{biz_id}}/{{user.picture}}" /></div>
-    <div ng-if="user.picture == null"><img height='250' width='290' class='img-rounded' src="/img/profile_pic/anon.png" /></div>
+    <div ng-if="tables.user.picture != null"><img height='250' width='290' class='img-rounded' ng-src="/img/profile_pic/{{variables.biz_id}}/{{tables.user.picture}}" /></div>
+    <div ng-if="tables.user.picture == null"><img height='250' width='290' class='img-rounded' src="/img/profile_pic/anon.png" /></div>
   </div>
   <div class='col-md-6 employee-info'>
     <div height='630' width='600'>
@@ -37,36 +40,36 @@
         <thead>
           <tr>
             <th colspan='2' class='table-head'>
-              <h3 ng-bind="user.name"></h3>
+              <h3 ng-bind="tables.user.name"></h3>
             </th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>Clocked In</td>
-            <td ng-bind="user.is_logged"></td>
+            <td ng-bind="tables.user.is_logged"></td>
           </tr>
           <tr>
             <td>Team</td>
-            <td ng-bind="user.team"></td>
+            <td ng-bind="tables.user.team"></td>
           </tr>
           <tr>
             <td>Supervisor</td>
-            <td ng-bind="user.supervisor"></td>
+            <td ng-bind="tables.user.supervisor"></td>
           </tr>
           <tr>
             <td>E-Mail</td>
-            <td ng-bind="user.email"></td>
+            <td ng-bind="tables.user.email"></td>
           </tr>
           <tr>
             <td>Start Date</td>
-            <td ng-bind="user.start_date | date : format : shortDate"></td>
+            <td ng-bind="tables.user.start_date | date : format : shortDate"></td>
           </tr>
-          <tr ng-if="$root.this.user.admin == true">
+          <tr ng-if="variables.isAdmin == true">
             <td>Status</td>
-            <td ng-bind="user.status"></td>
+            <td ng-bind="tables.user.status"></td>
           </tr>
-          <tr ng-if="$root.this.user.admin == true">
+          <tr ng-if="variables.isAdmin == true">
             <td>Note</td>
             <td ng-bind="user.note"></td>
           </tr>
@@ -77,46 +80,44 @@
 
   <div class='pull-right'>
      <ul>
-      <li><a tabindex='1' ng-click="dateFilter('all')">All</a></li>
-      <li><a tabindex='2' ng-click="dateFilter('this_week')">This week</a></li>
-      <li><a tabindex='3' ng-click="dateFilter('last_week')">Last week</a></li>
-      <li><a tabindex='4' ng-click="dateFilter('this_month')">This month</a></li>
-      <li><a tabindex='5' ng-click="dateFilter('last_month')">Last Month</a></li>
+      <li><a tabindex='1' ng-click="functions.dateFilter('all')"       >All</a></li>
+      <li><a tabindex='2' ng-click="functions.dateFilter('this_week')" >This week</a></li>
+      <li><a tabindex='3' ng-click="functions.dateFilter('last_week')" >Last week</a></li>
+      <li><a tabindex='4' ng-click="functions.dateFilter('this_month')">This month</a></li>
+      <li><a tabindex='5' ng-click="functions.dateFilter('last_month')">Last Month</a></li>
     </ul>
   </div>
     <table fixed-header table-height='10em' class='table show-table' ng-model="table">
     <thead>
-      <th><a href="" ng-click="order='date'; reverse=!reverse">Date</a></th>
-      <th><a href="" ng-click="order='location'; reverse=!reverse">Location</a></th>
-      <th class='clk-btn'><a href="" ng-click="order='clock_in'; reverse=!reverse">Clock IN</a></th>
-      <th class='clk-btn'><a href="" ng-click="order='clock_out'; reverse=!reverse">Clock OUT</a></th>
-      <th><a href="" ng-click="order='personal'; reverse=!reverse">Personal Time</a></th>
-      <th><a href="" ng-click="order='billed'; reverse=!reverse">Billed Hours</a></th>
+      <th><a href="" ng-click="tables.history.order='clock_in';       reverse=!reverse">Date</a></th>
+      <th><a href="" ng-click="tables.history.order='location';       reverse=!reverse">Location</a></th>
+      <th><a href="" ng-click="tables.history.order='clock_in';       reverse=!reverse">Clock IN</a></th>
+      <th><a href="" ng-click="tables.history.order='clock_out';      reverse=!reverse">Clock OUT</a></th>
+      <th><a href="" ng-click="tables.history.order='personal_time';  reverse=!reverse">Personal Time</a></th>
+      <th><a href="" ng-click="tables.history.order='billed';         reverse=!reverse">Billed</a></th>
       <th>Report</th>
-
     </thead>
     <tbody>
-      <tr ng-repeat="row in table | filter: { locations:place, name:member } | orderBy:order:reverse">
-        <td id='created' ng-bind="row.created_at | date:'M/dd (EEE)'"></td>
-        <td id='location' ng-bind="row.locations"></td>
-        <td id='in' ng-bind="row.clock_in | date:'shortTime'"></td>
-        <td id='out' ng-bind="row.clock_out | date:'shortTime'"></td>
-        <td id='pt' ng-bind="row.personal_time  "></td>
-        <td id='billed' ng-bind="row.billed"></td>
-        <td ng-bind="row.report"></td>
+      <tr ng-repeat="row in tables.history | filter: { location:place, name:member } | orderBy:tables.history.order:reverse">
+        <td class="data" id='created'  ng-bind="row.clock_in  | date:'M/dd (EEE)'"></td>
+        <td class="data" id='location' ng-bind="row.location"></td>
+        <td class="data" id='in'       ng-bind="row.clock_in  | date:'shortTime'"></td>
+        <td class="data" id='out'      ng-bind="row.clock_out | date:'shortTime'"></td>
+        <td class="data" id='pt'       ng-bind="row.personal_time"></td>
+        <td class="data" id='billed'   ng-bind="row.billed"></td>
+        <td class="data"               ng-bind="row.report"></td>
       </tr>
     </tbody>
-      <button class="btn btn-danger" ng-csv="csvBody" csv-header="csvHead" filename="history.csv">Download CSV</button>
+      <button class="btn btn-danger" ng-csv="functions.csvBody" csv-header="variables.csvHead" filename="history.csv">Download CSV</button>
   </table>
 
 <!--************************  CLOCKOUT MODAL CONTENT *******************************-->
-  <modal-clockout session="user.session_id" user="user.id" personal='personal' report='report' show='modalShown' width='750px'>
+  <modal-clockout session="tables.user.session_id" personal='personal' report='report' show='variables.modalShown' width='750px'>
 
     <div class='container modal-settings clockout-content'>
       <nav class='navbar navbar-fixed-top navbar-inverse'>
         <h1 align='center'>Employee Clockout</h1>
       </nav>
-
       <form class='clockout-form' name='clockout_form'>
         <select name='select' ng-model="personal">
           <option value="" disabled selected>Choose Time</option>  
@@ -130,8 +131,9 @@
         </select>
         <h3>Report <span class='emphasis'>*mandatory</span></h3>
         <h4>What did you work on? What did you accomplish?</h4>
-        <textarea ng-model="report" placeholder='example: Curriculum Update (1.5 hours), Lecture (1.0 hours), Assisting Students (3.0 hours), Meeting (!.0 hr), etc.'></textarea><br>
-        <button ng-click='clockOut(personal, report); reloadRoute();' class="btn btn-out">Clock Out</button>
+        <textarea ng-model="report" placeholder='example: Curriculum Update (1.5 hours), Lecture (1.0 hours), Assisting Students (3.0 hours), Meeting (!.0 hr), etc.'></textarea>
+        <br>
+        <button ng-click='functions.clockOut(personal, report); reloadRoute();' class="btn btn-out">Clock Out</button>
       </form>
     </div>
 
