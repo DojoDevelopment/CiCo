@@ -73,9 +73,6 @@ app.controller('UserController', function($scope, $rootScope, $location, Employe
       $scope.variables.modalShown = !$scope.variables.modalShown;
     }, logout : function(){
       LoginFactory.logout();
-    }, getDateTime : function() {
-      var time = new Date();
-      $scope.variables.dateTime = time;
     }
   }
 });

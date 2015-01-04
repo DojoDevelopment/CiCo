@@ -135,7 +135,6 @@ module.exports = {
       + " LEFT JOIN members ON sessions.member_id = members.id"
       + " LEFT JOIN locations ON locations.id = sessions.location_id"
       + " WHERE members.id = $1"
-      + " ORDER BY clock_in DESC";
 
       if ( from == 'this_week' || from == 'this_month' || from == 'last_week' || from == 'last_month') {
 
@@ -163,6 +162,7 @@ module.exports = {
       } else if( from !== 'all' ) {
         qry += " AND sessions.clock_in >= '" + from + "' AND sessions.clock_in <= '" + to + "'";
       }
+      qry += " ORDER BY clock_in DESC";
 
     var client = new pg.Client(conString);
     
