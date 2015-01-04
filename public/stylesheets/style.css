@@ -28,7 +28,7 @@ ul a:focus{
 .container-fluid ul li{ display: inline; }
 .container-fluid h5{ margin-bottom: 2%; }
 
-.navbar-fixed-top{ top:-1px; } 
+.navbar-fixed-top{ top:-1px; }
 .navbar-inverse{ border-radius:0px !important; }
 
 .jumbotron h1{ text-align: center; }
@@ -38,6 +38,8 @@ ul a:focus{
 
 .form-signin{ margin-bottom: 10%; }
 .form-group{ margin-top: 0px !important; }
+
+.add_table .btn-lg, .add_table .btn-group-lg>.btn { font-size: 1em !important;}
 
 /*#row-report{ width:20px; white-space:nowrap; overflow: hidden; text-overflow: ellipsis; }*/
 
@@ -68,25 +70,26 @@ hr{ border:1px solid #CECDCC; }
 .table-head { border:none !important; border-top-right-radius: 1em !important; border-top-left-radius: 1em !important;
               background-color: #C0C5CE !important; color: #333333; margin-bottom: -2% !important; width:100% !important; }
 
-.add_table{ margin-top: 3%;}
+.add_table{ margin-top: 3%; font-size:1em;}
 .add_table>tbody>tr>td{ width:25%; min-width: 195px;}
 .add_table>tbody>tr>td:first-child{ border-right: 1px solid #DDDDDD; }
 .add_table>tbody>tr>td:last-child{ border-right: none; }
 .add_table th{ background-color: #428BCB; color:white; border-bottom: none !important;}
-.add_table .form-control{ font-size:1.3em !important; width:30em; border:none; box-shadow: none; }
+.add_table .form-control{ font-size:1em !important; width:30em; border:none; box-shadow: none; }
 
 .table-head tr td{ border:none !important; }
 
 .snap-shot tbody tr:last-child td:last-child { border-bottom-right-radius: 1em !important; }
 .snap-shot tbody tr td:nth-child(2){ background-color: #F5F6F7 !important; }
 
-
+.main .table {width: 100%; min-width: 640px;}
+/*.main .table tr td:nth-child(2) {text-align: center;}*/
 
 /********************  END TABLE CSS  ******************************/
 
 /********************  MODAL CSS  ******************************/
 
-.ng-modal-overlay { position:fixed; z-index:9999; top:0; left:0; width:100%; height:100%; 
+.ng-modal-overlay { position:fixed; z-index:9999; top:0; left:0; width:100%; height:100%;
                     background-color:#000000; opacity: 0.8; }
 
 .ng-modal-dialog { color:black; padding: 1% 5% 1% 5%; z-index:10000; position: absolute; width: 10em;
@@ -94,16 +97,16 @@ hr{ border:1px solid #CECDCC; }
                    transform: translate(-50%, -50%);
                   -webkit-transform: translate(-50%, -50%);
                   -moz-transform: translate(-50%, -50%);
-                   background-color: #fff; box-shadow: 4px 4px 80px #000; }                 
+                   background-color: #fff; box-shadow: 4px 4px 80px #000; }
 
 .ng-modal-dialog-content { padding:10px; text-align: left; }
 
-.ng-modal-close {  color:white; position: fixed; top: 3px; right: 5px; padding: 5px; cursor: pointer; z-index: inherit; 
+.ng-modal-close {  color:white; position: fixed; top: 3px; right: 5px; padding: 5px; cursor: pointer; z-index: inherit;
                    font-size: 120%; display: inline-block; font-weight: bold; font-family: 'arial', 'sans-serif'; }
 
 .ng-modal-close:hover{ color:#03C8A2; }
 
-.ng-modal-settings { background-color: lightgray; }    
+.ng-modal-settings { background-color: lightgray; }
 
 .dialog-content-settings {  margin-top: 15%; }
 
@@ -124,12 +127,12 @@ button a:hover{ text-decoration: none; color:#4584EF; }
 
 .btn-date{ color:white; background-color: #0D81FF;  height:39px;}
 
-@-moz-document url-prefix() { 
+@-moz-document url-prefix() {
   .btn-date {
      height:29px;
   }
 }
-@-moz-document url-prefix() { 
+@-moz-document url-prefix() {
 
   ul li:nth-child(-n+4){
       margin-right:10px;
@@ -138,7 +141,7 @@ button a:hover{ text-decoration: none; color:#4584EF; }
 }
 
 .btn-file { position: relative; overflow: hidden; }
-.btn-file input[type=file] { position: absolute; top: 0; right: 0; min-width: 100%; min-height: 100%; font-size: 100px; 
+.btn-file input[type=file] { position: absolute; top: 0; right: 0; min-width: 100%; min-height: 100%; font-size: 100px;
                              text-align: right; filter: alpha(opacity=0); opacity: 0; cursor: inherit; display: block; }
 
 .btn-in{ background-color: #008500; color:white }
@@ -197,7 +200,7 @@ tr td img { margin-left: 4px; }
   /*****************************/
 
   /*.sidenav{background-color: #242424; height:56em; min-width:15em; margin-top: -1.4em !important;}*/
-  .sidenav{background-color: #242424; height:100%; min-width:15em; }
+  .sidenav{background-color: #242424; min-width:15em; }
   .sidenav ul{display: inline;}
   .sidenav li input{width:98%; text-indent: 1em; font-size: 1em; outline:none;}
 
@@ -227,5 +230,3 @@ h2 { margin-top: 0px;}
 #content { height: 100%;}
 .e_d h2 { padding-top: 20px;}
 .a_d h2 { padding-top: 20px;}
-.main .table {width: 95%; min-width: 640px;}
-.main .table tr td:nth-child(2) {text-align: center;}

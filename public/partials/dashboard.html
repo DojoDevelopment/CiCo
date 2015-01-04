@@ -6,7 +6,7 @@
     <li><a href="/#/add_employee"><button class='sidenav-box'><img src="img/icons/people.png"><br>Add Employee</button></a></li>
     <li><a href="/#/history"><button class='sidenav-box'><img src="img/icons/history.png"><br>History</button></a></li>
     <li><a href="/#/settings"><button class='sidenav-box'><img src="img/icons/settings.png"><br>Settings</button></a></li>
-    <li><button class='sidenav-box' ng-click='functions.logout()'><img src="img/icons/logout.png"><br>Logout</button></li>      
+    <li><button class='sidenav-box' ng-click='functions.logout()'><img src="img/icons/logout.png"><br>Logout</button></li>
   </ul>
 </div>
 <div class='a_d'>
@@ -14,13 +14,9 @@
 </div>
 <div class='container-fluid main'>
 
-  <div class='container-fluid row'>
-    
-    <div class='pull-right'>
-
-      <div class='container-sm'>
-        <div style='margin-bottom:7px; margin-left:26px;'>
-          <select class='test' ng-model="lists.place">
+  <div class='container-fluid'>
+        <div>
+          <select ng-model="lists.place">
             <option value="" disabled selected>Filter Location</option>
             <option value="">All</option>
             <option ng-repeat="l in lists.locations" value="{{l.name}}" ng-bind="l.name"></option>
@@ -32,15 +28,11 @@
             <option ng-repeat="m in lists.members | filter:m" value="{{m.name}}" ng-bind="m.name"></option>
           </select>
         </div>
+  <!-- </div> -->
 
-      </div>
-    </div>     
+  <!-- <div class='container-fluid'> -->
 
-  </div>
-
-  <div class='container-sm table-wrap'>
-
-    <table class='table dash-table'>
+    <table class='table'>
       <thead>
         <th><a href="" ng-click="tables.dashboard.order='name';       tables.dashboard.reverse=!reverse">Name</a></th>
         <th><a href="" ng-click="tables.dashboard.order='status';     tables.dashboard.reverse=!reverse">Status</a></th>
