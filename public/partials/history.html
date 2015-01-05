@@ -6,7 +6,7 @@
     <li><a href="/#/add_employee"><button class='sidenav-box'><img src="img/icons/people.png"><br>Add Employee</button></a></li>
     <li><a href="/#/dashboard"><button class='sidenav-box'><img src="img/icons/dash.png"><br>Dashboard</button></a></li>
     <li><a href="/#/settings"><button class='sidenav-box'><img src="img/icons/settings.png"><br>Settings</button></a></li>
-    <li><button class='sidenav-box' ng-click='functions.logout()'><img src="img/icons/logout.png"><br>Logout</button></li>      
+    <li><button class='sidenav-box' ng-click='functions.logout()'><img src="img/icons/logout.png"><br>Logout</button></li>
   </ul>
 </div>
 <div class='a_d'>
@@ -15,9 +15,9 @@
 <div class='container-fluid main'>
 
   <div class='container-fluid row'>
-    
+
       <div class='pull-left'>
-    
+
     <form>
       <input type='date' ng-model="from_date"> to <input type='date' ng-model="to_date">
       <button type='submit' ng-click="functions.dateFilter(from_date, to_date)" class='pull-right btn btn-sm btn-date'>Filter by Date</button>
@@ -42,22 +42,21 @@
         </select>
       </div>
 
-      <div style='margin-bottom:-18px; margin-left:-10px;'class='pull-right'>
-        <ul>
-          <li><a tabindex='1' ng-click="functions.dateFilter('all')">All</a></li>
-          <li><a tabindex='2' ng-click="functions.dateFilter('this_week')">This week</a></li>
-          <li><a tabindex='3' ng-click="functions.dateFilter('last_week')">Last week</a></li>
-          <li><a tabindex='4' ng-click="functions.dateFilter('this_month')">This month</a></li>
-          <li><a tabindex='5' ng-click="functions.dateFilter('last_month')">Last Month</a></li>
-        </ul>
-      </div>
     </div>
-  </div>     
+  </div>
 
   </div>
 
   <div class='container-sm table-wrap'>
-
+    <div style='vertical-align:bottom; margin-left:-10px;'class='pull-right'>
+      <ul>
+        <li><a tabindex='1' ng-click="functions.dateFilter('all')">All</a></li>
+        <li><a tabindex='2' ng-click="functions.dateFilter('this_week')">This week</a></li>
+        <li><a tabindex='3' ng-click="functions.dateFilter('last_week')">Last week</a></li>
+        <li><a tabindex='4' ng-click="functions.dateFilter('this_month')">This month</a></li>
+        <li><a tabindex='5' ng-click="functions.dateFilter('last_month')">Last Month</a></li>
+      </ul>
+    </div>
     <table fixed-header table-height='40em' class='table table-striped time-table'>
       <thead>
 
