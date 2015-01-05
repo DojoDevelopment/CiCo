@@ -6,9 +6,10 @@ app.controller('UserController', function($scope, $rootScope, $location, Employe
   $scope.tables = {};
   $scope.variables = {
     modalShown : false
-    , biz_id : $rootScope.user.business
+    , biz_id  : $rootScope.user.business
     , isAdmin : $rootScope.user.admin
     , csvHead : ['Date', 'Location', 'Clock IN', 'Clock OUT', 'Personal Time', 'Billed Hours', 'Report']
+    , table   : 'all'
   }
 
   TableFactory.user_history_table(userID, {from: 'all', to : ''}, function(data){
@@ -29,6 +30,7 @@ app.controller('UserController', function($scope, $rootScope, $location, Employe
   $scope.functions = {
     dateFilter : function(from, to) {
       TableFactory.user_history_table(userID, {from: from, to : to}, function(data){
+        $scope.variables.table = from;
         $scope.tables.history = data;
       });
     }, csvBody : function(){
@@ -47,11 +49,14 @@ app.controller('UserController', function($scope, $rootScope, $location, Employe
       ClockingFactory.clock_in($scope.tables.user.location_id, function(data){
         $scope.tables.user.session_id = data.id;
         $scope.tables.user.is_logged = true;
-        $scope.tables.history.unshift({
-                       id: data.id
-          ,      clock_in: Date.now()
-          ,      location: data.location
-        });
+        var view = $scope.variables.table;
+        if (view === 'all' || view === 'this_week' || view === 'this_month'){
+          $scope.tables.history.unshift({
+                         id: data.id
+            ,      clock_in: Date.now()
+            ,      location: data.location
+          });
+        }
       });
     }, clockOut : function(personal, report) {
       var info = {
@@ -59,12 +64,15 @@ app.controller('UserController', function($scope, $rootScope, $location, Employe
         , personal : (personal == undefined ? 0 : personal)
         , report   : (report == undefined ? '' : report)
       };
-      
       ClockingFactory.clock_out(info, function(data){
-        $scope.tables.history[0].billed        = data.billed;
-        $scope.tables.history[0].clock_out     = Date.now();
-        $scope.tables.history[0].personal_time = info.personal;
-        $scope.tables.history[0].report        = info.report;
+        var view = $scope.variables.table;
+        if (view === 'all' || view === 'this_week' || view === 'this_month'){
+      
+          $scope.tables.history[0].billed        = data.billed;
+          $scope.tables.history[0].clock_out     = Date.now();
+          $scope.tables.history[0].personal_time = info.personal;
+          $scope.tables.history[0].report        = info.report;
+        }
         $scope.tables.user.is_logged = false;
         $scope.functions.toggleModal();
       });
