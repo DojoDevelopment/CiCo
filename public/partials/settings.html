@@ -24,7 +24,7 @@
 
   <div ng-if="variables.page== 'user'">
     <form name="forms.userForm" ng-submit="functions.submitForm(forms.userForm.$valid, 'user')" class="form-horizontal" novalidate>
-      <table class='table'>
+      <table class='table settings-table'>
         <thead>
           <tr>
             <th colspan="2">User Settings</th>
@@ -78,7 +78,7 @@
 
     <!-- Update Company Name -->
     <form name="forms.companyNameForm" ng-submit="functions.submitForm(forms.companyNameForm.$valid, 'name')" novalidate>
-      <table class="table">
+      <table class="table settings-table">
         <thead>
           <tr>
             <th colspan="2">Company Settings</th>
@@ -105,7 +105,7 @@
         <input type="text" class="form-control" name="input" ng-model="forms.addInput.ip" placeholder="new ip address"/>
       </div><!-- /input-group -->
     </form>
-    <table class="table">
+    <table class="table settings-table">
       <thead>
         <tr>
           <th>IP Address <small>(Double click to edit)</small></th>
@@ -132,7 +132,7 @@
         <input type="text" class="form-control" name="location" ng-model="forms.addInput.location" placeholder="New Location"/>
       </div><!-- /input-group -->
     </form>
-    <table class="table">
+    <table class="table settings-table">
       <thead>
         <tr>
           <th>Locations <small>(Double click to edit)</small></th>

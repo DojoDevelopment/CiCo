@@ -47,7 +47,7 @@ module.exports = function Routes(app) {
   app.put( '/api/admin',              function (req, res){ employeeSQL.update_admin(req, res); });
   //Employee pic file upload
   app.post('/api/upload_file/:id',    function (req, res){ employeeSQL.upload(req, res);       });
-  
+
   //Clock in / out
   app.post('/api/clock_in',           function (req, res){ employeeSQL.clock_in(req, res);     });
   app.post('/api/clock_out/:session', function (req, res){ employeeSQL.clock_out(req, res);    });

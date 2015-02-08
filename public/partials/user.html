@@ -34,9 +34,15 @@
     <div ng-if="tables.user.picture == null"><img height='250' width='290' class='img-rounded' src="/img/profile_pic/anon.png" /></div>
   </div>
   <div class='col-md-6 employee-info'>
-    <div height='630' width='600'>
-      <h2>Employee Snapshot</h2>
-      <hr>
+    <div>
+        <!-- <ul style='margin-bottom:none;'>
+          <li><a tabindex='1' ng-click="functions.dateFilter('all')"       >All</a></li>
+          <li><a tabindex='2' ng-click="functions.dateFilter('this_week')" >This week</a></li>
+          <li><a tabindex='3' ng-click="functions.dateFilter('last_week')" >Last week</a></li>
+          <li><a tabindex='4' ng-click="functions.dateFilter('this_month')">This month</a></li>
+          <li><a tabindex='5' ng-click="functions.dateFilter('last_month')">Last Month</a></li>
+        </ul>
+      <hr> -->
       <table class='table snap-shot' ng-model="user">
         <thead>
           <tr>
@@ -79,16 +85,14 @@
     </div>
   </div>
 
-  <div class='pull-right'>
-     <ul>
-      <li><a tabindex='1' ng-click="functions.dateFilter('all')"       >All</a></li>
-      <li><a tabindex='2' ng-click="functions.dateFilter('this_week')" >This week</a></li>
-      <li><a tabindex='3' ng-click="functions.dateFilter('last_week')" >Last week</a></li>
-      <li><a tabindex='4' ng-click="functions.dateFilter('this_month')">This month</a></li>
-      <li><a tabindex='5' ng-click="functions.dateFilter('last_month')">Last Month</a></li>
-    </ul>
-  </div>
     <table fixed-header table-height='10em' class='table show-table' ng-model="table">
+      <ul class='pull-right' style='margin-top:2%; margin-bottom:-20px;'>
+        <li><a tabindex='1' ng-click="functions.dateFilter('all')"       >All</a></li>
+        <li><a tabindex='2' ng-click="functions.dateFilter('this_week')" >This week</a></li>
+        <li><a tabindex='3' ng-click="functions.dateFilter('last_week')" >Last week</a></li>
+        <li><a tabindex='4' ng-click="functions.dateFilter('this_month')">This month</a></li>
+        <li><a tabindex='5' ng-click="functions.dateFilter('last_month')">Last Month</a></li>
+      </ul>
     <thead>
       <th><a href="" ng-click="tables.history.order='clock_in';       reverse=!reverse">Date</a></th>
       <th><a href="" ng-click="tables.history.order='location';       reverse=!reverse">Location</a></th>
@@ -97,6 +101,7 @@
       <th><a href="" ng-click="tables.history.order='personal_time';  reverse=!reverse">Personal Time</a></th>
       <th><a href="" ng-click="tables.history.order='billed';         reverse=!reverse">Billed</a></th>
       <th>Report</th>
+      <th><button class="btn btn-danger btn-sm pull-right" ng-csv="functions.csvBody" csv-header="variables.csvHead" filename="history.csv">Download CSV</button></th>
     </thead>
     <tbody>
       <tr ng-repeat="row in tables.history | filter: { location:place, name:member } | orderBy:tables.history.order:reverse">
@@ -109,7 +114,6 @@
         <td class="data"               ng-bind="row.report"></td>
       </tr>
     </tbody>
-      <button class="btn btn-danger" ng-csv="functions.csvBody" csv-header="variables.csvHead" filename="history.csv">Download CSV</button>
   </table>
 
 <!--************************  CLOCKOUT MODAL CONTENT *******************************-->

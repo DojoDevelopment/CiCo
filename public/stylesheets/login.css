@@ -6,7 +6,7 @@ body{ min-width: 700px;
 			  background-size:cover;
 			  background:url(../img/backgrounds/mac_programmer.jpg) no-repeat center center fixed; }
 
-.login_box{ margin-top: 10%; margin-left: 28%; height: 29em; width:45%; background:rgba(255,255,255,.6); overflow-y:scroll;}
+.login_box{ margin-top: 10%; margin-left: auto; margin-right:auto; height: 33em; width:45%; background:rgba(255,255,255,.6); overflow-y:scroll;}
 
 .login_header{ padding-top:10%; color:#3E97D1; text-align: center;}
 
@@ -17,7 +17,7 @@ body{ min-width: 700px;
 																												    -1px 1px 0 #000,
 																												     1px 1px 0 #000; }
 
-.login_form input{ border:none; background: transparent; font-weight: bold; color:#2164B2; }
+.login_form input{ border:none; background: transparent; font-weight: bold; color:#2164B2;}
 
 /* LOGIN PLACEHOLDER FONT COLOR */
 
