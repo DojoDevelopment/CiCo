@@ -45,11 +45,14 @@ body{ min-width: 700px;
 @media screen and (min-width:700px) and (max-width: 1030px){
 	.errs{
 		margin-top: -3%;
+		left:50%;
 	}
 }
+
 @media screen and (min-width: 551px) and (max-width:699px){
 	.errs{
 		margin-top: -5%;
+		left:47%;
 	}
 }
 @media screen and (min-width: 480px) and (max-width:550px){
@@ -57,11 +60,8 @@ body{ min-width: 700px;
 		margin-top: -6%;
 	}
 }
-@media screen and (min-width: 692px) and (max-width:816px){
-	.erros{
-		left:54%;
-	}
-}
+
+
 
 
 
