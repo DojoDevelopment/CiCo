@@ -1,6 +1,6 @@
 <div class='login_box'>
 	<div class='login_header'>
-		<h2>Coding Dojo TimeKeeper Login</h2>
+		<h2>Coding Dojo Clock IN n OUT</h2>
 	</div>
 	<div class='container-fluid login_form'>
 		<p ng-if="variables.errorMessage !== null" ng-bind="variables.errorMessage"></p>
@@ -12,8 +12,8 @@
 			<label for="inputPassword" class="sr-only">Password</label>
 			<input type="password" ng-model="forms.login.password" ng-trim="true" class="form-control" placeholder="Password" required>
 
-			<a href="/#/register"><button class='btn btn-md btn-info'>Register</button></a>
-			<button class='btn btn-md btn-success pull-right' type="submit" ng-disabled="login_form.$invalid">Sign In</button>
+			<a href="/#/register"><button class='btn btn-md btn-info form-control'>Register</button></a>
+			<button class='btn btn-md btn-success form-control' type="submit" ng-disabled="login_form.$invalid">Sign In</button>
 		</form>
 
 	</div>
