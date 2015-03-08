@@ -20,71 +20,68 @@
       <tbody>
         <tr>
           <td>
-            <label for="inputName">Name*</label>
+            <label for="inputName" class='container'>
+                <div class='row'>
+                      <span class='col-lg-6'>Name*</span>
+                      <span class='col-lg-6' ng-messages="forms.employeeForm.name.$error" ng-if="forms.employeeForm.$submitted || !forms.employeeForm.name.$pristine">
+                      <p ng-message="required" class="help-block">Name is required</p>
+                      <p ng-message="pattern" class="help-block">Letters only please</p>
+                      </span>                 
+                </div>
+          </label>
           </td>
           <td>
             <input type="text" ng-model="forms.employee.name" ng-pattern="variables.pattern.letter" ngTrim="true" name="name" id="inputName" class="form-control" placeholder="Name" required autofocus />
-            <div ng-messages="forms.employeeForm.name.$error" ng-if="forms.employeeForm.$submitted || !forms.employeeForm.name.$pristine">
-              <p ng-message="required" class="help-block">Name is required</p>
-              <p ng-message="pattern" class="help-block">Only letters</p>
-            </div>
           </td>
         </tr>
         <tr>
           <td>
-            <label for="inputEmail">Email*</label>
+            <label for="inputEmail" class='container'>
+                <div class='row'>
+                      <span class='col-lg-6'>Email*</span>
+                      <span class='col-lg-6' ng-messages="forms.employeeForm.email.$error" ng-if="forms.employeeForm.$submitted || !forms.employeeForm.email.$pristine">
+                      <p ng-message="required" class="help-block">Email is required</p>
+                      <p ng-message="pattern" class="help-block">Invalid Email</p>
+                      </span>                 
+                </div>
+            </label>
           </td>
           <td>
             <input type="email" ng-model="forms.employee.email" ng-pattern="variables.pattern.email" ngTrim="true" name="email" id="inputEmail" class="form-control" placeholder="Email (Used for Login)" required />
-            <div ng-messages="forms.employeeForm.email.$error" ng-if="forms.employeeForm.$submitted || !forms.employeeForm.email.$pristine">
-              <p ng-message="required" class="help-block">Email is required.</p>
-              <p ng-message="pattern" class="help-block">Invalid email.</p>
-            </div>
           </td>
         </tr>
         <tr>
           <td>
-            <label for="inputPassword">Password*</label>
+            <label for="inputPassword" class='container'>
+              <div class="row">
+                     <span class='col-lg-6'>Password*</span>
+                     <span class='col-lg-6' ng-messages="forms.employeeForm.password.$error" ng-if="forms.employeeForm.$submitted || !forms.employeeForm.password.$pristine">
+                            <p ng-message="required" class="help-block">Password is required.</p>
+                            <p ng-message="minlength" class="help-block">Password is too short.</p>
+                            <p ng-message="maxlength" class="help-block">Password is too long.</p>
+                            <p ng-message="pattern" class="help-block">Alphanumeric password only</p>
+                            <span ng-messages="forms.employeeForm.confirm.$error" ng-if="forms.employeeForm.$submitted || !forms.employeeForm.confirm.$pristine">
+                                  <p ng-message="required" class="help-block">Confirmation is required.</p>
+                                  <p ng-message="match" class="help-block">Password mismatch</p>
+                            </span>
+                    </span>
+              </div>
+            </label>
           </td>
           <td ng-if="variables.update == false">
-
             <input type="password" ng-model="forms.employee.password" ng-change="functions.isMatch()" ng-pattern="variables.pattern.password" name="password" id="inputPassword" class="form-control" placeholder="Password" ng-minlength="6" ng-maxlength="72" required />
 
-            <label for="inputConfirm" class="sr-only">Confirm Password</label>
             <input type="password" ng-model="forms.employee.confirm" ng-change="functions.isMatch()" name="confirm" id="confirm" class="form-control" placeholder="Confirm Password" id="inputConfirm" required />
-
-            <div ng-messages="forms.employeeForm.password.$error" ng-if="forms.employeeForm.$submitted || !forms.employeeForm.password.$pristine">
-              <p ng-message="required" class="help-block">Password is required.</p>
-              <p ng-message="minlength" class="help-block">Password is too short.</p>
-              <p ng-message="maxlength" class="help-block">Password is too long.</p>
-              <p ng-message="pattern" class="help-block">Password can containe letters and numbers only.</p>
-            </div>
-            <div ng-messages="forms.employeeForm.confirm.$error" ng-if="forms.employeeForm.password.$valid && !forms.employeeForm.confirm.$pristine">
-              <p ng-message="required" class="help-block">Password confirmation is required.</p>
-              <p ng-message="match" class="help-block">Password doesn't match</p>
-            </div>
           </td>
           <td ng-if="variables.update == true">
-
             <input type="password" ng-model="forms.employee.password" ng-change="isMatch()" ng-pattern="variables.pattern.password" name="password" id="inputPassword" class="form-control" placeholder="Password" ng-minlength="6" ng-maxlength="72"/>
 
-            <label for="inputConfirm" class="sr-only">Confirm Password</label>
             <input type="password" ng-model="form.confirm" ng-change="isMatch()" name="confirm" id="confirm" class="form-control" placeholder="Confirm Password" id="inputConfirm"/>
-
-            <div ng-messages="forms.employeeForm.password.$error" ng-if="forms.employeeForm.$submitted || !forms.employeeForm.password.$pristine">
-              <p ng-message="minlength" class="help-block">Password is too short.</p>
-              <p ng-message="maxlength" class="help-block">Password is too long.</p>
-              <p ng-message="pattern" class="help-block">Password can containe letters and numbers only.</p>
-            </div>
-            <div ng-messages="forms.employeeForm.confirm.$error" ng-if="forms.employeeForm.$submitted || !forms.employeeForm.confirm.$pristine">
-              <p ng-message="required" class="help-block">Password confirmation is required.</p>
-              <p ng-message="match" class="help-block">Password doesn't match</p>
-            </div>
           </td>
         </tr>
         <tr>
           <td>
-            <label for="inputFile">Upload Profile Picture</label>
+            <label for="inputFile" class='container'>Upload Profile Picture</label>
           </td>
           <td>
             <span id='file'>
@@ -95,19 +92,34 @@
         </tr>
         <tr>
           <td>
-            <label for="inputStartDate">Employee Start Date*</label>
+            <label for="inputStartDate" class='container'>
+              <div class="row">
+                  <span class="col-lg-6">
+                          Employee Start Date* 
+                  </span>
+                 <span class='col-lg-6' ng-messages="forms.employeeForm.start_date.$error" ng-if="forms.employeeForm.$submitted || !forms.employeeForm.start_date.$pristine">
+                        <p ng-message="required" class="help-block">Start Date is required.</p>
+                        <p ng-message="date" class="help-block">Not a valid date.</p>
+                </span>
+              </div>
+            </label>
           </td>
           <td>
             <input type="date" ng-model="forms.employee.start_date" name="start_date" id="inputStartDate" placeholder="yyyy-MM-dd" required />
-            <div ng-messages="forms.employeeForm.start_date.$error" ng-if="forms.employeeForm.$submitted || !forms.employeeForm.start_date.$pristine">
-              <p ng-message="required" class="help-block">Start Date is required.</p>
-              <p ng-message="date" class="help-block">Not a valid date.</p>
-            </div>
           </td>
         </tr>
         <tr>
           <td>
-            <label for="inputStatus">Employee Status*</label>
+            <label for="inputStatus" class='container'>
+                <div class="row">
+                    <span class="col-lg-6">
+                      Employee Status*
+                    </span>
+                    <span class='col-lg-6' ng-messages="forms.employeeForm.status.$error" ng-if="forms.employeeForm.$submitted || !forms.employeeForm.status.$pristine">
+                      <p ng-message="required" class="help-block">Status is required.</p>
+                 </span>
+                </div>  
+              </label>
           </td>
           <td>
             <select type="button" ng-model="forms.employee.status" name="status" id="inputStatus" class="drop-btn dropdown-toggle btn btn-lg" required>
@@ -119,72 +131,89 @@
               <option value="terminated" ng-selected="status == 'terminated'">Terminated</option>
               <option value="vacation" ng-selected="status == 'vacation'">Vacation</option>
             </select>
-            <div ng-messages="forms.employeeForm.status.$error" ng-if="forms.employeeForm.$submitted || !forms.employeeForm.status.$pristine">
-              <p ng-message="required" class="help-block">Status is required.</p>
-            </div>
           </td>
         </tr>
         <tr>
           <td>
-            <label for="inputSupervisor">Supervisor*</label>
+            <label for="inputSupervisor" class='container'>
+              <div class="row">
+                    <span class='col-lg-6'>Supervisor*</span>
+                    <span class='col-lg-6' ng-messages="forms.employeeForm.supervisor.$error" ng-if="forms.employeeForm.$submitted || !forms.employeeForm.supervisor.$pristine">
+                        <p ng-message="required" class="help-block">Supervisor is required.</p>
+                  </span>
+              </div>
+            </label>
           </td>
           <td>
             <select type='button' ng-model="forms.employee.supervisor" name="supervisor" id="inputSupervisor" class='drop-btn dropdown-toggle btn btn-lg' required>
               <option value="" disabled selected>Supervisor</option>
               <option value="{{s.id}}" ng-repeat="s in lists.supervisors" ng-bind="s.name" ng-selected="s.id == form.supervisor"></option>
             </select>
-            <div ng-messages="forms.employeeForm.supervisor.$error" ng-if="forms.employeeForm.$submitted || !forms.employeeForm.supervisor.$pristine">
-              <p ng-message="required" class="help-block">Supervisor is required.</p>
-            </div>
           </td>
         </tr>
         <tr>
           <td>
-            <label for="inputTeam">Team</label>
+            <label for="inputTeam" class='container'>
+              <div class="row">
+                  <span class="col-lg-6">Team</span>
+                  <span class='col-lg-6' ng-messages="forms.employeeForm.team.$error" ng-if="forms.employeeForm.$submitted || !forms.employeeForm.team.$pristine">
+                       <p ng-message="pattern" class="help-block">Team can only have letters and numbers.</p>
+                 </span>
+              </div>
+            </label>
           </td>
           <td>
             <input type="text" ng-model="forms.employee.team" ngTrim="true" ng-pattern="variables.pattern.lettersNumbers" name="team" id="inputTeam" class="form-control" placeholder="Team" />
-            <div ng-messages="forms.employeeForm.team.$error" ng-if="forms.employeeForm.$submitted || !forms.employeeForm.team.$pristine">
-              <p ng-message="pattern" class="help-block">Team can only have letters and numbers.</p>
-            </div>
           </td>
         </tr>
         <tr>
           <td>
-            <label for="inputTitle">Title*</label>
+            <label for="inputTitle" class='container'>
+              <div class="row">
+                <span class="col-md-6">Title*</span>
+                <span class='col-md-6' ng-messages="forms.employeeForm.title.$error" ng-if="forms.employeeForm.$submitted || !forms.employeeForm.title.$pristine">
+                  <p ng-message="required" class="help-block">Title is required.</p>
+                  <p ng-message="pattern" class="help-block">Letters and numbers only.</p>
+                </span>
+              </div>
+            </label>
           </td>
           <td>
             <input type="text" ng-model="forms.employee.title" ng-pattern="variables.pattern.lettersNumbers" ngTrim="true" name="title" id="inputTitle" class="form-control" placeholder="Title" required/>
-            <div ng-messages="forms.employeeForm.title.$error" ng-if="forms.employeeForm.$submitted || !forms.employeeForm.title.$pristine">
-              <p ng-message="required" class="help-block">Title is required.</p>
-              <p ng-message="pattern" class="help-block">Title can only have letters and numbers.</p>
-            </div>
           </td>
         </tr>
         <tr>
           <td>
-            <label for="inputLocation">Location*</label>
+            <label for="inputLocation" class='container'>
+              <div class="row">
+                <span class='col-lg-6'>Location*</span>
+                <span class='col-lg-6' ng-messages="forms.employeeForm.location.$error" ng-if="forms.employeeForm.$submitted || !forms.employeeForm.location.$pristine">
+                       <p ng-message="required" class="help-block">Location is required.</p>
+              </span>
+              </div>
+            </label>
           </td>
           <td>
             <select type='button' ng-model="forms.employee.location" name="location" id="inputLocation" class='drop-btn dropdown-toggle btn btn-lg' required>
               <option value="" disabled selected>Location</option>
               <option ng-repeat="l in lists.locations" value="{{l.id}}" ng-bind="l.name"></option>
             </select>
-            <div ng-messages="forms.employeeForm.location.$error" ng-if="forms.employeeForm.$submitted || !forms.employeeForm.location.$pristine">
-              <p ng-message="required" class="help-block">Location is required.</p>
-            </div>
           </td>
         </tr>
         <tr>
           <td>
-            <label for='inputNote'>Notes</label>
+            <label for='inputNote' class='container'>
+              <div class='row'>
+                <span class='col-lg-6'>Notes</span>
+                <span class='col-lg-6' ng-messages="forms.employeeForm.note.$error" ng-if="forms.employeeForm.$submitted || !forms.employeeForm.note.$pristine">
+                      <p ng-message="pattern" class="help-block">Letters and numbers only.</p>
+                </span>
+              </div>
+            </label>
           </td>
           <td>
             <textarea ng-model="forms.employee.note" ngTrim="true" ng-pattern="variables.pattern.lettersNumbers" name="note" id="inputNote" class='form-control' placeholder='Notes (only visible to admins)'></textarea>
           </td>
-          <div ng-messages="forms.employeeForm.note.$error" ng-if="forms.employeeForm.$submitted || !forms.employeeForm.note.$pristine">
-            <p ng-message="pattern" class="help-block">Title can only have letters and numbers.</p>
-          </div>
         </tr>
         <tr>
           <td colspan="2">

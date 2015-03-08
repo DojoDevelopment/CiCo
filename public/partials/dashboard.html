@@ -13,7 +13,6 @@
   <h2>Time Keeper - Admin Dashboard</h2>
 </div>
 <div class='container-fluid main'>
-
   <div class='container-fluid'>
         <div>
           <select ng-model="lists.place">
@@ -21,17 +20,12 @@
             <option value="">All</option>
             <option ng-repeat="l in lists.locations" value="{{l.name}}" ng-bind="l.name"></option>
           </select>
-
           <select style='margin-left:69px;' ng-model="lists.people">
             <option value="" disabled selected>Filter Name</option>
             <option value="">All</option>
             <option ng-repeat="m in lists.members | filter:m" value="{{m.name}}" ng-bind="m.name"></option>
           </select>
         </div>
-  <!-- </div> -->
-
-  <!-- <div class='container-fluid'> -->
-
     <table class='table'>
       <thead>
         <th><a href="" ng-click="tables.dashboard.order='name';       tables.dashboard.reverse=!reverse">Name</a></th>
@@ -54,7 +48,6 @@
               <div align='center'><img height='30' width='30' class='img-rounded' src="/img/profile_pic/anon.png" /></div>
               {{row.name}}
           </td>
-
           <td ng-bind="row.status"></td>
           <td ng-bind="row.title"></td>
           <td ng-bind="row.team"></td>

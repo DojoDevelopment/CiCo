@@ -8,7 +8,6 @@ app.controller('LoginController', function($scope, $rootScope, $location, LoginF
   //forms object
   $scope.forms = {
     login : {
-         //delete before publishing
     }, 
     registration : {
       isMatch : true

@@ -48,8 +48,8 @@
   </div>
 
   <div class='container-sm table-wrap'>
-    <div style='vertical-align:bottom; margin-left:-10px;'class='pull-right'>
-      <ul>
+    <div class='pull-right'>
+      <ul class='filter-ul'>
         <li><a tabindex='1' ng-click="functions.dateFilter('all')">All</a></li>
         <li><a tabindex='2' ng-click="functions.dateFilter('this_week')">This week</a></li>
         <li><a tabindex='3' ng-click="functions.dateFilter('last_week')">Last week</a></li>
@@ -59,7 +59,6 @@
     </div>
     <table fixed-header table-height='40em' class='table table-striped time-table'>
       <thead>
-
         <tr>
           <th><a href="" ng-click="tables.history.order='date';      tables.history.reverse=!reverse">Date</a></th>
           <th><a href="" ng-click="tables.history.order='name';      tables.history.reverse=!reverse">Name</a></th>

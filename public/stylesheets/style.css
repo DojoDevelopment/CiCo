@@ -1,6 +1,7 @@
 
 /********************  HTML ATTRIBUTE CSS  ******************************/
 
+*{ font-smooth:always; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;}
 html{ height: 100%; }
 body{ min-width: 970px; }
 select{ height: auto !important; }
@@ -47,16 +48,19 @@ ul a:focus{
 
 .add_table .btn-lg, .add_table .btn-group-lg>.btn { font-size: 1em !important;}
 
+.help-block{ display:inline !important; color:red;}
+
 /*#row-report{ width:20px; white-space:nowrap; overflow: hidden; text-overflow: ellipsis; }*/
 
 /********************  END BOOTSTRAP MODIFICATIONS  ********************/
 
 /********************  TABLES  ******************************/
 
+table{ margin-bottom: none !important; }
 table, thead, tr{ margin-top: 2%; }
 table thead th{ background-color: #C0C5CE; border:none !important;}
 
-table tr td { vertical-align: middle !important; text-align: center;}
+table tr td { vertical-align: bottom !important; text-align: center;}
 table tr:first-child td { border-top: none !important; }
 table tr:nth-child(odd), table tr:nth-child(even){ background-color: transparent; }
 table tr:nth-child(even) { background-color: #eee; }
@@ -83,6 +87,9 @@ hr{ border:1px solid #CECDCC; }
 .add_table>tbody>tr>td:last-child{ border-right: none; }
 .add_table th{ background-color: #428BCB; color:white; border-bottom: none !important;}
 .add_table .form-control{ font-size:1em !important; width:30em; border:none; box-shadow: none; }
+
+.time-table { margin-top: 0px !important; }
+.filter-ul{ margin-bottom: 0px !important; }
 
 .settings-table>tbody>tr>td, .settings-table>thead>tr>th { text-align: left !important; }
 
@@ -216,7 +223,7 @@ tr td img { margin-left: 4px; }
   /*****************************/
 
   /*.sidenav{background-color: #242424; height:56em; min-width:15em; margin-top: -1.4em !important;}*/
-  .sidenav{background-color: #242424; min-width:15em; height:100%; }
+  .sidenav{background-color: #242424; min-width:15em; height:initial; }
   .sidenav ul{display: inline;}
   .sidenav li input{width:98%; text-indent: 1em; font-size: 1em; outline:none;}
 
@@ -226,8 +233,12 @@ tr td img { margin-left: 4px; }
   .sidenav input:-moz-placeholder { font-size: 1.2em; }
 
   .sidenav button:focus{outline:none;}
-  .sidenav-box{background:#525461; color:white; height:12.8em; width:98%; border-style: none; border-bottom: 3px solid #242424;}
-  .sidenav-box:hover{background-color: #242424}
+  .sidenav-box{background:#525461; color:white; height:11.3em; width:98%; border-style: none; border-bottom: 3px solid #242424; position:relative;   
+                        -webkit-transition: all .3s ease-in-out;
+                        -moz-transition: all .3s ease-in-out;
+                        -o-transition: all .3s ease-in-out;
+                        transition: all .3s ease-in-out;}
+  .sidenav-box:hover{background-color: #242424;}
 /*  .sidenav-box:first-child { margin-bottom: % !important }*/
   .sidenav-box:nth-child(-n+2){ margin-bottom: 2%;}
   .sidenav-box a, .sidenav-box a:hover{text-decoration: none;}

@@ -15,11 +15,7 @@
 
   <!-- user is viewing -->
   <ul ng-if="variables.isAdmin == false">
-    <li ng-if="tables.user.is_logged == false"><a href="" ng-click="functions.clock_in()"><button class='sidenav-box'><img src="img/icons/clock-in.png"><br>Clock IN</button></a></li><!--
- --><li ng-if="tables.user.is_logged == true"><a href="" ng-click="functions.toggleModal()"><button class='sidenav-box'><img src="img/icons/clock-out.png"><br>Clock Out</button></a></li><!--
-    <li><a href=""><button class='sidenav-box'><img src='img/icons/edit.png'><br>Request Time Edit</button></a></li>
-    <li><a href=""><button class='sidenav-box'><img src='img/icons/vacay.png'><br>Request Time Off</button></a></li>
- --><li><a href="" ng-click="functions.logout()"><button class='sidenav-box'><img src="img/icons/logout.png"><br>Log OUT</button></a></li>
+    <li ng-if="tables.user.is_logged == false"><a href="" ng-click="functions.clock_in()"><button class='sidenav-box'><img src="img/icons/clock-in.png"><br>Clock IN</button></a></li><li ng-if="tables.user.is_logged == true"><a href="" ng-click="functions.toggleModal()"><button class='sidenav-box'><img src="img/icons/clock-out.png"><br>Clock Out</button></a></li><li><a href=""><button class='sidenav-box'><img src='img/icons/edit.png'><br>Request Time Edit</button></a></li><li><a href=""><button class='sidenav-box'><img src='img/icons/vacay.png'><br>Request Time Off</button></a></li><li><a href="" ng-click="functions.logout()"><button class='sidenav-box'><img src="img/icons/logout.png"><br>Log OUT</button></a></li>
   </ul>
 
 </div>
@@ -53,8 +49,9 @@
         </thead>
         <tbody>
           <tr>
-            <td>Clocked In</td>
-            <td ng-bind="tables.user.is_logged"></td>
+            <td>Clocked Status</td>
+            <td ng-if="tables.user.is_logged == true">Clocked IN</td>
+            <td ng-if="tables.user.is_logged != true">Clocked OUT</td>
           </tr>
           <tr>
             <td>Team</td>
@@ -86,7 +83,7 @@
   </div>
 
     <table fixed-header table-height='10em' class='table show-table' ng-model="table">
-      <ul class='pull-right' style='margin-top:2%; margin-bottom:-20px;'>
+      <ul class='pull-right' style='margin-top:2%;'>
         <li><a tabindex='1' ng-click="functions.dateFilter('all')"       >All</a></li>
         <li><a tabindex='2' ng-click="functions.dateFilter('this_week')" >This week</a></li>
         <li><a tabindex='3' ng-click="functions.dateFilter('last_week')" >Last week</a></li>

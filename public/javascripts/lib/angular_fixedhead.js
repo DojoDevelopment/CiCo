@@ -55,7 +55,7 @@
 
                                 angular.element(elem.querySelectorAll('tbody')).css({
                                     'display': 'block',
-                                    'height': '34em',    //$scope.tableHeight || 'inherit',
+                                    'height': '16em',    //$scope.tableHeight || 'inherit',
                                     'overflow': 'auto'
                                 });
 
